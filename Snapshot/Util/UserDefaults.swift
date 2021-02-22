@@ -23,8 +23,13 @@ func updateSavedUser() {
 func loadActiveUserFromSaved() {
     let decoder = JSONDecoder()
     do {
-        guard let defaultData = userDefaults.data(forKey: "User") else { return }
+        guard let defaultData = userDefaults.data(forKey: "User") else {
+            activeUser = User()
+            return
+        }
         activeUser = try decoder.decode(User.self, from: defaultData)
-    } catch {    }
+    } catch {
+        activeUser = User()
+    }
 }
 
