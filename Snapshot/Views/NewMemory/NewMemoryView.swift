@@ -101,9 +101,12 @@ class NewMemoryView: UIView, MKMapViewDelegate {
     @objc func uploadImage() {
         if imageUploadView.cameraLabelButton.isEnabled {
             parentController.uploadPhoto()
+            activeUser.preferences.defaultSource = .library
         } else {
             parentController.takePhoto()
+            activeUser.preferences.defaultSource = .camera
         }
+        imageUploadView.imageUploaded = true
     }
     
     func updateUploadedImage(image: UIImage) {
@@ -121,6 +124,7 @@ class NewMemoryView: UIView, MKMapViewDelegate {
         let newSnapshot = Snapshot(location: mapCenter.coordinate, image: uploadedImage, time: Date())
         activeUser.collection.addSnapshot(snapshot: newSnapshot)
         parentController.addSnapshotToMap(snapshot: newSnapshot)
+        parentController.updateSnapButtonImage()
         closeView()
     }
     
@@ -137,6 +141,7 @@ class ImageUploadView: UIView {
     
     private let cameraImage = UIImage(named: "CameraIcon")
     private let libraryImage = UIImage(named: "LibraryIcon")
+    var imageUploaded = false
     
     init() {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
@@ -181,7 +186,9 @@ class ImageUploadView: UIView {
             cameraLabelButton.setTitleColor(.gray, for: .normal)
             libraryLabelButton.backgroundColor = .gray
             libraryLabelButton.setTitleColor(.black, for: .normal)
-            imageButton.setImage(cameraImage, for: .normal)
+            if !imageUploaded {
+                imageButton.setImage(cameraImage, for: .normal)
+            }
             cameraLabelButton.isEnabled = false
             libraryLabelButton.isEnabled = true
         case .library:
@@ -189,7 +196,9 @@ class ImageUploadView: UIView {
             cameraLabelButton.setTitleColor(.black, for: .normal)
             libraryLabelButton.backgroundColor = .lightGray
             libraryLabelButton.setTitleColor(.gray, for: .normal)
-            imageButton.setImage(libraryImage, for: .normal)
+            if !imageUploaded {
+                imageButton.setImage(libraryImage, for: .normal)
+            }
             cameraLabelButton.isEnabled = true
             libraryLabelButton.isEnabled = false
         }

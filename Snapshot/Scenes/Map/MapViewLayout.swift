@@ -27,7 +27,7 @@ class MapViewLayout {
     private var portraitConstraints = [NSLayoutConstraint]()
     private var landscapeConstraints = [NSLayoutConstraint]()
     
-    init(map: MemoryMapView, menuButton: UIButton, snapButton: UIButton, source: SnapshotSource) {
+    init(map: MemoryMapView, menuButton: UIButton, snapButton: UIButton) {
         self.map = map
         self.menuButton = menuButton
         self.snapButton = snapButton
@@ -39,9 +39,11 @@ class MapViewLayout {
         menuButton.backgroundColor = .lightGray
         menuButton.setImage(UIImage(named: "Menu2"), for: .normal)
         menuButton.alpha = 0.8
+        menuButton.isHidden = true
+        
         snapButton.backgroundColor = .lightGray
-        snapButton.setImage(UIImage(named: source == .camera ? "CameraIcon" : "LibraryIcon"), for: .normal)
         snapButton.alpha = 0.8
+        updateSnapshotButtonImage()
         
         // Portrait
         portraitSizeMap = [
@@ -95,5 +97,9 @@ class MapViewLayout {
     // MARK: Other UI
     func updateCircleSizes() {
         makeViewCircular(view: snapButton)
+    }
+    
+    func updateSnapshotButtonImage() {
+        snapButton.setImage(UIImage(named: activeUser.preferences.defaultSource == .camera ? "CameraIcon" : "LibraryIcon"), for: .normal)
     }
 }

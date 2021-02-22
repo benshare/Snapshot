@@ -35,7 +35,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
         
         map.delegate = self
         
-        layout = MapViewLayout(map: map, menuButton: menuButton, snapButton: snapButton, source: activeUser.preferences.defaultSource)
+        layout = MapViewLayout(map: map, menuButton: menuButton, snapButton: snapButton)
         layout.configureConstraints(view: view)
         
         snapButton.addTarget(self, action: #selector(addSnapshotFromMap), for: .touchDown)
@@ -54,6 +54,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
         super.viewWillLayoutSubviews()
         layout.updateCircleSizes()
         redrawScene()
+    }
+    
+    func updateSnapButtonImage() {
+        layout.updateSnapshotButtonImage()
     }
     
     // MARK: Location
@@ -104,7 +108,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
         } else {
             annotationView!.image = UIImage(named: "LibraryIcon")
         }
-        annotationView?.frame.size = CGSize(width: 40, height: 40)
+        annotationView?.frame.size = CGSize(width: 70, height: 70)
         return annotationView
     }
     
