@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SnapshotCollection {
+class SnapshotCollection: Codable {
     var collection: [Snapshot]
     
     init() {
