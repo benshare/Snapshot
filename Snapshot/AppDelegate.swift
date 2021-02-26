@@ -45,13 +45,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func runOnLaunch() {
         loadActiveUserFromSaved()
-//        generateNewLayout(name: "NewMemory", elements: [
-//                            ("locationLabel" , "UILabel"),
-//                            ("locationField" , "UITextField"),
-//                            ("imageLabel" , "UILabel"),
-//                            ("memoryImage" , "UIImage"),
-//                            ("closeButton" , "UIButton"),
-//                            ("submitButton" , "UIButton"),
+//        generateNewLayout(name: "SnapshotCalloutView", elements: [
+//                            ("title", "UITextField"),
+//                            ("date" , "UILabel"),
+//                            ("image" , "UIImageView"),
+//                            ("expandButton" , "UIButton"),
+//                            ("information" , "UITextField"),
 //                            ])
     }
     

@@ -28,12 +28,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
     private var currentLocation: CLLocation!
     private var shouldUpdateLocation = true
     var newMemoryView: NewMemoryView?
+    var displayedCallout: SnapshotCalloutView?
+    var fullImage: UIView!
+    var aggregatedDrag = CGPoint.zero
+    
     
     // MARK: Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
         
         map.delegate = self
+        map.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(mapBackgroundTapped)))
         
         layout = MapViewLayout(map: map, menuButton: menuButton, snapButton: snapButton)
         layout.configureConstraints(view: view)
@@ -58,6 +63,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
     
     func updateSnapButtonImage() {
         layout.updateSnapshotButtonImage()
+    }
+    
+    private func doesViewContainPoint(region: UIView, point: CGPoint) -> Bool {
+        let p = region.convert(point, from: view)
+        return region.bounds.contains(p)
     }
     
     // MARK: Location
@@ -93,6 +103,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
     }
     
     // MARK: MKMapViewDelegate
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             return nil
@@ -100,16 +111,45 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "snapshot")
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "snapshot")
-            annotationView!.canShowCallout = true
-        }
-        
-        if annotation.title != nil && map.imageMap.keys.contains(annotation.title!!) {
-            annotationView!.image = map.imageMap[annotation.title!!]
+            annotationView!.frame.size = CGSize(width: 300, height: 700)
+            annotationView!.canShowCallout = false
+            
+            let imageView = UIImageView()
+            annotationView!.addSubview(imageView)
+            imageView.contentMode = .scaleAspectFill
+            addFrame(imageView: imageView)
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
+            imageView.centerXAnchor.constraint(equalTo: annotationView!.centerXAnchor).isActive = true
+            imageView.bottomAnchor.constraint(equalTo: annotationView!.bottomAnchor).isActive = true
         } else {
-            annotationView!.image = UIImage(named: "LibraryIcon")
+            calloutForAnnotation(annotation: annotationView!)?.removeFromSuperview()
         }
-        annotationView?.frame.size = CGSize(width: 70, height: 70)
+        let snapshot = map.snapshotMap[annotation.title!!]!
+        let imageView = annotationView!.subviews[0] as! UIImageView
+        imageView.image = snapshot.image ?? UIImage(named: "SnapshotIcon")
+        
+        
+        let calloutView = SnapshotCalloutView()
+        annotationView!.addSubview(calloutView)
+        calloutView.configureView(snapshot: snapshot, superview: annotationView!, controller: self)
+        calloutView.isHidden = true
+        
         return annotationView
+    }
+    
+    @objc func mapBackgroundTapped(sender: UITapGestureRecognizer) {
+        if displayedCallout == nil {
+            return
+        }
+        if !doesViewContainPoint(region: displayedCallout!, point: sender.location(in: view)) {
+            displayedCallout!.endEditing(true)
+            displayedCallout!.isHidden = true
+            displayedCallout = nil
+        } else {
+            
+        }
     }
     
     // MARK: New Snapshot
@@ -141,5 +181,67 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
         guard let image = info[.editedImage] as? UIImage else { return }
         newMemoryView?.updateUploadedImage(image: image)
         dismiss(animated: true)
+    }
+    
+    // MARK: Snapshot Callout
+    private func calloutForAnnotation(annotation: MKAnnotationView) -> SnapshotCalloutView? {
+        for subView in annotation.subviews as [UIView] {
+            if (subView.isKind(of: SnapshotCalloutView.self)) {
+                return subView as? SnapshotCalloutView
+            }
+        }
+        return nil
+    }
+    
+    // TODO: Overwrite with a gestureRecognizer? is pretty slow + issue with reselecting
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        mapView.setCenter(view.annotation!.coordinate, animated: true)
+        if calloutForAnnotation(annotation: view) == displayedCallout {
+            return
+        }
+        let snapshotView = calloutForAnnotation(annotation: view)!
+        displayedCallout = snapshotView
+        
+        snapshotView.isHidden = false
+//        NSLayoutConstraint.deactivate(snapshotView.constraints)
+//        snapshotView.image.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+//        snapshotView.image.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        snapshotView.image.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    // MARK: Full Image
+    func viewFullImage(calloutView: SnapshotCalloutView) {
+        let fullView = FullImageView()
+        view.addSubview(fullView)
+        fullView.configureView(image: calloutView.image.image!, parentView: view)
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(dragView(sender:))))
+        self.fullImage = fullView
+    }
+    
+    @objc func dragView(sender: UIPanGestureRecognizer) {
+        let threshold: CGFloat = 250
+        let translation = sender.translation(in: view)
+        
+        translatePointBy(point: &fullImage.center, translation: translation)
+        sender.setTranslation(CGPoint.zero, in: view)
+        if fullImage.center.x > view.center.x + 10 {
+            fullImage.center.x = view.center.x + 10
+            fullImage.alpha = 1
+        } else if fullImage.center.x < view.center.x - 10 {
+            fullImage.center.x = view.center.x - 10
+        }
+
+        let distance = distanceBetweenPoints(p1: fullImage.center, p2: view.center)
+        switch sender.state {
+        case .ended:
+            if distance < threshold {
+                fullImage.move(to: view.center, duration: 0.1, options: .curveLinear)
+                fullImage.alpha = 1
+            } else {
+                fullImage.removeFromSuperview()
+            }
+        default:
+            fullImage.alpha = max(1 - distance / threshold, 0.1)
+        }
     }
 }

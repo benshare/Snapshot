@@ -11,13 +11,14 @@ import UIKit
 
 class Snapshot: Codable {
     let location: CLLocationCoordinate2D
-    let image: UIImage?
+    var image: UIImage?
     let time: Date
-    let title: String?
+    var title: String?
+    var information: String?
     
     // MARK: Codable
     enum CodingKeys: String, CodingKey {
-        case location, image, time, title
+        case location, image, time, title, information
     }
     
     struct Loc: Codable {
@@ -32,6 +33,7 @@ class Snapshot: Codable {
         self.image = try UIImage(data: container.decode(Data.self, forKey: .image))
         self.time = try container.decode(Date.self, forKey: .time)
         self.title = try container.decode(String.self, forKey: .title)
+        self.information = try container.decode(String.self, forKey: .information)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -40,6 +42,7 @@ class Snapshot: Codable {
         try container.encode(self.image?.pngData(), forKey: .image)
         try container.encode(self.time, forKey: .time)
         try container.encode(self.title, forKey: .title)
+        try container.encode(self.information, forKey: .information)
     }
     
     // MARK: Initialization
@@ -48,5 +51,6 @@ class Snapshot: Codable {
         self.image = image
         self.time = time
         self.title = nil
+        self.information = ""
     }
 }

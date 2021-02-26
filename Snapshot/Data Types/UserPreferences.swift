@@ -46,6 +46,6 @@ class UserPreferences: Codable {
     
     // MARK: Initialization
     required init() {
-        defaultSource = .camera
+        defaultSource = .library
     }
 }

@@ -12,22 +12,22 @@ import MapKit
 class MemoryMapView: MKMapView {
     // MARK: Variables
     let collection: SnapshotCollection
-    var imageMap: [String: UIImage]
+    var snapshotMap: [String: Snapshot]
 
     // MARK: Initialization
     init(collection: SnapshotCollection = SnapshotCollection()) {
         self.collection = collection
-        imageMap = [:]
+        snapshotMap = [:]
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        for snapshot in collection.collection {
+        for snapshot in collection.collection.values {
             addSnapshotToMap(snapshot: snapshot)
-            imageMap[snapshot.title ?? snapshot.time.description] = snapshot.image
+            snapshotMap[snapshot.title ?? snapshot.time.description] = snapshot
         }
     }
     
     required init?(coder: NSCoder) {
         self.collection = SnapshotCollection()
-        self.imageMap = [:]
+        self.snapshotMap = [:]
         super.init(coder: coder)
     }
 
@@ -42,9 +42,16 @@ class MemoryMapView: MKMapView {
         let title = snapshot.title ?? snapshot.time.description
         annotation.title = title
         annotation.coordinate = snapshot.location
-        if snapshot.image != nil {
-            imageMap[title] = snapshot.image
-        }
+        snapshotMap[title] = snapshot
         self.addAnnotation(annotation)
     }
+    
+    // MARK: Formatting
+//    func formatAnnotation(annotation: MKAnnotation) {
+//        self.view(
+//        let layer = (self.view(for: annotation)?.layer)!
+//        layer.cornerRadius = 20
+//        layer.borderWidth = 10
+//        layer.borderColor = UIColor.white.cgColor
+//    }
 }

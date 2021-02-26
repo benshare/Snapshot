@@ -191,6 +191,14 @@ func addBorders(view: UIView, top: Bool=false, bottom: Bool=false, left: Bool=fa
     return borders
 }
 
+// MARK: UIImage
+func addFrame(imageView: UIView, color: UIColor = .brown) {
+    imageView.layer.cornerRadius = 5
+    imageView.layer.borderWidth = 5
+    imageView.layer.masksToBounds = true
+    imageView.layer.borderColor = color.cgColor
+}
+
 // MARK: Blur
 func blurView(view: UIView) -> UIVisualEffectView {
     let blurEffect = UIBlurEffect(style: .dark)

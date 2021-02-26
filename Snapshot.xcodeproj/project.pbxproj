@@ -14,6 +14,13 @@
 		79BB336525E0D3140085A15D /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BB336425E0D3140085A15D /* UserPreferences.swift */; };
 		79E1A9D925E3905D00FEE672 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1A9D825E3905D00FEE672 /* Globals.swift */; };
 		79E1A9E125E3A5D100FEE672 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1A9E025E3A5D100FEE672 /* UserDefaults.swift */; };
+		79E1A9EC25E503E500FEE672 /* SnapshotCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1A9EB25E503E500FEE672 /* SnapshotCalloutView.swift */; };
+		79E1A9F125E503F700FEE672 /* SnapshotCalloutViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1A9F025E503F700FEE672 /* SnapshotCalloutViewLayout.swift */; };
+		79E1A9F925E7218D00FEE672 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1A9F825E7218D00FEE672 /* DateUtil.swift */; };
+		79E1AA0125E86E2F00FEE672 /* Todos in Resources */ = {isa = PBXBuildFile; fileRef = 79E1AA0025E86E2F00FEE672 /* Todos */; };
+		79E1AA1125E87FCA00FEE672 /* MathUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1AA1025E87FCA00FEE672 /* MathUtil.swift */; };
+		79E1AA1625E8A75C00FEE672 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1AA1525E8A75C00FEE672 /* Animations.swift */; };
+		79E1AA1C25E8AA6D00FEE672 /* FullImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1AA1B25E8AA6D00FEE672 /* FullImageView.swift */; };
 		79E2F21325DD25D800F872D7 /* Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E2F21225DD25D800F872D7 /* Snapshot.swift */; };
 		79E2F21825DD271800F872D7 /* SnapshotCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E2F21725DD271800F872D7 /* SnapshotCollection.swift */; };
 		79E2F22325DD293C00F872D7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E2F22225DD293C00F872D7 /* User.swift */; };
@@ -55,6 +62,13 @@
 		79BB336425E0D3140085A15D /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		79E1A9D825E3905D00FEE672 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		79E1A9E025E3A5D100FEE672 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		79E1A9EB25E503E500FEE672 /* SnapshotCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotCalloutView.swift; sourceTree = "<group>"; };
+		79E1A9F025E503F700FEE672 /* SnapshotCalloutViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotCalloutViewLayout.swift; sourceTree = "<group>"; };
+		79E1A9F825E7218D00FEE672 /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
+		79E1AA0025E86E2F00FEE672 /* Todos */ = {isa = PBXFileReference; lastKnownFileType = text; path = Todos; sourceTree = "<group>"; };
+		79E1AA1025E87FCA00FEE672 /* MathUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathUtil.swift; sourceTree = "<group>"; };
+		79E1AA1525E8A75C00FEE672 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
+		79E1AA1B25E8AA6D00FEE672 /* FullImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageView.swift; sourceTree = "<group>"; };
 		79E2F21225DD25D800F872D7 /* Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshot.swift; sourceTree = "<group>"; };
 		79E2F21725DD271800F872D7 /* SnapshotCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotCollection.swift; sourceTree = "<group>"; };
 		79E2F22225DD293C00F872D7 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -106,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				7905670B25CBF9AE00770E72 /* Credits */,
+				79E1AA0025E86E2F00FEE672 /* Todos */,
 			);
 			path = Metadata;
 			sourceTree = "<group>";
@@ -113,8 +128,8 @@
 		79595A3D25E37C3B00717873 /* NewMemory */ = {
 			isa = PBXGroup;
 			children = (
-				79595A3E25E37C3B00717873 /* NewMemoryViewLayout.swift */,
 				79595A3F25E37C3B00717873 /* NewMemoryView.swift */,
+				79595A3E25E37C3B00717873 /* NewMemoryViewLayout.swift */,
 			);
 			path = NewMemory;
 			sourceTree = "<group>";
@@ -125,6 +140,23 @@
 				79595A4925E37C6600717873 /* MemoryMapView.swift */,
 			);
 			path = MemoryMap;
+			sourceTree = "<group>";
+		};
+		79E1A9EA25E503D200FEE672 /* SnapshotCallout */ = {
+			isa = PBXGroup;
+			children = (
+				79E1A9EB25E503E500FEE672 /* SnapshotCalloutView.swift */,
+				79E1A9F025E503F700FEE672 /* SnapshotCalloutViewLayout.swift */,
+			);
+			path = SnapshotCallout;
+			sourceTree = "<group>";
+		};
+		79E1AA1A25E8AA5500FEE672 /* FullImageView */ = {
+			isa = PBXGroup;
+			children = (
+				79E1AA1B25E8AA6D00FEE672 /* FullImageView.swift */,
+			);
+			path = FullImageView;
 			sourceTree = "<group>";
 		};
 		79E2F21125DD25B200F872D7 /* Data Types */ = {
@@ -218,6 +250,9 @@
 				79E1A9E025E3A5D100FEE672 /* UserDefaults.swift */,
 				79E783C525C94C81002DC72C /* LayoutUtil.swift */,
 				79E783CB25C94CC1002DC72C /* ThemesUtil.swift */,
+				79E1A9F825E7218D00FEE672 /* DateUtil.swift */,
+				79E1AA1025E87FCA00FEE672 /* MathUtil.swift */,
+				79E1AA1525E8A75C00FEE672 /* Animations.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -225,6 +260,8 @@
 		79EFE35A25D0B16500AA257B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				79E1AA1A25E8AA5500FEE672 /* FullImageView */,
+				79E1A9EA25E503D200FEE672 /* SnapshotCallout */,
 				79595A4825E37C6600717873 /* MemoryMap */,
 				79595A3D25E37C3B00717873 /* NewMemory */,
 			);
@@ -336,6 +373,7 @@
 			files = (
 				79E7838C25C9493C002DC72C /* LaunchScreen.storyboard in Resources */,
 				7905670C25CBF9AE00770E72 /* Credits in Resources */,
+				79E1AA0125E86E2F00FEE672 /* Todos in Resources */,
 				79E7838925C9493C002DC72C /* Assets.xcassets in Resources */,
 				79E7838725C9493A002DC72C /* Main.storyboard in Resources */,
 			);
@@ -365,16 +403,22 @@
 				79BB336525E0D3140085A15D /* UserPreferences.swift in Sources */,
 				79E783CC25C94CC1002DC72C /* ThemesUtil.swift in Sources */,
 				79E7838025C9493A002DC72C /* AppDelegate.swift in Sources */,
+				79E1AA1125E87FCA00FEE672 /* MathUtil.swift in Sources */,
+				79E1A9F925E7218D00FEE672 /* DateUtil.swift in Sources */,
 				79E783BE25C94AF8002DC72C /* MapViewLayout.swift in Sources */,
+				79E1AA1625E8A75C00FEE672 /* Animations.swift in Sources */,
 				79E2F21325DD25D800F872D7 /* Snapshot.swift in Sources */,
 				79E7838225C9493A002DC72C /* SceneDelegate.swift in Sources */,
 				79E783B525C9499E002DC72C /* MapViewController.swift in Sources */,
+				79E1AA1C25E8AA6D00FEE672 /* FullImageView.swift in Sources */,
+				79E1A9EC25E503E500FEE672 /* SnapshotCalloutView.swift in Sources */,
 				79595A4A25E37C6600717873 /* MemoryMapView.swift in Sources */,
 				79595A4025E37C3B00717873 /* NewMemoryViewLayout.swift in Sources */,
 				79E783C725C94C81002DC72C /* LayoutUtil.swift in Sources */,
 				79E2F21825DD271800F872D7 /* SnapshotCollection.swift in Sources */,
 				79E1A9E125E3A5D100FEE672 /* UserDefaults.swift in Sources */,
 				79595A4125E37C3B00717873 /* NewMemoryView.swift in Sources */,
+				79E1A9F125E503F700FEE672 /* SnapshotCalloutViewLayout.swift in Sources */,
 				79E1A9D925E3905D00FEE672 /* Globals.swift in Sources */,
 				79E2F22325DD293C00F872D7 /* User.swift in Sources */,
 			);

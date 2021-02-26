@@ -8,27 +8,31 @@
 import Foundation
 
 class SnapshotCollection: Codable {
-    var collection: [Snapshot]
+    var collection: [String: Snapshot]
     
     init() {
-        collection = [Snapshot]()
+        collection = [String: Snapshot]()
     }
     
     init(snapshot: Snapshot) {
-        collection = [snapshot]
+        collection = [String: Snapshot]()
+        collection[snapshot.time.description] = snapshot
     }
     
     init(snapshots: [Snapshot]) {
-        collection = snapshots
+        collection = [String: Snapshot]()
+        for snapshot in snapshots {
+            collection[DATE_FORMATS.monthDayYearTime(date: snapshot.time)] = snapshot
+        }
     }
     
     func addSnapshot(snapshot: Snapshot) {
-        collection.insert(snapshot, at: collection.firstIndex(where: { $0.time > snapshot.time }) ?? collection.endIndex)
+        collection[DATE_FORMATS.monthDayYearTime(date: snapshot.time)] = snapshot
     }
     
     func description() -> String {
         var str = ""
-        for snapshot in collection {
+        for snapshot in collection.values {
             str += "Time: \(snapshot.time) - Location: \(snapshot.location) - Title: \(snapshot.title ?? "None") - Has Image: \(snapshot.image != nil)\n"
         }
         return str
