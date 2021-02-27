@@ -111,7 +111,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "snapshot")
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "snapshot")
-            annotationView!.frame.size = CGSize(width: 300, height: 700)
+            annotationView!.frame.size = CGSize(width: 250, height: 840)
             annotationView!.canShowCallout = false
             
             let imageView = UIImageView()
@@ -122,14 +122,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
             imageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
             imageView.centerXAnchor.constraint(equalTo: annotationView!.centerXAnchor).isActive = true
-            imageView.bottomAnchor.constraint(equalTo: annotationView!.bottomAnchor).isActive = true
+            imageView.centerYAnchor.constraint(equalTo: annotationView!.centerYAnchor).isActive = true
+            imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(annotationTapped(sender:))))
+            imageView.isUserInteractionEnabled = true
         } else {
             calloutForAnnotation(annotation: annotationView!)?.removeFromSuperview()
         }
         let snapshot = map.snapshotMap[annotation.title!!]!
         let imageView = annotationView!.subviews[0] as! UIImageView
         imageView.image = snapshot.image ?? UIImage(named: "SnapshotIcon")
-        
         
         let calloutView = SnapshotCalloutView()
         annotationView!.addSubview(calloutView)
@@ -143,12 +144,30 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
         if displayedCallout == nil {
             return
         }
-        if !doesViewContainPoint(region: displayedCallout!, point: sender.location(in: view)) {
+        if !doesViewContainPoint(region: displayedCallout!.contentView, point: sender.location(in: view)) {
             displayedCallout!.endEditing(true)
-            displayedCallout!.isHidden = true
+            displayedCallout!.hideCallout()
             displayedCallout = nil
+        }
+    }
+    
+    @objc func annotationTapped(sender: UITapGestureRecognizer) {
+        if let annotationView = sender.view?.superview as? MKAnnotationView {
+            let newCenter = CLLocationCoordinate2D(latitude: annotationView.annotation!.coordinate.latitude + map.region.span.latitudeDelta / 4, longitude: annotationView.annotation!.coordinate.longitude)
+            let snapshotView = calloutForAnnotation(annotation: annotationView)!
+            if snapshotView.isHidden {
+                if displayedCallout != nil {
+                    displayedCallout!.hideCallout()
+                }
+                snapshotView.displayCallout()
+                displayedCallout = snapshotView
+                map.setCenter(newCenter, animated: true)
+            } else {
+                snapshotView.hideCallout()
+                displayedCallout = nil
+            }
         } else {
-            
+            print("Unable to detect source annotation for tap")
         }
     }
     
@@ -193,20 +212,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
         return nil
     }
     
-    // TODO: Overwrite with a gestureRecognizer? is pretty slow + issue with reselecting
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        mapView.setCenter(view.annotation!.coordinate, animated: true)
-        if calloutForAnnotation(annotation: view) == displayedCallout {
-            return
+    func imageForAnnotation(annotation: MKAnnotationView) -> UIImageView? {
+        for subView in annotation.subviews as [UIView] {
+            if (subView.isKind(of: UIImageView.self)) {
+                return subView as? UIImageView
+            }
         }
-        let snapshotView = calloutForAnnotation(annotation: view)!
-        displayedCallout = snapshotView
-        
-        snapshotView.isHidden = false
-//        NSLayoutConstraint.deactivate(snapshotView.constraints)
-//        snapshotView.image.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-//        snapshotView.image.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        snapshotView.image.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        return nil
     }
     
     // MARK: Full Image

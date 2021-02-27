@@ -44,13 +44,17 @@ class SnapshotCalloutViewLayout {
         image.layer.borderWidth = 2
         image.layer.borderColor = UIColor.black.cgColor
 
+//        snapshotTitle.isHidden = true
+//        date.isHidden = true
+//        image.isHidden = true
+//        expandButton.isHidden = true
         information.isHidden = true
         
         // Portrait
         portraitSizeMap = [
             snapshotTitle: (0.7, 0.2),
             date: (0.2, 0.1),
-            image: (0.8, 0.5),
+            image: (0, 0.5),
             expandButton: (0.2, 0.1),
             information: (0.8, 0.4),
         ]
@@ -67,7 +71,7 @@ class SnapshotCalloutViewLayout {
         landscapeSizeMap = [
             snapshotTitle: (0.7, 0.2),
             date: (0.2, 0.1),
-            image: (0.8, 0.5),
+            image: (0, 0.5),
             expandButton: (0.2, 0.1),
             information: (0.8, 0.4),
         ]
@@ -84,14 +88,13 @@ class SnapshotCalloutViewLayout {
     // MARK: Constraints
     
     func configureConstraints(view: UIView)  {
-        let margins = view.layoutMarginsGuide
         view.backgroundColor = globalBackgroundColor()
         
-        portraitConstraints += getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: margins.heightAnchor, sizeMap: portraitSizeMap)
-        portraitConstraints += getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: margins.topAnchor, heightAnchor: margins.heightAnchor, spacingMap: portraitSpacingMap, parentView: view)
+        portraitConstraints += getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: portraitSizeMap)
+        portraitConstraints += getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: portraitSpacingMap, parentView: view)
         
-        landscapeConstraints += getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: margins.heightAnchor, sizeMap: landscapeSizeMap)
-        landscapeConstraints += getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: margins.topAnchor, heightAnchor: margins.heightAnchor, spacingMap: landscapeSpacingMap, parentView: view)
+        landscapeConstraints += getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: landscapeSizeMap)
+        landscapeConstraints += getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: landscapeSpacingMap, parentView: view)
     }
     
     func activateConstraints(isPortrait: Bool) {

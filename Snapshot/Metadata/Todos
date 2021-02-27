@@ -15,7 +15,6 @@ Features
 
 Bugs
  - Bad ones
-    - Preview selection (disable, center)
     
     
  - Quality
@@ -24,3 +23,4 @@ Bugs
     - Dark mode/themes
     - Rename memory to Snapshot
     - Use GestureRecognizer for snpshot selected
+    - Weird thing with title on callout when scaling

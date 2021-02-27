@@ -35,6 +35,7 @@
 		79E783BE25C94AF8002DC72C /* MapViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E783BD25C94AF8002DC72C /* MapViewLayout.swift */; };
 		79E783C725C94C81002DC72C /* LayoutUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E783C525C94C81002DC72C /* LayoutUtil.swift */; };
 		79E783CC25C94CC1002DC72C /* ThemesUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E783CB25C94CC1002DC72C /* ThemesUtil.swift */; };
+		79F3060325E9BF7200A445A1 /* LocationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3060225E9BF7200A445A1 /* LocationUtil.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		79E783BD25C94AF8002DC72C /* MapViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewLayout.swift; sourceTree = "<group>"; };
 		79E783C525C94C81002DC72C /* LayoutUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutUtil.swift; sourceTree = "<group>"; };
 		79E783CB25C94CC1002DC72C /* ThemesUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesUtil.swift; sourceTree = "<group>"; };
+		79F3060225E9BF7200A445A1 /* LocationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,6 +255,7 @@
 				79E1A9F825E7218D00FEE672 /* DateUtil.swift */,
 				79E1AA1025E87FCA00FEE672 /* MathUtil.swift */,
 				79E1AA1525E8A75C00FEE672 /* Animations.swift */,
+				79F3060225E9BF7200A445A1 /* LocationUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 			files = (
 				79BB336525E0D3140085A15D /* UserPreferences.swift in Sources */,
 				79E783CC25C94CC1002DC72C /* ThemesUtil.swift in Sources */,
+				79F3060325E9BF7200A445A1 /* LocationUtil.swift in Sources */,
 				79E7838025C9493A002DC72C /* AppDelegate.swift in Sources */,
 				79E1AA1125E87FCA00FEE672 /* MathUtil.swift in Sources */,
 				79E1A9F925E7218D00FEE672 /* DateUtil.swift in Sources */,
