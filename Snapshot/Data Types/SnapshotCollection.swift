@@ -8,26 +8,36 @@
 import Foundation
 
 class SnapshotCollection: Codable {
-    var collection: [String: Snapshot]
+    var collection: [Int: Snapshot]
+    var nextId: Int
     
+    // MARK: Codable
+    enum CodingKeys: String, CodingKey {
+        case collection, nextId
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.collection = try container.decode([Int: Snapshot].self, forKey: .collection)
+        self.nextId = try container.decode(Int.self, forKey: .nextId)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+                try container.encode(self.collection, forKey: .collection)
+        try container.encode(self.collection, forKey: .collection)
+        try container.encode(self.nextId, forKey: .nextId)
+    }
+    
+    // MARK: Initialization
     init() {
-        collection = [String: Snapshot]()
-    }
-    
-    init(snapshot: Snapshot) {
-        collection = [String: Snapshot]()
-        collection[snapshot.time.description] = snapshot
-    }
-    
-    init(snapshots: [Snapshot]) {
-        collection = [String: Snapshot]()
-        for snapshot in snapshots {
-            collection[DATE_FORMATS.monthDayYearTime(date: snapshot.time)] = snapshot
-        }
+        collection = [Int: Snapshot]()
+        nextId = 0
     }
     
     func addSnapshot(snapshot: Snapshot) {
-        collection[DATE_FORMATS.monthDayYearTime(date: snapshot.time)] = snapshot
+        collection[nextId] = snapshot
+        nextId += 1
     }
     
     func description() -> String {

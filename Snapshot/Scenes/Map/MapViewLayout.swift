@@ -100,6 +100,6 @@ class MapViewLayout {
     }
     
     func updateSnapshotButtonImage() {
-        snapButton.setImage(UIImage(named: activeUser.preferences.defaultSource == .camera ? "CameraIcon" : "LibraryIcon"), for: .normal)
+        snapButton.setImage(UIImage(named: getActivePreferences().defaultSource == .camera ? "CameraIcon" : "LibraryIcon"), for: .normal)
     }
 }

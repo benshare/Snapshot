@@ -29,7 +29,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
     private var shouldUpdateLocation = true
     var newMemoryView: NewMemoryView?
     var displayedCallout: SnapshotCalloutView?
-    var fullImage: UIView!
+    var fullImage: FullImageView?
     var aggregatedDrag = CGPoint.zero
     
     
@@ -46,6 +46,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
         snapButton.addTarget(self, action: #selector(addSnapshotFromMap), for: .touchDown)
         
         startTrackingCurrentLocation()
+    }
+    
+    func addCollectionToMap(collection: SnapshotCollection) {
+        for snapshot in collection.collection.values {
+            map.addSnapshot(snapshot: snapshot)
+        }
     }
     
     // MARK: UI
@@ -96,6 +102,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
         if shouldUpdateLocation {
             updateDisplayedLocation()
         }
+        self.map.showsUserLocation = true
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -103,6 +110,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
     }
     
     // MARK: MKMapViewDelegate
+    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+    }
+    
+    func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+            self.addCollectionToMap(collection: getActiveCollection())
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) {
+        }
+    }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
@@ -153,12 +170,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
     
     @objc func annotationTapped(sender: UITapGestureRecognizer) {
         if let annotationView = sender.view?.superview as? MKAnnotationView {
-            let newCenter = CLLocationCoordinate2D(latitude: annotationView.annotation!.coordinate.latitude + map.region.span.latitudeDelta / 4, longitude: annotationView.annotation!.coordinate.longitude)
+            let newCenter = CLLocationCoordinate2D(latitude: annotationView.annotation!.coordinate.latitude + map.region.span.latitudeDelta * 0.35, longitude: annotationView.annotation!.coordinate.longitude)
             let snapshotView = calloutForAnnotation(annotation: annotationView)!
             if snapshotView.isHidden {
                 if displayedCallout != nil {
                     displayedCallout!.hideCallout()
                 }
+                view.bringSubviewToFront(snapshotView)
                 snapshotView.displayCallout()
                 displayedCallout = snapshotView
                 map.setCenter(newCenter, animated: true)
@@ -234,26 +252,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
         let threshold: CGFloat = 250
         let translation = sender.translation(in: view)
         
-        translatePointBy(point: &fullImage.center, translation: translation)
+        translatePointBy(point: &fullImage!.center, translation: translation)
         sender.setTranslation(CGPoint.zero, in: view)
-        if fullImage.center.x > view.center.x + 10 {
-            fullImage.center.x = view.center.x + 10
-            fullImage.alpha = 1
-        } else if fullImage.center.x < view.center.x - 10 {
-            fullImage.center.x = view.center.x - 10
+        if fullImage!.center.x > view.center.x + 10 {
+            fullImage!.center.x = view.center.x + 10
+            fullImage!.alpha = 1
+        } else if fullImage!.center.x < view.center.x - 10 {
+            fullImage!.center.x = view.center.x - 10
         }
 
-        let distance = distanceBetweenPoints(p1: fullImage.center, p2: view.center)
+        let distance = distanceBetweenPoints(p1: fullImage!.center, p2: view.center)
         switch sender.state {
         case .ended:
             if distance < threshold {
-                fullImage.move(to: view.center, duration: 0.1, options: .curveLinear)
-                fullImage.alpha = 1
+                fullImage!.move(to: view.center, duration: 0.1, options: .curveLinear)
+                fullImage!.alpha = 1
             } else {
-                fullImage.removeFromSuperview()
+                fullImage!.removeFromSuperview()
             }
         default:
-            fullImage.alpha = max(1 - distance / threshold, 0.1)
+            fullImage!.alpha = max(1 - distance / threshold, 0.1)
         }
     }
 }

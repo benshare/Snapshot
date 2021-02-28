@@ -8,5 +8,4 @@
 import Foundation
 import UIKit
 
-var activeUser = User()
 

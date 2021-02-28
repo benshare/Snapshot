@@ -44,6 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func runOnLaunch() {
+//        UserDefaults.resetDefaults()
         loadActiveUserFromSaved()
 //        generateNewLayout(name: "SnapshotCalloutView", elements: [
 //                            ("title", "UITextField"),
@@ -55,7 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func runOnExit() {
-        updateSavedUser()
     }
 }
 

@@ -1,9 +1,13 @@
 
+1) Full Image Edit Button
+2) UserDefaults
+3) Account Page
+4) Camera page
+5) Tags
+
+
 Features
  - UI
-    - Make animation for callout coming out of Snapshot
-    - Add pointer between them
-    - Animation for viewing full image
  - Features
     - Tags
         - Automatic suggestions for tags
@@ -22,5 +26,7 @@ Bugs
     - Orientation
     - Dark mode/themes
     - Rename memory to Snapshot
-    - Use GestureRecognizer for snpshot selected
     - Weird thing with title on callout when scaling
+
+
+Mattering Maps (Narrative ethics)

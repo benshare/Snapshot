@@ -45,9 +45,7 @@ class SnapshotCalloutView: UIView, UITextFieldDelegate {
         
         self.frame = superview.frame
         self.controller = controller
-        
-        //        self.isUserInteractionEnabled = true
-        //        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing(_:))))
+        self.isUserInteractionEnabled = true
         
         previewFrame = UIView()
         self.addSubview(previewFrame)
@@ -71,13 +69,11 @@ class SnapshotCalloutView: UIView, UITextFieldDelegate {
         contentView.alpha = 0
         addFrame(imageView: contentView)
         
-        
-        
         snapshotTitle.text = snapshot.title ?? ""
         snapshotTitle.placeholder = "Untitled"
         snapshotTitle.delegate = self as UITextFieldDelegate
         snapshotTitle.adjustsFontSizeToFitWidth = true
-        snapshotTitle.autocapitalizationType = .words
+        snapshotTitle.autocapitalizationType = .allCharacters
         snapshotTitle.autocorrectionType = .yes
         contentView.addSubview(snapshotTitle)
         

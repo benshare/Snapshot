@@ -61,7 +61,7 @@ class NewMemoryView: UIView, MKMapViewDelegate {
         mapCenter.coordinate = center
         map.addAnnotation(mapCenter)
         
-        imageUploadView.setMode(source: activeUser.preferences.defaultSource)
+        imageUploadView.setMode(source: getActivePreferences().defaultSource)
         imageUploadView.imageButton.addTarget(self, action: #selector(uploadImage), for: .touchDown)
         self.addSubview(imageUploadView)
         self.addSubview(imageUploadView.cameraLabelButton)
@@ -101,10 +101,10 @@ class NewMemoryView: UIView, MKMapViewDelegate {
     @objc func uploadImage() {
         if imageUploadView.cameraLabelButton.isEnabled {
             parentController.uploadPhoto()
-            activeUser.preferences.defaultSource = .library
+            getActivePreferences().defaultSource = .library
         } else {
             parentController.takePhoto()
-            activeUser.preferences.defaultSource = .camera
+            updateActivePreferences(source: .camera)
         }
         imageUploadView.imageUploaded = true
     }
@@ -121,8 +121,8 @@ class NewMemoryView: UIView, MKMapViewDelegate {
     }
     
     @objc private func submitSnapshot() {
-        let newSnapshot = Snapshot(location: mapCenter.coordinate, image: uploadedImage, time: Date())
-        activeUser.collection.addSnapshot(snapshot: newSnapshot)
+        let newSnapshot = Snapshot(id: getActiveCollection().nextId, location: mapCenter.coordinate, image: uploadedImage, time: Date())
+        updateActiveCollection(snapshot: newSnapshot)
         parentController.addSnapshotToMap(snapshot: newSnapshot)
         parentController.updateSnapButtonImage()
         closeView()

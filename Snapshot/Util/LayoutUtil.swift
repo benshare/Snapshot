@@ -132,6 +132,8 @@ private func setImageInsets(buttons: [UIButton?], inset: CGFloat) {
 
 func makeViewCircular(view: UIView) {
     view.layer.cornerRadius = view.frame.height / 2.0
+//    view.clipsToBounds = true
+//    view.layer.masksToBounds = true
 }
 
 // Debugging only
