@@ -15,7 +15,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
     // MARK: Variables
     // Outlets
     @IBOutlet weak var map: MemoryMapView!
-    @IBOutlet weak var menuButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var snapButton: UIButton!
     
     // Formatting
@@ -36,13 +36,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
     // MARK: Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         map.delegate = self
         map.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(mapBackgroundTapped)))
         
-        layout = MapViewLayout(map: map, menuButton: menuButton, snapButton: snapButton)
+        layout = MapViewLayout(map: map, backButton: backButton, snapButton: snapButton)
         layout.configureConstraints(view: view)
         
+        redrawScene()
+        
+        backButton.addAction {
+            self.dismiss(animated: true)
+        }
         snapButton.addTarget(self, action: #selector(addSnapshotFromMap), for: .touchDown)
         
         startTrackingCurrentLocation()

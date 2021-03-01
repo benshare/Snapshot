@@ -36,6 +36,15 @@
 		79E783C725C94C81002DC72C /* LayoutUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E783C525C94C81002DC72C /* LayoutUtil.swift */; };
 		79E783CC25C94CC1002DC72C /* ThemesUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E783CB25C94CC1002DC72C /* ThemesUtil.swift */; };
 		79F3060325E9BF7200A445A1 /* LocationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3060225E9BF7200A445A1 /* LocationUtil.swift */; };
+		79F3060C25EC31D400A445A1 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3060B25EC31D400A445A1 /* MainMenuViewController.swift */; };
+		79F3061125EC31E500A445A1 /* MainMenuViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3061025EC31E500A445A1 /* MainMenuViewLayout.swift */; };
+		79F3061625EC3B3B00A445A1 /* ControlUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3061525EC3B3B00A445A1 /* ControlUtil.swift */; };
+		79F3062525EC6EC600A445A1 /* TreasureHuntCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3062425EC6EC600A445A1 /* TreasureHuntCollectionViewController.swift */; };
+		79F3062A25EC6EE000A445A1 /* TreasureHuntCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3062925EC6EE000A445A1 /* TreasureHuntCollectionViewLayout.swift */; };
+		79F3063325EC75FD00A445A1 /* TreasureHuntCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3063225EC75FD00A445A1 /* TreasureHuntCollection.swift */; };
+		79F3063F25EC763200A445A1 /* TreasureHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3063E25EC763200A445A1 /* TreasureHunt.swift */; };
+		79F3064725EC763900A445A1 /* Clue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3064625EC763900A445A1 /* Clue.swift */; };
+		79F3064F25ECA2BF00A445A1 /* TreasureHuntCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3064E25ECA2BF00A445A1 /* TreasureHuntCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +100,15 @@
 		79E783C525C94C81002DC72C /* LayoutUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutUtil.swift; sourceTree = "<group>"; };
 		79E783CB25C94CC1002DC72C /* ThemesUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesUtil.swift; sourceTree = "<group>"; };
 		79F3060225E9BF7200A445A1 /* LocationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUtil.swift; sourceTree = "<group>"; };
+		79F3060B25EC31D400A445A1 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		79F3061025EC31E500A445A1 /* MainMenuViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewLayout.swift; sourceTree = "<group>"; };
+		79F3061525EC3B3B00A445A1 /* ControlUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlUtil.swift; sourceTree = "<group>"; };
+		79F3062425EC6EC600A445A1 /* TreasureHuntCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureHuntCollectionViewController.swift; sourceTree = "<group>"; };
+		79F3062925EC6EE000A445A1 /* TreasureHuntCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureHuntCollectionViewLayout.swift; sourceTree = "<group>"; };
+		79F3063225EC75FD00A445A1 /* TreasureHuntCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureHuntCollection.swift; sourceTree = "<group>"; };
+		79F3063E25EC763200A445A1 /* TreasureHunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureHunt.swift; sourceTree = "<group>"; };
+		79F3064625EC763900A445A1 /* Clue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clue.swift; sourceTree = "<group>"; };
+		79F3064E25ECA2BF00A445A1 /* TreasureHuntCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureHuntCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,10 +182,7 @@
 		79E2F21125DD25B200F872D7 /* Data Types */ = {
 			isa = PBXGroup;
 			children = (
-				79E2F21225DD25D800F872D7 /* Snapshot.swift */,
-				79E2F21725DD271800F872D7 /* SnapshotCollection.swift */,
-				79E2F22225DD293C00F872D7 /* User.swift */,
-				79BB336425E0D3140085A15D /* UserPreferences.swift */,
+				79F3062E25EC759B00A445A1 /* User */,
 			);
 			path = "Data Types";
 			sourceTree = "<group>";
@@ -232,7 +247,10 @@
 		79E783B225C94965002DC72C /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				79F3060A25EC31B700A445A1 /* Main Menu */,
 				79E783B325C94984002DC72C /* Map */,
+				79F3062225EC6E4C00A445A1 /* Treasure Hunt */,
+				79F3062325EC6E5D00A445A1 /* Settings */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -256,6 +274,7 @@
 				79E1AA1025E87FCA00FEE672 /* MathUtil.swift */,
 				79E1AA1525E8A75C00FEE672 /* Animations.swift */,
 				79F3060225E9BF7200A445A1 /* LocationUtil.swift */,
+				79F3061525EC3B3B00A445A1 /* ControlUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -269,6 +288,70 @@
 				79595A3D25E37C3B00717873 /* NewMemory */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		79F3060A25EC31B700A445A1 /* Main Menu */ = {
+			isa = PBXGroup;
+			children = (
+				79F3060B25EC31D400A445A1 /* MainMenuViewController.swift */,
+				79F3061025EC31E500A445A1 /* MainMenuViewLayout.swift */,
+			);
+			path = "Main Menu";
+			sourceTree = "<group>";
+		};
+		79F3062225EC6E4C00A445A1 /* Treasure Hunt */ = {
+			isa = PBXGroup;
+			children = (
+				79F3062425EC6EC600A445A1 /* TreasureHuntCollectionViewController.swift */,
+				79F3062925EC6EE000A445A1 /* TreasureHuntCollectionViewLayout.swift */,
+				79F3064E25ECA2BF00A445A1 /* TreasureHuntCollectionViewCell.swift */,
+			);
+			path = "Treasure Hunt";
+			sourceTree = "<group>";
+		};
+		79F3062325EC6E5D00A445A1 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		79F3062E25EC759B00A445A1 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				79E2F22225DD293C00F872D7 /* User.swift */,
+				79F3062F25EC75A400A445A1 /* UserPreferences */,
+				79F3063025EC75B700A445A1 /* SnapshotCollection */,
+				79F3063125EC75D300A445A1 /* TreasureHuntCollection */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		79F3062F25EC75A400A445A1 /* UserPreferences */ = {
+			isa = PBXGroup;
+			children = (
+				79BB336425E0D3140085A15D /* UserPreferences.swift */,
+			);
+			path = UserPreferences;
+			sourceTree = "<group>";
+		};
+		79F3063025EC75B700A445A1 /* SnapshotCollection */ = {
+			isa = PBXGroup;
+			children = (
+				79E2F21725DD271800F872D7 /* SnapshotCollection.swift */,
+				79E2F21225DD25D800F872D7 /* Snapshot.swift */,
+			);
+			path = SnapshotCollection;
+			sourceTree = "<group>";
+		};
+		79F3063125EC75D300A445A1 /* TreasureHuntCollection */ = {
+			isa = PBXGroup;
+			children = (
+				79F3063225EC75FD00A445A1 /* TreasureHuntCollection.swift */,
+				79F3063E25EC763200A445A1 /* TreasureHunt.swift */,
+				79F3064625EC763900A445A1 /* Clue.swift */,
+			);
+			path = TreasureHuntCollection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -412,14 +495,23 @@
 				79E783BE25C94AF8002DC72C /* MapViewLayout.swift in Sources */,
 				79E1AA1625E8A75C00FEE672 /* Animations.swift in Sources */,
 				79E2F21325DD25D800F872D7 /* Snapshot.swift in Sources */,
+				79F3063325EC75FD00A445A1 /* TreasureHuntCollection.swift in Sources */,
+				79F3064F25ECA2BF00A445A1 /* TreasureHuntCollectionViewCell.swift in Sources */,
 				79E7838225C9493A002DC72C /* SceneDelegate.swift in Sources */,
 				79E783B525C9499E002DC72C /* MapViewController.swift in Sources */,
+				79F3060C25EC31D400A445A1 /* MainMenuViewController.swift in Sources */,
 				79E1AA1C25E8AA6D00FEE672 /* FullImageView.swift in Sources */,
+				79F3063F25EC763200A445A1 /* TreasureHunt.swift in Sources */,
 				79E1A9EC25E503E500FEE672 /* SnapshotCalloutView.swift in Sources */,
+				79F3061125EC31E500A445A1 /* MainMenuViewLayout.swift in Sources */,
 				79595A4A25E37C6600717873 /* MemoryMapView.swift in Sources */,
+				79F3061625EC3B3B00A445A1 /* ControlUtil.swift in Sources */,
+				79F3062A25EC6EE000A445A1 /* TreasureHuntCollectionViewLayout.swift in Sources */,
 				79595A4025E37C3B00717873 /* NewMemoryViewLayout.swift in Sources */,
 				79E783C725C94C81002DC72C /* LayoutUtil.swift in Sources */,
+				79F3064725EC763900A445A1 /* Clue.swift in Sources */,
 				79E2F21825DD271800F872D7 /* SnapshotCollection.swift in Sources */,
+				79F3062525EC6EC600A445A1 /* TreasureHuntCollectionViewController.swift in Sources */,
 				79E1A9E125E3A5D100FEE672 /* ActiveUser.swift in Sources */,
 				79595A4125E37C3B00717873 /* NewMemoryView.swift in Sources */,
 				79E1A9F125E503F700FEE672 /* SnapshotCalloutViewLayout.swift in Sources */,

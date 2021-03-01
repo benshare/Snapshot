@@ -12,7 +12,11 @@ private let userDefaults = UserDefaults.standard
 private var activeUser: User!
 
 func getActiveCollection() -> SnapshotCollection {
-    return activeUser.collection
+    return activeUser.snapshots
+}
+
+func getActiveHunts() -> TreasureHuntCollection {
+    return activeUser.hunts
 }
 
 func getActivePreferences() -> UserPreferences {
@@ -20,7 +24,7 @@ func getActivePreferences() -> UserPreferences {
 }
 
 func updateActiveCollection(snapshot: Snapshot) {
-    activeUser.collection.addSnapshot(snapshot: snapshot)
+    activeUser.snapshots.addSnapshot(snapshot: snapshot)
     updateSavedUser()
 }
 

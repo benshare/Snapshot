@@ -14,7 +14,7 @@ class MapViewLayout {
     
     // UI elements
     private let map: MemoryMapView
-    private let menuButton: UIButton
+    private let backButton: UIButton
     private let snapButton: UIButton
     
     // Constraint maps
@@ -27,19 +27,18 @@ class MapViewLayout {
     private var portraitConstraints = [NSLayoutConstraint]()
     private var landscapeConstraints = [NSLayoutConstraint]()
     
-    init(map: MemoryMapView, menuButton: UIButton, snapButton: UIButton) {
+    init(map: MemoryMapView, backButton: UIButton, snapButton: UIButton) {
         self.map = map
-        self.menuButton = menuButton
+        self.backButton = backButton
         self.snapButton = snapButton
 
-        doNotAutoResize(views: [map, menuButton, snapButton])
+        doNotAutoResize(views: [map, backButton, snapButton])
         setTextToDefaults(labels: [])
-        setButtonsToDefaults(buttons: [menuButton, snapButton], withImageInsets: 10)
+        setButtonsToDefaults(buttons: [backButton, snapButton], withImageInsets: 10)
         
-        menuButton.backgroundColor = .lightGray
-        menuButton.setImage(UIImage(named: "Menu2"), for: .normal)
-        menuButton.alpha = 0.8
-        menuButton.isHidden = true
+        backButton.backgroundColor = .lightGray
+        backButton.setTitle("<", for: .normal)
+        backButton.alpha = 0.8
         
         snapButton.backgroundColor = .lightGray
         snapButton.alpha = 0.8
@@ -48,40 +47,39 @@ class MapViewLayout {
         // Portrait
         portraitSizeMap = [
             map: (1, 1),
-            menuButton: (0.2, 0),
+            backButton: (0.2, 0),
             snapButton: (0.2, 0),
         ]
         
         portraitSpacingMap = [
             map: (0.5, 0.5),
-            menuButton: (0.17, 0.1),
+            backButton: (0.17, 0.1),
             snapButton: (0.83, 0.1),
         ]
         
         // Landscape
         landscapeSizeMap = [
             map: (1, 1),
-            menuButton: (0, 0.2),
+            backButton: (0, 0.2),
             snapButton: (0, 0.2),
         ]
         
         landscapeSpacingMap = [
             map: (0.5, 0.5),
-            menuButton: (0.1, 0.15),
+            backButton: (0.1, 0.15),
             snapButton: (0.9, 0.15),
         ]
     }
     
     // MARK: Constraints
     func configureConstraints(view: UIView)  {
-        let margins = view.layoutMarginsGuide
         view.backgroundColor = globalBackgroundColor()
         
-        portraitConstraints += getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: margins.heightAnchor, sizeMap: portraitSizeMap)
-        portraitConstraints += getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: margins.topAnchor, heightAnchor: margins.heightAnchor, spacingMap: portraitSpacingMap, parentView: view)
+        portraitConstraints += getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: portraitSizeMap)
+        portraitConstraints += getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: portraitSpacingMap, parentView: view)
         
-        landscapeConstraints += getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: margins.heightAnchor, sizeMap: landscapeSizeMap)
-        landscapeConstraints += getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: margins.topAnchor, heightAnchor: margins.heightAnchor, spacingMap: landscapeSpacingMap, parentView: view)
+        landscapeConstraints += getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: landscapeSizeMap)
+        landscapeConstraints += getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: landscapeSpacingMap, parentView: view)
     }
     
     func activateConstraints(isPortrait: Bool) {
@@ -96,6 +94,7 @@ class MapViewLayout {
     
     // MARK: Other UI
     func updateCircleSizes() {
+        makeViewCircular(view: backButton)
         makeViewCircular(view: snapButton)
     }
     

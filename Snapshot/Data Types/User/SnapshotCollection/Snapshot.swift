@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import CoreLocation
 import UIKit
+import CoreLocation
 
 class Snapshot: Codable {
     let id: Int
@@ -22,16 +22,10 @@ class Snapshot: Codable {
         case id, location, image, time, title, information
     }
     
-    struct Loc: Codable {
-        let latitude: Double
-        let longitude: Double
-    }
-    
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(Int.self, forKey: .id)
-        let loc = try container.decode(Loc.self, forKey: .location)
-        self.location = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
+        self.location = CLLocationCoordinate2D(location: try container.decode(LocationStruct.self, forKey: .location))
         do {
             self.image = UIImage(data: try container.decode(Data.self, forKey: .image))
         } catch {
@@ -45,7 +39,7 @@ class Snapshot: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.id, forKey: .id)
-        try container.encode(Loc(latitude: self.location.latitude, longitude: self.location.longitude), forKey: .location)
+        try container.encode(LocationStruct(location: self.location), forKey: .location)
         try container.encode(self.image?.pngData(), forKey: .image)
         try container.encode(self.time, forKey: .time)
         try container.encode(self.title, forKey: .title)

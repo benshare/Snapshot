@@ -132,8 +132,22 @@ private func setImageInsets(buttons: [UIButton?], inset: CGFloat) {
 
 func makeViewCircular(view: UIView) {
     view.layer.cornerRadius = view.frame.height / 2.0
-//    view.clipsToBounds = true
-//    view.layer.masksToBounds = true
+}
+
+func makeViewsCircular(views: [UIView]) {
+    for view in views {
+        view.layer.cornerRadius = view.frame.height / 2.0
+    }
+}
+
+extension UIView {
+    func addOverlappingToParent(parent: UIView) {
+        parent.addSubview(self)
+        self.widthAnchor.constraint(equalTo: parent.widthAnchor).isActive = true
+        self.heightAnchor.constraint(equalTo: parent.heightAnchor).isActive = true
+        self.centerXAnchor.constraint(equalTo: parent.centerXAnchor).isActive = true
+        self.centerYAnchor.constraint(equalTo: parent.centerYAnchor).isActive = true
+    }
 }
 
 // Debugging only
@@ -199,6 +213,18 @@ func addFrame(imageView: UIView, color: UIColor = .brown) {
     imageView.layer.borderWidth = 5
     imageView.layer.masksToBounds = true
     imageView.layer.borderColor = color.cgColor
+}
+
+func addIconToView(view: UIView, name: String) {
+    let imageView = UIImageView()
+    view.addSubview(imageView)
+    imageView.translatesAutoresizingMaskIntoConstraints = false
+    imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    imageView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+    imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+    imageView.image = UIImage(named: name)?.withAlignmentRectInsets(UIEdgeInsets(top: -20, left: -20, bottom: -20, right: -20))
+    imageView.contentMode = .scaleAspectFit
 }
 
 // MARK: Blur
