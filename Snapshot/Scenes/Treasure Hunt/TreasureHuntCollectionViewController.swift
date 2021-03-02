@@ -16,7 +16,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     
     // MARK: Variables
     // Outlets
-    private let navigationBar: NavigationBarView = NavigationBarView()
+    @IBOutlet weak var navigationBar: NavigationBarView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var collection: UICollectionView!
     
@@ -29,7 +29,6 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         collection.delegate = self
         collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
-        view.addSubview(navigationBar)
         navigationBar.addBackButton(text: "< Back", action: { self.dismiss(animated: true) })
         navigationBar.setTitle(text: "Treasure Hunts")
         

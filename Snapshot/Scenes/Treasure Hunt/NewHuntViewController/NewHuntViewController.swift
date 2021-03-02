@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class NewHuntViewController: UIViewController {
+class NewHuntViewController: UIViewController, UITextFieldDelegate {
     // MARK: Variables
     // Outlets
     @IBOutlet weak var navigationBar: NavigationBarView!
@@ -21,10 +21,11 @@ class NewHuntViewController: UIViewController {
     // MARK: Initialization
     override func viewDidLoad() {
         navigationBar.addBackButton(text: "< Back", action: { self.dismiss(animated: true) })
-        navigationBar.setTitle(text: "Treasure Hunts")
+        navigationBar.setEditableTitle(background: clueList, text: "", placeholder: "Untitled Treasure Hunt")
         
         fillStack()
         clueList.addBorders()
+        view.bringSubviewToFront(clueList)
         
         addIconToView(view: preferences, name: "SettingsIcon")
         preferences.backgroundColor = .lightGray

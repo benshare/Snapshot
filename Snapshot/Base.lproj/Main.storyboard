@@ -53,13 +53,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQR-vE-ES0" userLabel="Title">
-                                <rect key="frame" x="186" y="88" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WeC-BW-XvL" userLabel="Treasure Hunt Collection">
                                 <rect key="frame" x="0.0" y="261" width="414" height="601"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -81,19 +74,32 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F2w-CW-86W" customClass="NavigationBarView" customModule="Snapshot" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="36" width="414" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQR-vE-ES0" userLabel="Title">
+                                <rect key="frame" x="186" y="172" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Crl-8r-Qia"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
                         <outlet property="collection" destination="WeC-BW-XvL" id="Kbb-9K-QBa"/>
+                        <outlet property="navigationBar" destination="F2w-CW-86W" id="rZl-u4-9bp"/>
                         <outlet property="titleLabel" destination="iQR-vE-ES0" id="NP0-CY-p2K"/>
                         <segue destination="8tq-j8-XWi" kind="presentation" identifier="newHuntSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="HId-KD-dBC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eNu-SR-Hu5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1025" y="171"/>
+            <point key="canvasLocation" x="1024.6376811594205" y="170.75892857142856"/>
         </scene>
         <!--New Hunt View Controller-->
         <scene sceneID="DVJ-TJ-PYD">

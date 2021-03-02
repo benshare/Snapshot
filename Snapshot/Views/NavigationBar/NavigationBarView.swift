@@ -8,15 +8,18 @@
 import Foundation
 import UIKit
 
-class NavigationBarView: UIView {
+class NavigationBarView: UIView, UITextFieldDelegate {
     // MARK: Variables
     // Elements
     private var leftItem = UIButton()
     private var title = UILabel()
     private var rightItem = UIButton()
+    private var editableTitle = UITextField()
     
     // Layout
     private var layout: NavigationBarViewViewLayout!
+    
+//    private var delegate: UITextFieldDelegate?
     
     // MARK: Initialization
     required init?(coder: NSCoder) {
@@ -30,32 +33,13 @@ class NavigationBarView: UIView {
         self.title.font = UIFont.boldSystemFont(ofSize: self.title.font.pointSize)
         self.addSubview(title)
         
-        self.rightItem.isHidden = true
-        self.addSubview(rightItem)
-        
-        layout = NavigationBarViewViewLayout(leftItem: leftItem, title: title, rightItem: rightItem)
-        layout.configureConstraints(view: self)
-        redrawScene()
-        
-        self.alpha = 0.8
-        self.backgroundColor = .lightGray
-    }
-    
-    init() {
-        super.init(frame: CGRect())
-        
-        self.leftItem.isHidden = true
-        self.leftItem.setTitleColor(.blue, for: .normal)
-        self.addSubview(leftItem)
-        
-        self.title.isHidden = true
-        self.title.font = UIFont.boldSystemFont(ofSize: self.title.font.pointSize)
-        self.addSubview(title)
+        self.editableTitle.isHidden = true
+        self.addSubview(editableTitle)
         
         self.rightItem.isHidden = true
         self.addSubview(rightItem)
         
-        layout = NavigationBarViewViewLayout(leftItem: leftItem, title: title, rightItem: rightItem)
+        layout = NavigationBarViewViewLayout(leftItem: leftItem, title: title, editableTitle: editableTitle, rightItem: rightItem)
         layout.configureConstraints(view: self)
         redrawScene()
         
@@ -77,7 +61,21 @@ class NavigationBarView: UIView {
     }
     
     func setTitle(text: String) {
-        title.text = text
         title.isHidden = false
+        editableTitle.isHidden = true
+        title.text = text
+    }
+    
+    func setEditableTitle(background: UIView, text: String, placeholder: String) {
+        background.addTapEvent {
+            self.endEditing(true)
+        }
+        
+        title.isHidden = true
+        editableTitle.isHidden = false
+        editableTitle.isUserInteractionEnabled = true
+        editableTitle.delegate = self
+        editableTitle.text = text
+        editableTitle.placeholder = placeholder
     }
 }

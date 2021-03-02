@@ -34,6 +34,7 @@ class NewHuntViewLayout {
         doNotAutoResize(views: [navigationBar, clueList, preferences])
         setTextToDefaults(labels: [])
         setButtonsToDefaults(buttons: [])
+    
         
         // Portrait
         portraitSizeMap = [
@@ -43,22 +44,22 @@ class NewHuntViewLayout {
         ]
         
         portraitSpacingMap = [
-        navigationBar: (0.5, 0.1),
+            navigationBar: (0.5, 0.1),
             clueList: (0.5, 0.5),
             preferences: (0.5, 0.9),
         ]
         
         // Landscape
-        landscapeSizeMap = [
-            navigationBar: (1, 0.2),
-            clueList: (1, 0.6),
-            preferences: (1, 0.2),
+        landscapeSizeMap = [:
+//            navigationBar: (1, 0.2),
+//            clueList: (1, 0.6),
+//            preferences: (1, 0.2),
         ]
-        
-        landscapeSpacingMap = [
-            navigationBar: (0.5, 0.1),
-                clueList: (0.5, 0.5),
-                preferences: (0.5, 0.9),
+//
+        landscapeSpacingMap = [:
+//            navigationBar: (0.5, 0.1),
+//                clueList: (0.5, 0.5),
+//                preferences: (0.5, 0.89),
         ]
     }
     
@@ -75,13 +76,14 @@ class NewHuntViewLayout {
     }
     
     func activateConstraints(isPortrait: Bool) {
-        if isPortrait {
-            NSLayoutConstraint.deactivate(landscapeConstraints)
-            NSLayoutConstraint.activate(portraitConstraints)
-        } else {
-            NSLayoutConstraint.deactivate(portraitConstraints)
-            NSLayoutConstraint.activate(landscapeConstraints)
-        }
+        NSLayoutConstraint.activate(portraitConstraints)
+//        if isPortrait {
+//            NSLayoutConstraint.deactivate(landscapeConstraints)
+//            NSLayoutConstraint.activate(portraitConstraints)
+//        } else {
+//            NSLayoutConstraint.deactivate(portraitConstraints)
+//            NSLayoutConstraint.activate(landscapeConstraints)
+//        }
     }
     
     // MARK: Other UI

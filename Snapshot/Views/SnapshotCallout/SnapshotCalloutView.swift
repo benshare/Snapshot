@@ -73,7 +73,7 @@ class SnapshotCalloutView: UIView, UITextFieldDelegate {
         snapshotTitle.placeholder = "Untitled"
         snapshotTitle.delegate = self as UITextFieldDelegate
         snapshotTitle.adjustsFontSizeToFitWidth = true
-        snapshotTitle.autocapitalizationType = .allCharacters
+        snapshotTitle.autocapitalizationType = .words
         snapshotTitle.autocorrectionType = .yes
         contentView.addSubview(snapshotTitle)
         
