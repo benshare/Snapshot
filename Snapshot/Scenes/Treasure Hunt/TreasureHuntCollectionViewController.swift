@@ -81,10 +81,9 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     
     // MARK: UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Row: \(indexPath.row), item: \(indexPath.item)")
-//        if indexPath.row == 0 {
+        if indexPath.row == 0 {
             self.performSegue(withIdentifier: "newHuntSegue", sender: self)
-//        }
+        }
     }
     
     // MARK: UICollectionViewDelegateFlowLayout

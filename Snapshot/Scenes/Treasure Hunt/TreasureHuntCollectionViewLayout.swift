@@ -95,11 +95,11 @@ class TreasureHuntCollectionViewViewLayout {
         button.layer.borderColor = UIColor.darkGray.cgColor
         button.layer.borderWidth = 5
         button.backgroundColor = .lightGray
+        button.isUserInteractionEnabled = false
         circularViews.append(button)
     }
     
     func configureTreasureHuntCell(cell: UICollectionViewCell) {
-        
     }
     
     
