@@ -36,7 +36,6 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         layout = TreasureHuntCollectionViewViewLayout(navigationBar: navigationBar, titleLabel: titleLabel, collection: collection)
         layout.configureConstraints(view: view)
         
-        
         configureCollectionView()
         redrawScene()
     }
@@ -82,7 +81,10 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     
     // MARK: UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       print("User tapped on item \(indexPath.row)")
+        print("Row: \(indexPath.row), item: \(indexPath.item)")
+//        if indexPath.row == 0 {
+            self.performSegue(withIdentifier: "newHuntSegue", sender: self)
+//        }
     }
     
     // MARK: UICollectionViewDelegateFlowLayout

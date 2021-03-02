@@ -61,7 +61,6 @@ class TreasureHuntCollectionViewViewLayout {
     }
     
     // MARK: Constraints
-    
     func configureConstraints(view: UIView)  {
         let margins = view.layoutMarginsGuide
         view.backgroundColor = globalBackgroundColor()

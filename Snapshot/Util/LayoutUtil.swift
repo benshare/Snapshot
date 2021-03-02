@@ -79,6 +79,9 @@ private func getVerticalSpacingConstraintSet(view: UIView, topAnchor: NSLayoutAn
 }
 
 // MARK: Defaults
+func doNotAutoResize(view: UIView) {
+    view.translatesAutoresizingMaskIntoConstraints = false
+}
 func doNotAutoResize(views: [UIView]) {
     for view in views {
         view.translatesAutoresizingMaskIntoConstraints = false

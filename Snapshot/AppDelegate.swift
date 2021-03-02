@@ -47,9 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        UserDefaults.resetDefaults()
         loadActiveUserFromSaved()
 //        generateNewLayout(name: "NavigationBarView", elements: [
-//                            ("leftItem", "UIButton"),
-//                            ("title", "UILabel"),
-//                            ("rightItem" , "UIButton"),
+//                            ("navigationBar", "NavigationBarView"),
+//                            ("clueList", "ScrollableStackView"),
+//                            ("preferences" , "UIView"),
 //                            ])
     }
     

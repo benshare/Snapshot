@@ -88,11 +88,50 @@
                     <connections>
                         <outlet property="collection" destination="WeC-BW-XvL" id="Kbb-9K-QBa"/>
                         <outlet property="titleLabel" destination="iQR-vE-ES0" id="NP0-CY-p2K"/>
+                        <segue destination="8tq-j8-XWi" kind="presentation" identifier="newHuntSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="HId-KD-dBC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eNu-SR-Hu5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1025" y="171"/>
+        </scene>
+        <!--New Hunt View Controller-->
+        <scene sceneID="DVJ-TJ-PYD">
+            <objects>
+                <viewController id="8tq-j8-XWi" customClass="NewHuntViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="K7N-jQ-qT2">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XuA-IR-xOJ" userLabel="NavigationBar" customClass="NavigationBarView" customModule="Snapshot" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="33" width="414" height="94"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nOp-IJ-xCD" customClass="ScrollableStackView" customModule="Snapshot" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="135" width="414" height="635"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <viewLayoutGuide key="contentLayoutGuide" id="slS-bb-PrT"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="7sI-e6-KQt"/>
+                            </scrollView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Hb-Sl-FrV" userLabel="Preferences">
+                                <rect key="frame" x="0.0" y="768" width="414" height="94"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="5g1-R9-h18"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="clueList" destination="nOp-IJ-xCD" id="CqK-2D-ncH"/>
+                        <outlet property="navigationBar" destination="XuA-IR-xOJ" id="Hwo-qm-pas"/>
+                        <outlet property="preferences" destination="4Hb-Sl-FrV" id="mDv-5K-wjp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JAF-jU-Sec" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2302.898550724638" y="170.75892857142856"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="mvI-Jb-kbm">

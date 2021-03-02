@@ -13,6 +13,11 @@
 		79595A4A25E37C6600717873 /* MemoryMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79595A4925E37C6600717873 /* MemoryMapView.swift */; };
 		79A400A825EDE771004F7596 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400A725EDE771004F7596 /* NavigationBarView.swift */; };
 		79A400B025EDEA1B004F7596 /* NavigationBarViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400AF25EDEA1B004F7596 /* NavigationBarViewLayout.swift */; };
+		79A400B625EDF1EE004F7596 /* NewHuntViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400B525EDF1EE004F7596 /* NewHuntViewController.swift */; };
+		79A400BF25EDF3F0004F7596 /* ScrollableStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400BE25EDF3F0004F7596 /* ScrollableStackView.swift */; };
+		79A400C425EDF544004F7596 /* NewHuntViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400C325EDF544004F7596 /* NewHuntViewLayout.swift */; };
+		79A400CA25EE0EE4004F7596 /* ClueListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400C925EE0EE4004F7596 /* ClueListRowView.swift */; };
+		79A400CF25EE0F70004F7596 /* ClueListRowViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400CE25EE0F70004F7596 /* ClueListRowViewLayout.swift */; };
 		79BB336525E0D3140085A15D /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BB336425E0D3140085A15D /* UserPreferences.swift */; };
 		79E1A9D925E3905D00FEE672 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1A9D825E3905D00FEE672 /* Globals.swift */; };
 		79E1A9E125E3A5D100FEE672 /* ActiveUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1A9E025E3A5D100FEE672 /* ActiveUser.swift */; };
@@ -73,6 +78,11 @@
 		79595A4925E37C6600717873 /* MemoryMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryMapView.swift; sourceTree = "<group>"; };
 		79A400A725EDE771004F7596 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		79A400AF25EDEA1B004F7596 /* NavigationBarViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarViewLayout.swift; sourceTree = "<group>"; };
+		79A400B525EDF1EE004F7596 /* NewHuntViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHuntViewController.swift; sourceTree = "<group>"; };
+		79A400BE25EDF3F0004F7596 /* ScrollableStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableStackView.swift; sourceTree = "<group>"; };
+		79A400C325EDF544004F7596 /* NewHuntViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHuntViewLayout.swift; sourceTree = "<group>"; };
+		79A400C925EE0EE4004F7596 /* ClueListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClueListRowView.swift; sourceTree = "<group>"; };
+		79A400CE25EE0F70004F7596 /* ClueListRowViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClueListRowViewLayout.swift; sourceTree = "<group>"; };
 		79BB336425E0D3140085A15D /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		79E1A9D825E3905D00FEE672 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		79E1A9E025E3A5D100FEE672 /* ActiveUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveUser.swift; sourceTree = "<group>"; };
@@ -173,6 +183,32 @@
 				79A400AF25EDEA1B004F7596 /* NavigationBarViewLayout.swift */,
 			);
 			path = NavigationBar;
+			sourceTree = "<group>";
+		};
+		79A400B425EDF1D7004F7596 /* NewHuntViewController */ = {
+			isa = PBXGroup;
+			children = (
+				79A400B525EDF1EE004F7596 /* NewHuntViewController.swift */,
+				79A400C325EDF544004F7596 /* NewHuntViewLayout.swift */,
+			);
+			path = NewHuntViewController;
+			sourceTree = "<group>";
+		};
+		79A400BD25EDF3DB004F7596 /* ScrollableStackView */ = {
+			isa = PBXGroup;
+			children = (
+				79A400BE25EDF3F0004F7596 /* ScrollableStackView.swift */,
+			);
+			path = ScrollableStackView;
+			sourceTree = "<group>";
+		};
+		79A400C825EE0ECA004F7596 /* ClueListRowView */ = {
+			isa = PBXGroup;
+			children = (
+				79A400C925EE0EE4004F7596 /* ClueListRowView.swift */,
+				79A400CE25EE0F70004F7596 /* ClueListRowViewLayout.swift */,
+			);
+			path = ClueListRowView;
 			sourceTree = "<group>";
 		};
 		79E1A9EA25E503D200FEE672 /* SnapshotCallout */ = {
@@ -295,6 +331,8 @@
 		79EFE35A25D0B16500AA257B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				79A400C825EE0ECA004F7596 /* ClueListRowView */,
+				79A400BD25EDF3DB004F7596 /* ScrollableStackView */,
 				79A400A625EDE761004F7596 /* NavigationBar */,
 				79E1AA1A25E8AA5500FEE672 /* FullImage */,
 				79E1A9EA25E503D200FEE672 /* SnapshotCallout */,
@@ -319,6 +357,7 @@
 				79F3062425EC6EC600A445A1 /* TreasureHuntCollectionViewController.swift */,
 				79F3062925EC6EE000A445A1 /* TreasureHuntCollectionViewLayout.swift */,
 				79F3064E25ECA2BF00A445A1 /* TreasureHuntCollectionViewCell.swift */,
+				79A400B425EDF1D7004F7596 /* NewHuntViewController */,
 			);
 			path = "Treasure Hunt";
 			sourceTree = "<group>";
@@ -502,6 +541,8 @@
 			files = (
 				79BB336525E0D3140085A15D /* UserPreferences.swift in Sources */,
 				79E783CC25C94CC1002DC72C /* ThemesUtil.swift in Sources */,
+				79A400BF25EDF3F0004F7596 /* ScrollableStackView.swift in Sources */,
+				79A400B625EDF1EE004F7596 /* NewHuntViewController.swift in Sources */,
 				79F3060325E9BF7200A445A1 /* LocationUtil.swift in Sources */,
 				79A400B025EDEA1B004F7596 /* NavigationBarViewLayout.swift in Sources */,
 				79E7838025C9493A002DC72C /* AppDelegate.swift in Sources */,
@@ -514,14 +555,17 @@
 				79F3064F25ECA2BF00A445A1 /* TreasureHuntCollectionViewCell.swift in Sources */,
 				79E7838225C9493A002DC72C /* SceneDelegate.swift in Sources */,
 				79E783B525C9499E002DC72C /* MapViewController.swift in Sources */,
+				79A400C425EDF544004F7596 /* NewHuntViewLayout.swift in Sources */,
 				79F3060C25EC31D400A445A1 /* MainMenuViewController.swift in Sources */,
 				79E1AA1C25E8AA6D00FEE672 /* FullImageView.swift in Sources */,
+				79A400CA25EE0EE4004F7596 /* ClueListRowView.swift in Sources */,
 				79F3063F25EC763200A445A1 /* TreasureHunt.swift in Sources */,
 				79E1A9EC25E503E500FEE672 /* SnapshotCalloutView.swift in Sources */,
 				79F3061125EC31E500A445A1 /* MainMenuViewLayout.swift in Sources */,
 				79A400A825EDE771004F7596 /* NavigationBarView.swift in Sources */,
 				79595A4A25E37C6600717873 /* MemoryMapView.swift in Sources */,
 				79F3061625EC3B3B00A445A1 /* ControlUtil.swift in Sources */,
+				79A400CF25EE0F70004F7596 /* ClueListRowViewLayout.swift in Sources */,
 				79F3062A25EC6EE000A445A1 /* TreasureHuntCollectionViewLayout.swift in Sources */,
 				79595A4025E37C3B00717873 /* NewMemoryViewLayout.swift in Sources */,
 				79E783C725C94C81002DC72C /* LayoutUtil.swift in Sources */,
