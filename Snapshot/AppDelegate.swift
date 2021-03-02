@@ -46,10 +46,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func runOnLaunch() {
 //        UserDefaults.resetDefaults()
         loadActiveUserFromSaved()
-//        generateNewLayout(name: "TreasureHuntCollectionView", elements: [
-//                            ("backButton", "UIButton"),
-//                            ("titleLabel", "UILabel"),
-//                            ("collection" , "UICollectionView"),
+//        generateNewLayout(name: "NavigationBarView", elements: [
+//                            ("leftItem", "UIButton"),
+//                            ("title", "UILabel"),
+//                            ("rightItem" , "UIButton"),
 //                            ])
     }
     

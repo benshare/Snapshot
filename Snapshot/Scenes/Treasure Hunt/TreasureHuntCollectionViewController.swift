@@ -16,7 +16,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     
     // MARK: Variables
     // Outlets
-    @IBOutlet weak var backButton: UIButton!
+    private let navigationBar: NavigationBarView = NavigationBarView()
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var collection: UICollectionView!
     
@@ -29,24 +29,26 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         collection.delegate = self
         collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
-        layout = TreasureHuntCollectionViewViewLayout(backButton: backButton, titleLabel: titleLabel, collection: collection)
+        view.addSubview(navigationBar)
+        navigationBar.addBackButton(text: "< Back", action: { self.dismiss(animated: true) })
+        navigationBar.setTitle(text: "Treasure Hunts")
+        
+        layout = TreasureHuntCollectionViewViewLayout(navigationBar: navigationBar, titleLabel: titleLabel, collection: collection)
         layout.configureConstraints(view: view)
+        
+        
         configureCollectionView()
         redrawScene()
-        
-        backButton.addAction {
-            self.dismiss(animated: true)
-        }
     }
     
     private func configureCollectionView() {
-        collection.backgroundColor = .lightGray
     }
     
     // MARK: UI
     private func redrawScene() {
         let isPortrait = orientationIsPortrait()
         layout.activateConstraints(isPortrait: isPortrait)
+        navigationBar.redrawScene()
     }
     
     override func viewWillLayoutSubviews() {
@@ -58,22 +60,22 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     
     // MARK: UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
-        return getActiveHunts().hunts.count + 1
+        return max(getActiveHunts().hunts.count + 1, 2)
     }
         
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collection.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        cell.backgroundColor = .red
-        layout.configureTreasureHuntCell(cell: cell)
-//        switch indexPath.item {
-//        case 0:
-//            layout.configureNewHuntCell(cell: cell)
-//        case 1...getActiveHunts().hunts.count:
-//            break
-//        default:
-//            fatalError("Dequeued cell with too high index")
-//        }
+        if getActiveHunts().hunts.isEmpty && indexPath.item == 1 {
+            return cell
+        }
+        switch indexPath.item {
+        case 0:
+            layout.configureNewHuntCell(cell: cell)
+        case 1...getActiveHunts().hunts.count:
+            layout.configureTreasureHuntCell(cell: cell)
+        default:
+            fatalError("Dequeued cell with too high index")
+        }
         
         return cell
     }

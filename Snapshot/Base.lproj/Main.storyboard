@@ -45,22 +45,14 @@
             </objects>
             <point key="canvasLocation" x="1026" y="-615"/>
         </scene>
-        <!--Treasure Hunt Collection View Controller-->
+        <!--Treasure Hunt Controller-->
         <scene sceneID="Ger-7R-Iyd">
             <objects>
-                <viewController id="x6a-xM-Tcv" customClass="TreasureHuntCollectionViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="x6a-xM-Tcv" userLabel="Treasure Hunt Controller" customClass="TreasureHuntCollectionViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OBX-Ed-hjy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JLu-IJ-cQp" userLabel="BackButton">
-                                <rect key="frame" x="37" y="52" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="backButton:" destination="mwS-cI-1aT" eventType="touchUpInside" id="cAa-C2-5Qd"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQR-vE-ES0" userLabel="Title">
                                 <rect key="frame" x="186" y="88" width="42" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -69,7 +61,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WeC-BW-XvL" userLabel="Treasure Hunt Collection">
-                                <rect key="frame" x="0.0" y="207" width="414" height="601"/>
+                                <rect key="frame" x="0.0" y="261" width="414" height="601"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RTx-WV-tWc">
@@ -94,15 +86,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
-                        <outlet property="backButton" destination="JLu-IJ-cQp" id="fGZ-Ld-akH"/>
                         <outlet property="collection" destination="WeC-BW-XvL" id="Kbb-9K-QBa"/>
                         <outlet property="titleLabel" destination="iQR-vE-ES0" id="NP0-CY-p2K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eNu-SR-Hu5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="mwS-cI-1aT" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1024.6376811594205" y="170.75892857142856"/>
+            <point key="canvasLocation" x="1025" y="171"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="mvI-Jb-kbm">
@@ -121,7 +111,7 @@
             </objects>
             <point key="canvasLocation" x="1025" y="976"/>
         </scene>
-        <!--Main Menu View Controller-->
+        <!--Main Menu-->
         <scene sceneID="1Us-xg-GaU">
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="V5g-iH-O9q" customClass="MainMenuViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
@@ -144,7 +134,9 @@
                         <viewLayoutGuide key="safeArea" id="XEE-7l-UqL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ETb-xl-ia4"/>
+                    <navigationItem key="navigationItem" title="Main Menu" id="ETb-xl-ia4">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="pS7-Lf-vuq"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="stackView" destination="OuK-w3-NaK" id="CgS-II-Rgs"/>
                         <outlet property="titleLabel" destination="s3c-oO-g15" id="TyH-0w-j2p"/>

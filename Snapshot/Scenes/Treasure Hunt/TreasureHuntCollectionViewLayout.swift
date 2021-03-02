@@ -12,7 +12,7 @@ class TreasureHuntCollectionViewViewLayout {
     // MARK: Properties
     
     // UI elements
-    private let backButton: UIButton
+    private let navigationBar: NavigationBarView
     private let titleLabel: UILabel
     private let collection: UICollectionView
     
@@ -29,45 +29,33 @@ class TreasureHuntCollectionViewViewLayout {
     // Other
     private var circularViews = [UIView]()
     
-    init(backButton: UIButton, titleLabel: UILabel, collection: UICollectionView) {
-        self.backButton = backButton
+    init(navigationBar: NavigationBarView, titleLabel: UILabel, collection: UICollectionView) {
+        self.navigationBar = navigationBar
         self.titleLabel = titleLabel
         self.collection = collection
 
-        doNotAutoResize(views: [backButton, titleLabel, collection])
+        doNotAutoResize(views: [navigationBar, titleLabel, collection])
         setTextToDefaults(labels: [titleLabel])
-        setButtonsToDefaults(buttons: [backButton], withInsets: 10)
         
-        backButton.backgroundColor = .lightGray
-        backButton.setTitle("<", for: .normal)
-        backButton.alpha = 0.8
-        circularViews.append(backButton)
-        
-        titleLabel.text = "Treasure Hunts"
-        
-        // Portrait
+        titleLabel.isHidden = true
         portraitSizeMap = [
-            backButton: (0.15, 0),
-            titleLabel: (0.5, 0.2),
+            navigationBar: (1, 0.2),
             collection: (1, 0.8),
         ]
         
         portraitSpacingMap = [
-            backButton: (0.13, 0.1),
-            titleLabel: (0.5, 0.1),
+            navigationBar: (0.5, 0.1),
             collection: (0.5, 0.6),
         ]
         
         // Landscape
         landscapeSizeMap = [
-            backButton: (0, 0.15),
-            titleLabel: (0.5, 0.2),
+            navigationBar: (1, 0.2),
             collection: (1, 0.8),
         ]
         
         landscapeSpacingMap = [
-            backButton: (0.08, 0.15),
-            titleLabel: (0.5, 0.1),
+            navigationBar: (0.5, 0.1),
             collection: (0.5, 0.6),
         ]
     }
@@ -97,20 +85,22 @@ class TreasureHuntCollectionViewViewLayout {
     
     // MARK: Collection Cells
     func configureNewHuntCell(cell: UICollectionViewCell) {
-        let moreButton = UIButton()
-        moreButton.layer.borderColor = UIColor.lightGray.cgColor
-        moreButton.layer.borderWidth = 3
-        circularViews.append(moreButton)
-        moreButton.setTitle("+", for: .normal)
-        setButtonsToDefaults(buttons: [moreButton])
-        moreButton.addOverlappingToParent(parent: cell)
+        let ratio: CGFloat = 0.7
+        let minX = cell.frame.minX * ratio + cell.frame.midX * (1 - ratio)
+        let minY = cell.frame.minY * ratio + cell.frame.midY * (1 - ratio)
+        let button = UIButton(frame: CGRect(x: minX, y: minY, width: cell.frame.width * ratio, height: cell.frame.height * ratio))
+        cell.contentView.addSubview(button)
+        button.setTitle("+", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 70)
+        button.setTitleColor(.darkGray, for: .normal)
+        button.layer.borderColor = UIColor.darkGray.cgColor
+        button.layer.borderWidth = 5
+        button.backgroundColor = .lightGray
+        circularViews.append(button)
     }
     
     func configureTreasureHuntCell(cell: UICollectionViewCell) {
-        let b = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        b.setTitle("Hello", for: .normal)
-        b.backgroundColor = .green
-        cell.contentView.addSubview(b)
+        
     }
     
     

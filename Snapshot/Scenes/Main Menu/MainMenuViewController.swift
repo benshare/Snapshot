@@ -20,6 +20,7 @@ class MainMenuViewController: UIViewController {
     // MARK: Initialization
     override func viewDidLoad() {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
         layout = MainMenuViewViewLayout(titleLabel: titleLabel, stackView: stackView)
         layout.configureConstraints(view: view)
         configureStackView()
