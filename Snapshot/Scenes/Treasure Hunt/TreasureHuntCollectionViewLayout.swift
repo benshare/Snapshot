@@ -99,7 +99,12 @@ class TreasureHuntCollectionViewViewLayout {
         circularViews.append(button)
     }
     
-    func configureTreasureHuntCell(cell: UICollectionViewCell) {
+    func configureTreasureHuntCell(cell: UICollectionViewCell, hunt: TreasureHunt) {
+        print("Normal configure called")
+        addIconToView(view: cell, name: "TreasureIcon")
+        let name = UILabel()
+        name.text = hunt.name
+        cell.addOverlappingToParent(parent: name)
     }
     
     

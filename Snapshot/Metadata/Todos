@@ -1,5 +1,4 @@
 1) Pass Treasure Hunt Value
-2) New Hunt -> Edit Hunt
 3) Separate Navigation Bar and title
 
 1) Full Image Edit Button
@@ -22,6 +21,7 @@ Features
 
 Bugs
  - Bad ones
+    - Fix orientation stuff
     
     
  - Quality

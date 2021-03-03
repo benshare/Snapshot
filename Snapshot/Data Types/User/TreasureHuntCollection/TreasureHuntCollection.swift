@@ -8,7 +8,7 @@
 import Foundation
 
 class TreasureHuntCollection: Codable {
-    let hunts: [TreasureHunt]
+    var hunts: [TreasureHunt]
     // MARK: Codable
     enum CodingKeys: String, CodingKey {
         case hunts

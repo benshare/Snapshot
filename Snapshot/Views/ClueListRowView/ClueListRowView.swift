@@ -19,7 +19,7 @@ class ClueListRowView: UIView {
     private var layout: ClueListRowViewLayout!
     
     // MARK: Initialization
-    init(index: Int) {
+    init(index: Int, text: String) {
         super.init(frame: CGRect())
         self.addSubview(indexLabel)
         self.addSubview(divider)
@@ -29,8 +29,10 @@ class ClueListRowView: UIView {
         redrawScene()
         
         indexLabel.text = String(index)
+        
         divider.backgroundColor = .black
-        clueLabel.text = "This is the start of the clue..."
+        
+        clueLabel.text = text
         
     }
     

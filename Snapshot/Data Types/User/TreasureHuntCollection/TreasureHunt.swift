@@ -14,10 +14,10 @@ enum HuntType: Int, Codable {
 }
 
 class TreasureHunt: Codable {
-    private var name: String
+    var name: String
     private let creator: String
     private var type: HuntType
-    private let clues: [Clue]
+    let clues: [Clue]
     private var region: MKCoordinateRegion
     private var notes: String
     

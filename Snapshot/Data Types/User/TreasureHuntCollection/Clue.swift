@@ -13,7 +13,7 @@ class Clue: Codable {
     private let id: Int
     private var location: CLLocationCoordinate2D
     private var image: UIImage?
-    private var text: String
+    var text: String
     private var hints: [String]
     
     // MARK: Codable

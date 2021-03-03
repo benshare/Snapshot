@@ -19,7 +19,9 @@ class NavigationBarView: UIView, UITextFieldDelegate {
     // Layout
     private var layout: NavigationBarViewViewLayout!
     
-//    private var delegate: UITextFieldDelegate?
+
+    // Data
+    var hunt: TreasureHunt!
     
     // MARK: Initialization
     required init?(coder: NSCoder) {
@@ -77,5 +79,11 @@ class NavigationBarView: UIView, UITextFieldDelegate {
         editableTitle.delegate = self
         editableTitle.text = text
         editableTitle.placeholder = placeholder
+    }
+    
+    // MARK: UITextFieldDelegate
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        hunt.name = textField.text!
+        print("Setting name to \(hunt.name)")
     }
 }

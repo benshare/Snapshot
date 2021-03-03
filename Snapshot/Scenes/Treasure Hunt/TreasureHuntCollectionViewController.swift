@@ -56,12 +56,18 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         redrawScene()
     }
     
+    func reloadView() {
+        collection.reloadData()
+    }
+    
     // MARK: UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("Num")
         return max(getActiveHunts().hunts.count + 1, 2)
     }
         
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        print("get")
         let cell = collection.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         if getActiveHunts().hunts.isEmpty && indexPath.item == 1 {
             return cell
@@ -70,7 +76,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         case 0:
             layout.configureNewHuntCell(cell: cell)
         case 1...getActiveHunts().hunts.count:
-            layout.configureTreasureHuntCell(cell: cell)
+            layout.configureTreasureHuntCell(cell: cell, hunt: getActiveHunts().hunts[indexPath.item - 1])
         default:
             fatalError("Dequeued cell with too high index")
         }
@@ -81,7 +87,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     // MARK: UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            self.performSegue(withIdentifier: "newHuntSegue", sender: self)
+            newHunt()
         }
     }
     
@@ -96,5 +102,26 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         let numItems = Int(collection.frame.width / s)
         let spacing = CGFloat(collection.frame.width - s * CGFloat(numItems)) / CGFloat(numItems - 1)
         return spacing
+    }
+    
+    // MARK: Navigation
+    func newHunt() {
+//        let newHunt = TreasureHunt()
+//        getActiveHunts().hunts.append(newHunt)
+        self.performSegue(withIdentifier: "newHuntSegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "newHuntSegue":
+            let newHunt = TreasureHunt()
+            getActiveHunts().hunts.append(newHunt)
+            
+            let recipient = segue.destination as! EditHuntViewController
+            recipient.hunt = newHunt
+            recipient.parentController = self
+        default:
+            break
+        }
     }
 }

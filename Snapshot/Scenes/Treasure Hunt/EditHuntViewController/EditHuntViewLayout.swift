@@ -1,5 +1,5 @@
 //
-//  NewHuntViewLayout.swift
+//  EditHuntViewLayout.swift
 //  Snapshot
 //
 //  Created by Benjamin Share on 3/1/21.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class NewHuntViewLayout {
+class EditHuntViewLayout {
     // MARK: Properties
     
     // UI elements
@@ -34,7 +34,6 @@ class NewHuntViewLayout {
         doNotAutoResize(views: [navigationBar, clueList, preferences])
         setTextToDefaults(labels: [])
         setButtonsToDefaults(buttons: [])
-    
         
         // Portrait
         portraitSizeMap = [
