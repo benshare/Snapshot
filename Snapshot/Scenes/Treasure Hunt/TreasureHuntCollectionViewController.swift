@@ -34,12 +34,8 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         
         layout = TreasureHuntCollectionViewViewLayout(navigationBar: navigationBar, titleLabel: titleLabel, collection: collection)
         layout.configureConstraints(view: view)
-        
-        configureCollectionView()
+
         redrawScene()
-    }
-    
-    private func configureCollectionView() {
     }
     
     // MARK: UI
@@ -56,27 +52,31 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         redrawScene()
     }
     
-    func reloadView() {
-        collection.reloadData()
+    func reloadCell(index: Int) {
+        collection.reloadItems(at: [collection.indexPathsForSelectedItems!.first!])
+//        layout.updateCircleSizes()
     }
     
     // MARK: UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("Num")
         return max(getActiveHunts().hunts.count + 1, 2)
     }
         
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("get")
         let cell = collection.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        for view in cell.contentView.subviews {
+            view.removeFromSuperview()
+        }
         if getActiveHunts().hunts.isEmpty && indexPath.item == 1 {
             return cell
         }
         switch indexPath.item {
         case 0:
             layout.configureNewHuntCell(cell: cell)
+            break
         case 1...getActiveHunts().hunts.count:
             layout.configureTreasureHuntCell(cell: cell, hunt: getActiveHunts().hunts[indexPath.item - 1])
+            break
         default:
             fatalError("Dequeued cell with too high index")
         }
@@ -87,7 +87,9 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     // MARK: UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            newHunt()
+            self.performSegue(withIdentifier: "newHuntSegue", sender: self)
+        } else {
+            self.performSegue(withIdentifier: "editHuntSegue", sender: self)
         }
     }
     
@@ -105,20 +107,22 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     }
     
     // MARK: Navigation
-    func newHunt() {
-//        let newHunt = TreasureHunt()
-//        getActiveHunts().hunts.append(newHunt)
-        self.performSegue(withIdentifier: "newHuntSegue", sender: self)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "newHuntSegue":
             let newHunt = TreasureHunt()
             getActiveHunts().hunts.append(newHunt)
+            didUpdateActiveUser()
             
             let recipient = segue.destination as! EditHuntViewController
+            recipient.index = getActiveHunts().hunts.count
             recipient.hunt = newHunt
+            recipient.parentController = self
+        case "editHuntSegue":
+            let recipient = segue.destination as! EditHuntViewController
+            let selected = collection.indexPathsForSelectedItems!.first!.item
+            recipient.index = selected
+            recipient.hunt = getActiveHunts().hunts[selected - 1]
             recipient.parentController = self
         default:
             break

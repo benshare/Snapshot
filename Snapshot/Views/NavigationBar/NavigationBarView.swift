@@ -84,6 +84,6 @@ class NavigationBarView: UIView, UITextFieldDelegate {
     // MARK: UITextFieldDelegate
     func textFieldDidEndEditing(_ textField: UITextField) {
         hunt.name = textField.text!
-        print("Setting name to \(hunt.name)")
+        didUpdateActiveUser()
     }
 }

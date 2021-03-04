@@ -100,11 +100,20 @@ class TreasureHuntCollectionViewViewLayout {
     }
     
     func configureTreasureHuntCell(cell: UICollectionViewCell, hunt: TreasureHunt) {
-        print("Normal configure called")
-        addIconToView(view: cell, name: "TreasureIcon")
-        let name = UILabel()
+        addIconToView(view: cell.contentView, name: "TreasureIcon")
+        let name = UILabel(frame: CGRect.zero)
+        cell.contentView.addSubview(name)
         name.text = hunt.name
-        cell.addOverlappingToParent(parent: name)
+        name.font = UIFont.boldSystemFont(ofSize: 30)
+        name.adjustsFontSizeToFitWidth = true
+        name.textColor = .lightGray
+        name.backgroundColor = .white
+        name.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            name.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
+            name.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
+            name.widthAnchor.constraint(lessThanOrEqualToConstant: 150)
+        ])
     }
     
     

@@ -144,12 +144,13 @@ func makeViewsCircular(views: [UIView]) {
 }
 
 extension UIView {
-    func addOverlappingToParent(parent: UIView) {
-        parent.addSubview(self)
-        self.widthAnchor.constraint(equalTo: parent.widthAnchor).isActive = true
-        self.heightAnchor.constraint(equalTo: parent.heightAnchor).isActive = true
-        self.centerXAnchor.constraint(equalTo: parent.centerXAnchor).isActive = true
-        self.centerYAnchor.constraint(equalTo: parent.centerYAnchor).isActive = true
+    func addOverlappingSubview(view: UIView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(view)
+        view.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        view.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        view.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        view.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
 }
 
@@ -222,10 +223,12 @@ func addIconToView(view: UIView, name: String) {
     let imageView = UIImageView()
     view.addSubview(imageView)
     imageView.translatesAutoresizingMaskIntoConstraints = false
-    imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-    imageView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-    imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+    NSLayoutConstraint.activate([
+        imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        imageView.heightAnchor.constraint(equalTo: view.heightAnchor),
+        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
+    ])
     imageView.image = UIImage(named: name)?.withAlignmentRectInsets(UIEdgeInsets(top: -20, left: -20, bottom: -20, right: -20))
     imageView.contentMode = .scaleAspectFit
 }

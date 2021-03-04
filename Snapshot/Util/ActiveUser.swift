@@ -23,10 +23,20 @@ func getActivePreferences() -> UserPreferences {
     return activeUser.preferences
 }
 
+func didUpdateActiveUser() {
+    updateSavedUser()
+}
+
+// Deprecate?
 func updateActiveCollection(snapshot: Snapshot) {
     activeUser.snapshots.addSnapshot(snapshot: snapshot)
     updateSavedUser()
 }
+
+//func updateActiveHunts(snapshot: Snapshot) {
+//    activeUser.snapshots.addSnapshot(snapshot: snapshot)
+//    updateSavedUser()
+//}
 
 func updateActivePreferences(source: SnapshotSource) {
     activeUser.preferences.defaultSource = source

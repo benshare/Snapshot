@@ -19,14 +19,14 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
     private var layout: EditHuntViewLayout!
     
     // Data
+    var index: Int!
     var hunt: TreasureHunt!
     var parentController: TreasureHuntCollectionViewController!
     
     // MARK: Initialization
     override func viewDidLoad() {
         navigationBar.addBackButton(text: "< Back", action: {
-            print("Returning with hunt:\n\(self.hunt.name)")
-            self.parentController.reloadView()
+            self.parentController.reloadCell(index: self.index)
             self.dismiss(animated: true)
         })
         navigationBar.setEditableTitle(background: clueList, text: hunt.name, placeholder: "Untitled Treasure Hunt")
