@@ -64,6 +64,7 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
             let newClue = Clue(location: self.userLocation)
             self.hunt.clues.append(newClue)
             self.addRowToList(clueInd: self.clueList.count() - 1)
+            didUpdateActiveUser()
             
             self.clueEditing = newClue
             self.clueListIndex = self.clueList.count() - 1

@@ -32,6 +32,7 @@ class EditClueViewController: UIViewController, UITextViewDelegate {
         navigationBar.addBackButton(text: "< Back", action: {
             self.clueText.endEditing(true)
             self.clue.text = self.clueText.text
+            didUpdateActiveUser()
             self.parentController.processEditToClue(index: self.index)
             self.dismiss(animated: true)
         })
@@ -72,6 +73,5 @@ class EditClueViewController: UIViewController, UITextViewDelegate {
     // MARK: Clue Text
     @objc func backgroundTapped(sender: UITapGestureRecognizer) {
         clueText.endEditing(true)
-        clue.text = clueText.text
     }
 }

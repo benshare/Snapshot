@@ -60,10 +60,13 @@ class ClueListRowView: UIView {
         if text.isEmpty {
             return "No clue text"
         }
-        if text.count < 20 {
-            return text
+        let prefix = text.prefix(25)
+        if let returnIndex = prefix.firstIndex(of: "\n") {
+            return String(prefix.prefix(upTo: returnIndex)) + "..."
         }
-        let length = text.lastIndex(where: { return $0 == " " })!
-        return String(text.prefix(upTo: length)) + "..."
+        if let returnIndex = prefix.lastIndex(of: " ") {
+            return String(prefix.prefix(upTo: returnIndex)) + "..."
+        }
+        return String(prefix) + "..."
     }
 }
