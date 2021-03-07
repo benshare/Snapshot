@@ -27,12 +27,12 @@ class ClueListRowView: UIView {
         layout = ClueListRowViewLayout(indexLabel: indexLabel, divider: divider, clueLabel: clueLabel)
         layout.configureConstraints(view: self)
         redrawScene()
-        
+
         indexLabel.text = String(index)
-        
+
         divider.backgroundColor = .black
-        
-        clueLabel.text = text.isEmpty ? "No clue text" : text
+
+        clueLabel.text = textToDisplay(text: text)
         
 //        self.isUserInteractionEnabled = true
     }
@@ -53,7 +53,7 @@ class ClueListRowView: UIView {
     }
     
     func updateClue(text: String) {
-        clueLabel.text = text.isEmpty ? "No clue text" : text
+        clueLabel.text = textToDisplay(text: text)
     }
     
     func textToDisplay(text: String) -> String {

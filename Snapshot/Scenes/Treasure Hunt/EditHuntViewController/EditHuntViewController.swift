@@ -24,7 +24,7 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
     var hunt: TreasureHunt!
     var parentController: TreasureHuntCollectionViewController!
     var clueEditing: Clue?
-    var clueIndex: Int?
+    var clueListIndex: Int?
     var userLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.7873589, longitude: -122.408227)
     
     // MARK: Initialization
@@ -50,19 +50,7 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
     func fillStack() {
         if hunt.clues.count > 0 {
             for ind in 0...hunt.clues.count - 1 {
-                let clue = hunt.clues[ind]
-                let row = ClueListRowView(index: ind, text: clue.text)
-                clueList.addToStack(view: row)
-                NSLayoutConstraint.activate([
-                    row.widthAnchor.constraint(equalTo: clueList.widthAnchor),
-                    row.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.2),
-                ])
-                row.addTapEvent {
-                    print("Hit row")
-                    self.clueEditing = clue
-                    self.clueIndex = ind
-                    self.performSegue(withIdentifier: "editClueSegue", sender: self)
-                }
+                addRowToList(clueInd: ind)
             }
         }
         let newClueView = UIView()
@@ -73,19 +61,28 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
             newClueView.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.2),
         ])
         newClueView.addTapEvent {
-            print("Hit new clue")
-            self.clueEditing = Clue(location: self.userLocation)
-            self.clueIndex = self.clueList.count() - 1
+            let newClue = Clue(location: self.userLocation)
+            self.hunt.clues.append(newClue)
+            self.addRowToList(clueInd: self.clueList.count() - 1)
+            
+            self.clueEditing = newClue
+            self.clueListIndex = self.clueList.count() - 1
             self.performSegue(withIdentifier: "newClueSegue", sender: self)
         }
-        view.addTapEvent {
-            print("Hit view")
-        }
-        clueList.addTapEvent {
-            print("Hit clueList")
-        }
-        clueList.contentView.addTapEvent {
-            print("Hit contentView")
+    }
+    
+    private func addRowToList(clueInd: Int) {
+        let clue = hunt.clues[clueInd]
+        let row = ClueListRowView(index: clueInd + 1, text: clue.text)
+        clueList.addToStack(view: row)
+        NSLayoutConstraint.activate([
+            row.widthAnchor.constraint(equalTo: clueList.widthAnchor),
+            row.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.2),
+        ])
+        row.addTapEvent {
+            self.clueEditing = clue
+            self.clueListIndex = clueInd + 1
+            self.performSegue(withIdentifier: "editClueSegue", sender: self)
         }
     }
     
@@ -106,21 +103,15 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         let row = self.clueList.elementAtIndex(index: index) as! ClueListRowView
         row.updateClue(text: self.clueEditing!.text)
         clueEditing = nil
-        clueIndex = nil
+        clueListIndex = nil
     }
     
     // MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case "newClueSegue":
+        case "newClueSegue", "editClueSegue":
             let destination = segue.destination as! EditClueViewController
-            destination.index = clueList.count() - 1
-            destination.clue = clueEditing
-            destination.parentController = self
-        case "editClueSegue":
-            print("editing")
-            let destination = segue.destination as! EditClueViewController
-            destination.index = clueIndex!
+            destination.index = clueListIndex!
             destination.clue = clueEditing
             destination.parentController = self
         default:
