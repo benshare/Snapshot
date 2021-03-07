@@ -33,7 +33,7 @@ class MapViewLayout {
         self.snapButton = snapButton
 
         doNotAutoResize(views: [map, backButton, snapButton])
-        setTextToDefaults(labels: [])
+        setLabelsToDefaults(labels: [])
         setButtonsToDefaults(buttons: [backButton, snapButton], withImageInsets: 10)
         
         backButton.backgroundColor = .lightGray

@@ -46,10 +46,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func runOnLaunch() {
 //        UserDefaults.resetDefaults()
         loadActiveUserFromSaved()
-//        generateNewLayout(name: "NavigationBarView", elements: [
+//        generateNewLayout(name: "EditClueViewController", elements: [
 //                            ("navigationBar", "NavigationBarView"),
-//                            ("clueList", "ScrollableStackView"),
-//                            ("preferences" , "UIView"),
+//                            ("clueLocation", "MKMapView"),
+//                            ("clueText" , "UITextView"),
+//                            ("isStartingButton", "UIButton"),
+//                            ("addImageButton" , "UIButton"),
 //                            ])
     }
     

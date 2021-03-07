@@ -17,7 +17,7 @@ class TreasureHunt: Codable {
     var name: String
     private let creator: String
     private var type: HuntType
-    let clues: [Clue]
+    var clues: [Clue]
     private var region: MKCoordinateRegion
     private var notes: String
     

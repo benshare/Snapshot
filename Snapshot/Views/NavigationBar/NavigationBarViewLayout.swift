@@ -34,8 +34,9 @@ class NavigationBarViewViewLayout {
         self.rightItem = rightItem
 
         doNotAutoResize(views: [leftItem, title, editableTitle, rightItem])
-        setTextToDefaults(labels: [title])
+        setLabelsToDefaults(labels: [title])
         setButtonsToDefaults(buttons: [leftItem, rightItem])
+        title.font = UIFont.systemFont(ofSize: 40)
         
         editableTitle.font = UIFont.systemFont(ofSize: 30)
         editableTitle.adjustsFontSizeToFitWidth = true

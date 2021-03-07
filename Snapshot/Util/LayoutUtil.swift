@@ -88,7 +88,7 @@ func doNotAutoResize(views: [UIView]) {
     }
 }
 
-func setTextToDefaults(labels: [UILabel?]) {
+func setLabelsToDefaults(labels: [UILabel?]) {
     centerAlignText(labels: labels)
     setTextToResize(labels: labels)
 }

@@ -42,7 +42,7 @@ class NewMemoryViewLayout {
         self.submitButton = submitButton
 
         doNotAutoResize(views: [titleLabel, mapLabel, map, imageUploadView, imageUploadView.cameraLabelButton, imageUploadView.libraryLabelButton, imageUploadView.imageButton, closeButton, submitButton])
-        setTextToDefaults(labels: [titleLabel, mapLabel])
+        setLabelsToDefaults(labels: [titleLabel, mapLabel])
         setButtonsToDefaults(buttons: [closeButton], withInsets: 5)
         setButtonsToDefaults(buttons: [submitButton, imageUploadView.cameraLabelButton, imageUploadView.libraryLabelButton, imageUploadView.imageButton], withInsets: 10)
         

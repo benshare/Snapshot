@@ -32,7 +32,7 @@ class EditHuntViewLayout {
         self.preferences = preferences
 
         doNotAutoResize(views: [navigationBar, clueList, preferences])
-        setTextToDefaults(labels: [])
+        setLabelsToDefaults(labels: [])
         setButtonsToDefaults(buttons: [])
         
         // Portrait

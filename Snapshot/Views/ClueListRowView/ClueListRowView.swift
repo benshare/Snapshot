@@ -32,8 +32,9 @@ class ClueListRowView: UIView {
         
         divider.backgroundColor = .black
         
-        clueLabel.text = text
+        clueLabel.text = text.isEmpty ? "No clue text" : text
         
+//        self.isUserInteractionEnabled = true
     }
     
     required init?(coder: NSCoder) {
@@ -44,5 +45,25 @@ class ClueListRowView: UIView {
     func redrawScene() {
         let isPortrait = orientationIsPortrait()
         layout.activateConstraints(isPortrait: isPortrait)
+    }
+    
+    // MARK: Content
+    func updateIndex(index: Int) {
+        indexLabel.text = String(index)
+    }
+    
+    func updateClue(text: String) {
+        clueLabel.text = text.isEmpty ? "No clue text" : text
+    }
+    
+    func textToDisplay(text: String) -> String {
+        if text.isEmpty {
+            return "No clue text"
+        }
+        if text.count < 20 {
+            return text
+        }
+        let length = text.lastIndex(where: { return $0 == " " })!
+        return String(text.prefix(upTo: length)) + "..."
     }
 }

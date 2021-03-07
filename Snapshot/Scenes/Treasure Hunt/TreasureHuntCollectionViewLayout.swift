@@ -35,7 +35,7 @@ class TreasureHuntCollectionViewViewLayout {
         self.collection = collection
 
         doNotAutoResize(views: [navigationBar, titleLabel, collection])
-        setTextToDefaults(labels: [titleLabel])
+        setLabelsToDefaults(labels: [titleLabel])
         
         titleLabel.isHidden = true
         portraitSizeMap = [

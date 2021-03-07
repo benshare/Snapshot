@@ -18,6 +18,8 @@
 		79A400C425EDF544004F7596 /* EditHuntViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400C325EDF544004F7596 /* EditHuntViewLayout.swift */; };
 		79A400CA25EE0EE4004F7596 /* ClueListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400C925EE0EE4004F7596 /* ClueListRowView.swift */; };
 		79A400CF25EE0F70004F7596 /* ClueListRowViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400CE25EE0F70004F7596 /* ClueListRowViewLayout.swift */; };
+		79B0854725F208C100F0868C /* EditClueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B0854625F208C100F0868C /* EditClueViewController.swift */; };
+		79B0854C25F20C5B00F0868C /* EditClueViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B0854B25F20C5B00F0868C /* EditClueViewLayout.swift */; };
 		79BB336525E0D3140085A15D /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BB336425E0D3140085A15D /* UserPreferences.swift */; };
 		79E1A9D925E3905D00FEE672 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1A9D825E3905D00FEE672 /* Globals.swift */; };
 		79E1A9E125E3A5D100FEE672 /* ActiveUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1A9E025E3A5D100FEE672 /* ActiveUser.swift */; };
@@ -83,6 +85,8 @@
 		79A400C325EDF544004F7596 /* EditHuntViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHuntViewLayout.swift; sourceTree = "<group>"; };
 		79A400C925EE0EE4004F7596 /* ClueListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClueListRowView.swift; sourceTree = "<group>"; };
 		79A400CE25EE0F70004F7596 /* ClueListRowViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClueListRowViewLayout.swift; sourceTree = "<group>"; };
+		79B0854625F208C100F0868C /* EditClueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditClueViewController.swift; sourceTree = "<group>"; };
+		79B0854B25F20C5B00F0868C /* EditClueViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditClueViewLayout.swift; sourceTree = "<group>"; };
 		79BB336425E0D3140085A15D /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		79E1A9D825E3905D00FEE672 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		79E1A9E025E3A5D100FEE672 /* ActiveUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveUser.swift; sourceTree = "<group>"; };
@@ -190,6 +194,8 @@
 			children = (
 				79A400B525EDF1EE004F7596 /* EditHuntViewController.swift */,
 				79A400C325EDF544004F7596 /* EditHuntViewLayout.swift */,
+				79B0854625F208C100F0868C /* EditClueViewController.swift */,
+				79B0854B25F20C5B00F0868C /* EditClueViewLayout.swift */,
 			);
 			path = EditHuntViewController;
 			sourceTree = "<group>";
@@ -539,8 +545,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79B0854725F208C100F0868C /* EditClueViewController.swift in Sources */,
 				79BB336525E0D3140085A15D /* UserPreferences.swift in Sources */,
 				79E783CC25C94CC1002DC72C /* ThemesUtil.swift in Sources */,
+				79B0854C25F20C5B00F0868C /* EditClueViewLayout.swift in Sources */,
 				79A400BF25EDF3F0004F7596 /* ScrollableStackView.swift in Sources */,
 				79A400B625EDF1EE004F7596 /* EditHuntViewController.swift in Sources */,
 				79F3060325E9BF7200A445A1 /* LocationUtil.swift in Sources */,

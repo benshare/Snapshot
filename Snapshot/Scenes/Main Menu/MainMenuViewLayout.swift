@@ -30,7 +30,7 @@ class MainMenuViewViewLayout {
         self.stackView = stackView
 
         doNotAutoResize(views: [titleLabel, stackView])
-        setTextToDefaults(labels: [titleLabel])
+        setLabelsToDefaults(labels: [titleLabel])
         setButtonsToDefaults(buttons: [])
         
         titleLabel.text = "SNAPSHOT"

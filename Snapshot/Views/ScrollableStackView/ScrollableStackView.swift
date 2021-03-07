@@ -10,7 +10,7 @@ import UIKit
 
 class ScrollableStackView: UIScrollView {
     // MARK: Variables
-    private let contentView: UIStackView
+    let contentView: UIStackView
     
     // MARK: Initialization
     required init?(coder: NSCoder) {
@@ -31,9 +31,20 @@ class ScrollableStackView: UIScrollView {
         contentView.alignment = .fill
         contentView.distribution = .equalSpacing
         contentView.spacing = 0
+        
     }
     
     // MARK: Stack Operations
+    // Get
+    func count() -> Int {
+        return contentView.arrangedSubviews.count
+    }
+    
+    func elementAtIndex(index: Int) -> UIView {
+        return contentView.arrangedSubviews[index]
+    }
+    
+    // Set
     func addToStack(view: UIView) {
         contentView.addArrangedSubview(view)
     }
@@ -50,5 +61,17 @@ class ScrollableStackView: UIScrollView {
     func addBorders(width: Int = 2, color: UIColor = .gray) {
         contentView.spacing = CGFloat(width)
         contentView.backgroundColor = color
+    }
+    
+    // MARK: Event Handling
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        print("Main hittest")
+        for view in contentView.arrangedSubviews {
+            if view.hitTest(point, with: event) != nil {
+                return view
+            }
+        }
+        print("Couldn't find")
+        return nil
     }
 }

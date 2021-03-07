@@ -134,11 +134,73 @@
                         <outlet property="clueList" destination="nOp-IJ-xCD" id="CqK-2D-ncH"/>
                         <outlet property="navigationBar" destination="XuA-IR-xOJ" id="Hwo-qm-pas"/>
                         <outlet property="preferences" destination="4Hb-Sl-FrV" id="mDv-5K-wjp"/>
+                        <segue destination="NnN-iN-03Y" kind="presentation" identifier="newClueSegue" modalTransitionStyle="flipHorizontal" id="9j6-rQ-fcO"/>
+                        <segue destination="NnN-iN-03Y" kind="presentation" identifier="editClueSegue" modalTransitionStyle="flipHorizontal" id="B67-W3-2kg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JAF-jU-Sec" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2302.898550724638" y="170.75892857142856"/>
+        </scene>
+        <!--Edit Clue View Controller-->
+        <scene sceneID="9Qc-wH-tNA">
+            <objects>
+                <viewController id="NnN-iN-03Y" customClass="EditClueViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6zD-5U-xPf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pMv-FX-2Xo" userLabel="Navigation Bar" customClass="NavigationBarView" customModule="Snapshot" customModuleProvider="target">
+                                <rect key="frame" x="87" y="20" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="9cj-c7-mch" userLabel="Clue Position">
+                                <rect key="frame" x="87" y="141" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uaR-ny-ygk" userLabel="Clue Text">
+                                <rect key="frame" x="87" y="455" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rDz-pb-gn9" userLabel="Is Starting Button">
+                                <rect key="frame" x="69" y="734" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXc-L3-1vl" userLabel="Starting Label">
+                                <rect key="frame" x="137" y="739" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6yZ-Tc-AQD" userLabel="Add Photo">
+                                <rect key="frame" x="295" y="734" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Bcz-Ni-s6Y"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="addImageButton" destination="6yZ-Tc-AQD" id="iUt-0i-jlU"/>
+                        <outlet property="clueLocation" destination="9cj-c7-mch" id="Nbb-ab-ByZ"/>
+                        <outlet property="clueText" destination="uaR-ny-ygk" id="x3i-WE-gxe"/>
+                        <outlet property="isStartingButton" destination="rDz-pb-gn9" id="Nnh-oa-xnu"/>
+                        <outlet property="isStartingLabel" destination="cXc-L3-1vl" id="br8-HA-2LK"/>
+                        <outlet property="navigationBar" destination="pMv-FX-2Xo" id="4wm-VF-eiR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bPy-ew-3kb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3532" y="171"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="mvI-Jb-kbm">
@@ -215,9 +277,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="HId-KD-dBC"/>
+        <segue reference="B67-W3-2kg"/>
+        <segue reference="2Vf-UJ-QZq"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -10,20 +10,18 @@ import UIKit
 import CoreLocation
 
 class Clue: Codable {
-    private let id: Int
-    private var location: CLLocationCoordinate2D
-    private var image: UIImage?
+    var location: CLLocationCoordinate2D
+    var image: UIImage?
     var text: String
-    private var hints: [String]
+    var hints: [String]
     
     // MARK: Codable
     enum CodingKeys: String, CodingKey {
-        case id, location, image, text, hints
+        case location, image, text, hints
     }
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(Int.self, forKey: .id)
         self.location = CLLocationCoordinate2D(location: try container.decode(LocationStruct.self, forKey: .location))
         do {
             self.image = UIImage(data: try container.decode(Data.self, forKey: .image))
@@ -36,7 +34,6 @@ class Clue: Codable {
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(self.id, forKey: .id)
         try container.encode(LocationStruct(location: self.location), forKey: .location)
         try container.encode(self.image?.pngData(), forKey: .image)
         try container.encode(self.text, forKey: .text)
@@ -44,8 +41,7 @@ class Clue: Codable {
     }
     
     // MARK: Initialization
-    init(id: Int, location: CLLocationCoordinate2D, image: UIImage?, text: String, hints: [String] = [String]()) {
-        self.id = id
+    init(location: CLLocationCoordinate2D, image: UIImage? = nil, text: String = "", hints: [String] = [String]()) {
         self.location = location
         self.image = image
         self.text = text

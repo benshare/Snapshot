@@ -32,13 +32,14 @@ class ClueListRowViewLayout {
         self.clueLabel = clueLabel
 
         doNotAutoResize(views: [indexLabel, divider, clueLabel])
-        setTextToDefaults(labels: [indexLabel, clueLabel])
+        setLabelsToDefaults(labels: [indexLabel, clueLabel])
+        clueLabel.font = UIFont.italicSystemFont(ofSize: 30)
         
         // Portrait
         portraitSizeMap = [
             indexLabel: (0.2, 1),
             divider: (0.003, 0.8),
-            clueLabel: (0.78, 1),
+            clueLabel: (0.6, 1),
         ]
         
         portraitSpacingMap = [
@@ -51,7 +52,7 @@ class ClueListRowViewLayout {
         landscapeSizeMap = [
             indexLabel: (0.2, 1),
             divider: (0.003, 0.8),
-            clueLabel: (0.78, 1),
+            clueLabel: (0.7, 1),
         ]
         
         landscapeSpacingMap = [

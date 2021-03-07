@@ -36,7 +36,7 @@ class SnapshotCalloutViewLayout {
         self.information = information
 
         doNotAutoResize(views: [snapshotTitle, date, image, expandButton, information])
-        setTextToDefaults(labels: [date])
+        setLabelsToDefaults(labels: [date])
         setButtonsToDefaults(buttons: [expandButton])
         
         snapshotTitle.textAlignment = .center
