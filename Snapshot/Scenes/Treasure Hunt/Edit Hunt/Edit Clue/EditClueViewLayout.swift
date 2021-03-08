@@ -47,18 +47,18 @@ class EditClueViewLayout {
         // Portrait
         portraitSizeMap = [
             navigationBar: (1, 0.2),
-            clueText: (0.7, 0.25),
-            clueLocation: (0, 0.25),
-            startingButtonAndLabel: (0.25, 0.15),
-            endingButtonAndLabel: (0.25, 0.15),
+            clueText: (0.7, 0.3),
+            clueLocation: (0, 0.3),
+//            startingButtonAndLabel: (0.25, 0.15),
+//            endingButtonAndLabel: (0.25, 0.15),
         ]
         
         portraitSpacingMap = [
             navigationBar: (0.5, 0.1),
             clueText: (0.5, 0.4),
-            clueLocation: (0.5, 0.7),
-            startingButtonAndLabel: (0.33, 0.9),
-            endingButtonAndLabel: (0.67, 0.9),
+            clueLocation: (0.5, 0.8),
+//            startingButtonAndLabel: (0.33, 0.9),
+//            endingButtonAndLabel: (0.67, 0.9),
         ]
         
         // Landscape

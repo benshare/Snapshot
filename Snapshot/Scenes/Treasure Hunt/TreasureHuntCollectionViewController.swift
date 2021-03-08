@@ -23,6 +23,9 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     // Formatting
     private var layout: TreasureHuntCollectionViewViewLayout!
     
+    // Data
+    private var popup: PopupOptionsView?
+    
     // MARK: Initialization
     override func viewDidLoad() {
         collection.dataSource = self
@@ -53,8 +56,8 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     }
     
     func reloadCell(index: Int) {
-        collection.reloadItems(at: [collection.indexPathsForSelectedItems!.first!])
-//        layout.updateCircleSizes()
+        collection.reloadData()
+        layout.updateCircleSizes()
     }
     
     // MARK: UICollectionViewDataSource
@@ -89,7 +92,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         if indexPath.row == 0 {
             self.performSegue(withIdentifier: "newHuntSegue", sender: self)
         } else {
-            self.performSegue(withIdentifier: "editHuntSegue", sender: self)
+            displayOptionsForHunt()
         }
     }
     
@@ -106,6 +109,41 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         return spacing
     }
     
+    // MARK: Selection
+    func displayOptionsForHunt() {
+        popup?.removeFromSuperview()
+        
+        let dismisser = UIView(frame: collection.frame)
+        collection.addSubview(dismisser)
+        collection.sendSubviewToBack(dismisser)
+        dismisser.addTapEvent {
+            self.popup!.removeFromSuperview()
+            dismisser.removeFromSuperview()
+        }
+        
+        self.popup = PopupOptionsView()
+        view.addSubview(popup!)
+        popup!.addButton(name: "Play", callback: {})
+        popup!.addButton(name: "Edit", callback: {
+            self.performSegue(withIdentifier: "editHuntSegue", sender: self)
+            self.popup!.removeFromSuperview()
+        })
+        popup!.addButton(name: "Delete", callback: {})
+        popup!.configureView()
+        anchorToSelectedCell(popup: popup!)
+    }
+    
+    private func anchorToSelectedCell(popup: PopupOptionsView) {
+        let cell = collection.cellForItem(at: collection.indexPathsForSelectedItems!.first!)!
+        popup.topAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+        
+        if view.bounds.contains(cell.center.applying(CGAffineTransform(translationX: PopupOptionsView.viewWidth, y: 0))) {
+            popup.leftAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+        } else {
+            popup.rightAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+        }
+    }
+    
     // MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
@@ -113,6 +151,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
             let newHunt = TreasureHunt()
             getActiveHunts().hunts.append(newHunt)
             didUpdateActiveUser()
+            popup?.removeFromSuperview()
             
             let recipient = segue.destination as! EditHuntViewController
             recipient.index = getActiveHunts().hunts.count

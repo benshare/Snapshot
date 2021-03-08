@@ -20,6 +20,7 @@
 		79A400CF25EE0F70004F7596 /* ClueListRowViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400CE25EE0F70004F7596 /* ClueListRowViewLayout.swift */; };
 		79B0854725F208C100F0868C /* EditClueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B0854625F208C100F0868C /* EditClueViewController.swift */; };
 		79B0854C25F20C5B00F0868C /* EditClueViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B0854B25F20C5B00F0868C /* EditClueViewLayout.swift */; };
+		79B0855C25F61C2200F0868C /* PopupOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B0855B25F61C2200F0868C /* PopupOptionsView.swift */; };
 		79BB336525E0D3140085A15D /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BB336425E0D3140085A15D /* UserPreferences.swift */; };
 		79E1A9D925E3905D00FEE672 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1A9D825E3905D00FEE672 /* Globals.swift */; };
 		79E1A9E125E3A5D100FEE672 /* ActiveUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1A9E025E3A5D100FEE672 /* ActiveUser.swift */; };
@@ -86,6 +87,7 @@
 		79A400CE25EE0F70004F7596 /* ClueListRowViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClueListRowViewLayout.swift; sourceTree = "<group>"; };
 		79B0854625F208C100F0868C /* EditClueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditClueViewController.swift; sourceTree = "<group>"; };
 		79B0854B25F20C5B00F0868C /* EditClueViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditClueViewLayout.swift; sourceTree = "<group>"; };
+		79B0855B25F61C2200F0868C /* PopupOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupOptionsView.swift; sourceTree = "<group>"; };
 		79BB336425E0D3140085A15D /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		79E1A9D825E3905D00FEE672 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		79E1A9E025E3A5D100FEE672 /* ActiveUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveUser.swift; sourceTree = "<group>"; };
@@ -223,6 +225,14 @@
 			path = "Edit Clue";
 			sourceTree = "<group>";
 		};
+		79B0855A25F61BC400F0868C /* PopupOptions */ = {
+			isa = PBXGroup;
+			children = (
+				79B0855B25F61C2200F0868C /* PopupOptionsView.swift */,
+			);
+			path = PopupOptions;
+			sourceTree = "<group>";
+		};
 		79E1A9EA25E503D200FEE672 /* SnapshotCallout */ = {
 			isa = PBXGroup;
 			children = (
@@ -343,6 +353,7 @@
 		79EFE35A25D0B16500AA257B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				79B0855A25F61BC400F0868C /* PopupOptions */,
 				79A400C825EE0ECA004F7596 /* ClueListRowView */,
 				79A400BD25EDF3DB004F7596 /* ScrollableStackView */,
 				79A400A625EDE761004F7596 /* NavigationBar */,
@@ -578,6 +589,7 @@
 				79595A4A25E37C6600717873 /* MemoryMapView.swift in Sources */,
 				79F3061625EC3B3B00A445A1 /* ControlUtil.swift in Sources */,
 				79A400CF25EE0F70004F7596 /* ClueListRowViewLayout.swift in Sources */,
+				79B0855C25F61C2200F0868C /* PopupOptionsView.swift in Sources */,
 				79F3062A25EC6EE000A445A1 /* TreasureHuntCollectionViewLayout.swift in Sources */,
 				79595A4025E37C3B00717873 /* NewMemoryViewLayout.swift in Sources */,
 				79E783C725C94C81002DC72C /* LayoutUtil.swift in Sources */,

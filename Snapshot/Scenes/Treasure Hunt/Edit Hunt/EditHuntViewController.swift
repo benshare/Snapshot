@@ -63,7 +63,8 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
             newClueView.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.2),
         ])
         newClueView.addTapEvent {
-            let newClue = Clue(location: self.userLocation)
+            let loc = self.clueList.count() == 1 ? self.userLocation : (self.hunt.clues.last?.location)!
+            let newClue = Clue(location: loc)
             self.hunt.clues.append(newClue)
             self.addRowToList(indInList: self.clueList.count() - 1)
             if self.clueList.count() > 3 {
