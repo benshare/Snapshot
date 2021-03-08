@@ -53,7 +53,6 @@
 		79F3063325EC75FD00A445A1 /* TreasureHuntCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3063225EC75FD00A445A1 /* TreasureHuntCollection.swift */; };
 		79F3063F25EC763200A445A1 /* TreasureHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3063E25EC763200A445A1 /* TreasureHunt.swift */; };
 		79F3064725EC763900A445A1 /* Clue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3064625EC763900A445A1 /* Clue.swift */; };
-		79F3064F25ECA2BF00A445A1 /* TreasureHuntCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3064E25ECA2BF00A445A1 /* TreasureHuntCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,7 +125,6 @@
 		79F3063225EC75FD00A445A1 /* TreasureHuntCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureHuntCollection.swift; sourceTree = "<group>"; };
 		79F3063E25EC763200A445A1 /* TreasureHunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureHunt.swift; sourceTree = "<group>"; };
 		79F3064625EC763900A445A1 /* Clue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clue.swift; sourceTree = "<group>"; };
-		79F3064E25ECA2BF00A445A1 /* TreasureHuntCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureHuntCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,15 +187,14 @@
 			path = NavigationBar;
 			sourceTree = "<group>";
 		};
-		79A400B425EDF1D7004F7596 /* EditHuntViewController */ = {
+		79A400B425EDF1D7004F7596 /* Edit Hunt */ = {
 			isa = PBXGroup;
 			children = (
 				79A400B525EDF1EE004F7596 /* EditHuntViewController.swift */,
 				79A400C325EDF544004F7596 /* EditHuntViewLayout.swift */,
-				79B0854625F208C100F0868C /* EditClueViewController.swift */,
-				79B0854B25F20C5B00F0868C /* EditClueViewLayout.swift */,
+				79B0855025F605F500F0868C /* Edit Clue */,
 			);
-			path = EditHuntViewController;
+			path = "Edit Hunt";
 			sourceTree = "<group>";
 		};
 		79A400BD25EDF3DB004F7596 /* ScrollableStackView */ = {
@@ -215,6 +212,15 @@
 				79A400CE25EE0F70004F7596 /* ClueListRowViewLayout.swift */,
 			);
 			path = ClueListRowView;
+			sourceTree = "<group>";
+		};
+		79B0855025F605F500F0868C /* Edit Clue */ = {
+			isa = PBXGroup;
+			children = (
+				79B0854625F208C100F0868C /* EditClueViewController.swift */,
+				79B0854B25F20C5B00F0868C /* EditClueViewLayout.swift */,
+			);
+			path = "Edit Clue";
 			sourceTree = "<group>";
 		};
 		79E1A9EA25E503D200FEE672 /* SnapshotCallout */ = {
@@ -362,8 +368,7 @@
 			children = (
 				79F3062425EC6EC600A445A1 /* TreasureHuntCollectionViewController.swift */,
 				79F3062925EC6EE000A445A1 /* TreasureHuntCollectionViewLayout.swift */,
-				79F3064E25ECA2BF00A445A1 /* TreasureHuntCollectionViewCell.swift */,
-				79A400B425EDF1D7004F7596 /* EditHuntViewController */,
+				79A400B425EDF1D7004F7596 /* Edit Hunt */,
 			);
 			path = "Treasure Hunt";
 			sourceTree = "<group>";
@@ -560,7 +565,6 @@
 				79E1AA1625E8A75C00FEE672 /* Animations.swift in Sources */,
 				79E2F21325DD25D800F872D7 /* Snapshot.swift in Sources */,
 				79F3063325EC75FD00A445A1 /* TreasureHuntCollection.swift in Sources */,
-				79F3064F25ECA2BF00A445A1 /* TreasureHuntCollectionViewCell.swift in Sources */,
 				79E7838225C9493A002DC72C /* SceneDelegate.swift in Sources */,
 				79E783B525C9499E002DC72C /* MapViewController.swift in Sources */,
 				79A400C425EDF544004F7596 /* EditHuntViewLayout.swift in Sources */,

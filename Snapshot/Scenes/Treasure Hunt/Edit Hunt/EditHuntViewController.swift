@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import MapKit
+import CoreLocation
 
 class EditHuntViewController: UIViewController, UITextFieldDelegate {
     // MARK: Variables
@@ -24,7 +25,7 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
     var hunt: TreasureHunt!
     var parentController: TreasureHuntCollectionViewController!
     var clueEditing: Clue?
-    var clueListIndex: Int?
+    var listIndexEditing: Int?
     var userLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.7873589, longitude: -122.408227)
     
     // MARK: Initialization
@@ -35,6 +36,7 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         })
         navigationBar.setEditableTitle(background: clueList, text: hunt.name, placeholder: "Untitled Treasure Hunt")
         navigationBar.hunt = hunt
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backgroundTapped(sender:))))
         
         fillStack()
         clueList.addBorders()
@@ -50,7 +52,7 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
     func fillStack() {
         if hunt.clues.count > 0 {
             for ind in 0...hunt.clues.count - 1 {
-                addRowToList(clueInd: ind)
+                addRowToList(indInList: ind)
             }
         }
         let newClueView = UIView()
@@ -63,26 +65,38 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         newClueView.addTapEvent {
             let newClue = Clue(location: self.userLocation)
             self.hunt.clues.append(newClue)
-            self.addRowToList(clueInd: self.clueList.count() - 1)
+            self.addRowToList(indInList: self.clueList.count() - 1)
+            if self.clueList.count() > 3 {
+                if let row = self.clueList.elementAtIndex(index: self.clueList.count() - 3) as? ClueListRowView {
+                    row.updateIndex(index: self.clueList.count() - 3)
+                }
+            }
             didUpdateActiveUser()
             
             self.clueEditing = newClue
-            self.clueListIndex = self.clueList.count() - 1
+            self.listIndexEditing = self.clueList.count() - 2
             self.performSegue(withIdentifier: "newClueSegue", sender: self)
         }
     }
     
-    private func addRowToList(clueInd: Int) {
-        let clue = hunt.clues[clueInd]
-        let row = ClueListRowView(index: clueInd + 1, text: clue.text)
-        clueList.addToStack(view: row)
+    private func addRowToList(indInList: Int) {
+        let clue = hunt.clues[indInList]
+        
+        var indToPass = indInList
+        if hunt.clues.count > 1 {
+            if indToPass == hunt.clues.count - 1 {
+                indToPass = -1
+            }
+        }
+        let row = ClueListRowView(index: indToPass, text: clue.text)
+        clueList.insertInStack(view: row, index: indInList)
         NSLayoutConstraint.activate([
             row.widthAnchor.constraint(equalTo: clueList.widthAnchor),
             row.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.2),
         ])
         row.addTapEvent {
             self.clueEditing = clue
-            self.clueListIndex = clueInd + 1
+            self.listIndexEditing = indInList
             self.performSegue(withIdentifier: "editClueSegue", sender: self)
         }
     }
@@ -104,7 +118,12 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         let row = self.clueList.elementAtIndex(index: index) as! ClueListRowView
         row.updateClue(text: self.clueEditing!.text)
         clueEditing = nil
-        clueListIndex = nil
+        listIndexEditing = nil
+    }
+    
+    // MARK: Clue Text
+    @objc func backgroundTapped(sender: UITapGestureRecognizer) {
+        navigationBar.endEditing(true)
     }
     
     // MARK: Navigation
@@ -112,7 +131,7 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         switch segue.identifier {
         case "newClueSegue", "editClueSegue":
             let destination = segue.destination as! EditClueViewController
-            destination.index = clueListIndex!
+            destination.listIndex = listIndexEditing!
             destination.clue = clueEditing
             destination.parentController = self
         default:

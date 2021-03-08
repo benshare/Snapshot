@@ -16,9 +16,8 @@ class EditClueViewLayout {
     private let navigationBar: NavigationBarView
     private let clueLocation: MKMapView
     private let clueText: UITextView
-    private let isStartingButton: UIButton
-    private let isStartingLabel: UILabel
-    private let addImageButton: UIButton
+    private let startingButtonAndLabel: ButtonAndLabel
+    private let endingButtonAndLabel: ButtonAndLabel
     
     // Constraint maps
     private var portraitSizeMap: [UIView: (CGFloat, CGFloat)]!
@@ -30,17 +29,16 @@ class EditClueViewLayout {
     private var portraitConstraints = [NSLayoutConstraint]()
     private var landscapeConstraints = [NSLayoutConstraint]()
     
-    init(navigationBar: NavigationBarView, clueLocation: MKMapView, clueText: UITextView, isStartingButton: UIButton, isStartingLabel: UILabel, addImageButton: UIButton) {
+    init(navigationBar: NavigationBarView, clueLocation: MKMapView, clueText: UITextView, startingButtonAndLabel: ButtonAndLabel, endingButtonAndLabel: ButtonAndLabel) {
         self.navigationBar = navigationBar
         self.clueLocation = clueLocation
         self.clueText = clueText
-        self.isStartingButton = isStartingButton
-        self.isStartingLabel = isStartingLabel
-        self.addImageButton = addImageButton
+        self.startingButtonAndLabel = startingButtonAndLabel
+        self.endingButtonAndLabel = endingButtonAndLabel
 
-        doNotAutoResize(views: [navigationBar, clueLocation, clueText, isStartingButton, isStartingLabel, addImageButton])
-        setLabelsToDefaults(labels: [isStartingLabel])
-        setButtonsToDefaults(buttons: [isStartingButton, addImageButton])
+        doNotAutoResize(views: [navigationBar, clueLocation, clueText, startingButtonAndLabel, endingButtonAndLabel])
+//        setLabelsToDefaults(labels: [])
+//        setButtonsToDefaults(buttons: [isStartingButton, addImageButton])
         
         clueText.layer.borderWidth = 2
         clueText.layer.borderColor = UIColor.lightGray.cgColor
@@ -51,18 +49,16 @@ class EditClueViewLayout {
             navigationBar: (1, 0.2),
             clueText: (0.7, 0.25),
             clueLocation: (0, 0.25),
-            isStartingButton: (0, 0.05),
-            isStartingLabel: (0, 0.15),
-            addImageButton: (0, 0.07),
+            startingButtonAndLabel: (0.25, 0.15),
+            endingButtonAndLabel: (0.25, 0.15),
         ]
         
         portraitSpacingMap = [
             navigationBar: (0.5, 0.1),
             clueText: (0.5, 0.4),
             clueLocation: (0.5, 0.7),
-            isStartingButton: (0.2, 0.9),
-            isStartingLabel: (0.4, 0.9),
-            addImageButton: (0.75, 0.9),
+            startingButtonAndLabel: (0.33, 0.9),
+            endingButtonAndLabel: (0.67, 0.9),
         ]
         
         // Landscape
@@ -106,4 +102,33 @@ class EditClueViewLayout {
     }
     
     // MARK: Other UI
+}
+
+class ButtonAndLabel: UIView {
+    let button: UIButton
+    let label: UILabel
+    
+    required init?(coder: NSCoder) {
+        self.button = UIButton()
+        self.label = UILabel()
+        
+        super.init(coder: coder)
+        
+        doNotAutoResize(views: [button, label])
+        setButtonsToDefaults(buttons: [button])
+        setLabelsToDefaults(labels: [label])
+        
+        self.addSubview(button)
+        self.addSubview(label)
+        let sizeMap: [UIView : (CGFloat, CGFloat)] = [
+            button: (0.2, 0),
+            label: (0.7, 1),
+        ]
+        let spacingMap: [UIView : (CGFloat, CGFloat)] = [
+            button: (0.1, 0.5),
+            label: (0.6, 0.5),
+        ]
+        let constraints = getSizeConstraints(widthAnchor: self.widthAnchor, heightAnchor: self.heightAnchor, sizeMap: sizeMap) + getSpacingConstraints(leftAnchor: self.leftAnchor, widthAnchor: self.widthAnchor, topAnchor: self.topAnchor, heightAnchor: self.heightAnchor, spacingMap: spacingMap, parentView: self)
+        NSLayoutConstraint.activate(constraints)
+    }
 }

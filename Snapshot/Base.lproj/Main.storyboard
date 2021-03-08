@@ -168,39 +168,31 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rDz-pb-gn9" userLabel="Is Starting Button">
-                                <rect key="frame" x="69" y="734" width="46" height="30"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1JB-oq-g6A" userLabel="Starting Button" customClass="ButtonAndLabel" customModule="Snapshot" customModuleProvider="target">
+                                <rect key="frame" x="30" y="698" width="153" height="69"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXc-L3-1vl" userLabel="Starting Label">
-                                <rect key="frame" x="137" y="739" width="42" height="21"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qp5-EO-JK0" userLabel="Ending Button" customClass="ButtonAndLabel" customModule="Snapshot" customModuleProvider="target">
+                                <rect key="frame" x="225" y="691" width="141" height="76"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6yZ-Tc-AQD" userLabel="Add Photo">
-                                <rect key="frame" x="295" y="734" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcz-Ni-s6Y"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
-                        <outlet property="addImageButton" destination="6yZ-Tc-AQD" id="iUt-0i-jlU"/>
                         <outlet property="clueLocation" destination="9cj-c7-mch" id="Nbb-ab-ByZ"/>
                         <outlet property="clueText" destination="uaR-ny-ygk" id="x3i-WE-gxe"/>
-                        <outlet property="isStartingButton" destination="rDz-pb-gn9" id="Nnh-oa-xnu"/>
-                        <outlet property="isStartingLabel" destination="cXc-L3-1vl" id="br8-HA-2LK"/>
+                        <outlet property="endingButtonAndLabel" destination="Qp5-EO-JK0" id="eas-NI-Zgk"/>
                         <outlet property="navigationBar" destination="pMv-FX-2Xo" id="4wm-VF-eiR"/>
+                        <outlet property="startingButtonAndLabel" destination="1JB-oq-g6A" id="6Hg-qw-ZD2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bPy-ew-3kb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3532" y="171"/>
+            <point key="canvasLocation" x="3531.884057971015" y="170.75892857142856"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="mvI-Jb-kbm">

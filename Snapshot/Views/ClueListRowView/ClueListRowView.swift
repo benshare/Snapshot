@@ -28,13 +28,11 @@ class ClueListRowView: UIView {
         layout.configureConstraints(view: self)
         redrawScene()
 
-        indexLabel.text = String(index)
+        updateIndex(index: index)
 
         divider.backgroundColor = .black
 
         clueLabel.text = textToDisplay(text: text)
-        
-//        self.isUserInteractionEnabled = true
     }
     
     required init?(coder: NSCoder) {
@@ -49,7 +47,14 @@ class ClueListRowView: UIView {
     
     // MARK: Content
     func updateIndex(index: Int) {
-        indexLabel.text = String(index)
+        switch index {
+        case 0:
+            indexLabel.text = "Start"
+        case -1:
+            indexLabel.text = "End"
+        default:
+            indexLabel.text = String(index)
+        }
     }
     
     func updateClue(text: String) {
@@ -60,6 +65,13 @@ class ClueListRowView: UIView {
         if text.isEmpty {
             return "No clue text"
         }
+        if text.count < 26 {
+            if let returnIndex = text.firstIndex(of: "\n") {
+                return String(text.prefix(upTo: returnIndex)) + "..."
+            }
+            return text
+        }
+        
         let prefix = text.prefix(25)
         if let returnIndex = prefix.firstIndex(of: "\n") {
             return String(prefix.prefix(upTo: returnIndex)) + "..."
