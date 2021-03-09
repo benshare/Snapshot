@@ -114,8 +114,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
     }
     
     // MARK: MKMapViewDelegate
-    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-    }
     
     func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {

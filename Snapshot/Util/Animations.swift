@@ -10,11 +10,11 @@ import UIKit
 
 extension UIView {
     func move(to destination: CGPoint, duration: TimeInterval,
-              options: UIView.AnimationOptions, scale: CGFloat = 1) {
+              options: UIView.AnimationOptions, scale: CGFloat = 1, completion: ((Bool) -> Void)? = nil) {
       UIView.animate(withDuration: duration, delay: 0, options: options, animations: {
         self.center = destination
         self.frame.size = CGSize(width: self.frame.width * scale, height: self.frame.height * scale)
         self.alpha = 1
-      }, completion: nil)
+      }, completion: completion)
     }
 }

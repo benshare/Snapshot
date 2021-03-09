@@ -31,8 +31,10 @@ extension UIControl {
 extension UIView {
     func addTapEvent(for controlEvents: UIControl.Event = .touchUpInside, _ closure: @escaping ()->()) {
         let button = UIButton()
+        button.accessibilityIdentifier = "tapEventButton"
         button.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(button)
+//        self.sendSubviewToBack(button)
         NSLayoutConstraint.activate([
             button.widthAnchor.constraint(equalTo: self.widthAnchor),
             button.heightAnchor.constraint(equalTo: self.heightAnchor),

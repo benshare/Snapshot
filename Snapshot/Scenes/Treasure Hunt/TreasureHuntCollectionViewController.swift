@@ -126,7 +126,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         popup!.addButton(name: "Play", callback: {
             self.performSegue(withIdentifier: "playHuntSegue", sender: self)
             self.popup!.removeFromSuperview()
-        })
+        }, isEnabled: getActiveHunts().hunts[collection.indexPathsForSelectedItems!.first!.item - 1].clues.count > 2)
         popup!.addButton(name: "Edit", callback: {
             self.performSegue(withIdentifier: "editHuntSegue", sender: self)
             self.popup!.removeFromSuperview()
@@ -203,7 +203,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         case "playHuntSegue":
             let recipient = segue.destination as! TreasureHuntPlayViewController
             let selected = collection.indexPathsForSelectedItems!.first!.item
-            recipient.hunt = getActiveHunts().hunts[selected - 1]
+            recipient.playthrough = TreasureHuntPlaythrough(hunt: getActiveHunts().hunts[selected - 1])
         default:
             break
         }

@@ -1,22 +1,19 @@
 //
-//  TreasureHuntPlayLayout.swift
+//  FullClueLayout.swift
 //  Snapshot
 //
-//  Created by Benjamin Share on 3/8/21.
+//  Created by Benjamin Share on 3/9/21.
 //
 
 import Foundation
 import UIKit
-import MapKit
 
-class TreasureHuntPlayLayout {
+class FullClueLayout {
     // MARK: Properties
     
     // UI elements
-    private let map: MKMapView
-    private let backButton: UIButton
-    private let cluesButton: UIButton
-    private let infoButton: UIButton
+    private let titleLabel: UILabel
+    private let clueText: UILabel
     
     // Constraint maps
     private var portraitSizeMap: [UIView: (CGFloat, CGFloat)]!
@@ -28,63 +25,33 @@ class TreasureHuntPlayLayout {
     private var portraitConstraints = [NSLayoutConstraint]()
     private var landscapeConstraints = [NSLayoutConstraint]()
     
-    // Other
-    private var circularViews = [UIView]()
-    
-    init(map: MKMapView, backButton: UIButton, cluesButton: UIButton, infoButton: UIButton) {
-        self.map = map
-        self.backButton = backButton
-        self.cluesButton = cluesButton
-        self.infoButton = infoButton
+    init(titleLabel: UILabel, clueText: UILabel) {
+        self.titleLabel = titleLabel
+        self.clueText = clueText
 
-        doNotAutoResize(views: [map, backButton, cluesButton, infoButton])
-        setLabelsToDefaults(labels: [])
-        setButtonsToDefaults(buttons: [backButton, cluesButton, infoButton], withImageInsets: 10)
-        
-        backButton.backgroundColor = .lightGray
-        backButton.setTitle("<", for: .normal)
-        backButton.alpha = 0.8
-        circularViews.append(backButton)
-        
-//        cluesButton.backgroundColor = .lightGray
-        cluesButton.setBackgroundImage(UIImage(named: "ScrollIcon"), for: .normal)
-//        cluesButton.alpha = 0.6
-//        cluesButton.contentMode = .scaleAspectFit
-//        circularViews.append(cluesButton)
-        
-//        infoButton.backgroundColor = .lightGray
-        infoButton.setBackgroundImage(UIImage(named: "QuestionMark"), for: .normal)
-//        infoButton.alpha = 0.6
-//        circularViews.append(infoButton)
+        doNotAutoResize(views: [titleLabel, clueText])
+        setLabelsToDefaults(labels: [titleLabel, clueText])
         
         // Portrait
         portraitSizeMap = [
-            map: (1, 1),
-            backButton: (0.15, 0),
-            cluesButton: (0.12, 0),
-            infoButton: (0.15, 0),
+            titleLabel: (0.7, 0.2),
+            clueText: (0.8, 0.6),
         ]
         
         portraitSpacingMap = [
-            map: (0.5, 0.5),
-            backButton: (0.15, 0.1),
-            cluesButton: (0.15, 0.9),
-            infoButton: (0.85, 0.9),
+            titleLabel: (0.5, 0.2),
+            clueText: (0.5, 0.6),
         ]
         
         // Landscape
         landscapeSizeMap = [:
-//            map: (, ),
-//            backButton: (, ),
-//            cluesButton: (, ),
-//            infoButton: (, ),
+//            titleLabel: (, ),
+//            clueText: (, ),
         ]
         
         landscapeSpacingMap = [:
-//            map: (, ),
-//            backButton: (, ),
-//            cluesButton: (, ),
-//            infoButton: (, ),
+//            titleLabel: (, ),
+//            clueText: (, ),
         ]
     }
     
@@ -111,7 +78,4 @@ class TreasureHuntPlayLayout {
     }
     
     // MARK: Other UI
-    func updateCircleSizes() {
-        makeViewsCircular(views: circularViews)
-    }
 }

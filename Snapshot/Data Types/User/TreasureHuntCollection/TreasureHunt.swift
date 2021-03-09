@@ -20,10 +20,11 @@ class TreasureHunt: Codable {
     var clues: [Clue]
     private var region: MKCoordinateRegion
     private var notes: String
+    private var clueRadius: Double
     
     // MARK: Codable
     enum CodingKeys: String, CodingKey {
-        case name, creator, type, clues, region, notes
+        case name, creator, type, clues, region, notes, clueRadius
     }
     
     required init(from decoder: Decoder) throws {
@@ -34,6 +35,7 @@ class TreasureHunt: Codable {
         self.clues = try container.decode([Clue].self, forKey: .clues)
         self.region = MKCoordinateRegion(region: try container.decode(RegionStruct.self, forKey: .region))
         self.notes = try container.decode(String.self, forKey: .notes)
+        self.clueRadius = try container.decode(Double.self, forKey: .clueRadius)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -44,6 +46,7 @@ class TreasureHunt: Codable {
         try container.encode(self.clues, forKey: .clues)
         try container.encode(RegionStruct(region: self.region), forKey: .region)
         try container.encode(self.notes, forKey: .notes)
+        try container.encode(self.clueRadius, forKey: .clueRadius)
     }
     
     // MARK: Initialization
@@ -54,5 +57,6 @@ class TreasureHunt: Codable {
         self.clues = [Clue]()
         self.region = MKCoordinateRegion()
         self.notes = ""
+        self.clueRadius = 0.01
     }
 }

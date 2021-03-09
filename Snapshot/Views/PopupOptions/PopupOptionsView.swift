@@ -21,20 +21,31 @@ class PopupOptionsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addButton(name: String, callback: @escaping () -> Void) {
+    func addButton(name: String, callback: @escaping () -> Void, isEnabled: Bool = true) {
         let button = UIButton()
         button.setTitle(name, for: .normal)
         button.addAction(callback)
-        button.backgroundColor = .white
-        button.setTitleColor(.gray, for: .normal)
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.black.cgColor
+        if isEnabled {
+            button.backgroundColor = .lightGray
+            button.setTitleColor(.black, for: .normal)
+        } else {
+            button.backgroundColor = .white
+            button.setTitleColor(.lightGray, for: .normal)
+            button.isEnabled = false
+        }
         
         buttons.append(button)
         addSubview(button)
     }
     
-    func configureView() {
+    func configureView(setButtonDefaults: Bool = false) {
         doNotAutoResize(views: [self] + buttons)
         self.widthAnchor.constraint(equalToConstant: PopupOptionsView.viewWidth).isActive = true
+        if setButtonDefaults {
+            setButtonsToDefaults(buttons: buttons)
+        }
         
         var constraints = buttons.map( { $0.widthAnchor.constraint(equalTo: self.widthAnchor) })
         for i in 0...buttons.count - 1 {
@@ -48,9 +59,6 @@ class PopupOptionsView: UIView {
             if i == buttons.count - 1 {
                 constraints.append(button.bottomAnchor.constraint(equalTo: self.bottomAnchor))
             }
-            
-            button.layer.borderWidth = 1
-            button.layer.borderColor = UIColor.lightGray.cgColor
         }
         NSLayoutConstraint.activate(constraints)
     }
