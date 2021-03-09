@@ -43,7 +43,49 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1026" y="-615"/>
+            <point key="canvasLocation" x="1025" y="-615"/>
+        </scene>
+        <!--Treasure Hunt Play View Controller-->
+        <scene sceneID="QCL-7z-sSE">
+            <objects>
+                <viewController id="NVO-un-oLH" customClass="TreasureHuntPlayViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FIL-WR-ocd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="a09-mg-SdK">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ivq-Rq-ovp">
+                                <rect key="frame" x="49" y="78" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="shp-9l-Wsk">
+                                <rect key="frame" x="49" y="778" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bG7-Te-AQh">
+                                <rect key="frame" x="307" y="778" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="9Sn-5N-ScT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="backButton" destination="ivq-Rq-ovp" id="dvS-zJ-YVT"/>
+                        <outlet property="cluesButton" destination="shp-9l-Wsk" id="J5T-cN-Kyk"/>
+                        <outlet property="infoButton" destination="bG7-Te-AQh" id="EkW-VT-owS"/>
+                        <outlet property="map" destination="a09-mg-SdK" id="TPx-Lu-FTE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XTS-Yt-Pwn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2302.898550724638" y="-615.40178571428567"/>
         </scene>
         <!--Treasure Hunt Controller-->
         <scene sceneID="Ger-7R-Iyd">
@@ -96,6 +138,7 @@
                         <outlet property="titleLabel" destination="iQR-vE-ES0" id="NP0-CY-p2K"/>
                         <segue destination="8tq-j8-XWi" kind="presentation" identifier="newHuntSegue" modalTransitionStyle="coverVertical" id="HId-KD-dBC"/>
                         <segue destination="8tq-j8-XWi" kind="presentation" identifier="editHuntSegue" modalTransitionStyle="coverVertical" id="2Vf-UJ-QZq"/>
+                        <segue destination="NVO-un-oLH" kind="presentation" identifier="playHuntSegue" modalPresentationStyle="fullScreen" id="obd-jY-f1a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eNu-SR-Hu5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -270,7 +313,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="B67-W3-2kg"/>
-        <segue reference="2Vf-UJ-QZq"/>
+        <segue reference="HId-KD-dBC"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="labelColor">

@@ -11,6 +11,7 @@ import UIKit
 class PopupOptionsView: UIView {
     var buttons = [UIButton]()
     static let viewWidth: CGFloat = 80
+    static let buttonRatio: CGFloat = 0.4
     
     init() {
         super.init(frame: CGRect.zero)
@@ -38,7 +39,7 @@ class PopupOptionsView: UIView {
         var constraints = buttons.map( { $0.widthAnchor.constraint(equalTo: self.widthAnchor) })
         for i in 0...buttons.count - 1 {
             let button = buttons[i]
-            constraints.append(button.heightAnchor.constraint(equalTo: button.widthAnchor, multiplier: 0.4))
+            constraints.append(button.heightAnchor.constraint(equalTo: button.widthAnchor, multiplier: PopupOptionsView.buttonRatio))
             if i == 0 {
                 constraints.append(button.topAnchor.constraint(equalTo: self.topAnchor))
             } else {

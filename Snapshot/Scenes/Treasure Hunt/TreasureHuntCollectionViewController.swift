@@ -110,7 +110,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     }
     
     // MARK: Selection
-    func displayOptionsForHunt() {
+    private func displayOptionsForHunt() {
         popup?.removeFromSuperview()
         
         let dismisser = UIView(frame: collection.frame)
@@ -123,25 +123,62 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         
         self.popup = PopupOptionsView()
         view.addSubview(popup!)
-        popup!.addButton(name: "Play", callback: {})
+        popup!.addButton(name: "Play", callback: {
+            self.performSegue(withIdentifier: "playHuntSegue", sender: self)
+            self.popup!.removeFromSuperview()
+        })
         popup!.addButton(name: "Edit", callback: {
             self.performSegue(withIdentifier: "editHuntSegue", sender: self)
             self.popup!.removeFromSuperview()
         })
-        popup!.addButton(name: "Delete", callback: {})
+        popup!.addButton(name: "Delete", callback: {
+            self.displayDeleteAlert()
+            self.popup!.removeFromSuperview()
+        })
         popup!.configureView()
         anchorToSelectedCell(popup: popup!)
     }
     
     private func anchorToSelectedCell(popup: PopupOptionsView) {
         let cell = collection.cellForItem(at: collection.indexPathsForSelectedItems!.first!)!
-        popup.topAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
-        
+        // Default is to the right
         if view.bounds.contains(cell.center.applying(CGAffineTransform(translationX: PopupOptionsView.viewWidth, y: 0))) {
             popup.leftAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
-        } else {
-            popup.rightAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+            // Secondary default is down
+            if view.bounds.contains(cell.center.applying(CGAffineTransform(translationX: PopupOptionsView.viewWidth, y: PopupOptionsView.viewWidth * CGFloat(popup.buttons.count) * PopupOptionsView.buttonRatio))) {
+                popup.topAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+                return
+            }
+            popup.bottomAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+            return
         }
+        // Same, but now on the left
+        popup.rightAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
+        if view.bounds.contains(cell.center.applying(CGAffineTransform(translationX: -PopupOptionsView.viewWidth, y: PopupOptionsView.viewWidth * CGFloat(popup.buttons.count) * PopupOptionsView.buttonRatio))) {
+            popup.topAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+            return
+        }
+        popup.bottomAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+    }
+    
+    // MARK: Deletion
+    private func displayDeleteAlert() {
+        let alert = UIAlertController(title: "Confirm Delete", message: "Permanently delete treasure hunt?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Delete", style: .default, handler: {
+                action in
+                self.deleteHunt()
+                alert.dismiss(animated: true, completion: nil)
+            }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in alert.dismiss(animated: true, completion: nil) }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func deleteHunt() {
+        let path = self.collection.indexPathsForSelectedItems!.first!
+        getActiveHunts().hunts.remove(at: path.item - 1)
+        didUpdateActiveUser()
+        collection.deleteItems(at: [path])
+        collection.reloadData()
     }
     
     // MARK: Navigation
@@ -163,6 +200,10 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
             recipient.index = selected
             recipient.hunt = getActiveHunts().hunts[selected - 1]
             recipient.parentController = self
+        case "playHuntSegue":
+            let recipient = segue.destination as! TreasureHuntPlayViewController
+            let selected = collection.indexPathsForSelectedItems!.first!.item
+            recipient.hunt = getActiveHunts().hunts[selected - 1]
         default:
             break
         }

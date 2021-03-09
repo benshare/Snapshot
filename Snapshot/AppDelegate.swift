@@ -46,12 +46,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func runOnLaunch() {
 //        UserDefaults.resetDefaults()
         loadActiveUserFromSaved()
-//        generateNewLayout(name: "EditClueViewController", elements: [
-//                            ("navigationBar", "NavigationBarView"),
-//                            ("clueLocation", "MKMapView"),
-//                            ("clueText" , "UITextView"),
-//                            ("isStartingButton", "UIButton"),
-//                            ("addImageButton" , "UIButton"),
+//        generateNewLayout(name: "TreasureHuntPlay", elements: [
+//                            ("map", "MKMapView"),
+//                            ("backButton", "UIButton"),
+//                            ("cluesButton" , "UIButton"),
+//                            ("infoButton", "UIButton"),
 //                            ])
     }
     

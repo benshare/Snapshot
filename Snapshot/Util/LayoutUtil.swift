@@ -259,7 +259,7 @@ func generateNewLayout(name: String, elements: [(String, String)]) {
     print("""
     import UIKit
 
-    class \(name)ViewLayout {
+    class \(name)Layout {
         // MARK: Properties
         
         // UI elements
@@ -279,7 +279,7 @@ func generateNewLayout(name: String, elements: [(String, String)]) {
     \(elements.map( { "\t\tself.\($0.0) = \($0.0)" } ).joined(separator: "\n"))
 
             doNotAutoResize(views: [\(elements.map( { $0.0 } ).joined(separator: ", "))])
-            setTextToDefaults(labels: [])
+            setLabelsToDefaults(labels: [])
             setButtonsToDefaults(buttons: [])
             
             // Portrait
