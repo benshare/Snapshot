@@ -113,12 +113,8 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     private func displayOptionsForHunt() {
         popup?.removeFromSuperview()
         
-        let dismisser = UIView(frame: collection.frame)
-        collection.addSubview(dismisser)
-        collection.sendSubviewToBack(dismisser)
-        dismisser.addTapEvent {
+        collection.addOneTimeTapEvent {
             self.popup!.removeFromSuperview()
-            dismisser.removeFromSuperview()
         }
         
         self.popup = PopupOptionsView()
@@ -136,29 +132,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
             self.popup!.removeFromSuperview()
         })
         popup!.configureView()
-        anchorToSelectedCell(popup: popup!)
-    }
-    
-    private func anchorToSelectedCell(popup: PopupOptionsView) {
-        let cell = collection.cellForItem(at: collection.indexPathsForSelectedItems!.first!)!
-        // Default is to the right
-        if view.bounds.contains(cell.center.applying(CGAffineTransform(translationX: PopupOptionsView.viewWidth, y: 0))) {
-            popup.leftAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
-            // Secondary default is down
-            if view.bounds.contains(cell.center.applying(CGAffineTransform(translationX: PopupOptionsView.viewWidth, y: PopupOptionsView.viewWidth * CGFloat(popup.buttons.count) * PopupOptionsView.buttonRatio))) {
-                popup.topAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
-                return
-            }
-            popup.bottomAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
-            return
-        }
-        // Same, but now on the left
-        popup.rightAnchor.constraint(equalTo: cell.centerXAnchor).isActive = true
-        if view.bounds.contains(cell.center.applying(CGAffineTransform(translationX: -PopupOptionsView.viewWidth, y: PopupOptionsView.viewWidth * CGFloat(popup.buttons.count) * PopupOptionsView.buttonRatio))) {
-            popup.topAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
-            return
-        }
-        popup.bottomAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+        popup!.anchorToView(anchorView: collection.cellForItem(at: collection.indexPathsForSelectedItems!.first!)!, superview: view)
     }
     
     // MARK: Deletion

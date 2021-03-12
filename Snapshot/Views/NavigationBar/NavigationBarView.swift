@@ -69,7 +69,7 @@ class NavigationBarView: UIView, UITextFieldDelegate {
     }
     
     func setEditableTitle(background: UIView, text: String, placeholder: String) {
-        background.addTapEvent {
+        background.addPermanentTapEvent {
             self.endEditing(true)
         }
         

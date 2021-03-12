@@ -43,7 +43,7 @@ class MainMenuViewController: UIViewController {
             rowView.backgroundColor = .white
             
             addIconToView(view: rowView, name: icon)
-            rowView.addTapEvent {
+            rowView.addPermanentTapEvent {
                 self.performSegue(withIdentifier: segue, sender: self)
             }
         }

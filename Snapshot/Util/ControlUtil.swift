@@ -29,12 +29,11 @@ extension UIControl {
 }
 
 extension UIView {
-    func addTapEvent(for controlEvents: UIControl.Event = .touchUpInside, _ closure: @escaping ()->()) {
+    private func addTapEvent(for controlEvents: UIControl.Event = .touchUpInside, _ closure: @escaping ()->(), oneTime: Bool) {
         let button = UIButton()
-        button.accessibilityIdentifier = "tapEventButton"
+        button.accessibilityIdentifier = "tapEventTrigger"
         button.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(button)
-//        self.sendSubviewToBack(button)
         NSLayoutConstraint.activate([
             button.widthAnchor.constraint(equalTo: self.widthAnchor),
             button.heightAnchor.constraint(equalTo: self.heightAnchor),
@@ -42,5 +41,27 @@ extension UIView {
             button.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
         button.addAction(closure)
+        if oneTime {
+            button.addAction {
+                button.removeFromSuperview()
+            }
+        }
+    }
+    
+    func addPermanentTapEvent(for controlEvents: UIControl.Event = .touchUpInside, _ closure: @escaping ()->()) {
+        self.addTapEvent(for: controlEvents, closure, oneTime: false)
+    }
+    
+    func addOneTimeTapEvent(for controlEvents: UIControl.Event = .touchUpInside, _ closure: @escaping ()->()) {
+        self.addTapEvent(for: controlEvents, closure, oneTime: true)
+    }
+    
+    func removeTapEvent() {
+        for subview in subviews {
+            if subview.accessibilityIdentifier == "tapEventTrigger" {
+                subview.removeFromSuperview()
+                break
+            }
+        }
     }
 }

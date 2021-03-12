@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func runOnLaunch() {
-//        UserDefaults.resetDefaults()
+        UserDefaults.resetDefaults()
         loadActiveUserFromSaved()
 //        generateNewLayout(name: "FullClue", elements: [
 //                            ("titleLabel", "UILabel"),

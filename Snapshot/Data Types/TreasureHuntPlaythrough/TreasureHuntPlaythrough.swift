@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MapKit
 
 class TreasureHuntPlaythrough {
     let hunt: TreasureHunt
@@ -19,9 +20,17 @@ class TreasureHuntPlaythrough {
     }
     
     func unlockClue() -> Clue {
+        print("Current target location is \(nextLocation())")
         let clue = hunt.clues[nextClueNum]
         unlockedClues.append(clue)
         nextClueNum += 1
         return clue
+    }
+    
+    func nextLocation() -> CLLocationCoordinate2D? {
+        if hunt.clues.count > nextClueNum {
+            return hunt.clues[nextClueNum].location
+        }
+        return nil
     }
 }

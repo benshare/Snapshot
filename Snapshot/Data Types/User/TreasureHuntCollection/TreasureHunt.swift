@@ -20,7 +20,7 @@ class TreasureHunt: Codable {
     var clues: [Clue]
     private var region: MKCoordinateRegion
     private var notes: String
-    private var clueRadius: Double
+    var clueRadius: Double
     
     // MARK: Codable
     enum CodingKeys: String, CodingKey {
@@ -57,6 +57,6 @@ class TreasureHunt: Codable {
         self.clues = [Clue]()
         self.region = MKCoordinateRegion()
         self.notes = ""
-        self.clueRadius = 0.01
+        self.clueRadius = 100
     }
 }

@@ -24,6 +24,8 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
     var playthrough: TreasureHuntPlaythrough!
     var fullClueView: FullClueView!
     var cluesPopup: PopupOptionsView!
+    var nextLocation: CLLocationCoordinate2D!
+    var checkForRadius: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,15 +35,12 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
         redrawScene()
 
         map.delegate = self
-        let startingClue = playthrough.unlockClue()
-        map.setCenter(startingClue.location, animated: false)
-        map.setRegion(MKCoordinateRegion(center: startingClue.location, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: false)
+        unlockClue()
         
         backButton.addAction {
             self.dismiss(animated: true, completion: nil)
         }
         cluesButton.addAction(displayCluesPopup)
-        displayClue(clue: startingClue, isNew: true)
     }
     
     // MARK: UI
@@ -57,55 +56,74 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
     }
 
     // MARK: Clues
-    private func displayClue(clue: Clue, isNew: Bool, clueNum: Int? = nil) {
-        fullClueView = FullClueView(text: clue.text, isNew: isNew, clueNum: clueNum)
-        view.addSubview(fullClueView)
-        fullClueView.configureView()
-        doNotAutoResize(view: fullClueView)
-        let clueConstraints = [
-            fullClueView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-            fullClueView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.8),
-            fullClueView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            fullClueView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        ]
-        NSLayoutConstraint.activate(clueConstraints)
-        fullClueView.redrawScene()
+    private func unlockClue() {
+        let newClue = playthrough.unlockClue()
+        map.setCenter(newClue.location, animated: false)
+        map.setRegion(MKCoordinateRegion(center: newClue.location, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: false)
         
-        view.addTapEvent {
-            NSLayoutConstraint.deactivate(clueConstraints)
-            self.disappearVisibleClue()
-            for subview in self.view.subviews {
-                if subview.accessibilityIdentifier == "tapEventButton" {
-                    subview.removeFromSuperview()
-                    break
-                }
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = newClue.location
+        annotation.title = String(playthrough.nextClueNum)
+        map.addAnnotation(annotation)
+        
+        displayClue(clue: newClue, isNew: true)
+        checkForRadius = true
+        
+        
+        nextLocation = playthrough.nextLocation()
+        if nextLocation == nil {
+            print("Congrats! You finished the hunt")
+            view.isUserInteractionEnabled = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4)) {
+                self.dismiss(animated: true, completion: nil)
             }
+        } else {
+            checkForRadius = true
         }
     }
     
-    private func disappearVisibleClue() {
-        fullClueView.translatesAutoresizingMaskIntoConstraints = true
-        fullClueView.frame = view.frame.applying(CGAffineTransform(scaleX: 0.8, y: 0.8))
-        self.fullClueView.center = view.center
+    private func displayClue(clue: Clue, isNew: Bool, clueNum: Int? = nil, center: CGPoint? = nil) {
+        fullClueView = FullClueView(text: clue.text, isNew: isNew, clueNum: clueNum)
+        view.addSubview(fullClueView)
+        fullClueView.configureView()
+        if isNew {
+            self.fullClueView.frame.size = CGSize(width: view.frame.width * 0.1, height: view.frame.height * 0.1)
+            self.fullClueView.center = view.center
+        } else {
+            self.fullClueView.frame.size = CGSize(width: map.frame.width * 0.1, height: map.frame.height * 0.1)
+            self.fullClueView.center = center!
+        }
+        fullClueView.redrawScene()
         self.fullClueView.layoutSubviews()
+        UIView.animate(withDuration: 1, delay: isNew ? 1 : 0, animations: {
+            self.fullClueView.frame.size = CGSize(width: self.view.frame.width * 0.8, height: self.view.frame.height * 0.8)
+            self.fullClueView.center = self.view.center
+            self.fullClueView.layoutSubviews()
+        }, completion: { _ in self.map.isUserInteractionEnabled = true })
+        view.addOneTimeTapEvent {
+            self.disappearVisibleClue(to: center ?? self.view.center)
+        }
+    }
+    
+    private func disappearVisibleClue(to: CGPoint) {
         UIView.animate(withDuration: 0.5, animations: {
-            self.fullClueView.frame = self.cluesButton.frame
+            self.fullClueView.frame = CGRect(x: to.x - 25, y: to.y - 25, width: 50, height: 50)
             self.fullClueView.layoutSubviews()
         }, completion: { _ in self.fullClueView.removeFromSuperview() })
     }
     
     private func displayCluesPopup() {
+        view.addOneTimeTapEvent {
+            self.cluesPopup.removeFromSuperview()
+        }
+        
         cluesPopup = PopupOptionsView()
         for i in 0...playthrough.unlockedClues.count - 1 {
             let clue = playthrough.unlockedClues[i]
-            cluesPopup.addButton(name: i == 0 ? "Starting Clue" : "Clue #\(i)", callback: {
-                self.displayClue(clue: clue, isNew: false, clueNum: i)
-                for subview in self.view.subviews {
-                    if subview.accessibilityIdentifier == "tapEventButton" {
-                        subview.removeFromSuperview()
-                        break
-                    }
-                }
+            cluesPopup.addButton(name: "Clue #\(i + 1)", callback: {
+                self.displayClue(clue: clue, isNew: false, clueNum: i + 1, center: self.cluesPopup.center)
+                self.cluesPopup.removeFromSuperview()
+                self.view.removeTapEvent()
             })
         }
         view.addSubview(cluesPopup)
@@ -115,15 +133,55 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
             cluesPopup.bottomAnchor.constraint(equalTo: cluesButton.centerYAnchor),
         ])
         cluesPopup.configureView(setButtonDefaults: true)
-        
-        view.addTapEvent {
-            self.cluesPopup.removeFromSuperview()
-            for subview in self.view.subviews {
-                if subview.accessibilityIdentifier == "tapEventButton" {
-                    subview.removeFromSuperview()
-                    break
-                }
-            }
+    }
+    
+    // MARK: MKMapViewDelegate
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
         }
+        var annotationView: MKAnnotationView! = mapView.dequeueReusableAnnotationView(withIdentifier: "clue")
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "clue")
+            annotationView.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+            annotationView.backgroundColor = .lightGray
+            annotationView.alpha = 0.8
+            
+            let imageView = UIImageView(frame: annotationView.frame)
+            annotationView.addSubview(imageView)
+            imageView.image = UIImage(named: "ScrollIcon")
+            
+            let textView = UILabel(frame: annotationView.frame)
+            setLabelsToDefaults(labels: [textView])
+            textView.text = annotation.title!
+            textView.font = UIFont.systemFont(ofSize: 30)
+            textView.textColor = .white
+            annotationView.addSubview(textView)
+        } else {
+            annotationView!.removeTapEvent()
+        }
+        annotationView.annotation = annotation
+        let index = Int(annotation.title!!)!
+        annotationView.addPermanentTapEvent {
+            self.displayClue(clue: self.playthrough.hunt.clues[index - 1], isNew: false, clueNum: index, center: annotationView.center)
+        }
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        if !checkForRadius {
+            return
+        }
+        if isWithinRange(coordinate: map.centerCoordinate) {
+            checkForRadius = false
+            map.centerCoordinate = nextLocation
+            map.isUserInteractionEnabled = false
+            unlockClue()
+        }
+    }
+    
+    func isWithinRange(coordinate: CLLocationCoordinate2D) -> Bool {
+        let distance = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude).distance(from: CLLocation(latitude: nextLocation.latitude, longitude: nextLocation.longitude))
+        return distance < playthrough.hunt.clueRadius
     }
 }

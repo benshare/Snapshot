@@ -10,8 +10,8 @@ import UIKit
 
 class PopupOptionsView: UIView {
     var buttons = [UIButton]()
-    static let viewWidth: CGFloat = 80
-    static let buttonRatio: CGFloat = 0.4
+    static let viewWidth: CGFloat = 100
+    static let buttonRatio: CGFloat = 0.5
     
     init() {
         super.init(frame: CGRect.zero)
@@ -44,7 +44,7 @@ class PopupOptionsView: UIView {
         doNotAutoResize(views: [self] + buttons)
         self.widthAnchor.constraint(equalToConstant: PopupOptionsView.viewWidth).isActive = true
         if setButtonDefaults {
-            setButtonsToDefaults(buttons: buttons)
+            setButtonsToDefaults(buttons: buttons, withInsets: 10)
         }
         
         var constraints = buttons.map( { $0.widthAnchor.constraint(equalTo: self.widthAnchor) })
@@ -61,5 +61,26 @@ class PopupOptionsView: UIView {
             }
         }
         NSLayoutConstraint.activate(constraints)
+    }
+    
+    func anchorToView(anchorView: UIView, superview: UIView) {
+        // Default is to the right
+        if superview.bounds.contains(anchorView.center.applying(CGAffineTransform(translationX: PopupOptionsView.viewWidth, y: 0))) {
+            self.leftAnchor.constraint(equalTo: anchorView.centerXAnchor).isActive = true
+            // Secondary default is down
+            if superview.bounds.contains(anchorView.center.applying(CGAffineTransform(translationX: PopupOptionsView.viewWidth, y: PopupOptionsView.viewWidth * CGFloat(self.buttons.count) * PopupOptionsView.buttonRatio))) {
+                self.topAnchor.constraint(equalTo: anchorView.centerYAnchor).isActive = true
+                return
+            }
+            self.bottomAnchor.constraint(equalTo: anchorView.centerYAnchor).isActive = true
+            return
+        }
+        // Same, but now on the left
+        self.rightAnchor.constraint(equalTo: anchorView.centerXAnchor).isActive = true
+        if superview.bounds.contains(anchorView.center.applying(CGAffineTransform(translationX: -PopupOptionsView.viewWidth, y: PopupOptionsView.viewWidth * CGFloat(self.buttons.count) * PopupOptionsView.buttonRatio))) {
+            self.topAnchor.constraint(equalTo: anchorView.centerYAnchor).isActive = true
+            return
+        }
+        self.bottomAnchor.constraint(equalTo: anchorView.centerYAnchor).isActive = true
     }
 }

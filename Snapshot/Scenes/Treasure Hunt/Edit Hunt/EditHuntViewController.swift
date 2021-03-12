@@ -62,7 +62,7 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
             newClueView.widthAnchor.constraint(equalTo: clueList.widthAnchor),
             newClueView.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.2),
         ])
-        newClueView.addTapEvent {
+        newClueView.addPermanentTapEvent {
             let loc = self.clueList.count() == 1 ? self.userLocation : (self.hunt.clues.last?.location)!
             let newClue = Clue(location: loc)
             self.hunt.clues.append(newClue)
@@ -95,7 +95,7 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
             row.widthAnchor.constraint(equalTo: clueList.widthAnchor),
             row.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.2),
         ])
-        row.addTapEvent {
+        row.addPermanentTapEvent {
             self.clueEditing = clue
             self.listIndexEditing = indInList
             self.performSegue(withIdentifier: "editClueSegue", sender: self)
