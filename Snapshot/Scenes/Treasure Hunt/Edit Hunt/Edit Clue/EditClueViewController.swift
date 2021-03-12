@@ -42,8 +42,13 @@ class EditClueViewController: UIViewController, UITextViewDelegate & MKMapViewDe
         clueLocation.setCenter(clue.location, animated: false)
         clueLocation.setRegion(MKCoordinateRegion(center: clue.location, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: false)
         clueLocation.delegate = self
+        let locationConstraints = getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: [clueLocation: (0, 0.3)]) + getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: [clueLocation: (0.5, 0.8)], parentView: view)
+        NSLayoutConstraint.activate(locationConstraints)
+        clueLocation.addOneTimeTapEvent {
+            self.layout.showFullViewMap(view: self.view, initialConstraints: locationConstraints)
+        }
         
-        mapCenter.title = "Center"
+        mapCenter.title = "Clue Location"
         mapCenter.coordinate = clue.location
         clueLocation.addAnnotation(mapCenter)
         
@@ -53,13 +58,6 @@ class EditClueViewController: UIViewController, UITextViewDelegate & MKMapViewDe
         
         startingButtonAndLabel.isHidden = true
         endingButtonAndLabel.isHidden = true
-//        startingButtonAndLabel.button.setBackgroundImage(UIImage(named: "checkboxEmpty"), for: .normal)
-//        startingButtonAndLabel.button.setTitle("", for: .normal)
-//        startingButtonAndLabel.label.text = "Starting clue?"
-//
-//        endingButtonAndLabel.button.setBackgroundImage(UIImage(named: "checkboxEmpty"), for: .normal)
-//        endingButtonAndLabel.button.setTitle("", for: .normal)
-//        endingButtonAndLabel.label.text = "Ending Message"
 
         layout = EditClueViewLayout(navigationBar: navigationBar, clueLocation: clueLocation, clueText: clueText, startingButtonAndLabel: startingButtonAndLabel, endingButtonAndLabel: endingButtonAndLabel)
         layout.configureConstraints(view: view)
@@ -73,6 +71,7 @@ class EditClueViewController: UIViewController, UITextViewDelegate & MKMapViewDe
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        layout.updateCircleSizes()
         redrawScene()
     }
     
@@ -85,4 +84,23 @@ class EditClueViewController: UIViewController, UITextViewDelegate & MKMapViewDe
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         mapCenter.coordinate = mapView.centerCoordinate
     }
+    
+//    func showFullViewMap(initialConstraints: [NSLayoutConstraint]) {
+//        NSLayoutConstraint.deactivate(initialConstraints)
+//        clueLocation.removeConstraints(initialConstraints)
+//        view.bringSubviewToFront(clueLocation)
+//
+//        let newConstraints = getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: [clueLocation: (1, 1)]) + getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: [clueLocation: (1, 1)], parentView: view)
+//        NSLayoutConstraint.activate(newConstraints)
+//
+//        let checkButton = UIButton()
+//        doNotAutoResize(view: checkButton)
+//        clueLocation.addSubview(checkButton)
+//        checkButton.setBackgroundImage(UIImage(named: "CheckmarkIcon"), for: .normal)
+//
+//        let buttonConstraints = getSizeConstraints(widthAnchor: clueLocation.widthAnchor, heightAnchor: clueLocation.heightAnchor, sizeMap: [checkButton: (0.1, 0)]) + getSpacingConstraints(leftAnchor: clueLocation.leftAnchor, widthAnchor: clueLocation.widthAnchor, topAnchor: clueLocation.topAnchor, heightAnchor: clueLocation.heightAnchor, spacingMap: [checkButton: (0.9, 0.1)], parentView: clueLocation)
+//        NSLayoutConstraint.activate(buttonConstraints)
+//
+//
+//    }
 }

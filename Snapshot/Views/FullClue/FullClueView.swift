@@ -28,6 +28,7 @@ class FullClueView: UIView {
         titleLabel.numberOfLines = 2
         clueText = UILabel()
         clueText.text = text
+        clueText.numberOfLines = 0
         super.init(frame: CGRect.zero)
     }
     

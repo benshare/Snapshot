@@ -29,6 +29,9 @@ class EditClueViewLayout {
     private var portraitConstraints = [NSLayoutConstraint]()
     private var landscapeConstraints = [NSLayoutConstraint]()
     
+    // Other
+    private var circularViews = [UIView]()
+    
     init(navigationBar: NavigationBarView, clueLocation: MKMapView, clueText: UITextView, startingButtonAndLabel: ButtonAndLabel, endingButtonAndLabel: ButtonAndLabel) {
         self.navigationBar = navigationBar
         self.clueLocation = clueLocation
@@ -48,7 +51,7 @@ class EditClueViewLayout {
         portraitSizeMap = [
             navigationBar: (1, 0.2),
             clueText: (0.7, 0.3),
-            clueLocation: (0, 0.3),
+//            clueLocation: (0, 0.3),
 //            startingButtonAndLabel: (0.25, 0.15),
 //            endingButtonAndLabel: (0.25, 0.15),
         ]
@@ -56,7 +59,7 @@ class EditClueViewLayout {
         portraitSpacingMap = [
             navigationBar: (0.5, 0.1),
             clueText: (0.5, 0.4),
-            clueLocation: (0.5, 0.8),
+//            clueLocation: (0.5, 0.8),
 //            startingButtonAndLabel: (0.33, 0.9),
 //            endingButtonAndLabel: (0.67, 0.9),
         ]
@@ -80,7 +83,6 @@ class EditClueViewLayout {
     }
     
     // MARK: Constraints
-    
     func configureConstraints(view: UIView)  {
         view.backgroundColor = globalBackgroundColor()
         
@@ -102,6 +104,38 @@ class EditClueViewLayout {
     }
     
     // MARK: Other UI
+    func updateCircleSizes() {
+        makeViewsCircular(views: circularViews)
+    }
+    
+    func showFullViewMap(view: UIView, initialConstraints: [NSLayoutConstraint]) {
+        clueLocation.removeConstraints(initialConstraints)
+        view.removeConstraints(initialConstraints)
+        view.bringSubviewToFront(clueLocation)
+        clueLocation.isUserInteractionEnabled = true
+        
+        let newConstraints = getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: [clueLocation: (1, 1)]) + getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: [clueLocation: (0.5, 0.5)], parentView: view)
+        NSLayoutConstraint.activate(newConstraints)
+        
+        let checkButton = UIButton()
+        doNotAutoResize(view: checkButton)
+        clueLocation.addSubview(checkButton)
+        checkButton.setBackgroundImage(UIImage(named: "CheckmarkIcon"), for: .normal)
+        checkButton.alpha = 0.7
+        
+        let buttonConstraints = getSizeConstraints(widthAnchor: clueLocation.widthAnchor, heightAnchor: clueLocation.heightAnchor, sizeMap: [checkButton: (0.1, 0)]) + getSpacingConstraints(leftAnchor: clueLocation.leftAnchor, widthAnchor: clueLocation.widthAnchor, topAnchor: clueLocation.topAnchor, heightAnchor: clueLocation.heightAnchor, spacingMap: [checkButton: (0.9, 0.08)], parentView: clueLocation)
+        NSLayoutConstraint.activate(buttonConstraints)
+        
+        checkButton.addAction {
+            self.clueLocation.removeConstraints(newConstraints)
+            view.removeConstraints(newConstraints)
+            NSLayoutConstraint.activate(initialConstraints)
+            checkButton.removeFromSuperview()
+            self.clueLocation.addOneTimeTapEvent {
+                self.showFullViewMap(view: view, initialConstraints: initialConstraints)
+            }
+        }
+    }
 }
 
 class ButtonAndLabel: UIView {

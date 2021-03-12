@@ -20,7 +20,6 @@ class TreasureHuntPlaythrough {
     }
     
     func unlockClue() -> Clue {
-        print("Current target location is \(nextLocation())")
         let clue = hunt.clues[nextClueNum]
         unlockedClues.append(clue)
         nextClueNum += 1
