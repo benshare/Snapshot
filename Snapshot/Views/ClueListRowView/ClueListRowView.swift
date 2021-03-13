@@ -8,15 +8,25 @@
 import Foundation
 import UIKit
 
+public enum RowType {
+    case start, clue
+}
+
 class ClueListRowView: UIView {
     // MARK: Variables
     // Elements
     private let indexLabel = UILabel()
     private let divider = UIView()
     private let clueLabel = UILabel()
+    let upArrow = UIButton()
+    let downArrow = UIButton()
+    let deleteButton = UIButton()
     
     // Layout
     private var layout: ClueListRowViewLayout!
+    
+    // Data
+    var index: Int!
     
     // MARK: Initialization
     init(index: Int, text: String) {
@@ -24,15 +34,23 @@ class ClueListRowView: UIView {
         self.addSubview(indexLabel)
         self.addSubview(divider)
         self.addSubview(clueLabel)
-        layout = ClueListRowViewLayout(indexLabel: indexLabel, divider: divider, clueLabel: clueLabel)
+        self.addSubview(upArrow)
+        self.addSubview(downArrow)
+        self.addSubview(deleteButton)
+        layout = ClueListRowViewLayout(indexLabel: indexLabel, divider: divider, clueLabel: clueLabel, upArrow: upArrow, downArrow: downArrow, deleteButton: deleteButton, rowType: index == 0 ? .start : .clue)
         layout.configureConstraints(view: self)
         redrawScene()
 
-        updateIndex(index: index)
+        self.index = index
+        updateIndexLabel()
 
         divider.backgroundColor = .black
 
         clueLabel.text = textToDisplay(text: text)
+        
+        upArrow.setBackgroundImage(UIImage(named: "ArrowUpIcon"), for: .normal)
+        downArrow.setBackgroundImage(UIImage(named: "ArrowDownIcon"), for: .normal)
+        deleteButton.setBackgroundImage(UIImage(named: "TrashIcon"), for: .normal)
     }
     
     required init?(coder: NSCoder) {
@@ -46,12 +64,10 @@ class ClueListRowView: UIView {
     }
     
     // MARK: Content
-    func updateIndex(index: Int) {
+    func updateIndexLabel() {
         switch index {
         case 0:
             indexLabel.text = "Start"
-        case -1:
-            indexLabel.text = "End"
         default:
             indexLabel.text = String(index)
         }
@@ -80,5 +96,25 @@ class ClueListRowView: UIView {
             return String(prefix.prefix(upTo: returnIndex)) + "..."
         }
         return String(prefix) + "..."
+    }
+    
+    func disableUpArrow() {
+        upArrow.isEnabled = false
+        upArrow.tintColor = .gray
+    }
+    
+    func enableUpArrow() {
+        upArrow.isEnabled = true
+        upArrow.tintColor = .none
+    }
+    
+    func disableDownArrow() {
+        downArrow.isEnabled = false
+        downArrow.tintColor = .gray
+    }
+    
+    func enableDownArrow() {
+        downArrow.isEnabled = true
+        downArrow.tintColor = .none
     }
 }

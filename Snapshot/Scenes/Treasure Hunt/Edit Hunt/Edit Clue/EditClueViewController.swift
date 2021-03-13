@@ -84,23 +84,4 @@ class EditClueViewController: UIViewController, UITextViewDelegate & MKMapViewDe
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         mapCenter.coordinate = mapView.centerCoordinate
     }
-    
-//    func showFullViewMap(initialConstraints: [NSLayoutConstraint]) {
-//        NSLayoutConstraint.deactivate(initialConstraints)
-//        clueLocation.removeConstraints(initialConstraints)
-//        view.bringSubviewToFront(clueLocation)
-//
-//        let newConstraints = getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: [clueLocation: (1, 1)]) + getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: [clueLocation: (1, 1)], parentView: view)
-//        NSLayoutConstraint.activate(newConstraints)
-//
-//        let checkButton = UIButton()
-//        doNotAutoResize(view: checkButton)
-//        clueLocation.addSubview(checkButton)
-//        checkButton.setBackgroundImage(UIImage(named: "CheckmarkIcon"), for: .normal)
-//
-//        let buttonConstraints = getSizeConstraints(widthAnchor: clueLocation.widthAnchor, heightAnchor: clueLocation.heightAnchor, sizeMap: [checkButton: (0.1, 0)]) + getSpacingConstraints(leftAnchor: clueLocation.leftAnchor, widthAnchor: clueLocation.widthAnchor, topAnchor: clueLocation.topAnchor, heightAnchor: clueLocation.heightAnchor, spacingMap: [checkButton: (0.9, 0.1)], parentView: clueLocation)
-//        NSLayoutConstraint.activate(buttonConstraints)
-//
-//
-//    }
 }

@@ -69,7 +69,8 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
             self.addRowToList(indInList: self.clueList.count() - 1)
             if self.clueList.count() > 3 {
                 if let row = self.clueList.elementAtIndex(index: self.clueList.count() - 3) as? ClueListRowView {
-                    row.updateIndex(index: self.clueList.count() - 3)
+                    row.index = self.clueList.count() - 3
+                    row.updateIndexLabel()
                 }
             }
             didUpdateActiveUser()
@@ -77,28 +78,6 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
             self.clueEditing = newClue
             self.listIndexEditing = self.clueList.count() - 2
             self.performSegue(withIdentifier: "newClueSegue", sender: self)
-        }
-    }
-    
-    private func addRowToList(indInList: Int) {
-        let clue = hunt.clues[indInList]
-        
-        var indToPass = indInList
-        if hunt.clues.count > 1 {
-            if indToPass == hunt.clues.count - 1 {
-                indToPass = -1
-            }
-        }
-        let row = ClueListRowView(index: indToPass, text: clue.text)
-        clueList.insertInStack(view: row, index: indInList)
-        NSLayoutConstraint.activate([
-            row.widthAnchor.constraint(equalTo: clueList.widthAnchor),
-            row.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.2),
-        ])
-        row.addPermanentTapEvent {
-            self.clueEditing = clue
-            self.listIndexEditing = indInList
-            self.performSegue(withIdentifier: "editClueSegue", sender: self)
         }
     }
     
@@ -115,11 +94,76 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: Cells
+    private func addRowToList(indInList: Int) {
+        let clue = hunt.clues[indInList]
+        
+        if indInList > 1 {
+            if let lastRow = clueList.elementAtIndex(index: clueList.count() - 1) as? ClueListRowView {
+                lastRow.enableDownArrow()
+            } else {
+                (clueList.elementAtIndex(index: clueList.count() - 2) as! ClueListRowView).enableDownArrow()
+            }
+        }
+        let row = ClueListRowView(index: indInList, text: clue.text)
+        clueList.insertInStack(view: row, index: indInList)
+        NSLayoutConstraint.activate([
+            row.widthAnchor.constraint(equalTo: clueList.widthAnchor),
+            row.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.2),
+        ])
+        row.addPermanentTapEvent {
+            self.clueEditing = clue
+            self.listIndexEditing = indInList
+            self.performSegue(withIdentifier: "editClueSegue", sender: self)
+        }
+        row.upArrow.addAction {
+            self.swapCells(firstInd: row.index - 1)
+        }
+        row.downArrow.addAction {
+            self.swapCells(firstInd: row.index)
+        }
+        row.deleteButton.addAction {
+        }
+        row.bringSubviewToFront(row.upArrow)
+        row.bringSubviewToFront(row.downArrow)
+        row.bringSubviewToFront(row.deleteButton)
+        if indInList == 1 {
+            row.disableUpArrow()
+        }
+        row.disableDownArrow()
+    }
+    
     func processEditToClue(index: Int) {
         let row = self.clueList.elementAtIndex(index: index) as! ClueListRowView
         row.updateClue(text: self.clueEditing!.text)
         clueEditing = nil
         listIndexEditing = nil
+    }
+    
+    func swapCells(firstInd: Int) {
+        print("Swapping indices \(firstInd) and \(firstInd + 1)")
+        print("cluelist count = \(clueList.count())")
+        let first = clueList.elementAtIndex(index: firstInd) as! ClueListRowView
+        let second = clueList.elementAtIndex(index: firstInd + 1) as! ClueListRowView
+        clueList.removeFromStack(view: second)
+        clueList.insertInStack(view: second, index: firstInd)
+        
+        first.index = firstInd + 1
+        first.updateIndexLabel()
+        second.index = firstInd
+        second.updateIndexLabel()
+        
+        if firstInd == 1 {
+            second.disableUpArrow()
+            first.enableUpArrow()
+        }
+        if firstInd == clueList.count() - 3 {
+            second.enableDownArrow()
+            first.disableDownArrow()
+        }
+        
+        let secondClue = hunt.clues.remove(at: firstInd)
+        hunt.clues.insert(secondClue, at: firstInd - 1)
+        didUpdateActiveUser()
     }
     
     // MARK: Clue Text

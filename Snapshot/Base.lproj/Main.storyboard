@@ -174,8 +174,8 @@
                         <outlet property="clueList" destination="nOp-IJ-xCD" id="CqK-2D-ncH"/>
                         <outlet property="navigationBar" destination="XuA-IR-xOJ" id="Hwo-qm-pas"/>
                         <outlet property="preferences" destination="4Hb-Sl-FrV" id="mDv-5K-wjp"/>
-                        <segue destination="NnN-iN-03Y" kind="presentation" identifier="newClueSegue" modalTransitionStyle="flipHorizontal" id="9j6-rQ-fcO"/>
-                        <segue destination="NnN-iN-03Y" kind="presentation" identifier="editClueSegue" modalTransitionStyle="flipHorizontal" id="B67-W3-2kg"/>
+                        <segue destination="NnN-iN-03Y" kind="presentation" identifier="newClueSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="9j6-rQ-fcO"/>
+                        <segue destination="NnN-iN-03Y" kind="presentation" identifier="editClueSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="B67-W3-2kg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JAF-jU-Sec" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -187,7 +187,7 @@
             <objects>
                 <viewController id="NnN-iN-03Y" customClass="EditClueViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6zD-5U-xPf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pMv-FX-2Xo" userLabel="Navigation Bar" customClass="NavigationBarView" customModule="Snapshot" customModuleProvider="target">
