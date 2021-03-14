@@ -31,13 +31,15 @@ class EditClueViewLayout {
     
     // Other
     private var circularViews = [UIView]()
+    private var clueType: RowType
     
-    init(navigationBar: NavigationBarView, clueLocation: MKMapView, clueText: UITextView, startingButtonAndLabel: ButtonAndLabel, endingButtonAndLabel: ButtonAndLabel) {
+    init(navigationBar: NavigationBarView, clueLocation: MKMapView, clueText: UITextView, startingButtonAndLabel: ButtonAndLabel, endingButtonAndLabel: ButtonAndLabel, clueType: RowType = .clue) {
         self.navigationBar = navigationBar
         self.clueLocation = clueLocation
         self.clueText = clueText
         self.startingButtonAndLabel = startingButtonAndLabel
         self.endingButtonAndLabel = endingButtonAndLabel
+        self.clueType = clueType
 
         doNotAutoResize(views: [navigationBar, clueLocation, clueText, startingButtonAndLabel, endingButtonAndLabel])
 //        setLabelsToDefaults(labels: [])
@@ -46,22 +48,16 @@ class EditClueViewLayout {
         clueText.layer.borderWidth = 2
         clueText.layer.borderColor = UIColor.lightGray.cgColor
         clueText.font = UIFont.systemFont(ofSize: 20)
-        
+            
         // Portrait
         portraitSizeMap = [
             navigationBar: (1, 0.2),
             clueText: (0.7, 0.3),
-//            clueLocation: (0, 0.3),
-//            startingButtonAndLabel: (0.25, 0.15),
-//            endingButtonAndLabel: (0.25, 0.15),
         ]
         
         portraitSpacingMap = [
             navigationBar: (0.5, 0.1),
             clueText: (0.5, 0.4),
-//            clueLocation: (0.5, 0.8),
-//            startingButtonAndLabel: (0.33, 0.9),
-//            endingButtonAndLabel: (0.67, 0.9),
         ]
         
         // Landscape

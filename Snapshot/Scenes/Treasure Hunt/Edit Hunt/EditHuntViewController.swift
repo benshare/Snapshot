@@ -54,6 +54,10 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
             startingRow.widthAnchor.constraint(equalTo: clueList.widthAnchor),
             startingRow.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.16),
         ])
+        startingRow.addPermanentTapEvent {
+            self.listIndexEditing = 0
+            self.performSegue(withIdentifier: "editClueSegue", sender: self)
+        }
         
         if hunt.clues.count > 0 {
             for ind in 0...hunt.clues.count - 1 {
@@ -169,11 +173,12 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
                 (clueList.elementAtIndex(index: listIndexEditing - 1) as! ClueListRowView).disableDownArrow()
             }
         }
-        
-        for index in listIndexEditing...clueList.count() - 2 {
-            let row = clueList.elementAtIndex(index: index) as! ClueListRowView
-            row.index = index
-            row.updateIndexLabel()
+        if clueList.count() - 2 > listIndexEditing {
+            for index in listIndexEditing...clueList.count() - 2 {
+                let row = clueList.elementAtIndex(index: index) as! ClueListRowView
+                row.index = index
+                row.updateIndexLabel()
+            }
         }
         
         hunt.clues.remove(at: listIndexEditing - 1)
@@ -219,6 +224,10 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
             destination.listIndex = listIndexEditing!
             destination.clue = clueEditing
             destination.parentController = self
+            destination.clueType = listIndexEditing == 0 ? .start : .clue
+            if listIndexEditing == 0 {
+                destination.huntIfStart = hunt
+            }
         default:
             fatalError("Unexpected segue from EditHuntView: \(String(describing: segue.identifier))")
         }

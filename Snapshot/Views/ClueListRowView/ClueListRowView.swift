@@ -67,7 +67,7 @@ class ClueListRowView: UIView {
     func updateIndexLabel() {
         switch index {
         case 0:
-            indexLabel.text = "Start"
+            indexLabel.text = "Starting location"
         default:
             indexLabel.text = String(index)
         }

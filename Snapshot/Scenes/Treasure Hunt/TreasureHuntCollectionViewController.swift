@@ -42,7 +42,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     }
     
     // MARK: UI
-    private func redrawScene() {
+    func redrawScene() {
         let isPortrait = orientationIsPortrait()
         layout.activateConstraints(isPortrait: isPortrait)
         navigationBar.redrawScene()
@@ -56,8 +56,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     }
     
     func reloadCell(index: Int) {
-        collection.reloadData()
-        layout.updateCircleSizes()
+        collection.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
     
     // MARK: UICollectionViewDataSource
@@ -113,7 +112,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     private func displayOptionsForHunt() {
         popup?.removeFromSuperview()
         
-        collection.addOneTimeTapEvent {
+        view.addOneTimeTapEvent {
             self.popup!.removeFromSuperview()
         }
         
@@ -122,14 +121,17 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         popup!.addButton(name: "Play", callback: {
             self.performSegue(withIdentifier: "playHuntSegue", sender: self)
             self.popup!.removeFromSuperview()
+            self.collection.removeTapEvent()
         }, isEnabled: getActiveHunts().hunts[collection.indexPathsForSelectedItems!.first!.item - 1].clues.count > 2)
         popup!.addButton(name: "Edit", callback: {
             self.performSegue(withIdentifier: "editHuntSegue", sender: self)
             self.popup!.removeFromSuperview()
+            self.collection.removeTapEvent()
         })
         popup!.addButton(name: "Delete", callback: {
             self.displayDeleteAlert()
             self.popup!.removeFromSuperview()
+            self.collection.removeTapEvent()
         })
         popup!.configureView()
         popup!.anchorToView(anchorView: collection.cellForItem(at: collection.indexPathsForSelectedItems!.first!)!, superview: view)

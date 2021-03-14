@@ -35,7 +35,12 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
         redrawScene()
 
         map.delegate = self
-        unlockClue()
+        map.setRegion(MKCoordinateRegion(center: playthrough.hunt.startingLocation, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: false)
+        
+        let currentClue = playthrough.getCurrentClue()
+        nextLocation = currentClue.location
+        checkForRadius = true
+        displayClue(clue: currentClue, isNew: true)
         
         backButton.addAction {
             self.dismiss(animated: true, completion: nil)
@@ -56,29 +61,23 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
     }
 
     // MARK: Clues
-    private func unlockClue() {
-        let newClue = playthrough.unlockClue()
-        map.setCenter(newClue.location, animated: false)
-        map.setRegion(MKCoordinateRegion(center: newClue.location, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: false)
-        
+    private func clueWasCompleted() {
         let annotation = MKPointAnnotation()
-        annotation.coordinate = newClue.location
-        annotation.title = String(playthrough.nextClueNum)
+        annotation.coordinate = playthrough.getCurrentClue().location
+        annotation.title = String(playthrough.currentClueNum)
         map.addAnnotation(annotation)
         
-        displayClue(clue: newClue, isNew: true)
-        checkForRadius = true
-        
-        
-        nextLocation = playthrough.nextLocation()
-        if nextLocation == nil {
+        if playthrough.unlockNextClue() {
+            let newClue = playthrough.getCurrentClue()
+            nextLocation = newClue.location
+            checkForRadius = true
+            displayClue(clue: newClue, isNew: true)
+        } else {
             print("Congrats! You finished the hunt")
             view.isUserInteractionEnabled = false
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4)) {
                 self.dismiss(animated: true, completion: nil)
             }
-        } else {
-            checkForRadius = true
         }
     }
     
@@ -176,7 +175,7 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
             checkForRadius = false
             map.centerCoordinate = nextLocation
             map.isUserInteractionEnabled = false
-            unlockClue()
+            clueWasCompleted()
         }
     }
     

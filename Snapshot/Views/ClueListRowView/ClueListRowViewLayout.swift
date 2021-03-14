@@ -51,7 +51,7 @@ class ClueListRowViewLayout {
             downArrow.isHidden = true
             deleteButton.isHidden = true
             portraitSizeMap = [
-                indexLabel: (0.2, 1),
+                indexLabel: (0.6, 1),
             ]
             
             portraitSpacingMap = [

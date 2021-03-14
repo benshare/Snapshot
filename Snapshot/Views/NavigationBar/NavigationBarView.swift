@@ -11,7 +11,7 @@ import UIKit
 class NavigationBarView: UIView, UITextFieldDelegate {
     // MARK: Variables
     // Elements
-    private var leftItem = UIButton()
+    var leftItem = UIButton()
     private var title = UILabel()
     private var rightItem = UIButton()
     private var editableTitle = UITextField()

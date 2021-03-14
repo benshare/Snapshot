@@ -26,35 +26,56 @@ class EditClueViewController: UIViewController, UITextViewDelegate & MKMapViewDe
     var listIndex: Int!
     var clue: Clue!
     var parentController: EditHuntViewController!
+    var clueType: RowType!
+    var huntIfStart: TreasureHunt!
     
     // MARK: Initialization
     override func viewDidLoad() {
-        navigationBar.addBackButton(text: "< Back", action: {
-            self.clueText.endEditing(true)
-            self.clue.text = self.clueText.text
-            self.clue.location = self.mapCenter.coordinate
-            didUpdateActiveUser()
-            self.parentController.processEditToClue(index: self.listIndex)
-            self.dismiss(animated: true)
-        })
-        navigationBar.setTitle(text: "Edit Clue")
+        if clueType! == .clue {
+            navigationBar.addBackButton(text: "< Back", action: {
+                self.clueText.endEditing(true)
+                self.clue.text = self.clueText.text
+                self.clue.location = self.mapCenter.coordinate
+                didUpdateActiveUser()
+                self.parentController.processEditToClue(index: self.listIndex)
+                self.dismiss(animated: true)
+            })
+            navigationBar.setTitle(text: "Edit Clue")
+            
+            clueLocation.setCenter(clue.location, animated: false)
+            clueLocation.setRegion(MKCoordinateRegion(center: clue.location, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: false)
+        } else {
+            navigationBar.addBackButton(text: "< Back", action: {
+                self.huntIfStart.startingLocation = self.mapCenter.coordinate
+                didUpdateActiveUser()
+                self.dismiss(animated: true)
+            })
+            navigationBar.setTitle(text: "Set Starting Location")
+            
+            clueText.isHidden = true
+            
+            clueLocation.setCenter(huntIfStart.startingLocation, animated: false)
+            clueLocation.setRegion(MKCoordinateRegion(center: huntIfStart.startingLocation, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: false)
+        }
         
-        clueLocation.setCenter(clue.location, animated: false)
-        clueLocation.setRegion(MKCoordinateRegion(center: clue.location, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: false)
         clueLocation.delegate = self
-        let locationConstraints = getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: [clueLocation: (0, 0.3)]) + getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: [clueLocation: (0.5, 0.8)], parentView: view)
+        let sizeMap: [UIView: (CGFloat, CGFloat)] = clueType! == .clue ? [clueLocation: (0, 0.3)] : [clueLocation: (0, 0.5)]
+        let spacingMap: [UIView: (CGFloat, CGFloat)] = clueType! == .clue ? [clueLocation: (0.5, 0.8)] : [clueLocation: (0.5, 0.5)]
+        let locationConstraints = getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: sizeMap) + getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: spacingMap, parentView: view)
         NSLayoutConstraint.activate(locationConstraints)
         clueLocation.addOneTimeTapEvent {
             self.layout.showFullViewMap(view: self.view, initialConstraints: locationConstraints)
         }
         
         mapCenter.title = "Clue Location"
-        mapCenter.coordinate = clue.location
+        mapCenter.coordinate = clueLocation.centerCoordinate
         clueLocation.addAnnotation(mapCenter)
         
-        clueText.text = clue.text
-        clueText.delegate = self
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backgroundTapped(sender:))))
+        if clueType! == .clue {
+            clueText.text = clue.text
+            clueText.delegate = self
+            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backgroundTapped(sender:))))
+        }
         
         startingButtonAndLabel.isHidden = true
         endingButtonAndLabel.isHidden = true

@@ -11,25 +11,24 @@ import MapKit
 class TreasureHuntPlaythrough {
     let hunt: TreasureHunt
     var unlockedClues: [Clue]
-    var nextClueNum: Int
+    var currentClueNum: Int
     
     init(hunt: TreasureHunt) {
         self.hunt = hunt
-        self.unlockedClues = [Clue]()
-        self.nextClueNum = 0
+        self.unlockedClues = [hunt.clues[0]]
+        self.currentClueNum = 0
     }
     
-    func unlockClue() -> Clue {
-        let clue = hunt.clues[nextClueNum]
-        unlockedClues.append(clue)
-        nextClueNum += 1
-        return clue
+    func getCurrentClue() -> Clue {
+        return hunt.clues[currentClueNum]
     }
     
-    func nextLocation() -> CLLocationCoordinate2D? {
-        if hunt.clues.count > nextClueNum {
-            return hunt.clues[nextClueNum].location
+    func unlockNextClue() -> Bool {
+        currentClueNum += 1
+        if currentClueNum < hunt.clues.count {
+            unlockedClues.append(hunt.clues[currentClueNum])
+            return true
         }
-        return nil
+        return false
     }
 }

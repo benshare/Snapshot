@@ -52,11 +52,6 @@ class ScrollableStackView: UIScrollView {
         contentView.insertArrangedSubview(view, at: index)
     }
     
-//    func removeFromStack(view: UIView) {
-//        contentView.removeArrangedSubview(view)
-//        view.removeFromSuperview()
-//    }
-    
     func removeFromStack(index: Int, temporary: Bool = false) {
         let row = contentView.arrangedSubviews[index]
         contentView.removeArrangedSubview(row)
