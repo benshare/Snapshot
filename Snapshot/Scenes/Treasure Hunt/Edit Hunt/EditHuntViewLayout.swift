@@ -14,7 +14,7 @@ class EditHuntViewLayout {
     // UI elements
     private let navigationBar: NavigationBarView
     private let clueList: ScrollableStackView
-    private let preferences: UIView
+//    private let preferences: UIView
     
     // Constraint maps
     private var portraitSizeMap: [UIView: (CGFloat, CGFloat)]!
@@ -29,7 +29,9 @@ class EditHuntViewLayout {
     init(navigationBar: NavigationBarView, clueList: ScrollableStackView, preferences: UIView) {
         self.navigationBar = navigationBar
         self.clueList = clueList
-        self.preferences = preferences
+        clueList.backgroundColor = .lightGray
+//        self.preferences = preferences
+        preferences.isHidden = true
 
         doNotAutoResize(views: [navigationBar, clueList, preferences])
         setLabelsToDefaults(labels: [])
@@ -38,14 +40,14 @@ class EditHuntViewLayout {
         // Portrait
         portraitSizeMap = [
             navigationBar: (1, 0.2),
-            clueList: (1, 0.6),
-            preferences: (1, 0.2),
+            clueList: (1, 0.8),
+//            preferences: (1, 0.2),
         ]
         
         portraitSpacingMap = [
             navigationBar: (0.5, 0.1),
-            clueList: (0.5, 0.5),
-            preferences: (0.5, 0.9),
+            clueList: (0.5, 0.6),
+//            preferences: (0.5, 0.9),
         ]
         
         // Landscape

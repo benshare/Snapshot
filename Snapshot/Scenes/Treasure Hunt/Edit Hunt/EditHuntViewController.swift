@@ -25,8 +25,7 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
     var hunt: TreasureHunt!
     var parentController: TreasureHuntCollectionViewController!
     var clueEditing: Clue?
-    var listIndexEditing: Int?
-    var userLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.7873589, longitude: -122.408227)
+    var listIndexEditing: Int!
     
     // MARK: Initialization
     override func viewDidLoad() {
@@ -40,7 +39,6 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         
         fillStack()
         clueList.addBorders()
-        view.bringSubviewToFront(clueList)
         
         addIconToView(view: preferences, name: "SettingsIcon")
         preferences.backgroundColor = .lightGray
@@ -50,23 +48,31 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
     }
     
     func fillStack() {
+        let startingRow = ClueListRowView(index: 0, text: "")
+        clueList.addToStack(view: startingRow)
+        NSLayoutConstraint.activate([
+            startingRow.widthAnchor.constraint(equalTo: clueList.widthAnchor),
+            startingRow.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.16),
+        ])
+        
         if hunt.clues.count > 0 {
             for ind in 0...hunt.clues.count - 1 {
-                addRowToList(indInList: ind)
+                addRowToList(clueIndex: ind)
             }
         }
+        
         let newClueView = UIView()
         clueList.addToStack(view: newClueView)
         addIconToView(view: newClueView, name: "PlusIcon")
         NSLayoutConstraint.activate([
             newClueView.widthAnchor.constraint(equalTo: clueList.widthAnchor),
-            newClueView.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.2),
+            newClueView.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.16),
         ])
         newClueView.addPermanentTapEvent {
-            let loc = self.clueList.count() == 1 ? self.userLocation : (self.hunt.clues.last?.location)!
+            let loc = self.hunt.clues.last?.location ?? self.hunt.startingLocation
             let newClue = Clue(location: loc)
             self.hunt.clues.append(newClue)
-            self.addRowToList(indInList: self.clueList.count() - 1)
+            self.addRowToList(clueIndex: self.hunt.clues.count - 1)
             if self.clueList.count() > 3 {
                 if let row = self.clueList.elementAtIndex(index: self.clueList.count() - 3) as? ClueListRowView {
                     row.index = self.clueList.count() - 3
@@ -93,26 +99,33 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         redrawScene()
     }
     
-    // MARK: Cells
-    private func addRowToList(indInList: Int) {
-        let clue = hunt.clues[indInList]
+    // MARK: Cell Operations
+    func processEditToClue(index: Int) {
+        let row = self.clueList.elementAtIndex(index: index) as! ClueListRowView
+        row.updateClue(text: self.clueEditing!.text)
+        clueEditing = nil
+    }
+    
+    // Add a cell
+    private func addRowToList(clueIndex: Int) {
+        let clue = hunt.clues[clueIndex]
         
-        if indInList > 1 {
+        if clueIndex > 0 {
             if let lastRow = clueList.elementAtIndex(index: clueList.count() - 1) as? ClueListRowView {
                 lastRow.enableDownArrow()
             } else {
                 (clueList.elementAtIndex(index: clueList.count() - 2) as! ClueListRowView).enableDownArrow()
             }
         }
-        let row = ClueListRowView(index: indInList, text: clue.text)
-        clueList.insertInStack(view: row, index: indInList)
+        let row = ClueListRowView(index: clueIndex + 1, text: clue.text)
+        clueList.insertInStack(view: row, index: clueIndex + 1)
         NSLayoutConstraint.activate([
             row.widthAnchor.constraint(equalTo: clueList.widthAnchor),
-            row.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.2),
+            row.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.16),
         ])
         row.addPermanentTapEvent {
             self.clueEditing = clue
-            self.listIndexEditing = indInList
+            self.listIndexEditing = row.index
             self.performSegue(withIdentifier: "editClueSegue", sender: self)
         }
         row.upArrow.addAction {
@@ -122,29 +135,56 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
             self.swapCells(firstInd: row.index)
         }
         row.deleteButton.addAction {
+            self.listIndexEditing = row.index
+            self.displayDeleteAlert()
         }
         row.bringSubviewToFront(row.upArrow)
         row.bringSubviewToFront(row.downArrow)
         row.bringSubviewToFront(row.deleteButton)
-        if indInList == 1 {
+        if clueIndex == 0 {
             row.disableUpArrow()
         }
         row.disableDownArrow()
     }
     
-    func processEditToClue(index: Int) {
-        let row = self.clueList.elementAtIndex(index: index) as! ClueListRowView
-        row.updateClue(text: self.clueEditing!.text)
-        clueEditing = nil
-        listIndexEditing = nil
+    // Remove a cell
+    private func displayDeleteAlert() {
+        let alert = UIAlertController(title: "Confirm Delete", message: "Delete clue?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Delete", style: .default, handler: {
+                action in
+                self.deleteClue()
+                alert.dismiss(animated: true, completion: nil)
+            }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in alert.dismiss(animated: true, completion: nil) }))
+        self.present(alert, animated: true, completion: nil)
     }
     
+    private func deleteClue() {
+        clueList.removeFromStack(index: listIndexEditing)
+        if hunt.clues.count > 1 {
+            if listIndexEditing == 1 {
+                (clueList.elementAtIndex(index: 1) as! ClueListRowView).disableUpArrow()
+            }
+            if listIndexEditing == hunt.clues.count {
+                (clueList.elementAtIndex(index: listIndexEditing - 1) as! ClueListRowView).disableDownArrow()
+            }
+        }
+        
+        for index in listIndexEditing...clueList.count() - 2 {
+            let row = clueList.elementAtIndex(index: index) as! ClueListRowView
+            row.index = index
+            row.updateIndexLabel()
+        }
+        
+        hunt.clues.remove(at: listIndexEditing - 1)
+        didUpdateActiveUser()
+    }
+    
+    // Swap cells
     func swapCells(firstInd: Int) {
-        print("Swapping indices \(firstInd) and \(firstInd + 1)")
-        print("cluelist count = \(clueList.count())")
         let first = clueList.elementAtIndex(index: firstInd) as! ClueListRowView
         let second = clueList.elementAtIndex(index: firstInd + 1) as! ClueListRowView
-        clueList.removeFromStack(view: second)
+        clueList.removeFromStack(index: firstInd + 1, temporary: true)
         clueList.insertInStack(view: second, index: firstInd)
         
         first.index = firstInd + 1
