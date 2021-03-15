@@ -39,6 +39,7 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         
         fillStack()
         clueList.addBorders()
+        view.bringSubviewToFront(navigationBar)
         
         addIconToView(view: preferences, name: "SettingsIcon")
         preferences.backgroundColor = .lightGray
@@ -173,7 +174,7 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
                 (clueList.elementAtIndex(index: listIndexEditing - 1) as! ClueListRowView).disableDownArrow()
             }
         }
-        if clueList.count() - 2 > listIndexEditing {
+        if clueList.count() - 1 > listIndexEditing {
             for index in listIndexEditing...clueList.count() - 2 {
                 let row = clueList.elementAtIndex(index: index) as! ClueListRowView
                 row.index = index

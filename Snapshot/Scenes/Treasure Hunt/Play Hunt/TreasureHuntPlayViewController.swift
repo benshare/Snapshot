@@ -41,6 +41,10 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
         nextLocation = currentClue.location
         checkForRadius = true
         displayClue(clue: currentClue, isNew: true)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = playthrough.hunt.startingLocation
+        annotation.title = String(playthrough.currentClueNum + 1)
+        map.addAnnotation(annotation)
         
         backButton.addAction {
             self.dismiss(animated: true, completion: nil)
@@ -64,19 +68,22 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
     private func clueWasCompleted() {
         let annotation = MKPointAnnotation()
         annotation.coordinate = playthrough.getCurrentClue().location
-        annotation.title = String(playthrough.currentClueNum)
-        map.addAnnotation(annotation)
-        
         if playthrough.unlockNextClue() {
+            annotation.title = String(playthrough.currentClueNum + 1)
+            map.addAnnotation(annotation)
             let newClue = playthrough.getCurrentClue()
             nextLocation = newClue.location
             checkForRadius = true
             displayClue(clue: newClue, isNew: true)
         } else {
-            print("Congrats! You finished the hunt")
             view.isUserInteractionEnabled = false
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4)) {
+            let alert = UIAlertController(title: "Congrats!", message: "You finished the treasure hunt!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok!", style: .default, handler: {
+                    action in
                 self.dismiss(animated: true, completion: nil)
+                }))
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -158,6 +165,11 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
             annotationView.addSubview(textView)
         } else {
             annotationView!.removeTapEvent()
+            for subview in annotationView.subviews {
+                if let textView = subview as? UILabel {
+                    textView.text = annotation.title!
+                }
+            }
         }
         annotationView.annotation = annotation
         let index = Int(annotation.title!!)!
@@ -181,6 +193,7 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
     
     func isWithinRange(coordinate: CLLocationCoordinate2D) -> Bool {
         let distance = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude).distance(from: CLLocation(latitude: nextLocation.latitude, longitude: nextLocation.longitude))
+        print("Distance: \(distance)")
         return distance < playthrough.hunt.clueRadius
     }
 }
