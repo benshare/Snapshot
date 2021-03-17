@@ -34,6 +34,9 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
             self.dismiss(animated: true)
         })
         navigationBar.setEditableTitle(background: clueList, text: hunt.name, placeholder: "Untitled Treasure Hunt")
+        navigationBar.setRightItem(image: UIImage(named: "SettingsIcon")!, action: {
+            self.performSegue(withIdentifier: "huntPreferencesSegue", sender: self)
+        })
         navigationBar.hunt = hunt
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backgroundTapped(sender:))))
         
@@ -229,6 +232,9 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
             if listIndexEditing == 0 {
                 destination.huntIfStart = hunt
             }
+        case "huntPreferencesSegue":
+            let destination = segue.destination as! EditHuntPreferencesController
+            destination.hunt = hunt
         default:
             fatalError("Unexpected segue from EditHuntView: \(String(describing: segue.identifier))")
         }

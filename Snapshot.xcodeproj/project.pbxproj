@@ -26,6 +26,9 @@
 		79B0854725F208C100F0868C /* EditClueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B0854625F208C100F0868C /* EditClueViewController.swift */; };
 		79B0854C25F20C5B00F0868C /* EditClueViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B0854B25F20C5B00F0868C /* EditClueViewLayout.swift */; };
 		79B0855C25F61C2200F0868C /* PopupOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B0855B25F61C2200F0868C /* PopupOptionsView.swift */; };
+		79B289A825FF4438006615D3 /* EditHuntPreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B289A725FF4438006615D3 /* EditHuntPreferencesController.swift */; };
+		79B289B025FF4449006615D3 /* EditHuntPreferencesLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B289AF25FF4449006615D3 /* EditHuntPreferencesLayout.swift */; };
+		79B289B62601DA4E006615D3 /* InformationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B289B52601DA4E006615D3 /* InformationButton.swift */; };
 		79BB336525E0D3140085A15D /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BB336425E0D3140085A15D /* UserPreferences.swift */; };
 		79E1A9D925E3905D00FEE672 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1A9D825E3905D00FEE672 /* Globals.swift */; };
 		79E1A9E125E3A5D100FEE672 /* ActiveUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1A9E025E3A5D100FEE672 /* ActiveUser.swift */; };
@@ -98,6 +101,9 @@
 		79B0854625F208C100F0868C /* EditClueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditClueViewController.swift; sourceTree = "<group>"; };
 		79B0854B25F20C5B00F0868C /* EditClueViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditClueViewLayout.swift; sourceTree = "<group>"; };
 		79B0855B25F61C2200F0868C /* PopupOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupOptionsView.swift; sourceTree = "<group>"; };
+		79B289A725FF4438006615D3 /* EditHuntPreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHuntPreferencesController.swift; sourceTree = "<group>"; };
+		79B289AF25FF4449006615D3 /* EditHuntPreferencesLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHuntPreferencesLayout.swift; sourceTree = "<group>"; };
+		79B289B52601DA4E006615D3 /* InformationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationButton.swift; sourceTree = "<group>"; };
 		79BB336425E0D3140085A15D /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		79E1A9D825E3905D00FEE672 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		79E1A9E025E3A5D100FEE672 /* ActiveUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveUser.swift; sourceTree = "<group>"; };
@@ -230,6 +236,7 @@
 			children = (
 				79A400B525EDF1EE004F7596 /* EditHuntViewController.swift */,
 				79A400C325EDF544004F7596 /* EditHuntViewLayout.swift */,
+				79B289A625FF441F006615D3 /* Edit Hunt Preferences */,
 				79B0855025F605F500F0868C /* Edit Clue */,
 			);
 			path = "Edit Hunt";
@@ -267,6 +274,23 @@
 				79B0855B25F61C2200F0868C /* PopupOptionsView.swift */,
 			);
 			path = PopupOptions;
+			sourceTree = "<group>";
+		};
+		79B289A625FF441F006615D3 /* Edit Hunt Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				79B289A725FF4438006615D3 /* EditHuntPreferencesController.swift */,
+				79B289AF25FF4449006615D3 /* EditHuntPreferencesLayout.swift */,
+			);
+			path = "Edit Hunt Preferences";
+			sourceTree = "<group>";
+		};
+		79B289B42601DA37006615D3 /* InformationButton */ = {
+			isa = PBXGroup;
+			children = (
+				79B289B52601DA4E006615D3 /* InformationButton.swift */,
+			);
+			path = InformationButton;
 			sourceTree = "<group>";
 		};
 		79E1A9EA25E503D200FEE672 /* SnapshotCallout */ = {
@@ -390,6 +414,7 @@
 		79EFE35A25D0B16500AA257B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				79B289B42601DA37006615D3 /* InformationButton */,
 				790CE9D725F761DD009D0AD9 /* FullClue */,
 				79B0855A25F61BC400F0868C /* PopupOptions */,
 				79A400C825EE0ECA004F7596 /* ClueListRowView */,
@@ -603,6 +628,7 @@
 				79B0854725F208C100F0868C /* EditClueViewController.swift in Sources */,
 				79BB336525E0D3140085A15D /* UserPreferences.swift in Sources */,
 				79E783CC25C94CC1002DC72C /* ThemesUtil.swift in Sources */,
+				79B289A825FF4438006615D3 /* EditHuntPreferencesController.swift in Sources */,
 				79B0854C25F20C5B00F0868C /* EditClueViewLayout.swift in Sources */,
 				79A400BF25EDF3F0004F7596 /* ScrollableStackView.swift in Sources */,
 				79A400B625EDF1EE004F7596 /* EditHuntViewController.swift in Sources */,
@@ -618,6 +644,7 @@
 				79F3063325EC75FD00A445A1 /* TreasureHuntCollection.swift in Sources */,
 				79E7838225C9493A002DC72C /* SceneDelegate.swift in Sources */,
 				79E783B525C9499E002DC72C /* MapViewController.swift in Sources */,
+				79B289B025FF4449006615D3 /* EditHuntPreferencesLayout.swift in Sources */,
 				79A400C425EDF544004F7596 /* EditHuntViewLayout.swift in Sources */,
 				79F3060C25EC31D400A445A1 /* MainMenuViewController.swift in Sources */,
 				79E1AA1C25E8AA6D00FEE672 /* FullImageView.swift in Sources */,
@@ -634,6 +661,7 @@
 				79B0855C25F61C2200F0868C /* PopupOptionsView.swift in Sources */,
 				79F3062A25EC6EE000A445A1 /* TreasureHuntCollectionViewLayout.swift in Sources */,
 				790CE9C225F72654009D0AD9 /* TreasureHuntPlayViewController.swift in Sources */,
+				79B289B62601DA4E006615D3 /* InformationButton.swift in Sources */,
 				79595A4025E37C3B00717873 /* NewMemoryViewLayout.swift in Sources */,
 				79E783C725C94C81002DC72C /* LayoutUtil.swift in Sources */,
 				79F3064725EC763900A445A1 /* Clue.swift in Sources */,

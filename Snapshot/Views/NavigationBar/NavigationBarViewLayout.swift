@@ -49,7 +49,7 @@ class NavigationBarViewViewLayout {
             leftItem: (0.12, 0.5),
             title: (0.6, 0.5),
             editableTitle: (0.6, 0.5),
-            rightItem: (0.12, 0.5),
+            rightItem: (0.12, 0),
         ]
         
         portraitSpacingMap = [
@@ -60,18 +60,18 @@ class NavigationBarViewViewLayout {
         ]
         
         // Landscape
-        landscapeSizeMap = [
-            leftItem: (0.12, 0.5),
-            title: (0.6, 0.5),
-            editableTitle: (0.6, 0.5),
-            rightItem: (0.2, 0.5),
+        landscapeSizeMap = [:
+//            leftItem: (0.12, 0.5),
+//            title: (0.6, 0.5),
+//            editableTitle: (0.6, 0.5),
+//            rightItem: (0.2, 0.5),
         ]
         
-        landscapeSpacingMap = [
-            leftItem: (0.1, 0.5),
-            title: (0.5, 0.5),
-            editableTitle: (0.5, 0.5),
-            rightItem: (0.9, 0.5),
+        landscapeSpacingMap = [:
+//            leftItem: (0.1, 0.5),
+//            title: (0.5, 0.5),
+//            editableTitle: (0.5, 0.5),
+//            rightItem: (0.9, 0.5),
         ]
     }
     

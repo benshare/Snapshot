@@ -67,7 +67,7 @@ class EditClueViewController: UIViewController, UITextViewDelegate & MKMapViewDe
             self.layout.showFullViewMap(view: self.view, initialConstraints: locationConstraints)
         }
         
-        mapCenter.title = "Clue Location"
+        mapCenter.title = clueType == .start ? "Starting Location" : "Clue Location"
         mapCenter.coordinate = clueLocation.centerCoordinate
         clueLocation.addAnnotation(mapCenter)
         

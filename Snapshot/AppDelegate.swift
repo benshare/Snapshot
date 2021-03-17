@@ -46,10 +46,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func runOnLaunch() {
 //        UserDefaults.resetDefaults()
         loadActiveUserFromSaved()
-//        generateNewLayout(name: "FullClue", elements: [
-//                            ("titleLabel", "UILabel"),
-//                            ("clueText", "UILabel"),
-//                            ])
+//        generateNewLayout(name: "EditHuntPreferences", elements: [
+//            ("titleLabel", "UILabel"),
+//            ("scrollView", "ScrollableStackView"),
+//            ("styleLabel", "UILabel"),
+//            ("stylePicker", "UIPickerView"),
+//            ("sensitivityLabel", "UILabel"),
+//            ("sensitivityPicker", "UIPickerView"),
+//            ("sensitivityPreview", "MKMapView"),
+//            ("designLabel", "UILabel"),
+//            ("designPicker", "UIPickerView"),
+//         ])
     }
     
     func runOnExit() {

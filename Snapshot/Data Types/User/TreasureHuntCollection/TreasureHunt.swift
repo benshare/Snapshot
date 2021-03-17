@@ -18,7 +18,7 @@ class TreasureHunt: Codable {
     private var type: HuntType
     var startingLocation: CLLocationCoordinate2D
     var clues: [Clue]
-    var clueRadius: Double
+    var clueRadius: Int
     private let creator: String
     private var notes: String
     
@@ -33,7 +33,7 @@ class TreasureHunt: Codable {
         self.type = try container.decode(HuntType.self, forKey: .type)
         self.startingLocation = CLLocationCoordinate2D(location: try container.decode(LocationStruct.self, forKey: .startingLocation))
         self.clues = try container.decode([Clue].self, forKey: .clues)
-        self.clueRadius = try container.decode(Double.self, forKey: .clueRadius)
+        self.clueRadius = try container.decode(Int.self, forKey: .clueRadius)
         self.creator = try container.decode(String.self, forKey: .creator)
         self.notes = try container.decode(String.self, forKey: .notes)
     }

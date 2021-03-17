@@ -45,7 +45,6 @@ class NavigationBarView: UIView, UITextFieldDelegate {
         layout.configureConstraints(view: self)
         redrawScene()
         
-        self.alpha = 0.8
         self.backgroundColor = .lightGray
     }
     
@@ -79,6 +78,12 @@ class NavigationBarView: UIView, UITextFieldDelegate {
         editableTitle.delegate = self
         editableTitle.text = text
         editableTitle.placeholder = placeholder
+    }
+    
+    func setRightItem(image: UIImage, action: @escaping () -> Void) {
+        rightItem.setBackgroundImage(image, for: .normal)
+        rightItem.addAction(action)
+        rightItem.isHidden = false
     }
     
     // MARK: UITextFieldDelegate

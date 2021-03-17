@@ -193,7 +193,7 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
     
     func isWithinRange(coordinate: CLLocationCoordinate2D) -> Bool {
         let distance = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude).distance(from: CLLocation(latitude: nextLocation.latitude, longitude: nextLocation.longitude))
-        print("Distance: \(distance)")
-        return distance < playthrough.hunt.clueRadius
+//        print("Distance: \(distance)")
+        return Int(distance) < playthrough.hunt.clueRadius
     }
 }
