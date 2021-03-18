@@ -13,6 +13,7 @@ class EditClueViewController: UIViewController, UITextViewDelegate & MKMapViewDe
     // MARK: Variables
     // Outlets
     @IBOutlet weak var navigationBar: NavigationBarView!
+    @IBOutlet weak var scrollView: ScrollableStackView!
     @IBOutlet weak var clueLocation: MKMapView!
     @IBOutlet weak var clueText: UITextView!
     @IBOutlet weak var startingButtonAndLabel: ButtonAndLabel!
@@ -59,12 +60,8 @@ class EditClueViewController: UIViewController, UITextViewDelegate & MKMapViewDe
         }
         
         clueLocation.delegate = self
-        let sizeMap: [UIView: (CGFloat, CGFloat)] = clueType! == .clue ? [clueLocation: (0, 0.3)] : [clueLocation: (0, 0.5)]
-        let spacingMap: [UIView: (CGFloat, CGFloat)] = clueType! == .clue ? [clueLocation: (0.5, 0.8)] : [clueLocation: (0.5, 0.5)]
-        let locationConstraints = getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: sizeMap) + getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: spacingMap, parentView: view)
-        NSLayoutConstraint.activate(locationConstraints)
         clueLocation.addOneTimeTapEvent {
-            self.layout.showFullViewMap(view: self.view, initialConstraints: locationConstraints)
+            self.layout.showFullViewMap(view: self.view, delegate: self)
         }
         
         mapCenter.title = clueType == .start ? "Starting Location" : "Clue Location"
@@ -80,7 +77,7 @@ class EditClueViewController: UIViewController, UITextViewDelegate & MKMapViewDe
         startingButtonAndLabel.isHidden = true
         endingButtonAndLabel.isHidden = true
 
-        layout = EditClueViewLayout(navigationBar: navigationBar, clueLocation: clueLocation, clueText: clueText, startingButtonAndLabel: startingButtonAndLabel, endingButtonAndLabel: endingButtonAndLabel)
+        layout = EditClueViewLayout(navigationBar: navigationBar, scrollView: scrollView, clueLocation: clueLocation, clueText: clueText, startingButtonAndLabel: startingButtonAndLabel, endingButtonAndLabel: endingButtonAndLabel, clueType: clueType)
         layout.configureConstraints(view: view)
     }
     

@@ -166,5 +166,4 @@ class EditHuntPreferencesLayout {
         NSLayoutConstraint.activate(constraints)
         return row
     }
-    
 }

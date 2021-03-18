@@ -14,8 +14,10 @@ class EditClueViewLayout {
     
     // UI elements
     private let navigationBar: NavigationBarView
+    private let scrollView: ScrollableStackView
     private let clueLocation: MKMapView
-    private let clueText: UITextView
+    private var textRow: UIView?
+    private var locationRow: UIView?
     private let startingButtonAndLabel: ButtonAndLabel
     private let endingButtonAndLabel: ButtonAndLabel
     
@@ -33,32 +35,54 @@ class EditClueViewLayout {
     private var circularViews = [UIView]()
     private var clueType: RowType
     
-    init(navigationBar: NavigationBarView, clueLocation: MKMapView, clueText: UITextView, startingButtonAndLabel: ButtonAndLabel, endingButtonAndLabel: ButtonAndLabel, clueType: RowType = .clue) {
+    init(navigationBar: NavigationBarView, scrollView: ScrollableStackView, clueLocation: MKMapView, clueText: UITextView, startingButtonAndLabel: ButtonAndLabel, endingButtonAndLabel: ButtonAndLabel, clueType: RowType = .clue) {
         self.navigationBar = navigationBar
+        self.scrollView = scrollView
         self.clueLocation = clueLocation
-        self.clueText = clueText
         self.startingButtonAndLabel = startingButtonAndLabel
         self.endingButtonAndLabel = endingButtonAndLabel
         self.clueType = clueType
 
-        doNotAutoResize(views: [navigationBar, clueLocation, clueText, startingButtonAndLabel, endingButtonAndLabel])
-//        setLabelsToDefaults(labels: [])
-//        setButtonsToDefaults(buttons: [isStartingButton, addImageButton])
+        doNotAutoResize(views: [navigationBar, scrollView, clueLocation, clueText, startingButtonAndLabel, endingButtonAndLabel])
         
-        clueText.layer.borderWidth = 2
-        clueText.layer.borderColor = UIColor.lightGray.cgColor
-        clueText.font = UIFont.systemFont(ofSize: 20)
+        if clueType == .start {
+            // Portrait
+            portraitSizeMap = [
+                navigationBar: (1, 0.2),
+                clueLocation: (0.7, 0),
+            ]
+            scrollView.isHidden = true
+            clueText.isHidden = true
             
-        // Portrait
-        portraitSizeMap = [
-            navigationBar: (1, 0.2),
-            clueText: (0.7, 0.3),
-        ]
-        
-        portraitSpacingMap = [
-            navigationBar: (0.5, 0.1),
-            clueText: (0.5, 0.4),
-        ]
+            portraitSpacingMap = [
+                navigationBar: (0.5, 0.1),
+                clueLocation: (0.5, 0.6),
+            ]
+        } else {
+            self.textRow = getRowForCenteredView(view: clueText)
+            self.locationRow = getRowForCenteredView(view: clueLocation)
+            
+            clueText.layer.borderWidth = 2
+            clueText.layer.borderColor = UIColor.lightGray.cgColor
+            clueText.font = UIFont.systemFont(ofSize: 20)
+            
+            scrollView.addToStack(view: textRow!)
+            scrollView.addToStack(view: locationRow!)
+            scrollView.addBorders(width: 40, color: .white)
+                
+            // Portrait
+            portraitSizeMap = [
+                navigationBar: (1, 0.2),
+                scrollView: (1, 0.7),
+                clueText: (0.7, 0.3),
+                clueLocation: (0.7, 0.3),
+            ]
+            
+            portraitSpacingMap = [
+                navigationBar: (0.5, 0.1),
+                scrollView: (0.5, 0.65),
+            ]
+        }
         
         // Landscape
         landscapeSizeMap = [:
@@ -104,36 +128,59 @@ class EditClueViewLayout {
         makeViewsCircular(views: circularViews)
     }
     
-    func showFullViewMap(view: UIView, initialConstraints: [NSLayoutConstraint]) {
-        clueLocation.removeConstraints(initialConstraints)
-        view.removeConstraints(initialConstraints)
-        view.bringSubviewToFront(clueLocation)
-        clueLocation.isUserInteractionEnabled = true
+    func showFullViewMap(view: UIView, delegate: EditClueViewController) {
         
-        let newConstraints = getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: [clueLocation: (1, 1)]) + getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: [clueLocation: (0.5, 0.5)], parentView: view)
+        let fullMap = MKMapView()
+        doNotAutoResize(view: fullMap)
+        view.addSubview(fullMap)
+        let newConstraints = getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: [fullMap: (1, 1)]) + getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: [fullMap: (0.5, 0.5)], parentView: view)
         NSLayoutConstraint.activate(newConstraints)
+        
+        fullMap.setRegion(clueLocation.region, animated: false)
+        
+        fullMap.addAnnotation(clueLocation.annotations[0])
+        fullMap.delegate = delegate
         
         let checkButton = UIButton()
         doNotAutoResize(view: checkButton)
-        clueLocation.addSubview(checkButton)
+        fullMap.addSubview(checkButton)
         checkButton.setBackgroundImage(UIImage(named: "CheckmarkIcon"), for: .normal)
         checkButton.alpha = 0.7
         
-        let buttonConstraints = getSizeConstraints(widthAnchor: clueLocation.widthAnchor, heightAnchor: clueLocation.heightAnchor, sizeMap: [checkButton: (0.1, 0)]) + getSpacingConstraints(leftAnchor: clueLocation.leftAnchor, widthAnchor: clueLocation.widthAnchor, topAnchor: clueLocation.topAnchor, heightAnchor: clueLocation.heightAnchor, spacingMap: [checkButton: (0.9, 0.08)], parentView: clueLocation)
+        let buttonConstraints = getSizeConstraints(widthAnchor: fullMap.widthAnchor, heightAnchor: fullMap.heightAnchor, sizeMap: [checkButton: (0.1, 0)]) + getSpacingConstraints(leftAnchor: fullMap.leftAnchor, widthAnchor: fullMap.widthAnchor, topAnchor: fullMap.topAnchor, heightAnchor: fullMap.heightAnchor, spacingMap: [checkButton: (0.9, 0.08)], parentView: fullMap)
         NSLayoutConstraint.activate(buttonConstraints)
         
         checkButton.addAction {
-            self.clueLocation.removeConstraints(newConstraints)
-            view.removeConstraints(newConstraints)
-            NSLayoutConstraint.activate(initialConstraints)
-            checkButton.removeFromSuperview()
+            self.clueLocation.setCenter(fullMap.centerCoordinate, animated: false)
+            fullMap.removeFromSuperview()
+            if self.clueType == .clue {
+                delegate.clue.location = fullMap.centerCoordinate
+            } else {
+                delegate.huntIfStart.startingLocation = fullMap.centerCoordinate
+            }
+            didUpdateActiveUser()
             self.clueLocation.addOneTimeTapEvent {
-                self.showFullViewMap(view: view, initialConstraints: initialConstraints)
+                self.showFullViewMap(view: view, delegate: delegate)
             }
         }
     }
+    
+    private func getRowForCenteredView(view: UIView) -> UIView {
+        let row = UIView()
+        doNotAutoResize(view: row)
+        row.backgroundColor = .white
+        row.addSubview(view)
+        
+        NSLayoutConstraint.activate([
+            view.heightAnchor.constraint(equalTo: row.heightAnchor),
+            view.centerXAnchor.constraint(equalTo: row.centerXAnchor),
+            view.centerYAnchor.constraint(equalTo: row.centerYAnchor),
+        ])
+        return row
+    }
 }
 
+// MARK: Helper Classes
 class ButtonAndLabel: UIView {
     let button: UIButton
     let label: UILabel

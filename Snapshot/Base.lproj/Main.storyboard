@@ -219,6 +219,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zOc-hF-qbX" userLabel="Scroll View" customClass="ScrollableStackView" customModule="Snapshot" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="141" width="415" height="755"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcz-Ni-s6Y"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -228,6 +233,7 @@
                         <outlet property="clueText" destination="uaR-ny-ygk" id="x3i-WE-gxe"/>
                         <outlet property="endingButtonAndLabel" destination="Qp5-EO-JK0" id="eas-NI-Zgk"/>
                         <outlet property="navigationBar" destination="pMv-FX-2Xo" id="4wm-VF-eiR"/>
+                        <outlet property="scrollView" destination="zOc-hF-qbX" id="1ib-uM-c70"/>
                         <outlet property="startingButtonAndLabel" destination="1JB-oq-g6A" id="6Hg-qw-ZD2"/>
                     </connections>
                 </viewController>
