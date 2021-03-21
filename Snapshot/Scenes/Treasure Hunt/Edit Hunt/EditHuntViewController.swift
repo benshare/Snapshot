@@ -227,11 +227,9 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
             let destination = segue.destination as! EditClueViewController
             destination.listIndex = listIndexEditing!
             destination.clue = clueEditing
+            destination.hunt = hunt
             destination.parentController = self
             destination.clueType = listIndexEditing == 0 ? .start : .clue
-            if listIndexEditing == 0 {
-                destination.huntIfStart = hunt
-            }
         case "huntPreferencesSegue":
             let destination = segue.destination as! EditHuntPreferencesController
             destination.hunt = hunt

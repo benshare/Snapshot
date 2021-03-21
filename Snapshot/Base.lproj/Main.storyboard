@@ -209,18 +209,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1JB-oq-g6A" userLabel="Starting Button" customClass="ButtonAndLabel" customModule="Snapshot" customModuleProvider="target">
-                                <rect key="frame" x="30" y="698" width="153" height="69"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="X6s-dB-clC" userLabel="Hint View">
+                                <rect key="frame" x="152" y="348" width="110" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qp5-EO-JK0" userLabel="Ending Button" customClass="ButtonAndLabel" customModule="Snapshot" customModuleProvider="target">
-                                <rect key="frame" x="225" y="691" width="141" height="76"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
+                            </stackView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zOc-hF-qbX" userLabel="Scroll View" customClass="ScrollableStackView" customModule="Snapshot" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="141" width="415" height="755"/>
+                                <rect key="frame" x="0.0" y="375" width="415" height="755"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -231,10 +225,9 @@
                     <connections>
                         <outlet property="clueLocation" destination="9cj-c7-mch" id="Nbb-ab-ByZ"/>
                         <outlet property="clueText" destination="uaR-ny-ygk" id="x3i-WE-gxe"/>
-                        <outlet property="endingButtonAndLabel" destination="Qp5-EO-JK0" id="eas-NI-Zgk"/>
+                        <outlet property="hintView" destination="X6s-dB-clC" id="iNT-38-pwO"/>
                         <outlet property="navigationBar" destination="pMv-FX-2Xo" id="4wm-VF-eiR"/>
                         <outlet property="scrollView" destination="zOc-hF-qbX" id="1ib-uM-c70"/>
-                        <outlet property="startingButtonAndLabel" destination="1JB-oq-g6A" id="6Hg-qw-ZD2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bPy-ew-3kb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -33,6 +33,26 @@ class ScrollableStackView: UIScrollView {
         contentView.spacing = 0
     }
     
+    init() {
+        contentView = UIStackView()
+        super.init(frame: CGRect.zero)
+        
+        self.addSubview(contentView)
+        doNotAutoResize(view: contentView)
+        NSLayoutConstraint.activate([
+            contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: self.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: self.widthAnchor),
+        ])
+        
+        contentView.axis = .vertical
+        contentView.alignment = .fill
+        contentView.distribution = .equalSpacing
+        contentView.spacing = 0
+    }
+    
     // MARK: Stack Operations
     // Get
     func count() -> Int {

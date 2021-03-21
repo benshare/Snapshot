@@ -17,6 +17,7 @@ class EditHuntPreferencesLayout {
     private let titleLabel: UILabel
     private let scrollView: ScrollableStackView
     private var styleRow = UIView()
+    private var hintsRow = UIView()
     private var sensitivityRow = UIView()
     private let sensitivityPreview: MKMapView?
     private var designRow = UIView()
@@ -31,12 +32,13 @@ class EditHuntPreferencesLayout {
     private var portraitConstraints = [NSLayoutConstraint]()
     private var landscapeConstraints = [NSLayoutConstraint]()
     
-    init(navigationBar: NavigationBarView, titleLabel: UILabel, scrollView: ScrollableStackView, styleLabel: UILabel, stylePicker: UIPickerView, sensitivityLabel: UILabel, sensitivityPicker: UIPickerView, sensitivityPreview: MKMapView?, designLabel: UILabel, designPicker: UIPickerView) {
+    init(navigationBar: NavigationBarView, titleLabel: UILabel, scrollView: ScrollableStackView, styleLabel: UILabel, stylePicker: UIPickerView, hintsView: UIView, sensitivityLabel: UILabel, sensitivityPicker: UIPickerView, sensitivityPreview: MKMapView?, designLabel: UILabel, designPicker: UIPickerView) {
         self.navigationBar = navigationBar
         self.titleLabel = titleLabel
         self.scrollView = scrollView
         self.sensitivityPreview = sensitivityPreview
         self.styleRow = getRowForLabelAndPicker(label: styleLabel, picker: stylePicker)
+        self.hintsRow = hintsView
         self.sensitivityRow = getRowForLabelAndPicker(label: sensitivityLabel, picker: sensitivityPicker)
         self.designRow = getRowForLabelAndPicker(label: designLabel, picker: designPicker)
         
@@ -71,6 +73,7 @@ class EditHuntPreferencesLayout {
         setButtonsToDefaults(buttons: [])
         
         scrollView.addToStack(view: styleRow)
+        scrollView.addToStack(view: hintsRow)
         scrollView.addToStack(view: combinedSensitivityRow)
         scrollView.addToStack(view: designRow)
         scrollView.addBorders()
@@ -82,7 +85,7 @@ class EditHuntPreferencesLayout {
             navigationBar: (1, 0.2),
             scrollView: (1, 0.8),
             styleRow: (1, 0.3),
-//            combinedSensitivityRow: (1, 0.5),
+            hintsRow: (1, 0.3),
             sensitivityRow: (1, 0.3),
             designRow: (1, 0.3),
         ]

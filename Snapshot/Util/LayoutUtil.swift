@@ -246,6 +246,21 @@ func blurView(view: UIView) -> UIVisualEffectView {
     return blurredEffectView
 }
 
+// MARK: Stack Views
+func getRowForCenteredView(view: UIView) -> UIView {
+    let row = UIView()
+    doNotAutoResize(view: row)
+    row.backgroundColor = .white
+    row.addSubview(view)
+    
+    NSLayoutConstraint.activate([
+        view.heightAnchor.constraint(equalTo: row.heightAnchor),
+        view.centerXAnchor.constraint(equalTo: row.centerXAnchor),
+        view.centerYAnchor.constraint(equalTo: row.centerYAnchor),
+    ])
+    return row
+}
+
 // MARK: Orientation
 func orientationIsPortrait() -> Bool {
     if UIDevice.current.orientation.isFlat {

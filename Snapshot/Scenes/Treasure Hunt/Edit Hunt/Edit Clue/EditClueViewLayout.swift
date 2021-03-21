@@ -18,8 +18,7 @@ class EditClueViewLayout {
     private let clueLocation: MKMapView
     private var textRow: UIView?
     private var locationRow: UIView?
-    private let startingButtonAndLabel: ButtonAndLabel
-    private let endingButtonAndLabel: ButtonAndLabel
+    private var hintView: UIStackView!
     
     // Constraint maps
     private var portraitSizeMap: [UIView: (CGFloat, CGFloat)]!
@@ -34,16 +33,15 @@ class EditClueViewLayout {
     // Other
     private var circularViews = [UIView]()
     private var clueType: RowType
+    var clue: Clue!
     
-    init(navigationBar: NavigationBarView, scrollView: ScrollableStackView, clueLocation: MKMapView, clueText: UITextView, startingButtonAndLabel: ButtonAndLabel, endingButtonAndLabel: ButtonAndLabel, clueType: RowType = .clue) {
+    init(navigationBar: NavigationBarView, scrollView: ScrollableStackView, clueLocation: MKMapView, clueText: UITextView, hintView: UIStackView, clueType: RowType = .clue) {
         self.navigationBar = navigationBar
         self.scrollView = scrollView
         self.clueLocation = clueLocation
-        self.startingButtonAndLabel = startingButtonAndLabel
-        self.endingButtonAndLabel = endingButtonAndLabel
         self.clueType = clueType
 
-        doNotAutoResize(views: [navigationBar, scrollView, clueLocation, clueText, startingButtonAndLabel, endingButtonAndLabel])
+        doNotAutoResize(views: [navigationBar, scrollView, clueLocation, clueText, hintView])
         
         if clueType == .start {
             // Portrait
@@ -53,6 +51,7 @@ class EditClueViewLayout {
             ]
             scrollView.isHidden = true
             clueText.isHidden = true
+            hintView.isHidden = true
             
             portraitSpacingMap = [
                 navigationBar: (0.5, 0.1),
@@ -61,6 +60,8 @@ class EditClueViewLayout {
         } else {
             self.textRow = getRowForCenteredView(view: clueText)
             self.locationRow = getRowForCenteredView(view: clueLocation)
+            self.hintView = hintView
+            let hintRow = getRowForCenteredView(view: hintView)
             
             clueText.layer.borderWidth = 2
             clueText.layer.borderColor = UIColor.lightGray.cgColor
@@ -68,6 +69,9 @@ class EditClueViewLayout {
             
             scrollView.addToStack(view: textRow!)
             scrollView.addToStack(view: locationRow!)
+            scrollView.addToStack(view: hintRow)
+            scrollView.addToStack(view: UIView(frame: CGRect.zero))
+            
             scrollView.addBorders(width: 40, color: .white)
                 
             // Portrait
@@ -108,6 +112,9 @@ class EditClueViewLayout {
         
         portraitConstraints += getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: portraitSizeMap)
         portraitConstraints += getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: portraitSpacingMap, parentView: view)
+        if hintView != nil {
+            portraitConstraints.append(hintView!.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7))
+        }
         
         landscapeConstraints += getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: landscapeSizeMap)
         landscapeConstraints += getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: landscapeSpacingMap, parentView: view)
@@ -129,7 +136,6 @@ class EditClueViewLayout {
     }
     
     func showFullViewMap(view: UIView, delegate: EditClueViewController) {
-        
         let fullMap = MKMapView()
         doNotAutoResize(view: fullMap)
         view.addSubview(fullMap)
@@ -156,7 +162,7 @@ class EditClueViewLayout {
             if self.clueType == .clue {
                 delegate.clue.location = fullMap.centerCoordinate
             } else {
-                delegate.huntIfStart.startingLocation = fullMap.centerCoordinate
+                delegate.hunt.startingLocation = fullMap.centerCoordinate
             }
             didUpdateActiveUser()
             self.clueLocation.addOneTimeTapEvent {
@@ -165,47 +171,63 @@ class EditClueViewLayout {
         }
     }
     
-    private func getRowForCenteredView(view: UIView) -> UIView {
+    func addHintRow(delegate: UITextFieldDelegate, hintText: String = "", initial: Bool = false) {
+        let textField = UITextField()
+        let deleteButton = UIButton()
         let row = UIView()
-        doNotAutoResize(view: row)
-        row.backgroundColor = .white
-        row.addSubview(view)
+        doNotAutoResize(views: [textField, row, deleteButton])
+        row.addSubview(textField)
+        row.addSubview(deleteButton)
+        let index = initial ? hintView.arrangedSubviews.count : hintView.arrangedSubviews.count - 1
+        hintView.insertArrangedSubview(row, at: index)
         
-        NSLayoutConstraint.activate([
-            view.heightAnchor.constraint(equalTo: row.heightAnchor),
-            view.centerXAnchor.constraint(equalTo: row.centerXAnchor),
-            view.centerYAnchor.constraint(equalTo: row.centerYAnchor),
-        ])
-        return row
+        NSLayoutConstraint.activate(
+            getSizeConstraints(widthAnchor: row.widthAnchor, heightAnchor: row.heightAnchor, sizeMap: [textField: (0.84, 0.5), deleteButton: (0, 0.3)]) +
+            getSpacingConstraints(leftAnchor: row.leftAnchor, widthAnchor: row.widthAnchor, topAnchor: row.topAnchor, heightAnchor: row.heightAnchor, spacingMap: [textField: (0.42, 0.5), deleteButton: (0.95, 0.5)], parentView: row) +
+                [row.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor, multiplier: 0.12)]
+        )
+        
+        textField.text =  hintText
+        textField.delegate = delegate
+        
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.gray.cgColor
+        
+        deleteButton.setBackgroundImage(UIImage(named: "TrashIcon"), for: .normal)
+        deleteButton.addAction {
+            let index = self.hintView.arrangedSubviews.firstIndex(of: row)!
+            self.hintView.removeArrangedSubview(row)
+            row.removeFromSuperview()
+            self.clue.hints.remove(at: index - 1)
+            didUpdateActiveUser()
+            if self.clue.hints.count == 2 {
+                self.addPlusRow(delegate: delegate)
+            }
+        }
     }
-}
-
-// MARK: Helper Classes
-class ButtonAndLabel: UIView {
-    let button: UIButton
-    let label: UILabel
     
-    required init?(coder: NSCoder) {
-        self.button = UIButton()
-        self.label = UILabel()
+    func addPlusRow(delegate: UITextFieldDelegate) {
+        let addButton = UIButton()
+        let addRow = UIView()
+        doNotAutoResize(views: [addButton, addRow])
+        addRow.addSubview(addButton)
+        NSLayoutConstraint.activate(
+            getSizeConstraints(widthAnchor: addRow.widthAnchor, heightAnchor: addRow.heightAnchor, sizeMap: [addButton: (0.1, 0)]) +
+            getSpacingConstraints(leftAnchor: addRow.leftAnchor, widthAnchor: addRow.widthAnchor, topAnchor: addRow.topAnchor, heightAnchor: addRow.heightAnchor, spacingMap: [addButton: (0.5, 0.5)], parentView: addRow) +
+            [addRow.heightAnchor.constraint(equalToConstant: 50)]
+        )
+        hintView.addArrangedSubview(addRow)
         
-        super.init(coder: coder)
-        
-        doNotAutoResize(views: [button, label])
-        setButtonsToDefaults(buttons: [button])
-        setLabelsToDefaults(labels: [label])
-        
-        self.addSubview(button)
-        self.addSubview(label)
-        let sizeMap: [UIView : (CGFloat, CGFloat)] = [
-            button: (0.2, 0),
-            label: (0.7, 1),
-        ]
-        let spacingMap: [UIView : (CGFloat, CGFloat)] = [
-            button: (0.1, 0.5),
-            label: (0.6, 0.5),
-        ]
-        let constraints = getSizeConstraints(widthAnchor: self.widthAnchor, heightAnchor: self.heightAnchor, sizeMap: sizeMap) + getSpacingConstraints(leftAnchor: self.leftAnchor, widthAnchor: self.widthAnchor, topAnchor: self.topAnchor, heightAnchor: self.heightAnchor, spacingMap: spacingMap, parentView: self)
-        NSLayoutConstraint.activate(constraints)
+        setButtonsToDefaults(buttons: [addButton])
+        addButton.setBackgroundImage(UIImage(named: "PlusIcon"), for: .normal)
+        addButton.addAction {
+            self.addHintRow(delegate: delegate)
+            self.clue.addHint(hint: "")
+            if self.clue.hints.count == 3 {
+                self.hintView.removeArrangedSubview(addRow)
+            }
+            let bottomOffset = CGPoint(x: 0, y: self.scrollView.contentSize.height - self.scrollView.bounds.height + self.scrollView.contentInset.bottom)
+            self.scrollView.setContentOffset(bottomOffset, animated: true)
+        }
     }
 }

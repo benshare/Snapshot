@@ -13,7 +13,6 @@ private let styleValues = ["Virtual"]
 private let sensitivityValues = (1...20).map( { String($0 * 10) + "%" })
 private let designValues = ["Classic"]
 
-
 class EditHuntPreferencesController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     // MARK: Variables
@@ -32,8 +31,10 @@ class EditHuntPreferencesController: UIViewController, UIPickerViewDataSource, U
     // Formatting
     private var layout: EditHuntPreferencesLayout!
     
-    // Data
+    // Other
     var hunt: TreasureHunt!
+    var allowButton: UIButton!
+    var hotColdButton: UIButton!
     
     // MARK: Initialization
     required init?(coder: NSCoder) {
@@ -41,9 +42,11 @@ class EditHuntPreferencesController: UIViewController, UIPickerViewDataSource, U
     }
         
     override func viewDidLoad() {
-        layout = EditHuntPreferencesLayout(navigationBar: navigationBar, titleLabel: titleLabel, scrollView: scrollView, styleLabel: styleLabel, stylePicker: stylePicker, sensitivityLabel: sensitivityLabel, sensitivityPicker: sensitivityPicker, sensitivityPreview: hunt.clues.first == nil ? nil : sensitivityPreview, designLabel: designLabel, designPicker: designPicker)
+        let hintsView = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
+        layout = EditHuntPreferencesLayout(navigationBar: navigationBar, titleLabel: titleLabel, scrollView: scrollView, styleLabel: styleLabel, stylePicker: stylePicker, hintsView: hintsView, sensitivityLabel: sensitivityLabel, sensitivityPicker: sensitivityPicker, sensitivityPreview: hunt.clues.first == nil ? nil : sensitivityPreview, designLabel: designLabel, designPicker: designPicker)
         layout.configureConstraints(view: view)
         
+        // Navigation Bar
         navigationBar.addBackButton(text: "< Back", action: {
             didUpdateActiveUser()
             self.dismiss(animated: true)
@@ -51,11 +54,77 @@ class EditHuntPreferencesController: UIViewController, UIPickerViewDataSource, U
         navigationBar.setTitle(text: hunt.name)
         view.bringSubviewToFront(navigationBar)
         
+        // Style section
         styleLabel.text = "Hunt style:"
         styleLabel.addInformationButton(title: "Hunt style", content: "This controls how people play your hunt. Real world option coming soon!", controller: self)
         stylePicker.dataSource = self
         stylePicker.delegate = self
         
+        // Hints section
+        hintsView.backgroundColor = .white
+        
+        let allowLabel = UILabel()
+        allowButton = UIButton()
+        let allowRow = UIView()
+        allowRow.addSubview(allowLabel)
+        allowRow.addSubview(allowButton)
+        NSLayoutConstraint.activate(
+            getSizeConstraints(widthAnchor: allowRow.widthAnchor, heightAnchor: allowRow.heightAnchor, sizeMap: [allowLabel: (0.6, 1), allowButton: (0, 0.4)]) +
+            getSpacingConstraints(leftAnchor: allowRow.leftAnchor, widthAnchor: allowRow.widthAnchor, topAnchor: allowRow.topAnchor, heightAnchor: allowRow.heightAnchor, spacingMap: [allowLabel: (0.35, 0.5), allowButton: (0.85, 0.5)], parentView: allowRow)
+        )
+
+        let hotColdLabel = UILabel()
+        hotColdButton = UIButton()
+        let hotColdRow = UIView()
+        hotColdRow.addSubview(hotColdLabel)
+        hotColdRow.addSubview(hotColdButton)
+        NSLayoutConstraint.activate(
+            getSizeConstraints(widthAnchor: hotColdRow.widthAnchor, heightAnchor: hotColdRow.heightAnchor, sizeMap: [hotColdLabel: (0.6, 1), hotColdButton: (0, 0.4)]) +
+            getSpacingConstraints(leftAnchor: hotColdRow.leftAnchor, widthAnchor: hotColdRow.widthAnchor, topAnchor: hotColdRow.topAnchor, heightAnchor: hotColdRow.heightAnchor, spacingMap: [hotColdLabel: (0.35, 0.5), hotColdButton: (0.85, 0.5)], parentView: hotColdRow)
+        )
+
+        hintsView.addSubview(allowRow)
+        hintsView.addSubview(hotColdRow)
+
+        NSLayoutConstraint.activate(
+            getSizeConstraints(widthAnchor: hintsView.widthAnchor, heightAnchor: hintsView.heightAnchor, sizeMap: [allowRow: (1, 0.34), hotColdRow: (1, 0.34)]) +
+            getSpacingConstraints(leftAnchor: hintsView.leftAnchor, widthAnchor: hintsView.widthAnchor, topAnchor: hintsView.topAnchor, heightAnchor: hintsView.heightAnchor, spacingMap: [allowRow: (0.5, 0.3), hotColdRow: (0.5, 0.7)], parentView: hintsView)
+        )
+
+        doNotAutoResize(views: [hintsView, allowLabel, allowButton, allowRow, hotColdLabel, hotColdButton, hotColdRow])
+        setLabelsToDefaults(labels: [allowLabel, hotColdLabel])
+        setButtonsToDefaults(buttons: [allowButton, hotColdButton])
+        allowLabel.text = "Turn on hints for this hunt?"
+        allowButton.setBackgroundImage(UIImage(named: hunt.allowHints ? "checkboxFull" : "checkboxEmpty"), for: .normal)
+        allowButton.addAction {
+            self.hunt.allowHints = !self.hunt.allowHints
+            self.allowButton.setBackgroundImage(UIImage(named: self.hunt.allowHints ? "checkboxFull" : "checkboxEmpty"), for: .normal)
+            if self.hunt.allowHints {
+                self.hotColdButton.isEnabled = true
+                hotColdRow.tintColor = .none
+                hotColdRow.alpha = 1
+            } else {
+                self.hotColdButton.isEnabled = false
+                hotColdRow.tintColor = .gray
+                hotColdRow.alpha = 0.6
+            }
+            didUpdateActiveUser()
+        }
+        
+        hotColdLabel.text = "Show hotter / colder hints?"
+        hotColdButton.setBackgroundImage(UIImage(named: hunt.allowHotterColder ? "checkboxFull" : "checkboxEmpty"), for: .normal)
+        hotColdButton.addAction {
+            self.hunt.allowHotterColder = !self.hunt.allowHotterColder
+            self.hotColdButton.setBackgroundImage(UIImage(named: self.hunt.allowHotterColder ? "checkboxFull" : "checkboxEmpty"), for: .normal)
+            didUpdateActiveUser()
+        }
+        if !hunt.allowHints {
+            hotColdButton.isEnabled = false
+            hotColdRow.tintColor = .gray
+            hotColdRow.alpha = 0.6
+        }
+        
+        // Clue sensitivity section
         sensitivityLabel.text = "Clue sensitivity:"
         sensitivityLabel.addInformationButton(title: "Clue sensitivity", content: "How close does someone need to be to find a clue? The smaller the number, the closer they need to be.", controller: self)
         sensitivityPicker.dataSource = self
@@ -78,10 +147,12 @@ class EditHuntPreferencesController: UIViewController, UIPickerViewDataSource, U
                 target.widthAnchor.constraint(equalTo: sensitivityPreview.widthAnchor),
                 target.heightAnchor.constraint(equalTo: sensitivityPreview.heightAnchor),
             ])
+            sensitivityPreview.isUserInteractionEnabled = false
         } else {
             sensitivityPreview.isHidden = true
         }
         
+        // Design section
         designLabel.text = "Editing mode:"
         designLabel.addInformationButton(title: "Editing mode", content: "What mode you use for creating + editing hunts. More options coming soon!", controller: self)
         designPicker.dataSource = self
