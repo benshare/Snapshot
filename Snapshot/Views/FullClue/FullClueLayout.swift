@@ -12,8 +12,9 @@ class FullClueLayout {
     // MARK: Properties
     
     // UI elements
-    private let titleLabel: UILabel
-    private let clueText: UILabel
+//    private let titleLabel: UILabel
+//    private let clueText: UILabel
+    private let stackView: UIStackView
     
     // Constraint maps
     private var portraitSizeMap: [UIView: (CGFloat, CGFloat)]!
@@ -25,22 +26,34 @@ class FullClueLayout {
     private var portraitConstraints = [NSLayoutConstraint]()
     private var landscapeConstraints = [NSLayoutConstraint]()
     
-    init(titleLabel: UILabel, clueText: UILabel) {
-        self.titleLabel = titleLabel
-        self.clueText = clueText
+    init(titleLabel: UILabel, clueText: UILabel, hintView: UIStackView?) {
+//        self.titleLabel = titleLabel
+//        self.clueText = clueText
+        stackView = UIStackView()
+        
+        let titleRow = getRowForCenteredView(view: titleLabel)
+        let textRow = getRowForCenteredView(view: clueText)
 
-        doNotAutoResize(views: [titleLabel, clueText])
+        doNotAutoResize(views: [stackView, titleLabel, clueText, titleRow, textRow])
         setLabelsToDefaults(labels: [titleLabel, clueText])
+        stackView.distribution = .equalSpacing
+        stackView.axis = .vertical
+        
+        stackView.addArrangedSubview(titleRow)
+        stackView.addArrangedSubview(textRow)
+        if hintView != nil {
+            stackView.addArrangedSubview(getRowForCenteredView(view: hintView!))
+        }
         
         // Portrait
         portraitSizeMap = [
-            titleLabel: (0.7, 0.2),
-            clueText: (0.8, 0.6),
+            stackView: (1, 0.85),
+            titleLabel: (0.6, 0.15),
+            clueText: (0.8, 0.25),
         ]
         
         portraitSpacingMap = [
-            titleLabel: (0.5, 0.2),
-            clueText: (0.5, 0.6),
+            stackView: (0.5, 0.5),
         ]
         
         // Landscape
@@ -53,12 +66,22 @@ class FullClueLayout {
 //            titleLabel: (, ),
 //            clueText: (, ),
         ]
+        
+        if hintView != nil {
+            doNotAutoResize(view: hintView!)
+            for subview in hintView!.arrangedSubviews as! [UIButton] {
+                doNotAutoResize(view: subview)
+                setButtonsToDefaults(buttons: [subview], withInsets: 5)
+                portraitSizeMap[subview] = (0.2, 0.04)
+            }
+        }
     }
     
     // MARK: Constraints
     
     func configureConstraints(view: UIView)  {
         view.backgroundColor = globalBackgroundColor()
+        view.addSubview(stackView)
         
         portraitConstraints += getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: portraitSizeMap)
         portraitConstraints += getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: portraitSpacingMap, parentView: view)

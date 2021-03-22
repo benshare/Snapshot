@@ -89,9 +89,12 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func displayClue(clue: Clue, isNew: Bool, clueNum: Int? = nil, center: CGPoint? = nil) {
-        fullClueView = FullClueView(text: clue.text, isNew: isNew, clueNum: clueNum)
+        view.addOneTimeTapEvent {
+            self.disappearVisibleClue(to: center ?? self.view.center)
+        }
+        fullClueView = FullClueView(clue: clue, parentController: self)
         view.addSubview(fullClueView)
-        fullClueView.configureView()
+        fullClueView.configureView(isNew: isNew, clueNum: clueNum)
         if isNew {
             self.fullClueView.frame.size = CGSize(width: view.frame.width * 0.1, height: view.frame.height * 0.1)
             self.fullClueView.center = view.center
@@ -106,9 +109,6 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
             self.fullClueView.center = self.view.center
             self.fullClueView.layoutSubviews()
         }, completion: { _ in self.map.isUserInteractionEnabled = true })
-        view.addOneTimeTapEvent {
-            self.disappearVisibleClue(to: center ?? self.view.center)
-        }
     }
     
     private func disappearVisibleClue(to: CGPoint) {
