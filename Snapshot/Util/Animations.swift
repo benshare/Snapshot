@@ -9,12 +9,21 @@ import Foundation
 import UIKit
 
 extension UIView {
-    func move(to destination: CGPoint, duration: TimeInterval,
-              options: UIView.AnimationOptions, scale: CGFloat = 1, completion: ((Bool) -> Void)? = nil) {
-      UIView.animate(withDuration: duration, delay: 0, options: options, animations: {
-        self.center = destination
-        self.frame.size = CGSize(width: self.frame.width * scale, height: self.frame.height * scale)
-        self.alpha = 1
-      }, completion: completion)
+    func animate(startingSize: CGSize, startingCenter: CGPoint, endingSize: CGSize, endingCenter: CGPoint, duration: TimeInterval, delay: TimeInterval = 0, additional: @escaping () -> Void = {}, completion: @escaping ((Bool) -> Void) = {_ in }) {
+        frame.size = startingSize
+        center = startingCenter
+        layoutSubviews()
+        UIView.animate(withDuration: duration, delay: delay, options: [.curveLinear, .layoutSubviews, .allowAnimatedContent], animations: {
+            self.frame.size = endingSize
+            self.center = endingCenter
+            additional()
+        }, completion: completion)
+    }
+    func move(endingSize: CGSize, endingCenter: CGPoint, duration: TimeInterval, delay: TimeInterval = 0, additional: @escaping () -> Void = {}, completion: @escaping ((Bool) -> Void) = {_ in }) {
+        UIView.animate(withDuration: duration, delay: delay, options: .layoutSubviews, animations: {
+            self.frame.size = endingSize
+            self.center = endingCenter
+            additional()
+        }, completion: completion)
     }
 }

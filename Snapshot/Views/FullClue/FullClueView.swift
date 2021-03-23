@@ -105,16 +105,3 @@ class FullClueView: UIView {
         layout!.activateConstraints(isPortrait: isPortrait)
     }
 }
-
-class CluePlaythrough {
-    var nonEmptyHints = [String]()
-    let currentHint = 0
-    
-    init(clue: Clue) {
-        for hint in clue.hints {
-            if !hint.isEmpty {
-                nonEmptyHints.append(hint)
-            }
-        }
-    }
-}

@@ -40,7 +40,7 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
         let currentClue = playthrough.getCurrentClue()
         nextLocation = currentClue.location
         checkForRadius = true
-        displayClue(clue: currentClue, isNew: true)
+        displayClue(clue: currentClue, isNew: true, from: view.center)
         let annotation = MKPointAnnotation()
         annotation.coordinate = playthrough.hunt.startingLocation
         annotation.title = String(playthrough.currentClueNum + 1)
@@ -74,7 +74,7 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
             let newClue = playthrough.getCurrentClue()
             nextLocation = newClue.location
             checkForRadius = true
-            displayClue(clue: newClue, isNew: true)
+            displayClue(clue: newClue, isNew: true, from: view.center)
         } else {
             view.isUserInteractionEnabled = false
             let alert = UIAlertController(title: "Congrats!", message: "You finished the treasure hunt!", preferredStyle: .alert)
@@ -88,34 +88,22 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    private func displayClue(clue: Clue, isNew: Bool, clueNum: Int? = nil, center: CGPoint? = nil) {
+    private func displayClue(clue: Clue, isNew: Bool, clueNum: Int? = nil, from: CGPoint) {
         view.addOneTimeTapEvent {
-            self.disappearVisibleClue(to: center ?? self.view.center)
+            self.disappearVisibleClue(to: from)
         }
         fullClueView = FullClueView(clue: clue, parentController: self)
         view.addSubview(fullClueView)
         fullClueView.configureView(isNew: isNew, clueNum: clueNum)
-        if isNew {
-            self.fullClueView.frame.size = CGSize(width: view.frame.width * 0.1, height: view.frame.height * 0.1)
-            self.fullClueView.center = view.center
-        } else {
-            self.fullClueView.frame.size = CGSize(width: map.frame.width * 0.1, height: map.frame.height * 0.1)
-            self.fullClueView.center = center!
-        }
-        fullClueView.redrawScene()
-        self.fullClueView.layoutSubviews()
-        UIView.animate(withDuration: 1, delay: isNew ? 1 : 0, animations: {
-            self.fullClueView.frame.size = CGSize(width: self.view.frame.width * 0.8, height: self.view.frame.height * 0.8)
-            self.fullClueView.center = self.view.center
-            self.fullClueView.layoutSubviews()
-        }, completion: { _ in self.map.isUserInteractionEnabled = true })
+        let startingSize = CGSize(width: view.frame.width * 0.1, height: view.frame.height * 0.1)
+        let startingCenter = isNew ? view.center : from
+        let endingSize = CGSize(width: self.view.frame.width * 0.8, height: self.view.frame.height * 0.8)
+        let endingCenter = self.view.center
+        fullClueView.animate(startingSize: startingSize, startingCenter: startingCenter, endingSize: endingSize, endingCenter: endingCenter, duration: 0.5, delay: isNew ? 1 : 0, additional: {}, completion: { _ in self.map.isUserInteractionEnabled = true })
     }
     
     private func disappearVisibleClue(to: CGPoint) {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.fullClueView.frame = CGRect(x: to.x - 25, y: to.y - 25, width: 50, height: 50)
-            self.fullClueView.layoutSubviews()
-        }, completion: { _ in self.fullClueView.removeFromSuperview() })
+        fullClueView.move(endingSize: CGSize(width: 50, height: 50), endingCenter: to, duration: 0.5, completion: { _ in self.fullClueView.removeFromSuperview() })
     }
     
     private func displayCluesPopup() {
@@ -127,7 +115,7 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
         for i in 0...playthrough.unlockedClues.count - 1 {
             let clue = playthrough.unlockedClues[i]
             cluesPopup.addButton(name: "Clue #\(i + 1)", callback: {
-                self.displayClue(clue: clue, isNew: false, clueNum: i + 1, center: self.cluesPopup.center)
+                self.displayClue(clue: clue, isNew: false, clueNum: i + 1, from: CGPoint(x: self.cluesPopup.center.x - 25, y: self.cluesPopup.center.y - 25))
                 self.cluesPopup.removeFromSuperview()
                 self.view.removeTapEvent()
             })
@@ -174,7 +162,7 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
         annotationView.annotation = annotation
         let index = Int(annotation.title!!)!
         annotationView.addPermanentTapEvent {
-            self.displayClue(clue: self.playthrough.hunt.clues[index - 1], isNew: false, clueNum: index, center: annotationView.center)
+            self.displayClue(clue: self.playthrough.hunt.clues[index - 1], isNew: false, clueNum: index, from: annotationView.center)
         }
         return annotationView
     }

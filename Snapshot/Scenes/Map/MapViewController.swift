@@ -267,7 +267,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
         switch sender.state {
         case .ended:
             if distance < threshold {
-                fullImage!.move(to: view.center, duration: 0.1, options: .curveLinear)
+                fullImage?.move(endingSize: fullImage!.frame.size, endingCenter: view.center, duration: 0.1)
                 fullImage!.alpha = 1
             } else {
                 fullImage!.removeFromSuperview()
