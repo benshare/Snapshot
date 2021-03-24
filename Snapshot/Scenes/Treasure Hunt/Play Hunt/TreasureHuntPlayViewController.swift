@@ -27,7 +27,6 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
     var nextLocation: CLLocationCoordinate2D!
     var checkForRadius: Bool = false
     
-    
     // MARK: Initialization
     override func viewDidLoad() {
         super.viewDidLoad()

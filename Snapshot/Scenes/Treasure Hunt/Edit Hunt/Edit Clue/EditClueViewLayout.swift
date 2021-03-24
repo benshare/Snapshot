@@ -258,6 +258,12 @@ class EditClueViewLayout {
         cameraButton.setBackgroundImage(UIImage(named: "CameraIcon"), for: .normal)
         cameraButton.alpha = 0.7
         
+        let deleteButton = UIButton()
+        doNotAutoResize(view: deleteButton)
+        fullImage.addSubview(deleteButton)
+        deleteButton.setBackgroundImage(UIImage(named: "TrashIcon"), for: .normal)
+        deleteButton.alpha = 0.7
+        
         let libraryButton = UIButton()
         doNotAutoResize(view: libraryButton)
         fullImage.addSubview(libraryButton)
@@ -265,11 +271,18 @@ class EditClueViewLayout {
         libraryButton.alpha = 0.7
         
         let buttonConstraints =
-            getSizeConstraints(widthAnchor: fullImage.widthAnchor, heightAnchor: fullImage.heightAnchor, sizeMap: [cameraButton: (0.1, 0), libraryButton: (0.1, 0)]) +
-            getSpacingConstraints(leftAnchor: fullImage.leftAnchor, widthAnchor: fullImage.widthAnchor, topAnchor: fullImage.topAnchor, heightAnchor: fullImage.heightAnchor, spacingMap: [cameraButton: (0.1, 0.08), libraryButton: (0.9, 0.08)], parentView: fullImage)
+            getSizeConstraints(widthAnchor: fullImage.widthAnchor, heightAnchor: fullImage.heightAnchor, sizeMap: [cameraButton: (0.1, 0), deleteButton: (0.1, 0), libraryButton: (0.1, 0)]) +
+            getSpacingConstraints(leftAnchor: fullImage.leftAnchor, widthAnchor: fullImage.widthAnchor, topAnchor: fullImage.topAnchor, heightAnchor: fullImage.heightAnchor, spacingMap: [cameraButton: (0.1, 0.08), deleteButton: (0.5, 0.08), libraryButton: (0.9, 0.08)], parentView: fullImage)
         NSLayoutConstraint.activate(buttonConstraints)
         
         cameraButton.addAction(cameraCallback)
+        deleteButton.addAction {
+            let defaultImage = UIImage(named: "ClickToAdd")
+            self.clueImage.image = defaultImage
+            self.fullImage.image = defaultImage
+            self.clue.image = nil
+            didUpdateActiveUser()
+        }
         libraryButton.addAction(libraryCallback)
     }
 }

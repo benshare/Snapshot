@@ -13,6 +13,7 @@ class FullClueView: UIView {
     // UI elements
     let titleLabel: UILabel
     let clueText: UILabel
+    let clueImage: UIImageView?
     let hintView: UIStackView?
     
     // Formatting
@@ -33,6 +34,7 @@ class FullClueView: UIView {
         self.parentController = parentController
         titleLabel = UILabel()
         clueText = UILabel()
+        clueImage = clue.image == nil ? nil : UIImageView(image: clue.image)
         for hint in clue.hints {
             if !hint.isEmpty {
                 nonEmptyHints.append(hint)
@@ -45,16 +47,23 @@ class FullClueView: UIView {
     func configureView(isNew: Bool = false, clueNum: Int? = nil) {
         addSubview(titleLabel)
         addSubview(clueText)
+        if clueImage != nil {
+            addSubview(clueImage!)
+        } else {
+            clueImage?.isHidden = true
+        }
         if hintView != nil {
             addSubview(hintView!)
+        } else {
+            hintView?.isHidden = true
         }
         self.layer.borderWidth = 5
         self.layer.borderColor = UIColor.gray.cgColor
         self.layer.cornerRadius = 10
         
         titleLabel.text = isNew ? "You unlocked\na new clue!" : "Clue #\(clueNum!)"
-        titleLabel.numberOfLines = 0
-        titleLabel.font = UIFont.systemFont(ofSize: 25)
+        titleLabel.numberOfLines = isNew ? 2 : 1
+        titleLabel.font = UIFont.systemFont(ofSize: 30)
 
         clueText.text = clue.text
         clueText.numberOfLines = 0
@@ -86,14 +95,16 @@ class FullClueView: UIView {
                     hintButton.alpha = 0.3
                 }
                 
-                hintView!.addArrangedSubview(hintButton)
+                let buttonWrapper = UIView()
+                buttonWrapper.backgroundColor = .white
+                buttonWrapper.addSubview(hintButton)
+                hintView!.addArrangedSubview(buttonWrapper)
             }
             
             hintView!.axis = .vertical
-            hintView!.spacing = 8
         }
         
-        layout = FullClueLayout(titleLabel: titleLabel, clueText: clueText, hintView: hintView)
+        layout = FullClueLayout(titleLabel: titleLabel, clueText: clueText, clueImage: clueImage, hintView: hintView)
         layout.configureConstraints(view: self)
         
         redrawScene()

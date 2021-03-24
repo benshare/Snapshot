@@ -19,6 +19,7 @@ extension UIView {
             additional()
         }, completion: completion)
     }
+    
     func move(endingSize: CGSize, endingCenter: CGPoint, duration: TimeInterval, delay: TimeInterval = 0, additional: @escaping () -> Void = {}, completion: @escaping ((Bool) -> Void) = {_ in }) {
         UIView.animate(withDuration: duration, delay: delay, options: .layoutSubviews, animations: {
             self.frame.size = endingSize

@@ -12,8 +12,6 @@ class FullClueLayout {
     // MARK: Properties
     
     // UI elements
-//    private let titleLabel: UILabel
-//    private let clueText: UILabel
     private let stackView: UIStackView
     
     // Constraint maps
@@ -26,30 +24,44 @@ class FullClueLayout {
     private var portraitConstraints = [NSLayoutConstraint]()
     private var landscapeConstraints = [NSLayoutConstraint]()
     
-    init(titleLabel: UILabel, clueText: UILabel, hintView: UIStackView?) {
-//        self.titleLabel = titleLabel
-//        self.clueText = clueText
+    init(titleLabel: UILabel, clueText: UILabel, clueImage: UIImageView?, hintView: UIStackView?) {
         stackView = UIStackView()
-        
-        let titleRow = getRowForCenteredView(view: titleLabel)
-        let textRow = getRowForCenteredView(view: clueText)
 
-        doNotAutoResize(views: [stackView, titleLabel, clueText, titleRow, textRow])
+        doNotAutoResize(views: [stackView, titleLabel, clueText])
         setLabelsToDefaults(labels: [titleLabel, clueText])
         stackView.distribution = .equalSpacing
         stackView.axis = .vertical
         
-        stackView.addArrangedSubview(titleRow)
-        stackView.addArrangedSubview(textRow)
+        let totalContentHeight: CGFloat = 0.7
+        let titleUnits = 2
+        let textUnits = 6
+        let imageUnits = 6
+        let hintUnits = 3
+        var heightUnits = 0
+        
+        stackView.addArrangedSubview(getRowForCenteredView(view: titleLabel))
+        heightUnits += titleUnits
+        stackView.addArrangedSubview(getRowForCenteredView(view: clueText))
+        heightUnits += textUnits
+        if clueImage != nil {
+            stackView.addArrangedSubview(getRowForCenteredView(view: clueImage!))
+            heightUnits += imageUnits
+        }
         if hintView != nil {
             stackView.addArrangedSubview(getRowForCenteredView(view: hintView!))
+            heightUnits += hintUnits
         }
+        
+        let titleHeight = CGFloat(titleUnits) * totalContentHeight / CGFloat(heightUnits)
+        let clueHeight = CGFloat(textUnits) * totalContentHeight / CGFloat(heightUnits)
+        let imageHeight = CGFloat(imageUnits) * totalContentHeight / CGFloat(heightUnits)
+        let hintHeight = CGFloat(hintUnits) * totalContentHeight / CGFloat(heightUnits)
         
         // Portrait
         portraitSizeMap = [
             stackView: (1, 0.85),
-            titleLabel: (0.6, 0.15),
-            clueText: (0.8, 0.25),
+            titleLabel: (CGFloat(0.6), titleHeight),
+            clueText: (CGFloat(0.8), clueHeight),
         ]
         
         portraitSpacingMap = [
@@ -58,21 +70,30 @@ class FullClueLayout {
         
         // Landscape
         landscapeSizeMap = [:
-//            titleLabel: (, ),
-//            clueText: (, ),
         ]
         
         landscapeSpacingMap = [:
-//            titleLabel: (, ),
-//            clueText: (, ),
         ]
+        
+        if clueImage != nil {
+            doNotAutoResize(view: clueImage!)
+            portraitSizeMap[clueImage!] = (0.6, imageHeight)
+        }
         
         if hintView != nil {
             doNotAutoResize(view: hintView!)
-            for subview in hintView!.arrangedSubviews as! [UIButton] {
-                doNotAutoResize(view: subview)
-                setButtonsToDefaults(buttons: [subview], withInsets: 5)
-                portraitSizeMap[subview] = (0.2, 0.04)
+            let numRows = hintView!.arrangedSubviews.count
+            for wrapper in hintView!.arrangedSubviews {
+                let button = wrapper.subviews[0] as! UIButton
+                doNotAutoResize(views: [wrapper, button])
+                setButtonsToDefaults(buttons: [button], withInsets: 5)
+                NSLayoutConstraint.activate([
+                    button.widthAnchor.constraint(equalTo: wrapper.widthAnchor, multiplier: 0.8),
+                    button.heightAnchor.constraint(equalTo: wrapper.heightAnchor, multiplier: 0.8),
+                    button.centerXAnchor.constraint(equalTo: wrapper.centerXAnchor),
+                    button.centerYAnchor.constraint(equalTo: wrapper.centerYAnchor),
+                ])
+                portraitSizeMap[wrapper] = (0.2, hintHeight / CGFloat(numRows))
             }
         }
     }
