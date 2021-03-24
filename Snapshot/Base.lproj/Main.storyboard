@@ -14,7 +14,7 @@
             <objects>
                 <viewController id="ubq-fD-73X" customClass="MemoryCollectionController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="syD-mO-1kI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fSO-BU-zLZ" customClass="ScrollableStackView" customModule="Snapshot" customModuleProvider="target">
@@ -286,6 +286,7 @@
                         <outlet property="hintView" destination="X6s-dB-clC" id="iNT-38-pwO"/>
                         <outlet property="navigationBar" destination="pMv-FX-2Xo" id="4wm-VF-eiR"/>
                         <outlet property="scrollView" destination="zOc-hF-qbX" id="1ib-uM-c70"/>
+                        <segue destination="ubq-fD-73X" kind="presentation" identifier="chooseFromCollectionSegue" id="HIl-kN-TtT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bPy-ew-3kb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -453,6 +454,7 @@
         <segue reference="SFH-er-5NR"/>
         <segue reference="B67-W3-2kg"/>
         <segue reference="HId-KD-dBC"/>
+        <segue reference="HIl-kN-TtT"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="labelColor">

@@ -22,6 +22,7 @@ class MemoryCollectionController: UIViewController {
     
     // Other
     var mapController: MapViewController!
+    var popoverSource: EditClueViewController?
     
     // MARK: Initialization
     override func viewDidLoad() {
@@ -34,11 +35,19 @@ class MemoryCollectionController: UIViewController {
         fillListFromCollection()
         
         redrawScene()
-        backButton.addAction {
-            self.performSegue(withIdentifier: "backToMainSegue", sender: self)
-        }
-        mapButton.addAction {
-            self.dismiss(animated: true, completion: {})
+        if popoverSource != nil {
+            mapButton.isHidden = true
+            huntButton.isHidden = true
+            backButton.addAction {
+                self.dismiss(animated: true, completion: nil)
+            }
+        } else {
+            backButton.addAction {
+                self.performSegue(withIdentifier: "backToMainSegue", sender: self)
+            }
+            mapButton.addAction {
+                self.dismiss(animated: true, completion: {})
+            }
         }
     }
     
@@ -47,6 +56,17 @@ class MemoryCollectionController: UIViewController {
         for snapshot in unsorted.sorted(by: { return $0.time < $1.time }) {
             let row = layout.getRowForSnapshot(snapshot: snapshot)
             memoryList.addToStack(view: row)
+            
+            if popoverSource != nil {
+                let source = popoverSource!
+                row.addPermanentTapEvent {
+                    source.clue.location = snapshot.location
+                    source.clue.image = snapshot.image
+                    didUpdateActiveUser()
+                    source.updateMapAndImage()
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
         }
     }
     

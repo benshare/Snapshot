@@ -93,7 +93,7 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
         if clueType! == .clue {
             clueImage.image = clue.image ?? UIImage(named: "ClickToAdd")
             clueImage.addPermanentTapEvent {
-                self.layout.showFullViewImage(view: self.view, cameraCallback: self.takePhoto, libraryCallback: self.uploadPhoto)
+                self.layout.showFullViewImage(view: self.view, cameraCallback: self.takePhoto, collectionCallback: self.choosePhotoFromCollection, libraryCallback: self.uploadPhoto)
             }
             clueImage.isUserInteractionEnabled = true
         } else {
@@ -159,6 +159,12 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
         redrawScene()
     }
     
+    func updateMapAndImage() {
+        clueLocation.setCenter(clue.location, animated: false)
+        layout.fullImage.image = clue.image
+        clueImage.image = clue.image
+    }
+    
     // MARK: Clue Text
     @objc func endEditingText() {
         clueText.endEditing(true)
@@ -203,6 +209,10 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
         self.present(picker, animated: true)
     }
     
+    @objc func choosePhotoFromCollection() {
+        performSegue(withIdentifier: "chooseFromCollectionSegue", sender: self)
+    }
+    
     @objc func uploadPhoto() {
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
@@ -218,5 +228,16 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
         clue.image = image
         didUpdateActiveUser()
         dismiss(animated: true)
+    }
+    
+    // MARK: Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "chooseFromCollectionSegue":
+            let dest = segue.destination as! MemoryCollectionController
+            dest.popoverSource = self
+        default:
+            break
+        }
     }
 }
