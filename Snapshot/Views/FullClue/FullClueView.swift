@@ -48,7 +48,16 @@ class FullClueView: UIView {
         addSubview(titleLabel)
         addSubview(clueText)
         if clueImage != nil {
-            addSubview(clueImage!)
+            let wrapper = UIView()
+            doNotAutoResize(view: wrapper)
+            wrapper.addSubview(clueImage!)
+            addSubview(wrapper)
+            NSLayoutConstraint.activate([
+                clueImage!.widthAnchor.constraint(equalTo: wrapper.widthAnchor),
+                clueImage!.heightAnchor.constraint(equalTo: wrapper.heightAnchor),
+                clueImage!.centerXAnchor.constraint(equalTo: wrapper.centerXAnchor),
+                clueImage!.centerYAnchor.constraint(equalTo: wrapper.centerYAnchor),
+            ])
         } else {
             clueImage?.isHidden = true
         }
@@ -68,6 +77,8 @@ class FullClueView: UIView {
         clueText.text = clue.text
         clueText.numberOfLines = 0
         
+        clueImage?.contentMode = .scaleAspectFit
+        
         if hintView != nil {
             let lastHint = nonEmptyHints.count - 1
             for i in 0...lastHint {
@@ -85,7 +96,7 @@ class FullClueView: UIView {
                     }))
                     parentController.present(alert, animated: true, completion: {})
                     if i < lastHint {
-                        let nextHint = hintView?.arrangedSubviews[i + 1] as! UIButton
+                        let nextHint = hintView?.arrangedSubviews[i + 1].subviews[0] as! UIButton
                         nextHint.isEnabled = true
                         nextHint.alpha = 1
                     }

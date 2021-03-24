@@ -96,11 +96,12 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
         fullClueView = FullClueView(clue: clue, parentController: self)
         view.addSubview(fullClueView)
         fullClueView.configureView(isNew: isNew, clueNum: clueNum)
+        
         let startingSize = CGSize(width: view.frame.width * 0.1, height: view.frame.height * 0.1)
         let startingCenter = isNew ? view.center : from
         let endingSize = CGSize(width: self.view.frame.width * 0.8, height: self.view.frame.height * 0.8)
         let endingCenter = self.view.center
-        fullClueView.animate(startingSize: startingSize, startingCenter: startingCenter, endingSize: endingSize, endingCenter: endingCenter, duration: 0.5, delay: isNew ? 1 : 0, additional: {}, completion: { _ in self.map.isUserInteractionEnabled = true })
+        fullClueView.move(startingSize: startingSize, startingCenter: startingCenter, endingSize: endingSize, endingCenter: endingCenter, duration: 0.5, delay: isNew ? 1 : 0, completion: { _ in self.map.isUserInteractionEnabled = true })
     }
     
     private func disappearVisibleClue(to: CGPoint) {
