@@ -290,6 +290,7 @@ func generateNewLayout(name: String, elements: [(String, String)]) {
         private var portraitConstraints = [NSLayoutConstraint]()
         private var landscapeConstraints = [NSLayoutConstraint]()
         
+        // MARK: Initialization
         init(\(elements.map( { "\($0.0): \($0.1)" } ).joined(separator: ", "))) {
     \(elements.map( { "\t\tself.\($0.0) = \($0.0)" } ).joined(separator: "\n"))
 
@@ -317,7 +318,6 @@ func generateNewLayout(name: String, elements: [(String, String)]) {
         }
         
         // MARK: Constraints
-        
         func configureConstraints(view: UIView)  {
             view.backgroundColor = globalBackgroundColor()
             

@@ -16,12 +16,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
     // Outlets
     @IBOutlet weak var map: MemoryMapView!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var collectionButton: UIButton!
     @IBOutlet weak var snapButton: UIButton!
     
     // Formatting
     private var layout: MapViewLayout!
-    
-    // Data
     
     // Other variables
     private var locationManager: CLLocationManager!
@@ -30,8 +29,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
     var newMemoryView: NewMemoryView?
     var displayedCallout: SnapshotCalloutView?
     var fullImage: FullImageView?
-    var aggregatedDrag = CGPoint.zero
-    
+    private var aggregatedDrag = CGPoint.zero
     
     // MARK: Initialization
     override func viewDidLoad() {
@@ -39,13 +37,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
         map.delegate = self
         map.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(mapBackgroundTapped)))
         
-        layout = MapViewLayout(map: map, backButton: backButton, snapButton: snapButton)
+        layout = MapViewLayout(map: map, backButton: backButton, collectionButton: collectionButton, snapButton: snapButton)
         layout.configureConstraints(view: view)
         
         redrawScene()
         
         backButton.addAction {
             self.dismiss(animated: true)
+        }
+        collectionButton.addAction {
+            self.performSegue(withIdentifier: "viewCollectionSegue", sender: self)
         }
         snapButton.addTarget(self, action: #selector(addSnapshotFromMap), for: .touchDown)
         
@@ -274,6 +275,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
             }
         default:
             fullImage!.alpha = max(1 - distance / threshold, 0.1)
+        }
+    }
+    
+    // MARK: Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "viewCollectionSegue":
+            let destination = segue.destination as! MemoryCollectionController
+            destination.mapController = self
+        default:
+            fatalError("Unexpected segue identifier in map view: \(String(describing: segue.identifier))")
         }
     }
 }

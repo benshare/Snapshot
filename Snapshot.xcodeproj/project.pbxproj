@@ -62,6 +62,8 @@
 		79F3063325EC75FD00A445A1 /* TreasureHuntCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3063225EC75FD00A445A1 /* TreasureHuntCollection.swift */; };
 		79F3063F25EC763200A445A1 /* TreasureHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3063E25EC763200A445A1 /* TreasureHunt.swift */; };
 		79F3064725EC763900A445A1 /* Clue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3064625EC763900A445A1 /* Clue.swift */; };
+		79FAB5F82609A92C008BA73C /* MemoryCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FAB5F72609A92C008BA73C /* MemoryCollectionController.swift */; };
+		79FAB5FD2609A938008BA73C /* MemoryCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FAB5FC2609A938008BA73C /* MemoryCollectionLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +145,8 @@
 		79F3063225EC75FD00A445A1 /* TreasureHuntCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureHuntCollection.swift; sourceTree = "<group>"; };
 		79F3063E25EC763200A445A1 /* TreasureHunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureHunt.swift; sourceTree = "<group>"; };
 		79F3064625EC763900A445A1 /* Clue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clue.swift; sourceTree = "<group>"; };
+		79FAB5F72609A92C008BA73C /* MemoryCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCollectionController.swift; sourceTree = "<group>"; };
+		79FAB5FC2609A938008BA73C /* MemoryCollectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCollectionLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -380,20 +384,20 @@
 			isa = PBXGroup;
 			children = (
 				79F3060A25EC31B700A445A1 /* Main Menu */,
-				79E783B325C94984002DC72C /* Map */,
+				79E783B325C94984002DC72C /* Memories */,
 				79F3062225EC6E4C00A445A1 /* Treasure Hunt */,
 				79F3062325EC6E5D00A445A1 /* Settings */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		79E783B325C94984002DC72C /* Map */ = {
+		79E783B325C94984002DC72C /* Memories */ = {
 			isa = PBXGroup;
 			children = (
-				79E783B425C9499E002DC72C /* MapViewController.swift */,
-				79E783BD25C94AF8002DC72C /* MapViewLayout.swift */,
+				79FAB6012609AAC9008BA73C /* MemoryMap */,
+				79FAB6022609AADE008BA73C /* MemoryCollection */,
 			);
-			path = Map;
+			path = Memories;
 			sourceTree = "<group>";
 		};
 		79E783C325C94BD6002DC72C /* Util */ = {
@@ -491,6 +495,24 @@
 				79F3064625EC763900A445A1 /* Clue.swift */,
 			);
 			path = TreasureHuntCollection;
+			sourceTree = "<group>";
+		};
+		79FAB6012609AAC9008BA73C /* MemoryMap */ = {
+			isa = PBXGroup;
+			children = (
+				79E783B425C9499E002DC72C /* MapViewController.swift */,
+				79E783BD25C94AF8002DC72C /* MapViewLayout.swift */,
+			);
+			path = MemoryMap;
+			sourceTree = "<group>";
+		};
+		79FAB6022609AADE008BA73C /* MemoryCollection */ = {
+			isa = PBXGroup;
+			children = (
+				79FAB5F72609A92C008BA73C /* MemoryCollectionController.swift */,
+				79FAB5FC2609A938008BA73C /* MemoryCollectionLayout.swift */,
+			);
+			path = MemoryCollection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -633,6 +655,7 @@
 				79A400BF25EDF3F0004F7596 /* ScrollableStackView.swift in Sources */,
 				79A400B625EDF1EE004F7596 /* EditHuntViewController.swift in Sources */,
 				79F3060325E9BF7200A445A1 /* LocationUtil.swift in Sources */,
+				79FAB5FD2609A938008BA73C /* MemoryCollectionLayout.swift in Sources */,
 				79A400B025EDEA1B004F7596 /* NavigationBarViewLayout.swift in Sources */,
 				790CE9DE25F76411009D0AD9 /* FullClueLayout.swift in Sources */,
 				79E7838025C9493A002DC72C /* AppDelegate.swift in Sources */,
@@ -658,6 +681,7 @@
 				79F3061625EC3B3B00A445A1 /* ControlUtil.swift in Sources */,
 				79A400CF25EE0F70004F7596 /* ClueListRowViewLayout.swift in Sources */,
 				790CE9D025F75338009D0AD9 /* TreasureHuntPlaythrough.swift in Sources */,
+				79FAB5F82609A92C008BA73C /* MemoryCollectionController.swift in Sources */,
 				79B0855C25F61C2200F0868C /* PopupOptionsView.swift in Sources */,
 				79F3062A25EC6EE000A445A1 /* TreasureHuntCollectionViewLayout.swift in Sources */,
 				790CE9C225F72654009D0AD9 /* TreasureHuntPlayViewController.swift in Sources */,

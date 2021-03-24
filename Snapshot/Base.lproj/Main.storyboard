@@ -9,6 +9,54 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Memory Collection Controller-->
+        <scene sceneID="sGf-su-zzh">
+            <objects>
+                <viewController id="ubq-fD-73X" customClass="MemoryCollectionController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="syD-mO-1kI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fSO-BU-zLZ" customClass="ScrollableStackView" customModule="Snapshot" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="203" width="414" height="693"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vdk-O3-jhj" customClass="NavigationBarView" customModule="Snapshot" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="165"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mZK-0U-XKL" userLabel="Back Button">
+                                <rect key="frame" x="192" y="433" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nCo-Kn-RY3" userLabel="Map Button">
+                                <rect key="frame" x="192" y="433" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="diL-kn-LHr" userLabel="Hunt Button">
+                                <rect key="frame" x="192" y="433" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="7bM-25-IVx"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="fgx-QF-4jr"/>
+                    <connections>
+                        <outlet property="backButton" destination="mZK-0U-XKL" id="yqT-M8-xkj"/>
+                        <outlet property="huntButton" destination="diL-kn-LHr" id="84g-Xg-2ji"/>
+                        <outlet property="mapButton" destination="nCo-Kn-RY3" id="yIj-LH-H6r"/>
+                        <outlet property="memoryList" destination="fSO-BU-zLZ" id="XRa-Ht-0bW"/>
+                        <outlet property="navigationBar" destination="vdk-O3-jhj" id="Lu0-2S-StY"/>
+                        <segue destination="V5g-iH-O9q" kind="presentation" identifier="backToMainSegue" modalPresentationStyle="fullScreen" id="SFH-er-5NR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kgp-7J-64y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="145" y="-686"/>
+        </scene>
         <!--Map View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -21,13 +69,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AbW-ka-g5s" userLabel="BackButton">
-                                <rect key="frame" x="52" y="106" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AbW-ka-g5s" userLabel="Back Button">
+                                <rect key="frame" x="60" y="106" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6b-cg-3YO" userLabel="SnapButton">
-                                <rect key="frame" x="324" y="106" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6b-cg-3YO" userLabel="New Memory Button">
+                                <rect key="frame" x="192" y="758" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSz-0g-0ln" userLabel="Collection Button">
+                                <rect key="frame" x="327" y="106" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </button>
                         </subviews>
@@ -37,13 +88,15 @@
                     <navigationItem key="navigationItem" id="5Ol-gw-K7p"/>
                     <connections>
                         <outlet property="backButton" destination="AbW-ka-g5s" id="XEH-lH-Wjl"/>
+                        <outlet property="collectionButton" destination="VSz-0g-0ln" id="Jyq-qG-cHX"/>
                         <outlet property="map" destination="66u-sx-O8T" id="bpQ-ji-dOF"/>
                         <outlet property="snapButton" destination="i6b-cg-3YO" id="U7G-Ue-rJ5"/>
+                        <segue destination="ubq-fD-73X" kind="presentation" identifier="viewCollectionSegue" modalPresentationStyle="fullScreen" id="IUq-oE-TKm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1025" y="-615"/>
+            <point key="canvasLocation" x="-1099" y="-686"/>
         </scene>
         <!--Treasure Hunt Play View Controller-->
         <scene sceneID="QCL-7z-sSE">
@@ -332,7 +385,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ob0-g9-FV7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1025" y="976"/>
+            <point key="canvasLocation" x="-1100" y="1610"/>
         </scene>
         <!--Main Menu-->
         <scene sceneID="1Us-xg-GaU">
@@ -370,7 +423,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KAg-KE-pxI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-260.86956521739131" y="170.75892857142856"/>
+            <point key="canvasLocation" x="-2181" y="171"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rNi-he-rXZ">
@@ -388,10 +441,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="42v-ka-JEU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1409" y="171"/>
+            <point key="canvasLocation" x="-3345" y="171"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="SFH-er-5NR"/>
         <segue reference="B67-W3-2kg"/>
         <segue reference="HId-KD-dBC"/>
     </inferredMetricsTieBreakers>

@@ -15,6 +15,7 @@ class MapViewLayout {
     // UI elements
     private let map: MemoryMapView
     private let backButton: UIButton
+    private let collectionButton: UIButton
     private let snapButton: UIButton
     
     // Constraint maps
@@ -27,47 +28,53 @@ class MapViewLayout {
     private var portraitConstraints = [NSLayoutConstraint]()
     private var landscapeConstraints = [NSLayoutConstraint]()
     
-    init(map: MemoryMapView, backButton: UIButton, snapButton: UIButton) {
+    // Other
+    private var circularViews = [UIView]()
+    
+    // MARK: Initialization
+    init(map: MemoryMapView, backButton: UIButton, collectionButton: UIButton, snapButton: UIButton) {
         self.map = map
         self.backButton = backButton
+        self.collectionButton = collectionButton
         self.snapButton = snapButton
 
-        doNotAutoResize(views: [map, backButton, snapButton])
+        doNotAutoResize(views: [map, backButton, collectionButton, snapButton])
         setLabelsToDefaults(labels: [])
-        setButtonsToDefaults(buttons: [backButton, snapButton], withImageInsets: 10)
+        setButtonsToDefaults(buttons: [backButton, collectionButton, snapButton], withImageInsets: 10)
+        circularViews.append(contentsOf: [backButton, collectionButton, snapButton])
         
-        backButton.backgroundColor = .lightGray
         backButton.setTitle("<", for: .normal)
+        backButton.backgroundColor = .lightGray
         backButton.alpha = 0.8
         
-        snapButton.backgroundColor = .lightGray
+        collectionButton.setImage(UIImage(named: "ListIcon"), for: .normal)
+        collectionButton.backgroundColor = .lightGray
+        collectionButton.alpha = 0.8
+        
         snapButton.alpha = 0.8
+        snapButton.backgroundColor = .lightGray
         updateSnapshotButtonImage()
         
         // Portrait
         portraitSizeMap = [
             map: (1, 1),
-            backButton: (0.2, 0),
-            snapButton: (0.2, 0),
+            backButton: (0.15, 0),
+            collectionButton: (0.15, 0),
+            snapButton: (0.15, 0),
         ]
         
         portraitSpacingMap = [
             map: (0.5, 0.5),
-            backButton: (0.17, 0.1),
-            snapButton: (0.83, 0.1),
+            backButton: (0.12, 0.1),
+            collectionButton: (0.88, 0.1),
+            snapButton: (0.5, 0.9),
         ]
         
         // Landscape
-        landscapeSizeMap = [
-            map: (1, 1),
-            backButton: (0, 0.2),
-            snapButton: (0, 0.2),
+        landscapeSizeMap = [:
         ]
         
-        landscapeSpacingMap = [
-            map: (0.5, 0.5),
-            backButton: (0.1, 0.15),
-            snapButton: (0.9, 0.15),
+        landscapeSpacingMap = [:
         ]
     }
     
@@ -94,8 +101,7 @@ class MapViewLayout {
     
     // MARK: Other UI
     func updateCircleSizes() {
-        makeViewCircular(view: backButton)
-        makeViewCircular(view: snapButton)
+        makeViewsCircular(views: circularViews)
     }
     
     func updateSnapshotButtonImage() {

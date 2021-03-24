@@ -76,8 +76,7 @@ class SnapshotCalloutView: UIView, UITextFieldDelegate {
         snapshotTitle.autocapitalizationType = .words
         snapshotTitle.autocorrectionType = .yes
         contentView.addSubview(snapshotTitle)
-        
-        date.text = DATE_FORMATS.monthDayYear(date: snapshot.time)
+        date.text = snapshot.time.toString(format: .monthDayYear)
         contentView.addSubview(date)
 
         image.image = snapshot.image ?? UIImage(named: "ClickToAdd")

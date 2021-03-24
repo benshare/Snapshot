@@ -30,7 +30,6 @@ class EditHuntViewLayout {
         self.navigationBar = navigationBar
         self.clueList = clueList
         clueList.backgroundColor = .lightGray
-//        self.preferences = preferences
         preferences.isHidden = true
 
         doNotAutoResize(views: [navigationBar, clueList, preferences])
