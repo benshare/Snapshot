@@ -9,13 +9,14 @@ import Foundation
 import UIKit
 import MapKit
 
-class EditClueViewController: UIViewController, UITextViewDelegate & MKMapViewDelegate & UITextFieldDelegate {
+class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     // MARK: Variables
     // Outlets
     @IBOutlet weak var navigationBar: NavigationBarView!
     @IBOutlet weak var scrollView: ScrollableStackView!
-    @IBOutlet weak var clueText: UITextView!
     @IBOutlet weak var clueLocation: MKMapView!
+    @IBOutlet weak var clueText: UITextView!
+    @IBOutlet weak var clueImage: UIImageView!
     @IBOutlet weak var hintView: UIStackView!
     private let mapCenter = MKPointAnnotation()
     
@@ -31,9 +32,13 @@ class EditClueViewController: UIViewController, UITextViewDelegate & MKMapViewDe
     
     // MARK: Initialization
     override func viewDidLoad() {
-        layout = EditClueViewLayout(navigationBar: navigationBar, scrollView: scrollView, clueLocation: clueLocation, clueText: clueText, hintView: hintView, clueType: clueType)
+        layout = EditClueViewLayout(navigationBar: navigationBar, scrollView: scrollView, clueLocation: clueLocation, clueText: clueText, clueImage: clueImage, hintView: hintView, clueType: clueType)
         layout.configureConstraints(view: view)
         layout.clue = clue
+        
+        if clueType! == .clue {
+            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditingText)))
+        }
         
         // Navigation bar
         if clueType! == .clue {
@@ -80,9 +85,19 @@ class EditClueViewController: UIViewController, UITextViewDelegate & MKMapViewDe
         if clueType! == .clue {
             clueText.text = clue.text
             clueText.delegate = self
-            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backgroundTapped(sender:))))
         } else {
             clueText.isHidden = true
+        }
+        
+        // Image
+        if clueType! == .clue {
+            clueImage.image = clue.image ?? UIImage(named: "ClickToAdd")
+            clueImage.addPermanentTapEvent {
+                self.layout.showFullViewImage(view: self.view, cameraCallback: self.takePhoto, libraryCallback: self.uploadPhoto)
+            }
+            clueImage.isUserInteractionEnabled = true
+        } else {
+            clueImage.isHidden = true
         }
         
         // Hints
@@ -145,8 +160,7 @@ class EditClueViewController: UIViewController, UITextViewDelegate & MKMapViewDe
     }
     
     // MARK: Clue Text
-    @objc func backgroundTapped(sender: UITapGestureRecognizer) {
-        print("background tapped")
+    @objc func endEditingText() {
         clueText.endEditing(true)
         for subview in hintView.arrangedSubviews.prefix(upTo: hintView.arrangedSubviews.count - 1).suffix(from: 1) {
             let field = subview.subviews[0] as! UITextField
@@ -178,5 +192,31 @@ class EditClueViewController: UIViewController, UITextViewDelegate & MKMapViewDe
             }
         }
         fatalError("Didn't find field")
+    }
+    
+    // MARK: UIImagePickerControllerDelegate
+    @objc func takePhoto() {
+        let picker = UIImagePickerController()
+        picker.sourceType = .camera
+        picker.allowsEditing = true
+        picker.delegate = self
+        self.present(picker, animated: true)
+    }
+    
+    @objc func uploadPhoto() {
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = true
+        picker.delegate = self
+        self.present(picker, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[.editedImage] as? UIImage else { return }
+        clueImage.image = image
+        layout.fullImage.image = image
+        clue.image = image
+        didUpdateActiveUser()
+        dismiss(animated: true)
     }
 }
