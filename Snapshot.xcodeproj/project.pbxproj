@@ -13,6 +13,7 @@
 		790CE9D025F75338009D0AD9 /* TreasureHuntPlaythrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790CE9CF25F75338009D0AD9 /* TreasureHuntPlaythrough.swift */; };
 		790CE9D925F761F1009D0AD9 /* FullClueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790CE9D825F761F1009D0AD9 /* FullClueView.swift */; };
 		790CE9DE25F76411009D0AD9 /* FullClueLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790CE9DD25F76411009D0AD9 /* FullClueLayout.swift */; };
+		79521030260C5B5800D642CF /* LaunchScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7952102F260C5B5800D642CF /* LaunchScreenController.swift */; };
 		79595A4025E37C3B00717873 /* NewMemoryViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79595A3E25E37C3B00717873 /* NewMemoryViewLayout.swift */; };
 		79595A4125E37C3B00717873 /* NewMemoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79595A3F25E37C3B00717873 /* NewMemoryView.swift */; };
 		79595A4A25E37C6600717873 /* MemoryMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79595A4925E37C6600717873 /* MemoryMapView.swift */; };
@@ -90,6 +91,7 @@
 		790CE9CF25F75338009D0AD9 /* TreasureHuntPlaythrough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureHuntPlaythrough.swift; sourceTree = "<group>"; };
 		790CE9D825F761F1009D0AD9 /* FullClueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullClueView.swift; sourceTree = "<group>"; };
 		790CE9DD25F76411009D0AD9 /* FullClueLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullClueLayout.swift; sourceTree = "<group>"; };
+		7952102F260C5B5800D642CF /* LaunchScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenController.swift; sourceTree = "<group>"; };
 		79595A3E25E37C3B00717873 /* NewMemoryViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMemoryViewLayout.swift; sourceTree = "<group>"; };
 		79595A3F25E37C3B00717873 /* NewMemoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMemoryView.swift; sourceTree = "<group>"; };
 		79595A4925E37C6600717873 /* MemoryMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryMapView.swift; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 				79EFE35A25D0B16500AA257B /* Views */,
 				79E2F21125DD25B200F872D7 /* Data Types */,
 				79E783C325C94BD6002DC72C /* Util */,
+				7952102F260C5B5800D642CF /* LaunchScreenController.swift */,
 			);
 			path = Snapshot;
 			sourceTree = "<group>";
@@ -662,6 +665,7 @@
 				79E1AA1125E87FCA00FEE672 /* MathUtil.swift in Sources */,
 				79E1A9F925E7218D00FEE672 /* DateUtil.swift in Sources */,
 				79E783BE25C94AF8002DC72C /* MapViewLayout.swift in Sources */,
+				79521030260C5B5800D642CF /* LaunchScreenController.swift in Sources */,
 				79E1AA1625E8A75C00FEE672 /* Animations.swift in Sources */,
 				79E2F21325DD25D800F872D7 /* Snapshot.swift in Sources */,
 				79F3063325EC75FD00A445A1 /* TreasureHuntCollection.swift in Sources */,

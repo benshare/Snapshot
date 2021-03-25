@@ -97,9 +97,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
         shouldUpdateLocation = false
         let center = CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        map.setRegion(region, animated: true)
+        map.setRegion(region, animated: false)
     }
-        
     
     // MARK: CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

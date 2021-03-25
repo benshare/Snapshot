@@ -134,11 +134,11 @@ class MemoryCollectionLayout {
         setLabelsToDefaults(labels: [description, creatorLabel, dateLabel])
         row.backgroundColor = .white
         image.image = snapshot.image
-        description.text = snapshot.information?.isEmpty ?? true ? "No information for snapshot" : snapshot.information
+        description.text = (snapshot.title ?? "").isEmpty ? "No title" : snapshot.title!
         description.numberOfLines = 0
         description.font = UIFont.italicSystemFont(ofSize: 20)
         creatorLabel.text = "Created by: you"
-        dateLabel.text = "Taken on \(snapshot.time.toString(format: .monthDay))"
+        dateLabel.text = "Added on \(snapshot.time.toString(format: .monthDay))"
         
         return row
     }

@@ -33,18 +33,18 @@ class FullImageView: UIView {
         imageView.image = image
         imageView.contentMode = .scaleAspectFit
         
-        let editButton = UIButton()
-        self.addSubview(editButton)
-        editButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        editButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        editButton.centerXAnchor.constraint(equalTo: self.rightAnchor, constant: -30).isActive = true
-        editButton.centerYAnchor.constraint(equalTo: self.bottomAnchor, constant: -30).isActive = true
-        editButton.setImage(UIImage(named: "EditIcon")?.withTintColor(.lightGray), for: .normal)
-        editButton.contentMode = .scaleAspectFit
-        editButton.alpha = 0.7
+//        let editButton = UIButton()
+//        self.addSubview(editButton)
+//        editButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+//        editButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+//        editButton.centerXAnchor.constraint(equalTo: self.rightAnchor, constant: -30).isActive = true
+//        editButton.centerYAnchor.constraint(equalTo: self.bottomAnchor, constant: -30).isActive = true
+//        editButton.setImage(UIImage(named: "EditIcon")?.withTintColor(.lightGray), for: .normal)
+//        editButton.contentMode = .scaleAspectFit
+//        editButton.alpha = 0.7
         
-        doNotAutoResize(views: [self, imageView, editButton])
-        setButtonsToDefaults(buttons: [editButton])
+        doNotAutoResize(views: [self, imageView])
+        setButtonsToDefaults(buttons: [])
     }
     
     required init?(coder: NSCoder) {
