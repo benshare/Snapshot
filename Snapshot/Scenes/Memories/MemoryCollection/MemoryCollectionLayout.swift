@@ -66,20 +66,26 @@ class MemoryCollectionLayout {
         portraitSpacingMap = [
             navigationBar: (0.5, 0.1),
             memoryList: (0.5, 0.6),
-            backButton: (0.12, 0.1),
-            mapButton: (0.88, 0.1),
-            huntButton: (0.5, 0.9),
+            backButton: (0.12, 0.08),
+            mapButton: (0.88, 0.08),
+            huntButton: (0.5, 0.92),
         ]
         
         // Landscape
-        landscapeSizeMap = [:
-//            navigationBar: (, ),
-//            memoryList: (, ),
+        landscapeSizeMap = [
+            navigationBar: (1, 0.3),
+            memoryList: (1, 0.75),
+            backButton: (0.08, 0),
+            mapButton: (0.08, 0),
+            huntButton: (0.08, 0),
         ]
         
-        landscapeSpacingMap = [:
-//            navigationBar: (, ),
-//            memoryList: (, ),
+        landscapeSpacingMap = [
+            navigationBar: (0.5, 0.1),
+            memoryList: (0.5, 0.625),
+            backButton: (0.08, 0.1),
+            mapButton: (0.92, 0.1),
+            huntButton: (0.5, 0.9),
         ]
     }
     
@@ -123,14 +129,6 @@ class MemoryCollectionLayout {
         subrow.addSubview(creatorLabel)
         subrow.addSubview(dateLabel)
         
-        var constraints = [NSLayoutConstraint]()
-        constraints += [row.widthAnchor.constraint(equalTo: row.heightAnchor, multiplier: 3)]
-        constraints += getSizeConstraints(widthAnchor: row.widthAnchor, heightAnchor: row.heightAnchor, sizeMap: [image: (0, 1), description: (0.6, 0.66), subrow: (0.66, 0.33)])
-        constraints += getSpacingConstraints(leftAnchor: row.leftAnchor, widthAnchor: row.widthAnchor, topAnchor: row.topAnchor, heightAnchor: row.heightAnchor, spacingMap: [image: (0.167, 0.5), description: (0.66, 0.33), subrow: (0.66, 0.83)], parentView: row)
-        constraints += getSizeConstraints(widthAnchor: subrow.widthAnchor, heightAnchor: subrow.heightAnchor, sizeMap: [creatorLabel: (0.3, 1), dateLabel: (0.3, 1)])
-        constraints += getSpacingConstraints(leftAnchor: subrow.leftAnchor, widthAnchor: subrow.widthAnchor, topAnchor: subrow.topAnchor, heightAnchor: subrow.heightAnchor, spacingMap: [creatorLabel: (0.25, 0.5), dateLabel: (0.75, 0.5)], parentView: subrow)
-        NSLayoutConstraint.activate(constraints)
-        
         setLabelsToDefaults(labels: [description, creatorLabel, dateLabel])
         row.backgroundColor = .white
         image.image = snapshot.image
@@ -139,6 +137,18 @@ class MemoryCollectionLayout {
         description.font = UIFont.italicSystemFont(ofSize: 20)
         creatorLabel.text = "Created by: you"
         dateLabel.text = "Added on \(snapshot.time.toString(format: .monthDay))"
+        
+        portraitConstraints.append(row.widthAnchor.constraint(equalTo: row.heightAnchor, multiplier: 3))
+        portraitConstraints += getSizeConstraints(widthAnchor: row.widthAnchor, heightAnchor: row.heightAnchor, sizeMap: [image: (0, 1), description: (0.6, 0.66), subrow: (0.66, 0.33)])
+        portraitConstraints += getSpacingConstraints(leftAnchor: row.leftAnchor, widthAnchor: row.widthAnchor, topAnchor: row.topAnchor, heightAnchor: row.heightAnchor, spacingMap: [image: (0.167, 0.5), description: (0.66, 0.33), subrow: (0.66, 0.83)], parentView: row)
+        portraitConstraints += getSizeConstraints(widthAnchor: subrow.widthAnchor, heightAnchor: subrow.heightAnchor, sizeMap: [creatorLabel: (0.3, 1), dateLabel: (0.3, 1)])
+        portraitConstraints += getSpacingConstraints(leftAnchor: subrow.leftAnchor, widthAnchor: subrow.widthAnchor, topAnchor: subrow.topAnchor, heightAnchor: subrow.heightAnchor, spacingMap: [creatorLabel: (0.25, 0.5), dateLabel: (0.75, 0.5)], parentView: subrow)
+        
+        landscapeConstraints.append(row.widthAnchor.constraint(equalTo: row.heightAnchor, multiplier: 0.7))
+        landscapeConstraints += getSizeConstraints(widthAnchor: row.widthAnchor, heightAnchor: row.heightAnchor, sizeMap: [image: (0, 0.4), description: (0.8, 0.25), subrow: (0.6, 0.25)])
+        landscapeConstraints += getSpacingConstraints(leftAnchor: row.leftAnchor, widthAnchor: row.widthAnchor, topAnchor: row.topAnchor, heightAnchor: row.heightAnchor, spacingMap: [image: (0.5, 0.3), description: (0.5, 0.625), subrow: (0.5, 0.85)], parentView: row)
+        landscapeConstraints += getSizeConstraints(widthAnchor: subrow.widthAnchor, heightAnchor: subrow.heightAnchor, sizeMap: [creatorLabel: (1, 0.5), dateLabel: (1, 0.5)])
+        landscapeConstraints += getSpacingConstraints(leftAnchor: subrow.leftAnchor, widthAnchor: subrow.widthAnchor, topAnchor: subrow.topAnchor, heightAnchor: subrow.heightAnchor, spacingMap: [creatorLabel: (0.5, 0.25), dateLabel: (0.5, 0.75)], parentView: subrow)
         
         return row
     }

@@ -74,6 +74,7 @@ class MemoryCollectionController: UIViewController {
     private func redrawScene() {
         let isPortrait = orientationIsPortrait()
         layout.activateConstraints(isPortrait: isPortrait)
+        memoryList.setAxis(axis: isPortrait ? .vertical : .horizontal)
         layout.updateCircleSizes()
     }
     

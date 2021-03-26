@@ -12,6 +12,9 @@ class ScrollableStackView: UIScrollView {
     // MARK: Variables
     private let contentView: UIStackView
     
+    private var portraitConstraints: [NSLayoutConstraint]!
+    private var landscapeConstraints: [NSLayoutConstraint]!
+    
     // MARK: Initialization
     required init?(coder: NSCoder) {
         contentView = UIStackView()
@@ -19,15 +22,22 @@ class ScrollableStackView: UIScrollView {
         
         self.addSubview(contentView)
         doNotAutoResize(view: contentView)
-        NSLayoutConstraint.activate([
+        
+        portraitConstraints = [
             contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             contentView.topAnchor.constraint(equalTo: self.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: self.widthAnchor),
-        ])
-        
-        contentView.axis = .vertical
+        ]
+        landscapeConstraints = [
+            contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            contentView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            contentView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            contentView.heightAnchor.constraint(equalTo: self.heightAnchor),
+        ]
+        setAxis(axis: .vertical)
         contentView.alignment = .fill
         contentView.distribution = .equalSpacing
         contentView.spacing = 0
@@ -47,7 +57,7 @@ class ScrollableStackView: UIScrollView {
             contentView.widthAnchor.constraint(equalTo: self.widthAnchor),
         ])
         
-        contentView.axis = .vertical
+        setAxis(axis: .vertical)
         contentView.alignment = .fill
         contentView.distribution = .equalSpacing
         contentView.spacing = 0
@@ -84,6 +94,17 @@ class ScrollableStackView: UIScrollView {
     func addBorders(width: Int = 2, color: UIColor = .gray) {
         contentView.spacing = CGFloat(width)
         contentView.backgroundColor = color
+    }
+    
+    func setAxis(axis: NSLayoutConstraint.Axis) {
+        contentView.axis = axis
+        if axis == .vertical {
+            NSLayoutConstraint.deactivate(landscapeConstraints)
+            NSLayoutConstraint.activate(portraitConstraints)
+        } else {
+            NSLayoutConstraint.deactivate(portraitConstraints)
+            NSLayoutConstraint.activate(landscapeConstraints)
+        }
     }
     
     // MARK: Event Handling
