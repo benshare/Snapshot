@@ -17,6 +17,9 @@ class MainMenuViewController: UIViewController {
     // Formatting
     private var layout: MainMenuViewViewLayout!
     
+    // Other
+    private var isFirst = true
+    
     // MARK: Initialization
     override func viewDidLoad() {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -24,7 +27,6 @@ class MainMenuViewController: UIViewController {
         layout = MainMenuViewViewLayout(titleLabel: titleLabel, stackView: stackView)
         layout.configureConstraints(view: view)
         configureStackView()
-        redrawScene()
     }
     
     private func configureStackView() {
@@ -37,21 +39,31 @@ class MainMenuViewController: UIViewController {
             let icon = SCENE_ICONS[scene]!
             let segue = SCENE_SEGUES[scene]!
             
-            let rowView = UIView()
-            stackView.addArrangedSubview(rowView)
-            rowView.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true
-            rowView.backgroundColor = .white
-            
-            addIconToView(view: rowView, name: icon)
-            rowView.addPermanentTapEvent {
+            let row = layout.getRow(icon: icon)
+            row.addPermanentTapEvent {
                 self.performSegue(withIdentifier: segue, sender: self)
             }
         }
-        
     }
     
     // MARK: UI
-    func redrawScene() {
-        layout.activateConstraints(isPortrait: orientationIsPortrait())
+    private func redrawScene() {
+        let isPortrait = orientationIsPortrait()
+        stackView.axis = isPortrait ? .vertical : .horizontal
+        layout.activateConstraints(isPortrait: isPortrait)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        // No idea why this is necessary lol
+        if isFirst && orientationIsPortrait() {
+            isFirst = false
+        } else {
+            isFirst = false
+            stackView.removeConstraints(stackView.constraints)
+        }
+        
+        redrawScene()
     }
 }

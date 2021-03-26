@@ -226,7 +226,8 @@ func addIconToView(view: UIView, name: String) {
     NSLayoutConstraint.activate([
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        imageView.heightAnchor.constraint(equalTo: view.heightAnchor),
+        imageView.heightAnchor.constraint(lessThanOrEqualTo: view.heightAnchor),
+        imageView.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor),
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
     ])
     imageView.image = UIImage(named: name)?.withAlignmentRectInsets(UIEdgeInsets(top: -20, left: -20, bottom: -20, right: -20))

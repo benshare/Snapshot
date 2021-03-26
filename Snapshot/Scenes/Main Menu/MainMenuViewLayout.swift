@@ -53,13 +53,13 @@ class MainMenuViewViewLayout {
         
         // Landscape
         landscapeSizeMap = [
-            titleLabel: (1, 0.2),
-            stackView: (1, 0.8),
+            titleLabel: (1, 0.3),
+            stackView: (1, 0.7),
         ]
         
         landscapeSpacingMap = [
-            titleLabel: (0.5, 0.1),
-            stackView: (0.5, 0.6),
+            titleLabel: (0.5, 0.15),
+            stackView: (0.5, 0.65),
         ]
     }
     
@@ -86,4 +86,19 @@ class MainMenuViewViewLayout {
     }
     
     // MARK: Other UI
+    func getRow(icon: String) -> UIView {
+        let row = UIView()
+        stackView.addArrangedSubview(row)
+        portraitConstraints += [
+            row.widthAnchor.constraint(equalTo: stackView.widthAnchor),
+        ]
+        landscapeConstraints += [
+            row.heightAnchor.constraint(equalTo: stackView.heightAnchor),
+        ]
+        
+        row.backgroundColor = .white
+        addIconToView(view: row, name: icon)
+        
+        return row
+    }
 }

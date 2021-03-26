@@ -65,16 +65,24 @@ class MapViewLayout {
         
         portraitSpacingMap = [
             map: (0.5, 0.5),
-            backButton: (0.12, 0.1),
-            collectionButton: (0.88, 0.1),
-            snapButton: (0.5, 0.9),
+            backButton: (0.12, 0.08),
+            collectionButton: (0.88, 0.08),
+            snapButton: (0.5, 0.92),
         ]
         
         // Landscape
-        landscapeSizeMap = [:
+        landscapeSizeMap = [
+            map: (1, 1),
+            backButton: (0.08, 0),
+            collectionButton: (0.08, 0),
+            snapButton: (0.08, 0),
         ]
         
-        landscapeSpacingMap = [:
+        landscapeSpacingMap = [
+            map: (0.5, 0.5),
+            backButton: (0.08, 0.1),
+            collectionButton: (0.92, 0.1),
+            snapButton: (0.5, 0.9),
         ]
     }
     
