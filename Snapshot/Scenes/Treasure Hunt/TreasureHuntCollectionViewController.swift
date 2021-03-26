@@ -12,8 +12,6 @@ private let reuseIdentifier = "HuntCell"
 
 class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDataSource & UICollectionViewDelegate & UICollectionViewDelegateFlowLayout {
     
-//    var description: String
-    
     // MARK: Variables
     // Outlets
     @IBOutlet weak var navigationBar: NavigationBarView!
@@ -25,12 +23,22 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     
     // Data
     private var popup: PopupOptionsView?
+    private var popupDismissView: UIView!
     
     // MARK: Initialization
     override func viewDidLoad() {
         collection.dataSource = self
         collection.delegate = self
         collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        
+        navigationBar.addPermanentTapEvent {
+            self.popup?.removeFromSuperview()
+        }
+        popupDismissView = UIView(frame: collection.frame)
+        popupDismissView.addPermanentTapEvent {
+            self.popup?.removeFromSuperview()
+        }
+        collection.addSubview(popupDismissView)
         
         navigationBar.addBackButton(text: "< Back", action: { self.dismiss(animated: true) })
         navigationBar.setTitle(text: "Treasure Hunts")
@@ -56,7 +64,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     }
     
     func reloadCell(index: Int) {
-        collection.reloadItems(at: [IndexPath(item: index, section: 0)])
+        collection.reloadData()
     }
     
     // MARK: UICollectionViewDataSource
@@ -82,7 +90,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         default:
             fatalError("Dequeued cell with too high index")
         }
-        
+        collection.sendSubviewToBack(popupDismissView)
         return cell
     }
     
@@ -112,26 +120,19 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     private func displayOptionsForHunt() {
         popup?.removeFromSuperview()
         
-        view.addOneTimeTapEvent {
-            self.popup!.removeFromSuperview()
-        }
-        
-        self.popup = PopupOptionsView()
+        popup = PopupOptionsView()
         view.addSubview(popup!)
         popup!.addButton(name: "Play", callback: {
             self.performSegue(withIdentifier: "playHuntSegue", sender: self)
             self.popup!.removeFromSuperview()
-            self.collection.removeTapEvent()
         }, isEnabled: getActiveHunts().hunts[collection.indexPathsForSelectedItems!.first!.item - 1].clues.count > 2)
         popup!.addButton(name: "Edit", callback: {
             self.performSegue(withIdentifier: "editHuntSegue", sender: self)
             self.popup!.removeFromSuperview()
-            self.collection.removeTapEvent()
         })
         popup!.addButton(name: "Delete", callback: {
             self.displayDeleteAlert()
             self.popup!.removeFromSuperview()
-            self.collection.removeTapEvent()
         })
         popup!.configureView()
         popup!.anchorToView(anchorView: collection.cellForItem(at: collection.indexPathsForSelectedItems!.first!)!, superview: view)

@@ -59,6 +59,7 @@ class NavigationBarView: UIView, UITextFieldDelegate {
         leftItem.setTitle(text, for: .normal)
         leftItem.addAction(action)
         leftItem.isHidden = false
+        bringSubviewToFront(leftItem)
     }
     
     func setTitle(text: String) {
