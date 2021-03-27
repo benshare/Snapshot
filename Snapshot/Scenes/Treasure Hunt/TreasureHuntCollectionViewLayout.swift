@@ -50,13 +50,13 @@ class TreasureHuntCollectionViewViewLayout {
         
         // Landscape
         landscapeSizeMap = [
-            navigationBar: (1, 0.2),
-            collection: (1, 0.8),
+            navigationBar: (1, 0.3),
+            collection: (1, 0.7),
         ]
         
         landscapeSpacingMap = [
-            navigationBar: (0.5, 0.1),
-            collection: (0.5, 0.6),
+            navigationBar: (0.5, 0.15),
+            collection: (0.5, 0.65),
         ]
     }
     
