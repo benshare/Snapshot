@@ -126,8 +126,6 @@ class FullClueView: UIView {
     // MARK: UI
     func redrawScene() {
         let isPortrait = orientationIsPortrait()
-//        center = parentController.view.center
-//        frame.size = CGSize(width:  parentController.view.frame.width * 0.8, height:  parentController.view.frame.height * 0.8)
         
         if isPortrait {
             titleLabel.text = isNew ? "You unlocked\na new clue!" : "Clue #\(clueNum!)"

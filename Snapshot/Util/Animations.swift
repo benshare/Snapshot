@@ -36,11 +36,11 @@ extension UIView {
     }
     
     // Move from current position to specific anchor point
-//    func move(endingSize: CGSize, to anchor: UIView, duration: TimeInterval, delay: TimeInterval = 0, additional: @escaping () -> Void = {}, completion: @escaping ((Bool) -> Void) = {_ in }) {
-//        UIView.animate(withDuration: duration, delay: delay, options: .layoutSubviews, animations: {
-//            self.center = anchor.center
-//            self.frame.size = endingSize
-//        }, completion: completion)
-//    }
+    func moveToAnchor(endingSize: CGSize, anchor: UIView, offset: CGPoint = .zero, duration: TimeInterval, delay: TimeInterval = 0, additional: @escaping () -> Void = {}, completion: @escaping ((Bool) -> Void) = {_ in }) {
+        UIView.animate(withDuration: duration, delay: delay, options: .layoutSubviews, animations: {
+            self.frame.size = endingSize
+            self.center = anchor.center + offset
+        }, completion: completion)
+    }
 }
 

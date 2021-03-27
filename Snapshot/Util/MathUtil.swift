@@ -19,3 +19,9 @@ func distanceBetweenPoints(p1: CGPoint, p2: CGPoint) -> CGFloat {
 func translatePointBy(point: inout CGPoint, translation: CGPoint) {
     point = CGPoint(x: point.x + translation.x, y: point.y + translation.y)
 }
+
+extension CGPoint {
+    static func +(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
+        return CGPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
+    }
+}
