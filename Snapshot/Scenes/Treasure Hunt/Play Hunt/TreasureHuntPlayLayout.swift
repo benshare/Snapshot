@@ -46,16 +46,8 @@ class TreasureHuntPlayLayout {
         backButton.alpha = 0.8
         circularViews.append(backButton)
         
-//        cluesButton.backgroundColor = .lightGray
         cluesButton.setBackgroundImage(UIImage(named: "ScrollIcon"), for: .normal)
-//        cluesButton.alpha = 0.6
-//        cluesButton.contentMode = .scaleAspectFit
-//        circularViews.append(cluesButton)
-        
-//        infoButton.backgroundColor = .lightGray
         infoButton.setBackgroundImage(UIImage(named: "QuestionMark"), for: .normal)
-//        infoButton.alpha = 0.6
-//        circularViews.append(infoButton)
         
         // Portrait
         portraitSizeMap = [
@@ -67,24 +59,24 @@ class TreasureHuntPlayLayout {
         
         portraitSpacingMap = [
             map: (0.5, 0.5),
-            backButton: (0.15, 0.1),
-            cluesButton: (0.15, 0.9),
-            infoButton: (0.85, 0.9),
+            backButton: (0.12, 0.08),
+            cluesButton: (0.12, 0.92),
+            infoButton: (0.88, 0.92),
         ]
         
         // Landscape
-        landscapeSizeMap = [:
-//            map: (, ),
-//            backButton: (, ),
-//            cluesButton: (, ),
-//            infoButton: (, ),
+        landscapeSizeMap = [
+            map: (1, 1),
+            backButton: (0, 0.15),
+            cluesButton: (0, 0.12),
+            infoButton: (0, 0.15),
         ]
         
-        landscapeSpacingMap = [:
-//            map: (, ),
-//            backButton: (, ),
-//            cluesButton: (, ),
-//            infoButton: (, ),
+        landscapeSpacingMap = [
+            map: (0.5, 0.5),
+            backButton: (0.08, 0.1),
+            cluesButton: (0.08, 0.9),
+            infoButton: (0.92, 0.9),
         ]
     }
     

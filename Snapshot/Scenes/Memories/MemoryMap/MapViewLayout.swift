@@ -73,9 +73,9 @@ class MapViewLayout {
         // Landscape
         landscapeSizeMap = [
             map: (1, 1),
-            backButton: (0.08, 0),
-            collectionButton: (0.08, 0),
-            snapButton: (0.08, 0),
+            backButton: (0, 0.15),
+            collectionButton: (0, 0.15),
+            snapButton: (0, 0.15),
         ]
         
         landscapeSpacingMap = [

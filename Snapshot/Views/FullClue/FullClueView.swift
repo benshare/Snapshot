@@ -23,6 +23,8 @@ class FullClueView: UIView {
     let clue: Clue
     var nonEmptyHints = [String]()
     let parentController: UIViewController
+    var isNew: Bool = false
+    var clueNum: Int?
     
     // MARK: Initialization
     required init?(coder: NSCoder) {
@@ -70,8 +72,8 @@ class FullClueView: UIView {
         self.layer.borderColor = UIColor.gray.cgColor
         self.layer.cornerRadius = 10
         
-        titleLabel.text = isNew ? "You unlocked\na new clue!" : "Clue #\(clueNum!)"
-        titleLabel.numberOfLines = isNew ? 2 : 1
+        self.isNew = isNew
+        self.clueNum = clueNum
         titleLabel.font = UIFont.systemFont(ofSize: 30)
 
         clueText.text = clue.text
@@ -124,6 +126,16 @@ class FullClueView: UIView {
     // MARK: UI
     func redrawScene() {
         let isPortrait = orientationIsPortrait()
+//        center = parentController.view.center
+//        frame.size = CGSize(width:  parentController.view.frame.width * 0.8, height:  parentController.view.frame.height * 0.8)
+        
+        if isPortrait {
+            titleLabel.text = isNew ? "You unlocked\na new clue!" : "Clue #\(clueNum!)"
+            titleLabel.numberOfLines = isNew ? 2 : 1
+        } else {
+            titleLabel.text = isNew ? "You unlocked a new clue!" : "Clue #\(clueNum!)"
+            titleLabel.numberOfLines = 1
+        }
         layout!.activateConstraints(isPortrait: isPortrait)
     }
 }

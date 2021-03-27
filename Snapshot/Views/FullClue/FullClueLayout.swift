@@ -69,15 +69,20 @@ class FullClueLayout {
         ]
         
         // Landscape
-        landscapeSizeMap = [:
+        landscapeSizeMap = [
+            stackView: (1, 0.85),
+            titleLabel: (CGFloat(0.6), titleHeight),
+            clueText: (CGFloat(0.8), clueHeight),
         ]
         
-        landscapeSpacingMap = [:
+        landscapeSpacingMap = [
+            stackView: (0.5, 0.5),
         ]
         
         if clueImage != nil {
             doNotAutoResize(view: clueImage!)
             portraitSizeMap[clueImage!] = (0.6, imageHeight)
+            landscapeSizeMap[clueImage!] = (0.6, imageHeight)
         }
         
         if hintView != nil {
@@ -94,12 +99,12 @@ class FullClueLayout {
                     button.centerYAnchor.constraint(equalTo: wrapper.centerYAnchor),
                 ])
                 portraitSizeMap[wrapper] = (0.2, hintHeight / CGFloat(numRows))
+                landscapeSizeMap[wrapper] = (0.2, hintHeight / CGFloat(numRows))
             }
         }
     }
     
     // MARK: Constraints
-    
     func configureConstraints(view: UIView)  {
         view.backgroundColor = globalBackgroundColor()
         view.addSubview(stackView)
