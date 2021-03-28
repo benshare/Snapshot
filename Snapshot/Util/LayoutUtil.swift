@@ -262,6 +262,20 @@ func getRowForCenteredView(view: UIView) -> UIView {
     return row
 }
 
+func getColumnForCenteredView(view: UIView) -> UIView {
+    let row = UIView()
+    doNotAutoResize(view: row)
+    row.backgroundColor = .white
+    row.addSubview(view)
+    
+    NSLayoutConstraint.activate([
+        view.widthAnchor.constraint(equalTo: row.widthAnchor),
+        view.centerXAnchor.constraint(equalTo: row.centerXAnchor),
+        view.centerYAnchor.constraint(equalTo: row.centerYAnchor),
+    ])
+    return row
+}
+
 // MARK: Orientation
 func orientationIsPortrait() -> Bool {
     if UIDevice.current.orientation.isFlat {

@@ -24,7 +24,7 @@ extension UIView {
             }, completion: completion)
         } else {
             UIView.animate(withDuration: duration, delay: delay, options: .layoutSubviews, animations: {
-                self.frame.size = endingSize
+                self.transform = CGAffineTransform(scaleX: xScale, y: yScale)
                 self.center = endingCenter
             }, completion: completion)
         }
@@ -37,8 +37,10 @@ extension UIView {
     
     // Move from current position to specific anchor point
     func moveToAnchor(endingSize: CGSize, anchor: UIView, offset: CGPoint = .zero, duration: TimeInterval, delay: TimeInterval = 0, additional: @escaping () -> Void = {}, completion: @escaping ((Bool) -> Void) = {_ in }) {
+        let xScale = endingSize.width / frame.width
+        let yScale = endingSize.height / frame.height
         UIView.animate(withDuration: duration, delay: delay, options: .layoutSubviews, animations: {
-            self.frame.size = endingSize
+            self.transform = CGAffineTransform(scaleX: xScale, y: yScale)
             self.center = anchor.center + offset
         }, completion: completion)
     }

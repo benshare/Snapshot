@@ -58,6 +58,7 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
     private func redrawScene() {
         let isPortrait = orientationIsPortrait()
         layout!.activateConstraints(isPortrait: isPortrait)
+        staticClueView?.redrawScene()
     }
     
     override func viewWillLayoutSubviews() {
