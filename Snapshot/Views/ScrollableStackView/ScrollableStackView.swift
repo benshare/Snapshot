@@ -73,6 +73,10 @@ class ScrollableStackView: UIScrollView {
         return contentView.arrangedSubviews[index]
     }
     
+    func arrangedViews() -> [UIView] {
+        return contentView.arrangedSubviews
+    }
+    
     // Set
     func addToStack(view: UIView) {
         contentView.addArrangedSubview(view)

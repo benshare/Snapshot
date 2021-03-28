@@ -51,6 +51,8 @@ class ClueListRowView: UIView {
         upArrow.setBackgroundImage(UIImage(named: "ArrowUpIcon"), for: .normal)
         downArrow.setBackgroundImage(UIImage(named: "ArrowDownIcon"), for: .normal)
         deleteButton.setBackgroundImage(UIImage(named: "TrashIcon"), for: .normal)
+        
+        redrawScene()
     }
     
     required init?(coder: NSCoder) {
@@ -59,8 +61,7 @@ class ClueListRowView: UIView {
     
     // MARK: UI
     func redrawScene() {
-        let isPortrait = orientationIsPortrait()
-        layout.activateConstraints(isPortrait: isPortrait)
+        layout.activateConstraints()
     }
     
     // MARK: Content

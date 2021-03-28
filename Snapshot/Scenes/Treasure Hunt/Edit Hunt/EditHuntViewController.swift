@@ -15,7 +15,6 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
     // Outlets
     @IBOutlet weak var navigationBar: NavigationBarView!
     @IBOutlet weak var clueList: ScrollableStackView!
-    @IBOutlet weak var preferences: UIView!
     
     // Layout
     private var layout: EditHuntViewLayout!
@@ -44,20 +43,13 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         clueList.addBorders()
         view.bringSubviewToFront(navigationBar)
         
-        addIconToView(view: preferences, name: "SettingsIcon")
-        preferences.backgroundColor = .lightGray
-        
-        layout = EditHuntViewLayout(navigationBar: navigationBar, clueList: clueList, preferences: preferences)
+        layout = EditHuntViewLayout(navigationBar: navigationBar, clueList: clueList)
         layout.configureConstraints(view: view)
     }
     
     func fillStack() {
         let startingRow = ClueListRowView(index: 0, text: "")
         clueList.addToStack(view: startingRow)
-        NSLayoutConstraint.activate([
-            startingRow.widthAnchor.constraint(equalTo: clueList.widthAnchor),
-            startingRow.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.16),
-        ])
         startingRow.addPermanentTapEvent {
             self.listIndexEditing = 0
             self.performSegue(withIdentifier: "editClueSegue", sender: self)
@@ -72,10 +64,6 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         let newClueView = UIView()
         clueList.addToStack(view: newClueView)
         addIconToView(view: newClueView, name: "PlusIcon")
-        NSLayoutConstraint.activate([
-            newClueView.widthAnchor.constraint(equalTo: clueList.widthAnchor),
-            newClueView.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.16),
-        ])
         newClueView.addPermanentTapEvent {
             let loc = self.hunt.clues.last?.location ?? self.hunt.startingLocation
             let newClue = Clue(location: loc)
@@ -127,10 +115,6 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         }
         let row = ClueListRowView(index: clueIndex + 1, text: clue.text)
         clueList.insertInStack(view: row, index: clueIndex + 1)
-        NSLayoutConstraint.activate([
-            row.widthAnchor.constraint(equalTo: clueList.widthAnchor),
-            row.heightAnchor.constraint(equalTo: clueList.heightAnchor, multiplier: 0.16),
-        ])
         row.addPermanentTapEvent {
             self.clueEditing = clue
             self.listIndexEditing = row.index

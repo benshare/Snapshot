@@ -20,14 +20,11 @@ class ClueListRowViewLayout {
     private let deleteButton: UIButton
     
     // Constraint maps
-    private var portraitSizeMap: [UIView: (CGFloat, CGFloat)]!
-    private var portraitSpacingMap: [UIView: (CGFloat, CGFloat)]!
-    private var landscapeSizeMap: [UIView: (CGFloat, CGFloat)]!
-    private var landscapeSpacingMap: [UIView: (CGFloat, CGFloat)]!
+    private var sizeMap: [UIView: (CGFloat, CGFloat)]!
+    private var spacingMap: [UIView: (CGFloat, CGFloat)]!
     
     // Constraints
-    private var portraitConstraints = [NSLayoutConstraint]()
-    private var landscapeConstraints = [NSLayoutConstraint]()
+    private var constraints = [NSLayoutConstraint]()
     
     init(indexLabel: UILabel, divider: UIView, clueLabel: UILabel, upArrow: UIButton, downArrow: UIButton, deleteButton: UIButton, rowType: RowType) {
         self.indexLabel = indexLabel
@@ -50,25 +47,25 @@ class ClueListRowViewLayout {
             upArrow.isHidden = true
             downArrow.isHidden = true
             deleteButton.isHidden = true
-            portraitSizeMap = [
+            sizeMap = [
                 indexLabel: (0.6, 1),
             ]
             
-            portraitSpacingMap = [
+            spacingMap = [
                 indexLabel: (0.5, 0.5),
             ]
             
         case .clue:
-            portraitSizeMap = [
+            sizeMap = [
                 indexLabel: (0.1, 1),
                 divider: (0.003, 0.7),
                 clueLabel: (0.5, 1),
                 upArrow: (0, 0.5),
                 downArrow: (0, 0.5),
-                deleteButton: (0.1, 0),
+                deleteButton: (0, 0.5),
             ]
             
-            portraitSpacingMap = [
+            spacingMap = [
                 indexLabel: (0.075, 0.5),
                 divider: (0.15, 0.5),
                 clueLabel: (0.475, 0.5),
@@ -77,53 +74,18 @@ class ClueListRowViewLayout {
                 deleteButton: (0.925, 0.5),
             ]
         }
-        
-        // Portrait
-//        portraitSizeMap = [
-//            indexLabel: (0.15, 1),
-//            divider: (0.003, 0.7),
-//            clueLabel: (0.6, 1),
-//        ]
-//
-//        portraitSpacingMap = [
-//            indexLabel: (0.1, 0.5),
-//            divider: (0.2, 0.5),
-//            clueLabel: (0.6, 0.5),
-//        ]
-        
-        // Landscape
-        landscapeSizeMap = [
-            indexLabel: (0.15, 1),
-            divider: (0.003, 0.8),
-            clueLabel: (0.7, 1),
-        ]
-
-        landscapeSpacingMap = [
-            indexLabel: (0.1, 0.5),
-            divider: (0.2, 0.5),
-            clueLabel: (0.6, 0.5),
-        ]
     }
     
     // MARK: Constraints
     func configureConstraints(view: UIView)  {
         view.backgroundColor = globalBackgroundColor()
         
-        portraitConstraints += getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: portraitSizeMap)
-        portraitConstraints += getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: portraitSpacingMap, parentView: view)
-        
-        landscapeConstraints += getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: landscapeSizeMap)
-        landscapeConstraints += getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: landscapeSpacingMap, parentView: view)
+        constraints += getSizeConstraints(widthAnchor: view.widthAnchor, heightAnchor: view.heightAnchor, sizeMap: sizeMap)
+        constraints += getSpacingConstraints(leftAnchor: view.leftAnchor, widthAnchor: view.widthAnchor, topAnchor: view.topAnchor, heightAnchor: view.heightAnchor, spacingMap: spacingMap, parentView: view)
     }
     
-    func activateConstraints(isPortrait: Bool) {
-        if isPortrait {
-            NSLayoutConstraint.deactivate(landscapeConstraints)
-            NSLayoutConstraint.activate(portraitConstraints)
-        } else {
-            NSLayoutConstraint.deactivate(portraitConstraints)
-            NSLayoutConstraint.activate(landscapeConstraints)
-        }
+    func activateConstraints() {
+        NSLayoutConstraint.activate(constraints)
     }
     
     // MARK: Other UI

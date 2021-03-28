@@ -14,7 +14,6 @@ class EditHuntViewLayout {
     // UI elements
     private let navigationBar: NavigationBarView
     private let clueList: ScrollableStackView
-//    private let preferences: UIView
     
     // Constraint maps
     private var portraitSizeMap: [UIView: (CGFloat, CGFloat)]!
@@ -23,16 +22,15 @@ class EditHuntViewLayout {
     private var landscapeSpacingMap: [UIView: (CGFloat, CGFloat)]!
     
     // Constraints
-    private var portraitConstraints = [NSLayoutConstraint]()
-    private var landscapeConstraints = [NSLayoutConstraint]()
+    var portraitConstraints = [NSLayoutConstraint]()
+    var landscapeConstraints = [NSLayoutConstraint]()
     
-    init(navigationBar: NavigationBarView, clueList: ScrollableStackView, preferences: UIView) {
+    init(navigationBar: NavigationBarView, clueList: ScrollableStackView) {
         self.navigationBar = navigationBar
         self.clueList = clueList
         clueList.backgroundColor = .lightGray
-        preferences.isHidden = true
 
-        doNotAutoResize(views: [navigationBar, clueList, preferences])
+        doNotAutoResize(views: [navigationBar, clueList])
         setLabelsToDefaults(labels: [])
         setButtonsToDefaults(buttons: [])
         
@@ -40,31 +38,31 @@ class EditHuntViewLayout {
         portraitSizeMap = [
             navigationBar: (1, 0.2),
             clueList: (1, 0.8),
-//            preferences: (1, 0.2),
         ]
         
         portraitSpacingMap = [
             navigationBar: (0.5, 0.1),
             clueList: (0.5, 0.6),
-//            preferences: (0.5, 0.9),
         ]
         
         // Landscape
-        landscapeSizeMap = [:
-//            navigationBar: (1, 0.2),
-//            clueList: (1, 0.6),
-//            preferences: (1, 0.2),
+        landscapeSizeMap = [
+            navigationBar: (1, 0.3),
+            clueList: (1, 0.7),
         ]
-//
-        landscapeSpacingMap = [:
-//            navigationBar: (0.5, 0.1),
-//                clueList: (0.5, 0.5),
-//                preferences: (0.5, 0.89),
+
+        landscapeSpacingMap = [
+            navigationBar: (0.5, 0.15),
+            clueList: (0.5, 0.65),
         ]
+        
+        for row in clueList.arrangedViews() {
+            portraitConstraints.append(contentsOf: getSizeConstraints(widthAnchor: clueList.widthAnchor, heightAnchor: clueList.heightAnchor, sizeMap: [row: (1, 0.18)]))
+            landscapeConstraints.append(contentsOf: getSizeConstraints(widthAnchor: clueList.widthAnchor, heightAnchor: clueList.heightAnchor, sizeMap: [row: (1, 0.3)]))
+        }
     }
     
     // MARK: Constraints
-    
     func configureConstraints(view: UIView)  {
         view.backgroundColor = globalBackgroundColor()
         
@@ -76,14 +74,13 @@ class EditHuntViewLayout {
     }
     
     func activateConstraints(isPortrait: Bool) {
-        NSLayoutConstraint.activate(portraitConstraints)
-//        if isPortrait {
-//            NSLayoutConstraint.deactivate(landscapeConstraints)
-//            NSLayoutConstraint.activate(portraitConstraints)
-//        } else {
-//            NSLayoutConstraint.deactivate(portraitConstraints)
-//            NSLayoutConstraint.activate(landscapeConstraints)
-//        }
+        if isPortrait {
+            NSLayoutConstraint.deactivate(landscapeConstraints)
+            NSLayoutConstraint.activate(portraitConstraints)
+        } else {
+            NSLayoutConstraint.deactivate(portraitConstraints)
+            NSLayoutConstraint.activate(landscapeConstraints)
+        }
     }
     
     // MARK: Other UI

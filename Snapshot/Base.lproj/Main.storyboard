@@ -214,11 +214,6 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="slS-bb-PrT"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="7sI-e6-KQt"/>
                             </scrollView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Hb-Sl-FrV" userLabel="Preferences">
-                                <rect key="frame" x="0.0" y="768" width="414" height="94"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5g1-R9-h18"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -226,7 +221,6 @@
                     <connections>
                         <outlet property="clueList" destination="nOp-IJ-xCD" id="CqK-2D-ncH"/>
                         <outlet property="navigationBar" destination="XuA-IR-xOJ" id="Hwo-qm-pas"/>
-                        <outlet property="preferences" destination="4Hb-Sl-FrV" id="mDv-5K-wjp"/>
                         <segue destination="NnN-iN-03Y" kind="presentation" identifier="newClueSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="9j6-rQ-fcO"/>
                         <segue destination="NnN-iN-03Y" kind="presentation" identifier="editClueSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="B67-W3-2kg"/>
                         <segue destination="VyW-Cn-Foo" kind="presentation" identifier="huntPreferencesSegue" id="B8I-nf-UDR"/>
