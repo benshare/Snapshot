@@ -103,20 +103,7 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
         // Hints
         if clueType! == .clue {
             if hunt.allowHints {
-                let label = UILabel()
-                let labelRow = UIView()
-                doNotAutoResize(views: [label, labelRow])
-                labelRow.addSubview(label)
-                NSLayoutConstraint.activate(
-                    getSizeConstraints(widthAnchor: labelRow.widthAnchor, heightAnchor: labelRow.heightAnchor, sizeMap: [label: (0.2, 1)]) +
-                    getSpacingConstraints(leftAnchor: labelRow.leftAnchor, widthAnchor: labelRow.widthAnchor, topAnchor: labelRow.topAnchor, heightAnchor: labelRow.heightAnchor, spacingMap: [label: (0.1, 0.5)], parentView: labelRow) +
-                    [labelRow.heightAnchor.constraint(equalToConstant: 50)]
-                )
-                hintView.addArrangedSubview(labelRow)
-                
-                setLabelsToDefaults(labels: [label])
-                label.text = "Hints:"
-                label.textAlignment = .left
+                layout.addHintLabelRow()
                 
                 if clue.hints.count > 0 {
                     for i in 0...clue.hints.count - 1 {
@@ -137,7 +124,7 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
                     [labelRow.heightAnchor.constraint(equalToConstant: 30)]
                 )
                 hintView.addArrangedSubview(labelRow)
-                
+
                 setLabelsToDefaults(labels: [label])
                 label.text = "Hints are disabled for this hunt."
                 label.font = UIFont.italicSystemFont(ofSize: 20)
@@ -150,6 +137,7 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
     // MARK: UI
     private func redrawScene() {
         let isPortrait = orientationIsPortrait()
+        scrollView.setAxis(axis: isPortrait ? .vertical : .horizontal)
         layout.activateConstraints(isPortrait: isPortrait)
     }
     

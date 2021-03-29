@@ -49,13 +49,20 @@ class ScrollableStackView: UIScrollView {
         
         self.addSubview(contentView)
         doNotAutoResize(view: contentView)
-        NSLayoutConstraint.activate([
+        portraitConstraints = [
             contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             contentView.topAnchor.constraint(equalTo: self.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: self.widthAnchor),
-        ])
+        ]
+        landscapeConstraints = [
+            contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            contentView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            contentView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            contentView.heightAnchor.constraint(equalTo: self.heightAnchor),
+        ]
         
         setAxis(axis: .vertical)
         contentView.alignment = .fill
@@ -94,6 +101,11 @@ class ScrollableStackView: UIScrollView {
         }
     }
     
+    func removeFromStack(view: UIView) {
+        contentView.removeArrangedSubview(view)
+        view.removeFromSuperview()
+    }
+    
     // MARK: Stack Formatting
     func addBorders(width: Int = 2, color: UIColor = .gray) {
         contentView.spacing = CGFloat(width)
@@ -109,6 +121,14 @@ class ScrollableStackView: UIScrollView {
             NSLayoutConstraint.deactivate(portraitConstraints)
             NSLayoutConstraint.activate(landscapeConstraints)
         }
+    }
+    
+    func distribution() -> UIStackView.Distribution {
+        return contentView.distribution
+    }
+    
+    func setDistribution(dist: UIStackView.Distribution) {
+        contentView.distribution = dist
     }
     
     // MARK: Event Handling
