@@ -13,14 +13,6 @@ class EditHuntPreferencesLayout {
     // MARK: Properties
     
     // UI elements
-    private let navigationBar: NavigationBarView
-    private let titleLabel: UILabel
-    private let scrollView: ScrollableStackView
-    private var styleRow = UIView()
-    private var hintsRow = UIView()
-    private var sensitivityRow = UIView()
-    private let sensitivityPreview: MKMapView?
-    private var designRow = UIView()
     
     // Constraint maps
     private var portraitSizeMap: [UIView: (CGFloat, CGFloat)]!
@@ -33,49 +25,63 @@ class EditHuntPreferencesLayout {
     private var landscapeConstraints = [NSLayoutConstraint]()
     
     init(navigationBar: NavigationBarView, titleLabel: UILabel, scrollView: ScrollableStackView, styleLabel: UILabel, stylePicker: UIPickerView, hintsView: UIView, sensitivityLabel: UILabel, sensitivityPicker: UIPickerView, sensitivityPreview: MKMapView?, designLabel: UILabel, designPicker: UIPickerView) {
-        self.navigationBar = navigationBar
-        self.titleLabel = titleLabel
-        self.scrollView = scrollView
-        self.sensitivityPreview = sensitivityPreview
-        self.styleRow = getRowForLabelAndPicker(label: styleLabel, picker: stylePicker)
-        self.hintsRow = hintsView
-        self.sensitivityRow = getRowForLabelAndPicker(label: sensitivityLabel, picker: sensitivityPicker)
-        self.designRow = getRowForLabelAndPicker(label: designLabel, picker: designPicker)
         
-        let combinedSensitivityRow = UIView()
-        combinedSensitivityRow.addSubview(sensitivityRow)
-        if sensitivityPreview != nil {
-            combinedSensitivityRow.addSubview(sensitivityPreview!)
-        }
-        combinedSensitivityRow.backgroundColor = .white
+        // Style view
+        let styleContent = getRowForLabelAndPicker(label: styleLabel, picker: stylePicker)
+        let styleView = getResizableRowForView(view: styleContent)
         
-        if sensitivityPreview != nil {
-            NSLayoutConstraint.activate([
-                sensitivityRow.centerXAnchor.constraint(equalTo: combinedSensitivityRow.centerXAnchor),
-                sensitivityRow.topAnchor.constraint(equalTo: combinedSensitivityRow.topAnchor),
-                sensitivityPreview!.centerXAnchor.constraint(equalTo: combinedSensitivityRow.centerXAnchor),
-                sensitivityPreview!.topAnchor.constraint(equalTo: sensitivityRow.bottomAnchor),
-                sensitivityPreview!.bottomAnchor.constraint(equalTo: combinedSensitivityRow.bottomAnchor, constant: -10)
-            ])
+        // Hints view
+        let hintsView = getResizableRowForView(view: hintsView)
+        
+        // Sensitivity view
+        let sensitivityView: UIView
+        let sensitivityFirstRow = getRowForLabelAndPicker(label: sensitivityLabel, picker: sensitivityPicker)
+        
+        if sensitivityPreview == nil {
+            sensitivityView = getResizableRowForView(view: sensitivityFirstRow)
         } else {
-            NSLayoutConstraint.activate([
-                sensitivityRow.centerXAnchor.constraint(equalTo: combinedSensitivityRow.centerXAnchor),
-                sensitivityRow.topAnchor.constraint(equalTo: combinedSensitivityRow.topAnchor),
-                sensitivityRow.bottomAnchor.constraint(equalTo: combinedSensitivityRow.bottomAnchor),
-            ])
+            let combinedSentivityView = UIView()
+            doNotAutoResize(view: combinedSentivityView)
+            combinedSentivityView.addSubview(sensitivityFirstRow)
+            combinedSentivityView.addSubview(sensitivityPreview!)
+            portraitConstraints += [
+                sensitivityFirstRow.widthAnchor.constraint(equalTo: combinedSentivityView.widthAnchor),
+                sensitivityFirstRow.centerXAnchor.constraint(equalTo: combinedSentivityView.centerXAnchor),
+                sensitivityFirstRow.topAnchor.constraint(equalTo: combinedSentivityView.topAnchor),
+                sensitivityPreview!.centerXAnchor.constraint(equalTo: combinedSentivityView.centerXAnchor),
+                sensitivityPreview!.topAnchor.constraint(equalTo: sensitivityFirstRow.bottomAnchor),
+                sensitivityPreview!.bottomAnchor.constraint(equalTo: combinedSentivityView.bottomAnchor, constant: -10),
+                sensitivityPreview!.heightAnchor.constraint(equalTo: sensitivityFirstRow.heightAnchor),
+                sensitivityPreview!.heightAnchor.constraint(equalTo: sensitivityPreview!.widthAnchor),
+            ]
+            
+            landscapeConstraints += [
+                sensitivityFirstRow.heightAnchor.constraint(equalTo: combinedSentivityView.heightAnchor, multiplier: 0.7),
+                sensitivityFirstRow.centerYAnchor.constraint(equalTo: combinedSentivityView.centerYAnchor),
+                sensitivityFirstRow.leftAnchor.constraint(equalTo: combinedSentivityView.leftAnchor),
+                sensitivityPreview!.centerYAnchor.constraint(equalTo: combinedSentivityView.centerYAnchor),
+                sensitivityPreview!.leftAnchor.constraint(equalTo: sensitivityFirstRow.rightAnchor, constant: 20),
+                sensitivityPreview!.rightAnchor.constraint(equalTo: combinedSentivityView.rightAnchor, constant: -20),
+                sensitivityPreview!.heightAnchor.constraint(equalTo: combinedSentivityView.heightAnchor, multiplier: 0.6),
+                sensitivityPreview!.heightAnchor.constraint(equalTo: sensitivityPreview!.widthAnchor),
+            ]
+            sensitivityView = getResizableRowForView(view: combinedSentivityView, portraitRatio: 1, landscapeRatio: 2)
         }
-        
-        doNotAutoResize(views: [navigationBar, titleLabel, scrollView, styleLabel, stylePicker, sensitivityLabel, sensitivityPicker, combinedSensitivityRow, designLabel, designPicker])
+
+        // Design view
+        let designContent = getRowForLabelAndPicker(label: designLabel, picker: designPicker)
+        let designView = getResizableRowForView(view: designContent)
+
+        doNotAutoResize(views: [navigationBar, titleLabel, scrollView, styleLabel, stylePicker, sensitivityLabel, sensitivityPicker, designLabel, designPicker])
         if sensitivityPreview != nil {
             doNotAutoResize(view: sensitivityPreview!)
         }
         setLabelsToDefaults(labels: [titleLabel, styleLabel, sensitivityLabel, designLabel])
-        setButtonsToDefaults(buttons: [])
-        
-        scrollView.addToStack(view: styleRow)
-        scrollView.addToStack(view: hintsRow)
-        scrollView.addToStack(view: combinedSensitivityRow)
-        scrollView.addToStack(view: designRow)
+
+        scrollView.addToStack(view: styleView)
+        scrollView.addToStack(view: hintsView)
+        scrollView.addToStack(view: sensitivityView)
+        scrollView.addToStack(view: designView)
         scrollView.addBorders()
         
         titleLabel.isHidden = true
@@ -84,15 +90,7 @@ class EditHuntPreferencesLayout {
         portraitSizeMap = [
             navigationBar: (1, 0.2),
             scrollView: (1, 0.8),
-            styleRow: (1, 0.3),
-            hintsRow: (1, 0.3),
-            sensitivityRow: (1, 0.3),
-            designRow: (1, 0.3),
         ]
-        if sensitivityPreview != nil {
-            portraitSizeMap[sensitivityPreview!] = (0, 0.3)
-            doNotAutoResize(view: sensitivityPreview!)
-        }
         
         portraitSpacingMap = [
             navigationBar: (0.5, 0.1),
@@ -100,33 +98,18 @@ class EditHuntPreferencesLayout {
         ]
         
         // Landscape
-        landscapeSizeMap = [:
-//            titleLabel: (, ),
-//            scrollView: (, ),
-//            styleLabel: (, ),
-//            stylePicker: (, ),
-//            sensitivityLabel: (, ),
-//            sensitivityPicker: (, ),
-//            sensitivityPreview: (, ),
-//            designLabel: (, ),
-//            designPicker: (, ),
+        landscapeSizeMap = [
+            navigationBar: (1, 0.3),
+            scrollView: (1, 0.7),
         ]
         
-        landscapeSpacingMap = [:
-//            titleLabel: (, ),
-//            scrollView: (, ),
-//            styleLabel: (, ),
-//            stylePicker: (, ),
-//            sensitivityLabel: (, ),
-//            sensitivityPicker: (, ),
-//            sensitivityPreview: (, ),
-//            designLabel: (, ),
-//            designPicker: (, ),
+        landscapeSpacingMap = [
+            navigationBar: (0.5, 0.15),
+            scrollView: (0.5, 0.65),
         ]
     }
     
     // MARK: Constraints
-    
     func configureConstraints(view: UIView)  {
         view.backgroundColor = globalBackgroundColor()
         
@@ -154,7 +137,6 @@ class EditHuntPreferencesLayout {
         row.addSubview(label)
         row.addSubview(picker)
         row.backgroundColor = .white
-        setLabelsToDefaults(labels: [label])
         
         let sizeMap: [UIView : (CGFloat, CGFloat)] = [
             label: (0.3, 0.2),
@@ -165,8 +147,26 @@ class EditHuntPreferencesLayout {
             label: (0.2, 0.5),
             picker: (0.7, 0.5),
         ]
-        let constraints = getSizeConstraints(widthAnchor: row.widthAnchor, heightAnchor: row.heightAnchor, sizeMap: sizeMap) + getSpacingConstraints(leftAnchor: row.leftAnchor, widthAnchor: row.widthAnchor, topAnchor: row.topAnchor, heightAnchor: row.heightAnchor, spacingMap: spacingMap, parentView: row)
-        NSLayoutConstraint.activate(constraints)
+        NSLayoutConstraint.activate(
+            getSizeConstraints(widthAnchor: row.widthAnchor, heightAnchor: row.heightAnchor, sizeMap: sizeMap) +
+            getSpacingConstraints(leftAnchor: row.leftAnchor, widthAnchor: row.widthAnchor, topAnchor: row.topAnchor, heightAnchor: row.heightAnchor, spacingMap: spacingMap, parentView: row))
+        return row
+    }
+    
+    func getResizableRowForView(view: UIView, portraitRatio: CGFloat = 2, landscapeRatio: CGFloat = 1.5) -> UIView {
+        let row = UIView()
+        doNotAutoResize(views: [row])
+        row.addSubview(view)
+        row.backgroundColor = .white
+        
+        portraitConstraints.append(row.widthAnchor.constraint(equalTo: row.heightAnchor, multiplier: portraitRatio))
+        portraitConstraints += getSizeConstraints(widthAnchor: row.widthAnchor, heightAnchor: row.heightAnchor, sizeMap: [view: (0.9, 0.9)])
+        portraitConstraints += getSpacingConstraints(leftAnchor: row.leftAnchor, widthAnchor: row.widthAnchor, topAnchor: row.topAnchor, heightAnchor: row.heightAnchor, spacingMap: [view: (0.5, 0.5)], parentView: row)
+        
+        landscapeConstraints.append(row.widthAnchor.constraint(equalTo: row.heightAnchor, multiplier: landscapeRatio))
+        landscapeConstraints += getSizeConstraints(widthAnchor: row.widthAnchor, heightAnchor: row.heightAnchor, sizeMap: [view: (0.9, 0.9)])
+        landscapeConstraints += getSpacingConstraints(leftAnchor: row.leftAnchor, widthAnchor: row.widthAnchor, topAnchor: row.topAnchor, heightAnchor: row.heightAnchor, spacingMap: [view: (0.5, 0.5)], parentView: row)
+        
         return row
     }
 }

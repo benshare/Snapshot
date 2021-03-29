@@ -165,6 +165,7 @@ class EditHuntPreferencesController: UIViewController, UIPickerViewDataSource, U
     private func redrawScene() {
         let isPortrait = orientationIsPortrait()
         layout.activateConstraints(isPortrait: isPortrait)
+        scrollView.setAxis(axis: isPortrait ? .vertical : .horizontal)
         navigationBar.redrawScene()
     }
     
