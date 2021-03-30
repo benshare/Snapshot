@@ -229,6 +229,10 @@ class EditClueViewLayout {
             if self.clue.hints.count == 2 {
                 self.addPlusRow(delegate: delegate)
             }
+            if orientationIsPortrait() {
+                let bottomOffset = CGPoint(x: 0, y: self.scrollView.contentSize.height - self.scrollView.bounds.height + self.scrollView.contentInset.bottom)
+                self.scrollView.setContentOffset(bottomOffset, animated: true)
+            }
         }
     }
     
@@ -254,7 +258,7 @@ class EditClueViewLayout {
                 self.hintView.removeArrangedSubview(addRow)
             }
             if orientationIsPortrait() {
-                let bottomOffset = CGPoint(x: 0, y: self.scrollView.contentSize.height - self.scrollView.bounds.height + self.scrollView.contentInset.bottom)
+                let bottomOffset = CGPoint(x: 0, y: self.scrollView.contentSize.height - self.scrollView.bounds.height + self.scrollView.contentInset.bottom + 80)
                 self.scrollView.setContentOffset(bottomOffset, animated: true)
             }
         }
