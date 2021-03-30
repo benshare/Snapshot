@@ -18,6 +18,7 @@ class EditClueViewLayout {
     private let clueLocation: MKMapView
     private let clueImage: UIImageView
     private var hintView: UIStackView!
+    private var wrapper: UIView!
     
     // Constraint maps
     private var portraitSizeMap: [UIView: (CGFloat, CGFloat)]!
@@ -104,21 +105,20 @@ class EditClueViewLayout {
             scrollView.addToStack(view: getResizableRowForView(view: clueImage))
             
             // Hint
-            let wrapper = UIView()
+            portraitConstraints.append(hintView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.7))
+            landscapeConstraints.append(hintView.widthAnchor.constraint(equalTo: scrollView.heightAnchor))
+            
+            wrapper = UIView()
             doNotAutoResize(view: wrapper)
             wrapper.addSubview(hintView)
             NSLayoutConstraint.activate([
                 hintView.centerXAnchor.constraint(equalTo: wrapper.centerXAnchor),
                 hintView.centerYAnchor.constraint(equalTo: wrapper.centerYAnchor),
             ])
-            portraitConstraints += [
-                wrapper.heightAnchor.constraint(equalTo: hintView.heightAnchor),
-                hintView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.7),
-            ]
-            landscapeConstraints += [
-                wrapper.widthAnchor.constraint(equalTo: hintView.widthAnchor),
-                wrapper.widthAnchor.constraint(equalTo: wrapper.heightAnchor, multiplier: 1.5)
-            ]
+            portraitConstraints.append(
+                wrapper.heightAnchor.constraint(equalTo: hintView.heightAnchor))
+            landscapeConstraints.append(
+                wrapper.widthAnchor.constraint(equalTo: hintView.widthAnchor))
             scrollView.addToStack(view: wrapper)
             
             // Add a buffer at the bottom
@@ -139,11 +139,16 @@ class EditClueViewLayout {
     }
     
     func activateConstraints(isPortrait: Bool) {
+        scrollView.removeFromStack(view: wrapper)
         if isPortrait {
             NSLayoutConstraint.deactivate(landscapeConstraints)
+            scrollView.setAxis(axis: .vertical)
+            scrollView.insertInStack(view: wrapper, index: scrollView.count() - 1)
             NSLayoutConstraint.activate(portraitConstraints)
         } else {
             NSLayoutConstraint.deactivate(portraitConstraints)
+            scrollView.setAxis(axis: .horizontal)
+            scrollView.insertInStack(view: wrapper, index: scrollView.count() - 1)
             NSLayoutConstraint.activate(landscapeConstraints)
         }
     }

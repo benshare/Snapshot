@@ -137,7 +137,6 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
     // MARK: UI
     private func redrawScene() {
         let isPortrait = orientationIsPortrait()
-        scrollView.setAxis(axis: isPortrait ? .vertical : .horizontal)
         layout.activateConstraints(isPortrait: isPortrait)
     }
     
