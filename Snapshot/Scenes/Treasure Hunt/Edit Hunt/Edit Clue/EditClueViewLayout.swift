@@ -18,7 +18,7 @@ class EditClueViewLayout {
     private let clueLocation: MKMapView
     private let clueImage: UIImageView
     private var hintView: UIStackView!
-    private var wrapper: UIView!
+    private var hintWrapper: UIView!
     
     // Constraint maps
     private var portraitSizeMap: [UIView: (CGFloat, CGFloat)]!
@@ -108,18 +108,18 @@ class EditClueViewLayout {
             portraitConstraints.append(hintView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.7))
             landscapeConstraints.append(hintView.widthAnchor.constraint(equalTo: scrollView.heightAnchor))
             
-            wrapper = UIView()
-            doNotAutoResize(view: wrapper)
-            wrapper.addSubview(hintView)
+            hintWrapper = UIView()
+            doNotAutoResize(view: hintWrapper)
+            hintWrapper.addSubview(hintView)
             NSLayoutConstraint.activate([
-                hintView.centerXAnchor.constraint(equalTo: wrapper.centerXAnchor),
-                hintView.centerYAnchor.constraint(equalTo: wrapper.centerYAnchor),
+                hintView.centerXAnchor.constraint(equalTo: hintWrapper.centerXAnchor),
+                hintView.centerYAnchor.constraint(equalTo: hintWrapper.centerYAnchor),
             ])
             portraitConstraints.append(
-                wrapper.heightAnchor.constraint(equalTo: hintView.heightAnchor))
+                hintWrapper.heightAnchor.constraint(equalTo: hintView.heightAnchor))
             landscapeConstraints.append(
-                wrapper.widthAnchor.constraint(equalTo: hintView.widthAnchor))
-            scrollView.addToStack(view: wrapper)
+                hintWrapper.widthAnchor.constraint(equalTo: hintView.widthAnchor))
+            scrollView.addToStack(view: hintWrapper)
             
             // Add a buffer at the bottom
             scrollView.addToStack(view: UIView(frame: CGRect.zero))
@@ -139,16 +139,16 @@ class EditClueViewLayout {
     }
     
     func activateConstraints(isPortrait: Bool) {
-        scrollView.removeFromStack(view: wrapper)
+        scrollView.removeFromStack(view: hintWrapper)
         if isPortrait {
             NSLayoutConstraint.deactivate(landscapeConstraints)
             scrollView.setAxis(axis: .vertical)
-            scrollView.insertInStack(view: wrapper, index: scrollView.count() - 1)
+            scrollView.insertInStack(view: hintWrapper, index: scrollView.count() - 1)
             NSLayoutConstraint.activate(portraitConstraints)
         } else {
             NSLayoutConstraint.deactivate(portraitConstraints)
             scrollView.setAxis(axis: .horizontal)
-            scrollView.insertInStack(view: wrapper, index: scrollView.count() - 1)
+            scrollView.insertInStack(view: hintWrapper, index: scrollView.count() - 1)
             NSLayoutConstraint.activate(landscapeConstraints)
         }
     }
@@ -222,14 +222,13 @@ class EditClueViewLayout {
         deleteButton.addAction {
             let index = self.hintView.arrangedSubviews.firstIndex(of: row)!
             self.hintView.removeArrangedSubview(row)
-            row.removeFromSuperview()
+            // This should be row.removeFromSuperview()
+            row.isHidden = true
             self.clue.hints.remove(at: index - 1)
             didUpdateActiveUser()
-            print("adding plus")
             if self.clue.hints.count == 2 {
                 self.addPlusRow(delegate: delegate)
             }
-            print("added plus")
         }
     }
     
