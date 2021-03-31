@@ -1,7 +1,7 @@
 Fix before launch:
-    Landscape/orientation stuff
     Accounts
     Settings page
+    Hotter colder
     
     UI improvements
     Sharing
@@ -12,6 +12,8 @@ Fix orientation/implement landscape
 Make + stay a circle/make title update
 Fix popup placement
 Tags
+Get scroll to go to same place when orientation changes
+Keyboard hiding text field
 
 
 1) Pass Treasure Hunt Value

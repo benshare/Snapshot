@@ -1,0 +1,29 @@
+
+Main Menu
+    - Rotate
+    
+Memory Map
+    - Add memory
+        - From camera
+        - From library
+        - Rotate
+    - Rotate
+    - Back button
+    - To collection
+
+Memory collection
+    - Rotate
+    - Back
+    - Map button
+    
+Hunt collection
+    - Rotate
+    - Delete
+        - Cancel delete
+        - Do it for first hunt, last
+    - Add
+    
+Edit hunt
+    - Rotate
+    - Title
+        - End editing when click outside

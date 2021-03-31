@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class EditHuntViewLayout {
+class EditHuntViewLayout: UILayout {
     // MARK: Properties
     
     // UI elements
@@ -20,10 +20,6 @@ class EditHuntViewLayout {
     private var portraitSpacingMap: [UIView: (CGFloat, CGFloat)]!
     private var landscapeSizeMap: [UIView: (CGFloat, CGFloat)]!
     private var landscapeSpacingMap: [UIView: (CGFloat, CGFloat)]!
-    
-    // Constraints
-    var portraitConstraints = [NSLayoutConstraint]()
-    var landscapeConstraints = [NSLayoutConstraint]()
     
     init(navigationBar: NavigationBarView, clueList: ScrollableStackView) {
         self.navigationBar = navigationBar
@@ -55,11 +51,6 @@ class EditHuntViewLayout {
             navigationBar: (0.5, 0.15),
             clueList: (0.5, 0.65),
         ]
-        
-        for row in clueList.arrangedViews() {
-            portraitConstraints.append(contentsOf: getSizeConstraints(widthAnchor: clueList.widthAnchor, heightAnchor: clueList.heightAnchor, sizeMap: [row: (1, 0.18)]))
-            landscapeConstraints.append(contentsOf: getSizeConstraints(widthAnchor: clueList.widthAnchor, heightAnchor: clueList.heightAnchor, sizeMap: [row: (1, 0.3)]))
-        }
     }
     
     // MARK: Constraints
@@ -81,6 +72,11 @@ class EditHuntViewLayout {
             NSLayoutConstraint.deactivate(portraitConstraints)
             NSLayoutConstraint.activate(landscapeConstraints)
         }
+    }
+    
+    func addRowConstraints(row: UIView) {
+        portraitConstraints.append(contentsOf: getSizeConstraints(widthAnchor: clueList.widthAnchor, heightAnchor: clueList.heightAnchor, sizeMap: [row: (1, 0.18)]))
+        landscapeConstraints.append(contentsOf: getSizeConstraints(widthAnchor: clueList.widthAnchor, heightAnchor: clueList.heightAnchor, sizeMap: [row: (1, 0.3)]))
     }
     
     // MARK: Other UI

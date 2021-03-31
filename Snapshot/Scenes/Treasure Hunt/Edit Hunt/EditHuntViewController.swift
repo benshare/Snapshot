@@ -28,6 +28,9 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Initialization
     override func viewDidLoad() {
+        layout = EditHuntViewLayout(navigationBar: navigationBar, clueList: clueList)
+        layout.configureConstraints(view: view)
+        
         navigationBar.addBackButton(text: "< Back", action: {
             self.parentController.reloadCell(index: self.index)
             self.dismiss(animated: true)
@@ -42,14 +45,12 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         fillStack()
         clueList.addBorders()
         view.bringSubviewToFront(navigationBar)
-        
-        layout = EditHuntViewLayout(navigationBar: navigationBar, clueList: clueList)
-        layout.configureConstraints(view: view)
     }
     
     func fillStack() {
         let startingRow = ClueListRowView(index: 0, text: "")
         clueList.addToStack(view: startingRow)
+        layout.addRowConstraints(row: startingRow)
         startingRow.addPermanentTapEvent {
             self.listIndexEditing = 0
             self.performSegue(withIdentifier: "editClueSegue", sender: self)
@@ -63,6 +64,7 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         
         let newClueView = UIView()
         clueList.addToStack(view: newClueView)
+        layout.addRowConstraints(row: newClueView)
         addIconToView(view: newClueView, name: "PlusIcon")
         newClueView.addPermanentTapEvent {
             let loc = self.hunt.clues.last?.location ?? self.hunt.startingLocation
@@ -115,6 +117,7 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         }
         let row = ClueListRowView(index: clueIndex + 1, text: clue.text)
         clueList.insertInStack(view: row, index: clueIndex + 1)
+        layout.addRowConstraints(row: row)
         row.addPermanentTapEvent {
             self.clueEditing = clue
             self.listIndexEditing = row.index
@@ -152,7 +155,11 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func deleteClue() {
+        let row = clueList.elementAtIndex(index: listIndexEditing)
+        NSLayoutConstraint.deactivate(row.constraints)
+        layout.removeConstraintsForRow(row: row)
         clueList.removeFromStack(index: listIndexEditing)
+        row.removeFromSuperview()
         if hunt.clues.count > 1 {
             if listIndexEditing == 1 {
                 (clueList.elementAtIndex(index: 1) as! ClueListRowView).disableUpArrow()

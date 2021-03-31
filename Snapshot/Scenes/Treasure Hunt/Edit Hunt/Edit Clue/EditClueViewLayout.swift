@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import MapKit
 
-class EditClueViewLayout {
+class EditClueViewLayout: UILayout {
     // MARK: Properties
     
     // UI elements
@@ -26,10 +26,6 @@ class EditClueViewLayout {
     private var landscapeSizeMap: [UIView: (CGFloat, CGFloat)]!
     private var landscapeSpacingMap: [UIView: (CGFloat, CGFloat)]!
     
-    // Constraints
-    private var portraitConstraints = [NSLayoutConstraint]()
-    private var landscapeConstraints = [NSLayoutConstraint]()
-    
     // Other
     private var circularViews = [UIView]()
     private var clueType: RowType
@@ -43,6 +39,7 @@ class EditClueViewLayout {
         self.clueImage = clueImage
         self.clueType = clueType
         self.hintView = hintView
+        super.init()
 
         doNotAutoResize(views: [navigationBar, scrollView, clueLocation, clueText, clueImage, hintView])
         
@@ -139,16 +136,22 @@ class EditClueViewLayout {
     }
     
     func activateConstraints(isPortrait: Bool) {
-        scrollView.removeFromStack(view: hintWrapper)
+        if clueType == .clue {
+            scrollView.removeFromStack(view: hintWrapper)
+        }
         if isPortrait {
             NSLayoutConstraint.deactivate(landscapeConstraints)
             scrollView.setAxis(axis: .vertical)
-            scrollView.insertInStack(view: hintWrapper, index: scrollView.count() - 1)
+            if clueType == .clue {
+                scrollView.insertInStack(view: hintWrapper, index: scrollView.count() - 1)
+            }
             NSLayoutConstraint.activate(portraitConstraints)
         } else {
             NSLayoutConstraint.deactivate(portraitConstraints)
             scrollView.setAxis(axis: .horizontal)
-            scrollView.insertInStack(view: hintWrapper, index: scrollView.count() - 1)
+            if clueType == .clue {
+                scrollView.insertInStack(view: hintWrapper, index: scrollView.count() - 1)
+            }
             NSLayoutConstraint.activate(landscapeConstraints)
         }
     }
@@ -222,8 +225,8 @@ class EditClueViewLayout {
         deleteButton.addAction {
             let index = self.hintView.arrangedSubviews.firstIndex(of: row)!
             self.hintView.removeArrangedSubview(row)
-            // This should be row.removeFromSuperview()
-            row.isHidden = true
+            self.removeConstraintsForRow(row: row)
+            row.removeFromSuperview()
             self.clue.hints.remove(at: index - 1)
             didUpdateActiveUser()
             if self.clue.hints.count == 2 {
