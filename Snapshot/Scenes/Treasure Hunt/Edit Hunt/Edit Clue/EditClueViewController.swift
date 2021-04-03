@@ -29,6 +29,7 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
     var parentController: EditHuntViewController!
     var clueType: RowType!
     var hunt: TreasureHunt!
+    private var shouldDismiss: Bool = false
     
     // MARK: Initialization
     override func viewDidLoad() {
@@ -39,6 +40,9 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
         if clueType! == .clue {
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditingText)))
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         // Navigation bar
         if clueType! == .clue {
@@ -171,6 +175,29 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
         self.clue.text = self.clueText.text
         didUpdateActiveUser()
     }
+
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+                // This is needed when the textview tap overlaps with the keyboard
+                shouldDismiss = false
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100), execute: {
+                    self.view.addOneTimeTapEvent {
+                        self.shouldDismiss = true
+                        self.endEditingText()
+                    }
+                })
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
     
     // MARK: UITextFieldDelegate
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -185,6 +212,14 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
             }
         }
         fatalError("Didn't find field")
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if shouldDismiss {
+            shouldDismiss = false
+            return true
+        }
+        return false
     }
     
     // MARK: UIImagePickerControllerDelegate

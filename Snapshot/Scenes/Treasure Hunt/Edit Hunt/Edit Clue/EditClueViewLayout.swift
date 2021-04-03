@@ -226,7 +226,8 @@ class EditClueViewLayout: UILayout {
             let index = self.hintView.arrangedSubviews.firstIndex(of: row)!
             self.hintView.removeArrangedSubview(row)
             self.removeConstraintsForRow(row: row)
-            row.removeFromSuperview()
+            // TODO: Change this back to removeFromSuperview()
+            row.isHidden = true
             self.clue.hints.remove(at: index - 1)
             didUpdateActiveUser()
             if self.clue.hints.count == 2 {

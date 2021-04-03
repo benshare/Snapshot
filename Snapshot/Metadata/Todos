@@ -11,6 +11,11 @@ Fix before launch:
     Multiple images in picker
         https://stackoverflow.com/questions/20756899/how-to-select-multiple-images-from-uiimagepickercontroller
 
+Bugfixes
+- Go to the corect place on scrool
+- Popup moving during rotation
+
+
 Fix orientation/implement landscape
 Make + stay a circle/make title update
 Fix popup placement
