@@ -73,6 +73,7 @@ class FullClueLayout {
         let landscapeClue = UILabel()
         landscapeClue.text = clueText
         landscapeClue.numberOfLines = 0
+//        landscapeClue.font = UIFont.systemFont(ofSize: 10)
         
         let landscapeImage = clueImage == nil ? nil : UIImageView(image: clueImage)
         landscapeImage?.contentMode = .scaleAspectFit
@@ -162,7 +163,7 @@ class FullClueLayout {
         
         var widthUnits = 0
         
-        landscapeStackView.addArrangedSubview(getColumnForCenteredView(view: landscapeClue))
+        landscapeStackView.addArrangedSubview(getColumnForCenteredView(view: landscapeClue, withBuffer: 5))
         widthUnits += textUnits
         if clueImage != nil {
             landscapeStackView.addArrangedSubview(getColumnForCenteredView(view: landscapeImage!))
@@ -178,13 +179,13 @@ class FullClueLayout {
         
         landscapeSizeMap = [
             landscapeTitle: (0.6, 0.3),
-            landscapeStackView: (0.85, 0.7),
-            landscapeClue: (clueWidth, CGFloat(0)),
+            landscapeStackView: (0.85, 0.5),
         ]
+        landscapeConstraints.append(landscapeClue.heightAnchor.constraint(equalTo: landscapeStackView.heightAnchor, multiplier: 0.6))
         
         landscapeSpacingMap = [
             landscapeTitle: (0.5, 0.15),
-            landscapeStackView: (0.5, 0.6),
+            landscapeStackView: (0.5, 0.65),
         ]
         
         if clueImage != nil {
@@ -237,10 +238,14 @@ class FullClueLayout {
     func setOrientation(isPortrait: Bool) {
         if isPortrait {
             landscapeContentView.isHidden = true
+            NSLayoutConstraint.deactivate(landscapeConstraints)
             portraitContentView.isHidden = false
+            NSLayoutConstraint.activate(portraitConstraints)
         } else {
             portraitContentView.isHidden = true
+            NSLayoutConstraint.deactivate(portraitConstraints)
             landscapeContentView.isHidden = false
+            NSLayoutConstraint.activate(landscapeConstraints)
         }
     }
     

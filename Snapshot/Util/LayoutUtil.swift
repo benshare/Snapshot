@@ -262,14 +262,14 @@ func getRowForCenteredView(view: UIView) -> UIView {
     return row
 }
 
-func getColumnForCenteredView(view: UIView) -> UIView {
+func getColumnForCenteredView(view: UIView, withBuffer: Int = 0) -> UIView {
     let row = UIView()
     doNotAutoResize(view: row)
     row.backgroundColor = .white
     row.addSubview(view)
     
     NSLayoutConstraint.activate([
-        view.widthAnchor.constraint(equalTo: row.widthAnchor),
+        view.widthAnchor.constraint(equalTo: row.widthAnchor, constant: CGFloat(-withBuffer * 2)),
         view.centerXAnchor.constraint(equalTo: row.centerXAnchor),
         view.centerYAnchor.constraint(equalTo: row.centerYAnchor),
     ])

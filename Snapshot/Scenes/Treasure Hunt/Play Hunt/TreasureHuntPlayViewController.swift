@@ -59,6 +59,7 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
         let isPortrait = orientationIsPortrait()
         layout!.activateConstraints(isPortrait: isPortrait)
         staticClueView?.redrawScene()
+        animationClueView?.redrawScene()
     }
     
     override func viewWillLayoutSubviews() {
@@ -68,6 +69,44 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
     }
 
     // MARK: Clues
+    private func displayClue(clue: Clue, isNew: Bool, clueNum: Int? = nil, from: UIView, originOffset: CGPoint = .zero) {
+        let startingSize = CGSize(width: view.frame.width * 0.1, height: view.frame.height * 0.1)
+        let startingCenter = from.center + originOffset
+        let endingSize = CGSize(width: self.view.frame.width * 0.8, height: self.view.frame.height * 0.8)
+        let endingCenter = self.view.center
+        
+        view.addOneTimeTapEvent {
+            self.disappearVisibleClue(to: from, offset: originOffset)
+        }
+        animationClueView = FullClueView(clue: clue, parentController: self)
+        view.addSubview(animationClueView)
+        animationClueView.configureView(isNew: isNew, clueNum: clueNum)
+        
+        animationClueView.move(startingSize: startingSize, startingCenter: startingCenter, endingSize: endingSize, endingCenter: endingCenter, duration: 0.5, delay: isNew ? 1 : 0, completion: { _ in self.map.isUserInteractionEnabled = true
+            
+            self.animationClueView.isHidden = true
+            self.staticClueView = FullClueView(clue: self.animationClueView.clue, parentController: self)
+            self.staticClueView.configureView(isNew: self.animationClueView.isNew, clueNum: self.animationClueView.clueNum)
+            self.view.addSubview(self.staticClueView)
+            doNotAutoResize(view: self.staticClueView)
+            NSLayoutConstraint.activate([
+                self.staticClueView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+                self.staticClueView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+                self.staticClueView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8),
+                self.staticClueView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.8),
+            ])
+        })
+    }
+    
+    private func disappearVisibleClue(to: UIView, offset: CGPoint = .zero) {
+        staticClueView.isHidden = true
+        animationClueView.isHidden = false
+        animationClueView.frame = staticClueView.frame
+        animationClueView.moveToAnchor(endingSize: CGSize(width: 50, height: 50), anchor: to, offset: offset, duration: 0.5, completion: { _ in self.animationClueView.removeFromSuperview()
+            self.staticClueView.removeFromSuperview()
+        })
+    }
+    
     private func clueWasCompleted() {
         let annotation = MKPointAnnotation()
         annotation.coordinate = playthrough.getCurrentClue().location
@@ -89,42 +128,6 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
                 self.present(alert, animated: true, completion: nil)
             }
         }
-    }
-    
-    private func displayClue(clue: Clue, isNew: Bool, clueNum: Int? = nil, from: UIView, originOffset: CGPoint = .zero) {
-        let startingSize = CGSize(width: view.frame.width * 0.1, height: view.frame.height * 0.1)
-        let startingCenter = from.center + originOffset
-        let endingSize = CGSize(width: self.view.frame.width * 0.8, height: self.view.frame.height * 0.8)
-        let endingCenter = self.view.center
-        
-        view.addOneTimeTapEvent {
-            self.disappearVisibleClue(to: from, offset: originOffset)
-        }
-        animationClueView = FullClueView(clue: clue, parentController: self)
-        view.addSubview(animationClueView)
-        animationClueView.configureView(isNew: isNew, clueNum: clueNum)
-        
-        animationClueView.move(startingSize: startingSize, startingCenter: startingCenter, endingSize: endingSize, endingCenter: endingCenter, duration: 0.5, delay: isNew ? 1 : 0, completion: { _ in self.map.isUserInteractionEnabled = true
-            
-            self.animationClueView.isHidden = true
-            self.staticClueView = FullClueView(clue: self.animationClueView.clue, parentController: self)
-            self.staticClueView.configureView(isNew: self.animationClueView.isNew, clueNum: self.animationClueView.clueNum)
-            self.view.addSubview(self.staticClueView)
-            self.staticClueView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                self.staticClueView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-                self.staticClueView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-                self.staticClueView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8),
-                self.staticClueView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.8),
-            ])
-        })
-    }
-    
-    private func disappearVisibleClue(to: UIView, offset: CGPoint = .zero) {
-        staticClueView.isHidden = true
-        animationClueView.isHidden = false
-        animationClueView.frame = staticClueView.frame
-        animationClueView.moveToAnchor(endingSize: CGSize(width: 50, height: 50), anchor: to, offset: offset, duration: 0.5, completion: { _ in self.animationClueView.removeFromSuperview() })
     }
     
     private func displayCluesPopup() {

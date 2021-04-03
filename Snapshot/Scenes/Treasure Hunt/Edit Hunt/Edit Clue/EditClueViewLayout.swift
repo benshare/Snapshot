@@ -346,10 +346,12 @@ class EditClueViewLayout: UILayout {
         deleteButton.setBackgroundImage(UIImage(named: "TrashIcon"), for: .normal)
         deleteButton.alpha = 0.7
         
-        let buttonConstraints =
+        portraitConstraints +=
             getSizeConstraints(widthAnchor: fullImage.widthAnchor, heightAnchor: fullImage.heightAnchor, sizeMap: [cameraButton: (0.1, 0), collectionButton: (0.1, 0), libraryButton: (0.1, 0), deleteButton: (0.1, 0)]) +
             getSpacingConstraints(leftAnchor: fullImage.leftAnchor, widthAnchor: fullImage.widthAnchor, topAnchor: fullImage.topAnchor, heightAnchor: fullImage.heightAnchor, spacingMap: [cameraButton: (0.1, 0.08), collectionButton: (0.5, 0.08), libraryButton: (0.9, 0.08), deleteButton: (0.5, 0.92)], parentView: fullImage)
-        NSLayoutConstraint.activate(buttonConstraints)
+        landscapeConstraints +=
+            getSizeConstraints(widthAnchor: fullImage.widthAnchor, heightAnchor: fullImage.heightAnchor, sizeMap: [cameraButton: (0, 0.1), collectionButton: (0, 0.1), libraryButton: (0, 0.1), deleteButton: (0, 0.1)]) +
+            getSpacingConstraints(leftAnchor: fullImage.leftAnchor, widthAnchor: fullImage.widthAnchor, topAnchor: fullImage.topAnchor, heightAnchor: fullImage.heightAnchor, spacingMap: [cameraButton: (0.1, 0.08), collectionButton: (0.5, 0.08), libraryButton: (0.9, 0.08), deleteButton: (0.5, 0.92)], parentView: fullImage)
         
         cameraButton.addAction(cameraCallback)
         collectionButton.addAction(collectionCallback)
