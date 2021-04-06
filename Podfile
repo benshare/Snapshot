@@ -7,6 +7,7 @@ target 'Snapshot' do
 
   # Pods for Snapshot
   pod 'Amplify'
+  pod 'AmplifyPlugins/AWSCognitoAuthPlugin'
 
   target 'SnapshotTests' do
     inherit! :search_paths

@@ -7,19 +7,14 @@
 
 import UIKit
 import Amplify
+import AmplifyPlugins
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {do {
-        // Check Amplify backend is working correctly
-        try Amplify.configure()
-        } catch {
-            print("An error occurred setting up Amplify: \(error)")
-        }
-        // Run on launch
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        initializeAmplify()
         runOnLaunch()
         
         return true
@@ -52,9 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func runOnLaunch() {
 //        UserDefaults.resetDefaults()
         loadActiveUserFromSaved()
-//        generateNewLayout(name: "MemoryCollection", elements: [
+        fetchCurrentAuthSession()
+//        generateNewLayout(name: "AccountPage", elements: [
 //            ("navigationBar", "NavigationBarView"),
-//            ("memoryList", "ScrollableStackView"),
 //         ])
     }
     

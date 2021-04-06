@@ -14,6 +14,12 @@
 		790CE9D025F75338009D0AD9 /* TreasureHuntPlaythrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790CE9CF25F75338009D0AD9 /* TreasureHuntPlaythrough.swift */; };
 		790CE9D925F761F1009D0AD9 /* FullClueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790CE9D825F761F1009D0AD9 /* FullClueView.swift */; };
 		790CE9DE25F76411009D0AD9 /* FullClueLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790CE9DD25F76411009D0AD9 /* FullClueLayout.swift */; };
+		791A5929261921CF0032ECD9 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A5928261921CF0032ECD9 /* Login.swift */; };
+		791A5958261A40A90032ECD9 /* LoginPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A5957261A40A90032ECD9 /* LoginPageController.swift */; };
+		791A5960261A41360032ECD9 /* LoginPageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A595F261A41360032ECD9 /* LoginPageLayout.swift */; };
+		791A5968261A41B20032ECD9 /* AccountUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A5967261A41B20032ECD9 /* AccountUtil.swift */; };
+		791A5970261A76A90032ECD9 /* AccountPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A596F261A76A90032ECD9 /* AccountPageController.swift */; };
+		791A5975261A787A0032ECD9 /* AccountPageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A5974261A787A0032ECD9 /* AccountPageLayout.swift */; };
 		792035AE197915ACFAD10098 /* Pods_SnapshotTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B26D0F4C216BF82D820D0F8 /* Pods_SnapshotTests.framework */; };
 		79521030260C5B5800D642CF /* LaunchScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7952102F260C5B5800D642CF /* LaunchScreenController.swift */; };
 		79595A4025E37C3B00717873 /* NewMemoryViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79595A3E25E37C3B00717873 /* NewMemoryViewLayout.swift */; };
@@ -106,6 +112,12 @@
 		790CE9CF25F75338009D0AD9 /* TreasureHuntPlaythrough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureHuntPlaythrough.swift; sourceTree = "<group>"; };
 		790CE9D825F761F1009D0AD9 /* FullClueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullClueView.swift; sourceTree = "<group>"; };
 		790CE9DD25F76411009D0AD9 /* FullClueLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullClueLayout.swift; sourceTree = "<group>"; };
+		791A5928261921CF0032ECD9 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		791A5957261A40A90032ECD9 /* LoginPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageController.swift; sourceTree = "<group>"; };
+		791A595F261A41360032ECD9 /* LoginPageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageLayout.swift; sourceTree = "<group>"; };
+		791A5967261A41B20032ECD9 /* AccountUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountUtil.swift; sourceTree = "<group>"; };
+		791A596F261A76A90032ECD9 /* AccountPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageController.swift; sourceTree = "<group>"; };
+		791A5974261A787A0032ECD9 /* AccountPageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageLayout.swift; sourceTree = "<group>"; };
 		7952102F260C5B5800D642CF /* LaunchScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenController.swift; sourceTree = "<group>"; };
 		79595A3E25E37C3B00717873 /* NewMemoryViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMemoryViewLayout.swift; sourceTree = "<group>"; };
 		79595A3F25E37C3B00717873 /* NewMemoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMemoryView.swift; sourceTree = "<group>"; };
@@ -259,6 +271,24 @@
 				790CE9DD25F76411009D0AD9 /* FullClueLayout.swift */,
 			);
 			path = FullClue;
+			sourceTree = "<group>";
+		};
+		791A59372619A2CB0032ECD9 /* Login Page */ = {
+			isa = PBXGroup;
+			children = (
+				791A5957261A40A90032ECD9 /* LoginPageController.swift */,
+				791A595F261A41360032ECD9 /* LoginPageLayout.swift */,
+			);
+			path = "Login Page";
+			sourceTree = "<group>";
+		};
+		791A59382619A2D40032ECD9 /* Account Page */ = {
+			isa = PBXGroup;
+			children = (
+				791A596F261A76A90032ECD9 /* AccountPageController.swift */,
+				791A5974261A787A0032ECD9 /* AccountPageLayout.swift */,
+			);
+			path = "Account Page";
 			sourceTree = "<group>";
 		};
 		79595A3D25E37C3B00717873 /* NewMemory */ = {
@@ -444,7 +474,7 @@
 				79F3060A25EC31B700A445A1 /* Main Menu */,
 				79E783B325C94984002DC72C /* Memories */,
 				79F3062225EC6E4C00A445A1 /* Treasure Hunt */,
-				79F3062325EC6E5D00A445A1 /* Settings */,
+				79F3062325EC6E5D00A445A1 /* Account */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -461,6 +491,7 @@
 		79E783C325C94BD6002DC72C /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				791A5967261A41B20032ECD9 /* AccountUtil.swift */,
 				79E1A9E025E3A5D100FEE672 /* ActiveUser.swift */,
 				79E783C525C94C81002DC72C /* LayoutUtil.swift */,
 				79E783CB25C94CC1002DC72C /* ThemesUtil.swift */,
@@ -470,6 +501,7 @@
 				79F3060225E9BF7200A445A1 /* LocationUtil.swift */,
 				79F3061525EC3B3B00A445A1 /* ControlUtil.swift */,
 				796CFBA9261442EA0064D661 /* UILayout.swift */,
+				791A5928261921CF0032ECD9 /* Login.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -511,11 +543,13 @@
 			path = "Treasure Hunt";
 			sourceTree = "<group>";
 		};
-		79F3062325EC6E5D00A445A1 /* Settings */ = {
+		79F3062325EC6E5D00A445A1 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				791A59372619A2CB0032ECD9 /* Login Page */,
+				791A59382619A2D40032ECD9 /* Account Page */,
 			);
-			path = Settings;
+			path = Account;
 			sourceTree = "<group>";
 		};
 		79F3062E25EC759B00A445A1 /* User */ = {
@@ -854,24 +888,30 @@
 				79F3060C25EC31D400A445A1 /* MainMenuViewController.swift in Sources */,
 				79E1AA1C25E8AA6D00FEE672 /* FullImageView.swift in Sources */,
 				79A400CA25EE0EE4004F7596 /* ClueListRowView.swift in Sources */,
+				791A5929261921CF0032ECD9 /* Login.swift in Sources */,
 				79F3063F25EC763200A445A1 /* TreasureHunt.swift in Sources */,
 				79E1A9EC25E503E500FEE672 /* SnapshotCalloutView.swift in Sources */,
 				79F3061125EC31E500A445A1 /* MainMenuViewLayout.swift in Sources */,
 				790CE9D925F761F1009D0AD9 /* FullClueView.swift in Sources */,
+				791A5958261A40A90032ECD9 /* LoginPageController.swift in Sources */,
+				791A5975261A787A0032ECD9 /* AccountPageLayout.swift in Sources */,
 				79A400A825EDE771004F7596 /* NavigationBarView.swift in Sources */,
 				79595A4A25E37C6600717873 /* MemoryMapView.swift in Sources */,
 				79F3061625EC3B3B00A445A1 /* ControlUtil.swift in Sources */,
 				79A400CF25EE0F70004F7596 /* ClueListRowViewLayout.swift in Sources */,
 				790CE9D025F75338009D0AD9 /* TreasureHuntPlaythrough.swift in Sources */,
+				791A5968261A41B20032ECD9 /* AccountUtil.swift in Sources */,
 				79FAB5F82609A92C008BA73C /* MemoryCollectionController.swift in Sources */,
 				79B0855C25F61C2200F0868C /* PopupOptionsView.swift in Sources */,
 				79F3062A25EC6EE000A445A1 /* TreasureHuntCollectionViewLayout.swift in Sources */,
 				790CE9C225F72654009D0AD9 /* TreasureHuntPlayViewController.swift in Sources */,
+				791A5960261A41360032ECD9 /* LoginPageLayout.swift in Sources */,
 				79B289B62601DA4E006615D3 /* InformationButton.swift in Sources */,
 				79595A4025E37C3B00717873 /* NewMemoryViewLayout.swift in Sources */,
 				796CFBAA261442EA0064D661 /* UILayout.swift in Sources */,
 				79E783C725C94C81002DC72C /* LayoutUtil.swift in Sources */,
 				79F3064725EC763900A445A1 /* Clue.swift in Sources */,
+				791A5970261A76A90032ECD9 /* AccountPageController.swift in Sources */,
 				79E2F21825DD271800F872D7 /* SnapshotCollection.swift in Sources */,
 				79F3062525EC6EC600A445A1 /* TreasureHuntCollectionViewController.swift in Sources */,
 				79E1A9E125E3A5D100FEE672 /* ActiveUser.swift in Sources */,

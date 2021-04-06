@@ -81,7 +81,15 @@ class NavigationBarView: UIView, UITextFieldDelegate {
         editableTitle.placeholder = placeholder
     }
     
-    func setRightItem(image: UIImage, action: @escaping () -> Void) {
+    func setLeftItem(text: String? = nil, image: UIImage? = nil, action: @escaping () -> Void) {
+        leftItem.setTitle(text, for: .normal)
+        leftItem.setBackgroundImage(image, for: .normal)
+        leftItem.addAction(action)
+        leftItem.isHidden = false
+    }
+    
+    func setRightItem(text: String? = nil, image: UIImage? = nil, action: @escaping () -> Void) {
+        rightItem.setTitle(text, for: .normal)
         rightItem.setBackgroundImage(image, for: .normal)
         rightItem.addAction(action)
         rightItem.isHidden = false

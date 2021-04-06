@@ -113,7 +113,6 @@ Parameters:
     Type: String
   
             
-            
   useDefault:
     Type: String
   
@@ -130,7 +129,6 @@ Parameters:
   adminQueries:
     Type: String
             
-            
   
   thirdPartyAuth:
     Type: String
@@ -145,6 +143,23 @@ Parameters:
             
         
   dependsOn:
+    Type: CommaDelimitedList
+      
+  triggers:
+    Type: String
+  
+            
+  
+  hostedUI:
+    Type: String
+            
+            
+      
+  parentStack:
+    Type: String
+        
+        
+  permissions:
     Type: CommaDelimitedList
       
 Conditions:
@@ -226,6 +241,18 @@ Resources:
         SnsCallerArn: !GetAtt SNSRole.Arn
         ExternalId: snapshab8204e5_role_external_id
     
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  # Updating lambda role with permissions to Cognito
+  
   
   UserPoolClientWeb:
   # Created provide application access to user pool

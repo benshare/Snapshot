@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ohr-95-Kjj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HJP-cY-9or">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -368,24 +368,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a8H-dg-hnd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3531.884057971015" y="961.60714285714278"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="mvI-Jb-kbm">
-            <objects>
-                <viewController id="NwF-O4-BTl" sceneMemberID="viewController">
-                    <label key="view" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kD3-h7-nDX">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <navigationItem key="navigationItem" id="mde-Zd-n68"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ob0-g9-FV7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1100" y="1610"/>
+            <point key="canvasLocation" x="4442.0289855072469" y="961.60714285714278"/>
         </scene>
         <!--Main Menu-->
         <scene sceneID="1Us-xg-GaU">
@@ -417,35 +400,176 @@
                         <outlet property="stackView" destination="OuK-w3-NaK" id="CgS-II-Rgs"/>
                         <outlet property="titleLabel" destination="s3c-oO-g15" id="TyH-0w-j2p"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="exploreSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="AYQ-hL-fAc"/>
-                        <segue destination="NwF-O4-BTl" kind="presentation" identifier="settingsSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="fNV-8d-VZa"/>
                         <segue destination="x6a-xM-Tcv" kind="presentation" identifier="treasureSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="9Lx-su-791"/>
+                        <segue destination="mqV-fy-iNS" kind="presentation" identifier="accountSegue" id="1QU-Tk-nvk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KAg-KE-pxI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2181" y="171"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="rNi-he-rXZ">
+        <!--Login Page Controller-->
+        <scene sceneID="PBN-I6-6NS">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ohr-95-Kjj" sceneMemberID="viewController">
+                <viewController id="cYZ-mz-hd2" customClass="LoginPageController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2ju-0h-tDQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ey1-Nk-q3j" userLabel="Title Label">
+                                <rect key="frame" x="186" y="140" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ums-Tk-Jzi" userLabel="Welcome Label">
+                                <rect key="frame" x="186" y="195" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lx-Ee-hmP" userLabel="Username Label">
+                                <rect key="frame" x="73" y="329" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Spe-84-CiL" userLabel="Password Label">
+                                <rect key="frame" x="73" y="455" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H0D-Qk-uJH" userLabel="Remember Label">
+                                <rect key="frame" x="161" y="522" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJo-lr-102" userLabel="Invalid Label">
+                                <rect key="frame" x="186" y="606" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLU-h4-0qj" userLabel="Show Password Button">
+                                <rect key="frame" x="348" y="450" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AOQ-06-Qg5" userLabel="Password Field">
+                                <rect key="frame" x="204" y="450" width="97" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SR8-Re-vpg" userLabel="Username Field">
+                                <rect key="frame" x="204" y="322" width="97" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RuW-bN-unC" userLabel="Remember Switch">
+                                <rect key="frame" x="239" y="522" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </switch>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4lU-o2-hke" userLabel="Sign In Button">
+                                <rect key="frame" x="255" y="597" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ZZ-wn-ZOj" userLabel="Guest Button">
+                                <rect key="frame" x="184" y="712" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EHz-DG-sxB" userLabel="New User Button">
+                                <rect key="frame" x="184" y="796" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="jJY-cz-HmE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Vrn-Kb-CIb"/>
+                    <connections>
+                        <outlet property="guestButton" destination="5ZZ-wn-ZOj" id="aZN-N0-ahw"/>
+                        <outlet property="invalidLabel" destination="tJo-lr-102" id="Vaw-93-ZRq"/>
+                        <outlet property="newUserButton" destination="EHz-DG-sxB" id="trD-Oq-jHJ"/>
+                        <outlet property="passwordField" destination="AOQ-06-Qg5" id="JtX-P1-gLk"/>
+                        <outlet property="passwordLabel" destination="Spe-84-CiL" id="sb8-pN-vXO"/>
+                        <outlet property="rememberLabel" destination="H0D-Qk-uJH" id="3R1-1B-D7c"/>
+                        <outlet property="rememberSwitch" destination="RuW-bN-unC" id="Rv5-a5-K8t"/>
+                        <outlet property="showPasswordButton" destination="CLU-h4-0qj" id="lh5-nw-7Nf"/>
+                        <outlet property="signInButton" destination="4lU-o2-hke" id="lEJ-yK-rVM"/>
+                        <outlet property="titleLabel" destination="Ey1-Nk-q3j" id="oLP-gF-y6U"/>
+                        <outlet property="usernameField" destination="SR8-Re-vpg" id="Kg8-A9-Ir6"/>
+                        <outlet property="usernameLabel" destination="1lx-Ee-hmP" id="DSu-ue-sY7"/>
+                        <outlet property="welcomeLabel" destination="Ums-Tk-Jzi" id="iZh-rm-sec"/>
+                        <segue destination="V5g-iH-O9q" kind="show" identifier="guestSegue" id="sqv-Ya-UYk"/>
+                        <segue destination="V5g-iH-O9q" kind="show" identifier="returningUserSegue" id="6eB-uO-Wbw"/>
+                        <segue destination="V5g-iH-O9q" kind="show" identifier="newUserSegue" id="etK-a2-NdN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MYt-Ss-BYD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3751" y="171"/>
+        </scene>
+        <!--Account Page Controller-->
+        <scene sceneID="G8F-b5-P5l">
+            <objects>
+                <viewController id="mqV-fy-iNS" customClass="AccountPageController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="D82-oy-V0D">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9kW-fr-8oI" customClass="NavigationBarView" customModule="Snapshot" customModuleProvider="target">
+                                <rect key="frame" x="87" y="82" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="dM0-vb-dJc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="navigationBar" destination="9kW-fr-8oI" id="RdX-Dm-hqk"/>
+                        <segue destination="cYZ-mz-hd2" kind="presentation" identifier="logoutSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="uPX-V2-ubI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WW7-lg-VVN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1100" y="1276"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="3bt-nb-zeo">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HJP-cY-9or" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xMa-5Z-92w">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wpa-hs-CUi">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="V5g-iH-O9q" kind="relationship" relationship="rootViewController" id="Zld-lz-xKK"/>
+                        <segue destination="cYZ-mz-hd2" kind="relationship" relationship="rootViewController" id="cqr-F8-WoX"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="42v-ka-JEU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bLm-tR-HEV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3345" y="171"/>
+            <point key="canvasLocation" x="-5193" y="171"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="SFH-er-5NR"/>
+        <segue reference="uPX-V2-ubI"/>
+        <segue reference="sqv-Ya-UYk"/>
         <segue reference="B67-W3-2kg"/>
         <segue reference="HId-KD-dBC"/>
         <segue reference="HIl-kN-TtT"/>

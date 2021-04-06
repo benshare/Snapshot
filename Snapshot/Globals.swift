@@ -13,17 +13,17 @@ import UIKit
 let SCENES: [String] = [
     "Explore",
     "Treasure Hunt",
-    "Settings",
+    "Account",
 ]
 
 let SCENE_ICONS: [String: String] = [
     "Explore": "MapIcon",
     "Treasure Hunt": "TreasureIcon",
-    "Settings": "SettingsIcon",
+    "Account": "UserIconOutline",
 ]
 
 let SCENE_SEGUES: [String: String] = [
     "Explore": "exploreSegue",
     "Treasure Hunt": "treasureSegue",
-    "Settings": "settingsSegue",
+    "Account": "accountSegue",
 ]
