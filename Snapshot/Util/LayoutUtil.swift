@@ -278,10 +278,7 @@ func getColumnForCenteredView(view: UIView, withBuffer: Int = 0) -> UIView {
 
 // MARK: Orientation
 func orientationIsPortrait() -> Bool {
-    if UIDevice.current.orientation.isFlat {
-        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-    }
-    return UIDevice.current.orientation.isPortrait || UIDevice.current.orientation.isFlat
+    return !UIDevice.current.orientation.isLandscape
 }
 
 // MARK: New Layouts
@@ -289,7 +286,7 @@ func generateNewLayout(name: String, elements: [(String, String)]) {
     print("""
     import UIKit
 
-    class \(name)Layout {
+    class \(name)Layout: UILayout {
         // MARK: Properties
         
         // UI elements
@@ -300,10 +297,6 @@ func generateNewLayout(name: String, elements: [(String, String)]) {
         private var portraitSpacingMap: [UIView: (CGFloat, CGFloat)]!
         private var landscapeSizeMap: [UIView: (CGFloat, CGFloat)]!
         private var landscapeSpacingMap: [UIView: (CGFloat, CGFloat)]!
-        
-        // Constraints
-        private var portraitConstraints = [NSLayoutConstraint]()
-        private var landscapeConstraints = [NSLayoutConstraint]()
         
         // MARK: Initialization
         init(\(elements.map( { "\($0.0): \($0.1)" } ).joined(separator: ", "))) {

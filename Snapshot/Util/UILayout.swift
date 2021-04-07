@@ -31,4 +31,18 @@ class UILayout {
             i += 1
         }
     }
+    
+    func getWrapperForView(view: UIView) -> UIView {
+        let wrapper = UIView()
+        doNotAutoResize(view: wrapper)
+        
+        wrapper.addSubview(view)
+        NSLayoutConstraint.activate([
+            view.centerXAnchor.constraint(equalTo: wrapper.centerXAnchor),
+            view.centerYAnchor.constraint(equalTo: wrapper.centerYAnchor),
+        ])
+        portraitConstraints.append(view.heightAnchor.constraint(equalTo: wrapper.heightAnchor))
+        landscapeConstraints.append(view.widthAnchor.constraint(equalTo: wrapper.widthAnchor))
+        return wrapper
+    }
 }

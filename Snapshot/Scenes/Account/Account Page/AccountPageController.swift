@@ -12,6 +12,7 @@ class AccountPageController: UIViewController {
     // MARK: Variables
     // Outlets
     @IBOutlet weak var navigationBar: NavigationBarView!
+    @IBOutlet weak var scrollView: ScrollableStackView!
     
     // Layout
     private var layout: AccountPageLayout!
@@ -19,13 +20,13 @@ class AccountPageController: UIViewController {
     
     // MARK: Initialization
     override func viewDidLoad() {
-        layout = AccountPageLayout(navigationBar: navigationBar)
+        layout = AccountPageLayout(navigationBar: navigationBar, scrollView: scrollView)
         layout.configureConstraints(view: view)
         
         navigationBar.setLeftItem(text: "< Back", action: {
             self.dismiss(animated: true)
         })
-        navigationBar.setTitle(text: "Edit Clue")
+        navigationBar.setTitle(text: "Account Info")
         navigationBar.setRightItem(text: "Log out", action: self.logout)
         
         redrawScene()

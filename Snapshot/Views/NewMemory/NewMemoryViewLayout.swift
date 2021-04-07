@@ -18,8 +18,6 @@ class NewMemoryViewLayout {
     private let mapLabel: UILabel
     private let map: MKMapView
     private let imageUploadView: ImageUploadView
-//    private let libraryLabelButton: UIButton
-//    private let imageButton: UIButton
     private let closeButton: UIButton
     private let submitButton: UIButton
     

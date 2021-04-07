@@ -535,18 +535,24 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VQg-zJ-kXD" customClass="ScrollableStackView" customModule="Snapshot" customModuleProvider="target">
+                                <rect key="frame" x="87" y="275" width="240" height="469"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dM0-vb-dJc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
                         <outlet property="navigationBar" destination="9kW-fr-8oI" id="RdX-Dm-hqk"/>
+                        <outlet property="scrollView" destination="VQg-zJ-kXD" id="BH3-8i-YBf"/>
                         <segue destination="cYZ-mz-hd2" kind="presentation" identifier="logoutSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="uPX-V2-ubI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WW7-lg-VVN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1100" y="1276"/>
+            <point key="canvasLocation" x="-1100" y="1275.6696428571429"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3bt-nb-zeo">

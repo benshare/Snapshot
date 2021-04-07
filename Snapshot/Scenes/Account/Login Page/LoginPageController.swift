@@ -43,7 +43,6 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         
         layout = LoginPageLayout(titleLabel: titleLabel, welcomeLabel: welcomeLabel, usernameLabel: usernameLabel, usernameField: usernameField, passwordLabel: passwordLabel, passwordField: passwordField, showPasswordButton: showPasswordButton, rememberLabel: rememberLabel, rememberSwitch: rememberSwitch, invalidLabel: invalidLabel, signInButton: signInButton, guestButton: guestButton, newUserButton: newUserButton)
         layout.configureConstraints(view: view)
-        redrawScene()
         
         navigationController?.setNavigationBarHidden(true, animated: true)
         
@@ -85,6 +84,20 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
     
     // MARK: User Input
     @objc func usernameFieldDidChange() {
@@ -102,7 +115,7 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
     }
     
     private func isValidPassword(password: String) -> Bool {
-        return password.count > 2
+        return password.count > 5
     }
 
     private func doesPasswordConvertToHash(username: String, password: String, hash: String) -> Bool {
@@ -146,12 +159,6 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         // Reset UI
         layout.setUIDefaults()
     }
-    
-    @IBAction func unwindToLoginPage(segue: UIStoryboardSegue) {
-//        if !(segue.source is FeedbackViewController) {
-//            print("Unexpected source for LoginPageViewController: \(segue.source)")
-//        }
-    }
 
     // MARK: Buttons
     @objc func togglePasswordVisibility() {
@@ -173,6 +180,17 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
                 fatalError("Couldn't access password field")
             }
             username = username.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            let error = signInOrError(username: username, password: password)
+            if error == nil {
+                performSegue(withIdentifier: "returningUserSegue", sender: self)
+            } else {
+                let alert = UIAlertController(title: "Invalid login", message: error, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { _ in
+                    alert.dismiss(animated: true, completion: nil)
+                }))
+                self.present(alert, animated: false)
+            }
             
 //            let newUser = User(username: username, password: password)
 //            let info = getLoginForUser(user: newUser)
@@ -199,22 +217,31 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
 //            if rememberSwitch.isOn {
 //                writeUserToDefaultsNoCheck(user: userLoggingIn!)
 //            }
-            performSegue(withIdentifier: "returningUserSegue", sender: self)
+//            performSegue(withIdentifier: "returningUserSegue", sender: self)
         } else {
-            print()
             guard let username = usernameField.text else {
                 fatalError("Couldn't access username field")
             }
             guard let password = passwordField.text else {
                 fatalError("Couldn't access password field")
             }
+            let error = signUpOrError(username: username, password: password)
+            if error == nil {
+                performSegue(withIdentifier: "newUserSegue", sender: self)
+            } else {
+                let alert = UIAlertController(title: "Invalid login", message: error, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { _ in
+                    alert.dismiss(animated: true, completion: nil)
+                }))
+                self.present(alert, animated: false)
+            }
+            
 //            let newUser = User(username: username, password: password)
 //            if createAccountForUser(user: newUser) {
 //                userLoggingIn = newUser
 //                if rememberSwitch.isOn {
 //                    writeUserToDefaultsNoCheck(user: userLoggingIn!)
 //                }
-                performSegue(withIdentifier: "newUserSegue", sender: self)
 //            } else {
 //                invalidLabel.text = "Username already exists. Try again."
 //                invalidLabel.isHidden = false

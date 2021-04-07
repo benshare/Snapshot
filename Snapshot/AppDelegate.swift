@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         initializeAmplify()
+        loadActiveUserFromSaved()
+        fetchCurrentAuthSession()
         runOnLaunch()
         
         return true
@@ -46,8 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func runOnLaunch() {
 //        UserDefaults.resetDefaults()
-        loadActiveUserFromSaved()
-        fetchCurrentAuthSession()
+        
 //        generateNewLayout(name: "AccountPage", elements: [
 //            ("navigationBar", "NavigationBarView"),
 //         ])

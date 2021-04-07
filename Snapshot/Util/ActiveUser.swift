@@ -69,6 +69,22 @@ func loadActiveUserFromSaved() {
     activeUser = User()
 }
 
+func getSavedUsernameAndPassword() -> (String, String)? {
+    let decoder = JSONDecoder()
+    do {
+        if let usernameData = userDefaults.data(forKey: "Username")  {
+            let username = try decoder.decode(String.self, from: usernameData)
+            if let passwordData = userDefaults.data(forKey: "Username")  {
+                let password = try decoder.decode(String.self, from: passwordData)
+                return (username, password)
+            }
+        }
+    } catch {
+        print("Couldn't find saved username/password information")
+    }
+    return nil
+}
+
 extension UserDefaults {
     static func resetDefaults() {
         if let bundleId = Bundle.main.bundleIdentifier {

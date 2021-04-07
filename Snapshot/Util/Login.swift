@@ -29,6 +29,47 @@ func fetchCurrentAuthSession() {
     }
 }
 
+func signUpOrError(username: String, password: String) -> String? {
+    let group = DispatchGroup()
+    group.enter()
+    var error: AuthError? = nil
+    let options = AuthSignUpRequest.Options(userAttributes: [AuthUserAttribute(.preferredUsername, value: username)])
+    Amplify.Auth.signUp(username: username, password: password, options: options) { result in
+        switch result {
+        case .success(let signUpResult):
+            if case let .confirmUser(deliveryDetails, _) = signUpResult.nextStep {
+                print("Delivery details \(String(describing: deliveryDetails))")
+            } else {
+                print("SignUp Complete")
+            }
+        case .failure(let e):
+            error = e
+            print("An error occurred while registering a user \(e)")
+        }
+        group.leave()
+    }
+    group.wait()
+    return error?.errorDescription.description
+}
+
+func signInOrError(username: String, password: String) -> String? {
+    let group = DispatchGroup()
+    group.enter()
+    var error: AuthError? = nil
+    Amplify.Auth.signIn(username: username, password: password) { result in
+        switch result {
+        case .success:
+            print("Sign in succeeded")
+        case .failure(let e):
+            error = e
+            print("Sign in failed \(e)")
+        }
+        group.leave()
+    }
+    group.wait()
+    return error?.errorDescription.description
+}
+
 func signUp(username: String, password: String, email: String) {
     let userAttributes = [AuthUserAttribute(.email, value: email)]
     let options = AuthSignUpRequest.Options(userAttributes: userAttributes)
@@ -42,17 +83,6 @@ func signUp(username: String, password: String, email: String) {
             }
         case .failure(let error):
             print("An error occurred while registering a user \(error)")
-        }
-    }
-}
-
-func confirmSignUp(for username: String, with confirmationCode: String) {
-    Amplify.Auth.confirmSignUp(for: username, confirmationCode: confirmationCode) { result in
-        switch result {
-        case .success:
-            print("Confirm signUp succeeded")
-        case .failure(let error):
-            print("An error occurred while confirming sign up \(error)")
         }
     }
 }
