@@ -46,6 +46,9 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         
         navigationController?.setNavigationBarHidden(true, animated: true)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         usernameField.delegate = self as UITextFieldDelegate
         usernameField.addTarget(self, action: #selector(usernameFieldDidChange), for: .editingChanged)
         
@@ -64,6 +67,20 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         }
         
         // Fetch data
+        fetchCurrentAuthSession()
+        let (username, password) = getSavedUsernameAndPassword() ?? (nil, nil)
+        if username == nil {
+            print("Found no saved user data")
+            signOutLocally()
+        } else {
+            let error = signInOrError(username: username!, password: password!)
+            if error == nil {
+                performSegue(withIdentifier: "returningUserSegue", sender: self)
+            } else {
+                print("Found saved user info but couldn't log in")
+                signOutLocally()
+            }
+        }
     }
     
     // MARK: UI
@@ -88,7 +105,7 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
+                self.view.frame.origin.y -= keyboardSize.height - 50
             }
         }
     }
@@ -191,33 +208,6 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
                 }))
                 self.present(alert, animated: false)
             }
-            
-//            let newUser = User(username: username, password: password)
-//            let info = getLoginForUser(user: newUser)
-//            if !info.found {
-//                invalidLabel.text = "Sorry, unknown username. Try again."
-//                invalidLabel.isHidden = false
-//                return
-//            }
-//            if !doesPasswordConvertToHash(username: username, password: password, hash: info.hash) {
-//                invalidLabel.text = "Sorry, incorrect password. Try again."
-//                invalidLabel.isHidden = false
-//                return
-//            }
-//            userLoggingIn = newUser
-//            // Needed cause of caps
-//            userLoggingIn?.username = info.username
-//            let progressAndData = getFullProgressForUser(user: userLoggingIn!)
-//            userLoggingIn?.progress = progressAndData.0
-//            userLoggingIn?.data = progressAndData.1
-//            userLoggingIn?.rewards = progressAndData.2
-//            userLoggingIn?.preferences = progressAndData.3
-//            userLoggingIn?.data.playData.updateTodayIfExpired()
-//            userLoggingIn?.data.dailyData.updateStreakIfExpired()
-//            if rememberSwitch.isOn {
-//                writeUserToDefaultsNoCheck(user: userLoggingIn!)
-//            }
-//            performSegue(withIdentifier: "returningUserSegue", sender: self)
         } else {
             guard let username = usernameField.text else {
                 fatalError("Couldn't access username field")

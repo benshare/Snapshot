@@ -41,5 +41,6 @@ class AccountPageController: UIViewController {
     // MARK: Buttons
     func logout() {
         performSegue(withIdentifier: "logoutSegue", sender: self)
+        signOutLocally()
     }
 }

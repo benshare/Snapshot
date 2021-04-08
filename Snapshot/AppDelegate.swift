@@ -16,7 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         initializeAmplify()
         loadActiveUserFromSaved()
-        fetchCurrentAuthSession()
         runOnLaunch()
         
         return true

@@ -14,7 +14,7 @@
 		790CE9D025F75338009D0AD9 /* TreasureHuntPlaythrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790CE9CF25F75338009D0AD9 /* TreasureHuntPlaythrough.swift */; };
 		790CE9D925F761F1009D0AD9 /* FullClueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790CE9D825F761F1009D0AD9 /* FullClueView.swift */; };
 		790CE9DE25F76411009D0AD9 /* FullClueLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790CE9DD25F76411009D0AD9 /* FullClueLayout.swift */; };
-		791A5929261921CF0032ECD9 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A5928261921CF0032ECD9 /* Login.swift */; };
+		791A5929261921CF0032ECD9 /* Amplify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A5928261921CF0032ECD9 /* Amplify.swift */; };
 		791A5958261A40A90032ECD9 /* LoginPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A5957261A40A90032ECD9 /* LoginPageController.swift */; };
 		791A5960261A41360032ECD9 /* LoginPageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A595F261A41360032ECD9 /* LoginPageLayout.swift */; };
 		791A5968261A41B20032ECD9 /* AccountUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A5967261A41B20032ECD9 /* AccountUtil.swift */; };
@@ -112,7 +112,7 @@
 		790CE9CF25F75338009D0AD9 /* TreasureHuntPlaythrough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureHuntPlaythrough.swift; sourceTree = "<group>"; };
 		790CE9D825F761F1009D0AD9 /* FullClueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullClueView.swift; sourceTree = "<group>"; };
 		790CE9DD25F76411009D0AD9 /* FullClueLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullClueLayout.swift; sourceTree = "<group>"; };
-		791A5928261921CF0032ECD9 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		791A5928261921CF0032ECD9 /* Amplify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Amplify.swift; sourceTree = "<group>"; };
 		791A5957261A40A90032ECD9 /* LoginPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageController.swift; sourceTree = "<group>"; };
 		791A595F261A41360032ECD9 /* LoginPageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageLayout.swift; sourceTree = "<group>"; };
 		791A5967261A41B20032ECD9 /* AccountUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountUtil.swift; sourceTree = "<group>"; };
@@ -501,7 +501,7 @@
 				79F3060225E9BF7200A445A1 /* LocationUtil.swift */,
 				79F3061525EC3B3B00A445A1 /* ControlUtil.swift */,
 				796CFBA9261442EA0064D661 /* UILayout.swift */,
-				791A5928261921CF0032ECD9 /* Login.swift */,
+				791A5928261921CF0032ECD9 /* Amplify.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -888,7 +888,7 @@
 				79F3060C25EC31D400A445A1 /* MainMenuViewController.swift in Sources */,
 				79E1AA1C25E8AA6D00FEE672 /* FullImageView.swift in Sources */,
 				79A400CA25EE0EE4004F7596 /* ClueListRowView.swift in Sources */,
-				791A5929261921CF0032ECD9 /* Login.swift in Sources */,
+				791A5929261921CF0032ECD9 /* Amplify.swift in Sources */,
 				79F3063F25EC763200A445A1 /* TreasureHunt.swift in Sources */,
 				79E1A9EC25E503E500FEE672 /* SnapshotCalloutView.swift in Sources */,
 				79F3061125EC31E500A445A1 /* MainMenuViewLayout.swift in Sources */,
