@@ -71,6 +71,7 @@ func signInOrError(username: String, password: String) -> String? {
         switch result {
         case .success:
             print("Sign in succeeded")
+            updateSavedUsernameAndPassword(username: username, password: password)
         case .failure(let e):
             error = e
             print("Sign in failed \(e)")

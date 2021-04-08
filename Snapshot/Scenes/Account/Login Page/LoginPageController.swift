@@ -68,7 +68,7 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         
         // Fetch data
         fetchCurrentAuthSession()
-        let (username, password) = getSavedUsernameAndPassword() ?? (nil, nil)
+        let (username, password) = loadSavedUsernameAndPassword() ?? (nil, nil)
         if username == nil {
             print("Found no saved user data")
             signOutLocally()

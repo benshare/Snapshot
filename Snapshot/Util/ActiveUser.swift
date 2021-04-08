@@ -69,7 +69,19 @@ func loadActiveUserFromSaved() {
     activeUser = User()
 }
 
-func getSavedUsernameAndPassword() -> (String, String)? {
+func updateSavedUsernameAndPassword(username: String, password: String) {
+    let encoder = JSONEncoder()
+    do {
+        let usernameData = try encoder.encode(username)
+        let passwordData = try encoder.encode(password)
+        userDefaults.setValue(usernameData, forKey: "Username")
+        userDefaults.setValue(passwordData, forKey: "Password")
+    } catch {
+        print("Failed to encode remembered username and password")
+    }
+}
+
+func loadSavedUsernameAndPassword() -> (String, String)? {
     let decoder = JSONDecoder()
     do {
         if let usernameData = userDefaults.data(forKey: "Username")  {
