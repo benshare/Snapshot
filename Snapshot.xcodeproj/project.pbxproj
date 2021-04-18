@@ -27,8 +27,6 @@
 		79595A4A25E37C6600717873 /* MemoryMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79595A4925E37C6600717873 /* MemoryMapView.swift */; };
 		796CFBA52612F59D0064D661 /* Test cases in Resources */ = {isa = PBXBuildFile; fileRef = 796CFBA42612F59D0064D661 /* Test cases */; };
 		796CFBAA261442EA0064D661 /* UILayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796CFBA9261442EA0064D661 /* UILayout.swift */; };
-		7970D6302616DB4300178F30 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 7970D62E2616DB4300178F30 /* amplifyconfiguration.json */; };
-		7970D6312616DB4300178F30 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 7970D62F2616DB4300178F30 /* awsconfiguration.json */; };
 		79A400A825EDE771004F7596 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400A725EDE771004F7596 /* NavigationBarView.swift */; };
 		79A400B025EDEA1B004F7596 /* NavigationBarViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400AF25EDEA1B004F7596 /* NavigationBarViewLayout.swift */; };
 		79A400B625EDF1EE004F7596 /* EditHuntViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400B525EDF1EE004F7596 /* EditHuntViewController.swift */; };
@@ -98,11 +96,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		024BE5D772224DDDBBEE6431 /* amplifytools.xcconfig */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.xcconfig; path = amplifytools.xcconfig; sourceTree = "<group>"; };
 		04BD6D494D9ECCDD9BF09117 /* Pods_Snapshot_SnapshotUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Snapshot_SnapshotUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AA9B7E3558275203426D7F5 /* Pods-Snapshot-SnapshotUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapshot-SnapshotUITests.debug.xcconfig"; path = "Target Support Files/Pods-Snapshot-SnapshotUITests/Pods-Snapshot-SnapshotUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		1561BF0E2451F4513BA4B6DF /* Pods_Snapshot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Snapshot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C8788A0484241C99DFD15B0 /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		57B7C55645D471479B415B88 /* Pods-SnapshotTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapshotTests.release.xcconfig"; path = "Target Support Files/Pods-SnapshotTests/Pods-SnapshotTests.release.xcconfig"; sourceTree = "<group>"; };
 		6B26D0F4C216BF82D820D0F8 /* Pods_SnapshotTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapshotTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C6B686C7C2FC70549AD0853 /* Pods-Snapshot-SnapshotUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapshot-SnapshotUITests.release.xcconfig"; path = "Target Support Files/Pods-Snapshot-SnapshotUITests/Pods-Snapshot-SnapshotUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -124,8 +120,6 @@
 		79595A4925E37C6600717873 /* MemoryMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryMapView.swift; sourceTree = "<group>"; };
 		796CFBA42612F59D0064D661 /* Test cases */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Test cases"; sourceTree = "<group>"; };
 		796CFBA9261442EA0064D661 /* UILayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILayout.swift; sourceTree = "<group>"; };
-		7970D62E2616DB4300178F30 /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
-		7970D62F2616DB4300178F30 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		79A400A725EDE771004F7596 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		79A400AF25EDEA1B004F7596 /* NavigationBarViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarViewLayout.swift; sourceTree = "<group>"; };
 		79A400B525EDF1EE004F7596 /* EditHuntViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHuntViewController.swift; sourceTree = "<group>"; };
@@ -182,7 +176,6 @@
 		79FAB5FC2609A938008BA73C /* MemoryCollectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCollectionLayout.swift; sourceTree = "<group>"; };
 		8277606131AB5628949F4EE9 /* Pods-SnapshotTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapshotTests.debug.xcconfig"; path = "Target Support Files/Pods-SnapshotTests/Pods-SnapshotTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A868C8D11AD4B3805DB20433 /* Pods-Snapshot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapshot.debug.xcconfig"; path = "Target Support Files/Pods-Snapshot/Pods-Snapshot.debug.xcconfig"; sourceTree = "<group>"; };
-		B173C33966BE4B7DBA9CE92D /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; path = awsconfiguration.json; sourceTree = "<group>"; };
 		B7C8770D20521AFE3F426590 /* Pods-Snapshot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapshot.release.xcconfig"; path = "Target Support Files/Pods-Snapshot/Pods-Snapshot.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -408,7 +401,6 @@
 		79E7837325C9493A002DC72C = {
 			isa = PBXGroup;
 			children = (
-				7D79E88A17EE4C368202979D /* AmplifyConfig */,
 				79E7837E25C9493A002DC72C /* Snapshot */,
 				79E7839525C9493C002DC72C /* SnapshotTests */,
 				79E783A025C9493D002DC72C /* SnapshotUITests */,
@@ -431,8 +423,6 @@
 		79E7837E25C9493A002DC72C /* Snapshot */ = {
 			isa = PBXGroup;
 			children = (
-				7970D62E2616DB4300178F30 /* amplifyconfiguration.json */,
-				7970D62F2616DB4300178F30 /* awsconfiguration.json */,
 				7905670A25CBF98F00770E72 /* Metadata */,
 				79E7838D25C9493C002DC72C /* Info.plist */,
 				79E7837F25C9493A002DC72C /* AppDelegate.swift */,
@@ -608,17 +598,6 @@
 			path = MemoryCollection;
 			sourceTree = "<group>";
 		};
-		7D79E88A17EE4C368202979D /* AmplifyConfig */ = {
-			isa = PBXGroup;
-			children = (
-				024BE5D772224DDDBBEE6431 /* amplifytools.xcconfig */,
-				4C8788A0484241C99DFD15B0 /* amplifyconfiguration.json */,
-				B173C33966BE4B7DBA9CE92D /* awsconfiguration.json */,
-			);
-			name = AmplifyConfig;
-			path = .;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -727,14 +706,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7970D6312616DB4300178F30 /* awsconfiguration.json in Resources */,
 				79E7838C25C9493C002DC72C /* LaunchScreen.storyboard in Resources */,
 				7905670C25CBF9AE00770E72 /* Credits in Resources */,
 				79E1AA0125E86E2F00FEE672 /* Todos in Resources */,
 				79E7838925C9493C002DC72C /* Assets.xcassets in Resources */,
 				79E7838725C9493A002DC72C /* Main.storyboard in Resources */,
 				796CFBA52612F59D0064D661 /* Test cases in Resources */,
-				7970D6302616DB4300178F30 /* amplifyconfiguration.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -67,20 +67,20 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         }
         
         // Fetch data
-        fetchCurrentAuthSession()
-        let (username, password) = loadSavedUsernameAndPassword() ?? (nil, nil)
-        if username == nil {
-            print("Found no saved user data")
-            signOutLocally()
-        } else {
-            let error = signInOrError(username: username!, password: password!)
-            if error == nil {
-                performSegue(withIdentifier: "returningUserSegue", sender: self)
-            } else {
-                print("Found saved user info but couldn't log in")
-                signOutLocally()
-            }
-        }
+//        fetchCurrentAuthSession()
+//        let (username, password) = loadSavedUsernameAndPassword() ?? (nil, nil)
+//        if username == nil {
+//            print("Found no saved user data")
+//            signOutLocally()
+//        } else {
+//            let error = signInOrError(username: username!, password: password!)
+//            if error == nil {
+//                performSegue(withIdentifier: "returningUserSegue", sender: self)
+//            } else {
+//                print("Found saved user info but couldn't log in")
+//                signOutLocally()
+//            }
+//        }
     }
     
     // MARK: UI
