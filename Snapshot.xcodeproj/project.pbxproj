@@ -27,7 +27,8 @@
 		79595A4A25E37C6600717873 /* MemoryMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79595A4925E37C6600717873 /* MemoryMapView.swift */; };
 		796CFBA52612F59D0064D661 /* Test cases in Resources */ = {isa = PBXBuildFile; fileRef = 796CFBA42612F59D0064D661 /* Test cases */; };
 		796CFBAA261442EA0064D661 /* UILayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796CFBA9261442EA0064D661 /* UILayout.swift */; };
-		79866D6B26390B4300D09B41 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 79866D3D262D01C800D09B41 /* amplifyconfiguration.json */; };
+		79866D7726393F3800D09B41 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 79866D7526393F3800D09B41 /* awsconfiguration.json */; };
+		79866D7826393F3800D09B41 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 79866D7626393F3800D09B41 /* amplifyconfiguration.json */; };
 		79A400A825EDE771004F7596 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400A725EDE771004F7596 /* NavigationBarView.swift */; };
 		79A400B025EDEA1B004F7596 /* NavigationBarViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400AF25EDEA1B004F7596 /* NavigationBarViewLayout.swift */; };
 		79A400B625EDF1EE004F7596 /* EditHuntViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400B525EDF1EE004F7596 /* EditHuntViewController.swift */; };
@@ -121,8 +122,8 @@
 		79595A4925E37C6600717873 /* MemoryMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryMapView.swift; sourceTree = "<group>"; };
 		796CFBA42612F59D0064D661 /* Test cases */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Test cases"; sourceTree = "<group>"; };
 		796CFBA9261442EA0064D661 /* UILayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILayout.swift; sourceTree = "<group>"; };
-		79866D3D262D01C800D09B41 /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
-		79866D422632932A00D09B41 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
+		79866D7526393F3800D09B41 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
+		79866D7626393F3800D09B41 /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = SOURCE_ROOT; };
 		79A400A725EDE771004F7596 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		79A400AF25EDEA1B004F7596 /* NavigationBarViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarViewLayout.swift; sourceTree = "<group>"; };
 		79A400B525EDF1EE004F7596 /* EditHuntViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHuntViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +178,7 @@
 		79F3064625EC763900A445A1 /* Clue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clue.swift; sourceTree = "<group>"; };
 		79FAB5F72609A92C008BA73C /* MemoryCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCollectionController.swift; sourceTree = "<group>"; };
 		79FAB5FC2609A938008BA73C /* MemoryCollectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCollectionLayout.swift; sourceTree = "<group>"; };
+		7FE152A588AF4ABEA8466620 /* amplifytools.xcconfig */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.xcconfig; path = amplifytools.xcconfig; sourceTree = "<group>"; };
 		8277606131AB5628949F4EE9 /* Pods-SnapshotTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapshotTests.debug.xcconfig"; path = "Target Support Files/Pods-SnapshotTests/Pods-SnapshotTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A868C8D11AD4B3805DB20433 /* Pods-Snapshot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapshot.debug.xcconfig"; path = "Target Support Files/Pods-Snapshot/Pods-Snapshot.debug.xcconfig"; sourceTree = "<group>"; };
 		B7C8770D20521AFE3F426590 /* Pods-Snapshot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapshot.release.xcconfig"; path = "Target Support Files/Pods-Snapshot/Pods-Snapshot.release.xcconfig"; sourceTree = "<group>"; };
@@ -210,6 +212,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B1AD3AABB2B47089DE78B4E /* AmplifyConfig */ = {
+			isa = PBXGroup;
+			children = (
+				7FE152A588AF4ABEA8466620 /* amplifytools.xcconfig */,
+			);
+			name = AmplifyConfig;
+			path = .;
+			sourceTree = "<group>";
+		};
 		0F53763D0F8B12986E620D39 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -404,6 +415,7 @@
 		79E7837325C9493A002DC72C = {
 			isa = PBXGroup;
 			children = (
+				0B1AD3AABB2B47089DE78B4E /* AmplifyConfig */,
 				79E7837E25C9493A002DC72C /* Snapshot */,
 				79E7839525C9493C002DC72C /* SnapshotTests */,
 				79E783A025C9493D002DC72C /* SnapshotUITests */,
@@ -426,8 +438,8 @@
 		79E7837E25C9493A002DC72C /* Snapshot */ = {
 			isa = PBXGroup;
 			children = (
-				79866D422632932A00D09B41 /* awsconfiguration.json */,
-				79866D3D262D01C800D09B41 /* amplifyconfiguration.json */,
+				79866D7626393F3800D09B41 /* amplifyconfiguration.json */,
+				79866D7526393F3800D09B41 /* awsconfiguration.json */,
 				7905670A25CBF98F00770E72 /* Metadata */,
 				79E7838D25C9493C002DC72C /* Info.plist */,
 				79E7837F25C9493A002DC72C /* AppDelegate.swift */,
@@ -711,13 +723,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79866D6B26390B4300D09B41 /* amplifyconfiguration.json in Resources */,
 				79E7838C25C9493C002DC72C /* LaunchScreen.storyboard in Resources */,
 				7905670C25CBF9AE00770E72 /* Credits in Resources */,
 				79E1AA0125E86E2F00FEE672 /* Todos in Resources */,
 				79E7838925C9493C002DC72C /* Assets.xcassets in Resources */,
 				79E7838725C9493A002DC72C /* Main.storyboard in Resources */,
+				79866D7726393F3800D09B41 /* awsconfiguration.json in Resources */,
 				796CFBA52612F59D0064D661 /* Test cases in Resources */,
+				79866D7826393F3800D09B41 /* amplifyconfiguration.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

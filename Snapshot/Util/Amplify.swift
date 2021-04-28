@@ -15,7 +15,7 @@ private let encoder = JSONEncoder()
 func initializeAmplify() {
     do {
         try Amplify.add(plugin: AWSCognitoAuthPlugin())
-        try Amplify.add(plugin: AWSS3StoragePlugin())
+//        try Amplify.add(plugin: AWSS3StoragePlugin())
         try Amplify.configure()
     } catch {
         print("An error occurred while initializing Amplify: \(error)")

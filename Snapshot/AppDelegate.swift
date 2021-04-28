@@ -7,7 +7,7 @@
 
 import UIKit
 import Amplify
-import AmplifyPlugins
+//import AmplifyPlugins
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
