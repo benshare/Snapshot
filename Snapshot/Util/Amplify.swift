@@ -15,7 +15,7 @@ private let encoder = JSONEncoder()
 func initializeAmplify() {
     do {
         try Amplify.add(plugin: AWSCognitoAuthPlugin())
-//        try Amplify.add(plugin: AWSS3StoragePlugin())
+        try Amplify.add(plugin: AWSS3StoragePlugin())
         try Amplify.configure()
     } catch {
         print("An error occurred while initializing Amplify: \(error)")
@@ -47,6 +47,7 @@ func signUpOrError(username: String, password: String) -> String? {
             } else {
                 print("SignUp Complete")
             }
+            updateSavedUsernameAndPassword(username: username, password: password)
         case .failure(let e):
             error = e
             print("An error occurred while registering a user \(e)")

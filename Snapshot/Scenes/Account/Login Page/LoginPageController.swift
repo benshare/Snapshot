@@ -69,6 +69,7 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         // Fetch data
         fetchCurrentAuthSession()
         let (username, password) = loadSavedUsernameAndPassword() ?? (nil, nil)
+        print("Saved: \(username), \(password)")
         if username == nil {
             print("Found no saved user data")
 //            signOutLocally()
@@ -134,10 +135,6 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
     private func isValidPassword(password: String) -> Bool {
         return password.count > 5
     }
-
-//    private func doesPasswordConvertToHash(username: String, password: String, hash: String) -> Bool {
-//        return passwordHashFunction(username, password) == hash
-//    }
     
 
     // MARK: Navigation
