@@ -60,7 +60,6 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
         } else {
             navigationBar.addBackButton(text: "< Back", action: {
                 self.hunt.startingLocation = self.mapCenter.coordinate
-                didUpdateActiveUser()
                 self.dismiss(animated: true)
             })
             navigationBar.setTitle(text: "Set Starting Location")
@@ -173,7 +172,6 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
     // MARK: UITextViewDelegate
     func textViewDidEndEditing(_ textView: UITextView) {
         self.clue.text = self.clueText.text
-        didUpdateActiveUser()
     }
 
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -206,7 +204,6 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
             if let field = subview.subviews[0] as? UITextField {
                 if field == textField {
                     clue.hints[hintIndex] = textField.text!
-                    didUpdateActiveUser()
                     return
                 }
             }
@@ -248,7 +245,6 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
         clueImage.image = image
         layout.fullImage.image = image
         clue.image = image
-        didUpdateActiveUser()
         dismiss(animated: true)
     }
     

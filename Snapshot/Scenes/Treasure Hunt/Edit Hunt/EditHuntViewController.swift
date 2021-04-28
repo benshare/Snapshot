@@ -77,7 +77,6 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
                     row.updateIndexLabel()
                 }
             }
-            didUpdateActiveUser()
             
             self.clueEditing = newClue
             self.listIndexEditing = self.clueList.count() - 2
@@ -177,7 +176,6 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         }
         
         hunt.clues.remove(at: listIndexEditing - 1)
-        didUpdateActiveUser()
     }
     
     // Swap cells
@@ -203,7 +201,6 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         
         let secondClue = hunt.clues.remove(at: firstInd)
         hunt.clues.insert(secondClue, at: firstInd - 1)
-        didUpdateActiveUser()
     }
     
     // MARK: Clue Text

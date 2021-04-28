@@ -48,7 +48,6 @@ class EditHuntPreferencesController: UIViewController, UIPickerViewDataSource, U
         
         // Navigation Bar
         navigationBar.addBackButton(text: "< Back", action: {
-            didUpdateActiveUser()
             self.dismiss(animated: true)
         })
         navigationBar.setTitle(text: hunt.name)
@@ -108,7 +107,6 @@ class EditHuntPreferencesController: UIViewController, UIPickerViewDataSource, U
                 hotColdRow.tintColor = .gray
                 hotColdRow.alpha = 0.6
             }
-            didUpdateActiveUser()
         }
         
         hotColdLabel.text = "Show hotter / colder hints?"
@@ -116,7 +114,6 @@ class EditHuntPreferencesController: UIViewController, UIPickerViewDataSource, U
         hotColdButton.addAction {
             self.hunt.allowHotterColder = !self.hunt.allowHotterColder
             self.hotColdButton.setBackgroundImage(UIImage(named: self.hunt.allowHotterColder ? "checkboxFull" : "checkboxEmpty"), for: .normal)
-            didUpdateActiveUser()
         }
         if !hunt.allowHints {
             hotColdButton.isEnabled = false
@@ -211,7 +208,6 @@ class EditHuntPreferencesController: UIViewController, UIPickerViewDataSource, U
             break
         case sensitivityPicker:
             hunt.clueRadius = stringToRadius(descr: sensitivityValues[row])
-            didUpdateActiveUser()
             if let first = hunt.clues.first {
                 setPreviewRegion(first: first)
             }

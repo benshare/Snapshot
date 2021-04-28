@@ -67,20 +67,20 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         }
         
         // Fetch data
-//        fetchCurrentAuthSession()
-//        let (username, password) = loadSavedUsernameAndPassword() ?? (nil, nil)
-//        if username == nil {
-//            print("Found no saved user data")
+        fetchCurrentAuthSession()
+        let (username, password) = loadSavedUsernameAndPassword() ?? (nil, nil)
+        if username == nil {
+            print("Found no saved user data")
 //            signOutLocally()
-//        } else {
-//            let error = signInOrError(username: username!, password: password!)
-//            if error == nil {
-//                performSegue(withIdentifier: "returningUserSegue", sender: self)
-//            } else {
-//                print("Found saved user info but couldn't log in")
+        } else {
+            let error = signInOrError(username: username!, password: password!)
+            if error == nil {
+                performSegue(withIdentifier: "returningUserSegue", sender: self)
+            } else {
+                print("Found saved user info but couldn't log in")
 //                signOutLocally()
-//            }
-//        }
+            }
+        }
     }
     
     // MARK: UI
@@ -135,14 +135,16 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         return password.count > 5
     }
 
-    private func doesPasswordConvertToHash(username: String, password: String, hash: String) -> Bool {
-        return passwordHashFunction(username, password) == hash
-    }
+//    private func doesPasswordConvertToHash(username: String, password: String, hash: String) -> Bool {
+//        return passwordHashFunction(username, password) == hash
+//    }
     
 
     // MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let homepage = segue.destination as! HomePageViewController
+//        let homepage = segue.destination as! MainMenuViewController
+        
+        activeUser = User()
         
 //        fetchVisiblePackData()
 //        fetchDataForPacks(packs: getDefaultUnlockedPackNames())

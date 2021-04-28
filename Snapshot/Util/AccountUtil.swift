@@ -19,7 +19,6 @@ let ACCOUNT_DBD_GROUP = DispatchGroup()
 
 
 //MARK: Utility Functions
-
 func md5(username: String, password: String) -> String {
     let str = username.uppercased() + password
     if let strData = str.data(using: String.Encoding.utf8) {

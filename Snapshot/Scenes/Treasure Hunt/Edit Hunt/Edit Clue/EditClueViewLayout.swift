@@ -229,7 +229,6 @@ class EditClueViewLayout: UILayout {
             // TODO: Change this back to removeFromSuperview()
             row.isHidden = true
             self.clue.hints.remove(at: index - 1)
-            didUpdateActiveUser()
             if self.clue.hints.count == 2 {
                 self.addPlusRow(delegate: delegate)
             }
@@ -298,7 +297,6 @@ class EditClueViewLayout: UILayout {
             } else {
                 delegate.hunt.startingLocation = fullMap.centerCoordinate
             }
-            didUpdateActiveUser()
             self.clueLocation.addOneTimeTapEvent {
                 self.showFullViewMap(view: view, delegate: delegate)
             }
@@ -362,7 +360,6 @@ class EditClueViewLayout: UILayout {
             self.clueImage.image = defaultImage
             self.fullImage.image = defaultImage
             self.clue.image = nil
-            didUpdateActiveUser()
         }
     }
 }

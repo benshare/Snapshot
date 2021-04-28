@@ -69,7 +69,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     
     // MARK: UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return max(getActiveHunts().hunts.count + 1, 2)
+        return max(activeUser.hunts.hunts.count + 1, 2)
     }
         
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -77,15 +77,15 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         for view in cell.contentView.subviews {
             view.removeFromSuperview()
         }
-        if getActiveHunts().hunts.isEmpty && indexPath.item == 1 {
+        if activeUser.hunts.hunts.isEmpty && indexPath.item == 1 {
             return cell
         }
         switch indexPath.item {
         case 0:
             layout.configureNewHuntCell(cell: cell)
             break
-        case 1...getActiveHunts().hunts.count:
-            layout.configureTreasureHuntCell(cell: cell, hunt: getActiveHunts().hunts[indexPath.item - 1])
+        case 1...activeUser.hunts.hunts.count:
+            layout.configureTreasureHuntCell(cell: cell, hunt: activeUser.hunts.hunts[indexPath.item - 1])
             break
         default:
             fatalError("Dequeued cell with too high index")
@@ -125,7 +125,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         popup!.addButton(name: "Play", callback: {
             self.performSegue(withIdentifier: "playHuntSegue", sender: self)
             self.popup!.removeFromSuperview()
-        }, isEnabled: getActiveHunts().hunts[collection.indexPathsForSelectedItems!.first!.item - 1].clues.count > 2)
+        }, isEnabled: activeUser.hunts.hunts[collection.indexPathsForSelectedItems!.first!.item - 1].clues.count > 2)
         popup!.addButton(name: "Edit", callback: {
             self.performSegue(withIdentifier: "editHuntSegue", sender: self)
             self.popup!.removeFromSuperview()
@@ -152,8 +152,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     
     private func deleteHunt() {
         let path = self.collection.indexPathsForSelectedItems!.first!
-        getActiveHunts().hunts.remove(at: path.item - 1)
-        didUpdateActiveUser()
+        activeUser.hunts.hunts.remove(at: path.item - 1)
         collection.deleteItems(at: [path])
         collection.reloadData()
     }
@@ -163,24 +162,23 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         switch segue.identifier {
         case "newHuntSegue":
             let newHunt = TreasureHunt()
-            getActiveHunts().hunts.append(newHunt)
-            didUpdateActiveUser()
+            activeUser.hunts.hunts.append(newHunt)
             popup?.removeFromSuperview()
             
             let recipient = segue.destination as! EditHuntViewController
-            recipient.index = getActiveHunts().hunts.count
+            recipient.index = activeUser.hunts.hunts.count
             recipient.hunt = newHunt
             recipient.parentController = self
         case "editHuntSegue":
             let recipient = segue.destination as! EditHuntViewController
             let selected = collection.indexPathsForSelectedItems!.first!.item
             recipient.index = selected
-            recipient.hunt = getActiveHunts().hunts[selected - 1]
+            recipient.hunt = activeUser.hunts.hunts[selected - 1]
             recipient.parentController = self
         case "playHuntSegue":
             let recipient = segue.destination as! TreasureHuntPlayViewController
             let selected = collection.indexPathsForSelectedItems!.first!.item
-            recipient.playthrough = TreasureHuntPlaythrough(hunt: getActiveHunts().hunts[selected - 1])
+            recipient.playthrough = TreasureHuntPlaythrough(hunt: activeUser.hunts.hunts[selected - 1])
         default:
             break
         }

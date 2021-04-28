@@ -52,7 +52,7 @@ class MemoryCollectionController: UIViewController {
     }
     
     private func fillListFromCollection() {
-        let unsorted = getActiveCollection().collection.values
+        let unsorted = activeUser.snapshots.collection.values
         for snapshot in unsorted.sorted(by: { return $0.time < $1.time }) {
             let row = layout.getRowForSnapshot(snapshot: snapshot)
             memoryList.addToStack(view: row)
@@ -62,7 +62,6 @@ class MemoryCollectionController: UIViewController {
                 row.addPermanentTapEvent {
                     source.clue.location = snapshot.location
                     source.clue.image = snapshot.image
-                    didUpdateActiveUser()
                     source.updateMapAndImage()
                     self.dismiss(animated: true, completion: nil)
                 }

@@ -1,7 +1,7 @@
 {
     "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "snapshab8204e5",
+    "resourceNameTruncated": "snapsh5f103981",
     "userPoolName": "Snapshot",
     "autoVerifiedAttributes": [
         "phone_number"
@@ -16,12 +16,7 @@
     "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
-    "passwordPolicyCharacters": [
-        "Requires Lowercase",
-        "Requires Numbers",
-        "Requires Symbols",
-        "Requires Uppercase"
-    ],
+    "passwordPolicyCharacters": [],
     "requiredAttributes": [
         "preferred_username"
     ],
@@ -29,9 +24,9 @@
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "Snapshab8204e5_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "Snapsh5f103981_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "ab8204e5",
+    "sharedId": "5f103981",
     "resourceName": "Snapshot",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
@@ -47,18 +42,11 @@
         ]
     },
     "serviceName": "Cognito",
-    "useDefault": "manual",
+    "useDefault": "default",
     "userPoolGroups": false,
     "userPoolGroupList": [],
     "adminQueries": false,
-    "thirdPartyAuth": false,
-    "authProviders": [],
     "usernameCaseSensitive": false,
     "dependsOn": [],
-    "triggers": "{}",
-    "hostedUI": false,
-    "parentStack": {
-        "Ref": "AWS::StackId"
-    },
-    "permissions": []
+    "authProviders": []
 }

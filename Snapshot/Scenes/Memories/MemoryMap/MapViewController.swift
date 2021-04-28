@@ -117,7 +117,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
     
     func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-            self.addCollectionToMap(collection: getActiveCollection())
+            self.addCollectionToMap(collection: activeUser.snapshots)
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) {
         }

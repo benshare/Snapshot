@@ -9,9 +9,13 @@ import Foundation
 import Amplify
 import AmplifyPlugins
 
+private let encoder = JSONEncoder()
+
+// MARK: Initialize Amplify
 func initializeAmplify() {
     do {
         try Amplify.add(plugin: AWSCognitoAuthPlugin())
+        try Amplify.add(plugin: AWSS3StoragePlugin())
         try Amplify.configure()
     } catch {
         print("An error occurred while initializing Amplify: \(error)")
@@ -21,25 +25,15 @@ func initializeAmplify() {
 func fetchCurrentAuthSession() {
     _ = Amplify.Auth.fetchAuthSession { result in
         switch result {
-        case .success(let session):
-            print("Is user signed in - \(session.isSignedIn)")
+        case .success( _):
+            break
         case .failure(let error):
             print("Fetch session failed with error \(error)")
         }
     }
 }
 
-func signOutLocally() {
-    Amplify.Auth.signOut() { result in
-        switch result {
-        case .success:
-            print("Successfully signed out")
-        case .failure(let error):
-            print("Sign out failed with error \(error)")
-        }
-    }
-}
-
+// MARK: Sign In/Sign Up
 func signUpOrError(username: String, password: String) -> String? {
     let group = DispatchGroup()
     group.enter()
@@ -80,4 +74,48 @@ func signInOrError(username: String, password: String) -> String? {
     }
     group.wait()
     return error?.errorDescription.description
+}
+
+func signOutLocally() {
+    Amplify.Auth.signOut() { result in
+        switch result {
+        case .success:
+            print("Successfully signed out")
+        case .failure(let error):
+            print("Sign out failed with error \(error)")
+        }
+    }
+}
+
+// MARK: Storage
+func uploadHunts() {
+    let dataString = "Example file contents"
+    let data = dataString.data(using: .utf8)!
+    Amplify.Storage.uploadData(key: "Hunts", data: data,
+        progressListener: { progress in
+            print("Progress: \(progress)")
+        }, resultListener: { (event) in
+            switch event {
+            case .success(let data):
+                print("Completed: \(data)")
+            case .failure(let storageError):
+                print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
+        }
+    })
+//    do {
+//        let data = try encoder.encode(activeUser.hunts)
+//        Amplify.Storage.uploadData(key: "Hunts", data: data,
+//            progressListener: { progress in
+//                print("Progress: \(progress)")
+//            }, resultListener: { (event) in
+//                switch event {
+//                case .success(let data):
+//                    print("Completed: \(data)")
+//                case .failure(let storageError):
+//                    print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
+//            }
+//        })
+//    } catch {
+//        print("Failed to encode hunts for upload")
+//    }
 }

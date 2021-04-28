@@ -1,10 +1,11 @@
 {
   "auth": {
-    "Snapshot": {
+    "snapshotd0dcc19f": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false
     }
-  }
+  },
+  "storage": {}
 }
