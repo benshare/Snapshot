@@ -12,8 +12,11 @@ Fix before launch:
         https://stackoverflow.com/questions/20756899/how-to-select-multiple-images-from-uiimagepickercontroller
 
 Bugfixes
-- Go to the corect place on scrool
+- Go to the corect place on scroll
 - Popup moving during rotation
+- Eye icon sizes
+- Verification boxes
+- Keryboard popup size fix
 
 
 Fix orientation/implement landscape

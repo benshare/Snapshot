@@ -8,7 +8,7 @@
     }
   },
   "storage": {
-    "s33f6be3e2": {
+    "usercontent": {
       "service": "S3",
       "providerPlugin": "awscloudformation"
     }

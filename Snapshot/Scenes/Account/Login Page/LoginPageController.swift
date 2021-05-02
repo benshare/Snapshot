@@ -9,39 +9,27 @@ import Foundation
 import UIKit
 
 class LoginPageController: UIViewController, UITextFieldDelegate {
-    
-    // MARK: Outlets
-    @IBOutlet weak var titleLabel: UILabel!
+    // MARK: Variables
+    // Outlets
     @IBOutlet weak var welcomeLabel: UILabel!
-    @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var usernameField: UITextField!
-    @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var passwordField: UITextField!
-    @IBOutlet weak var showPasswordButton: UIButton!
-    @IBOutlet weak var rememberLabel: UILabel!
-    @IBOutlet weak var rememberSwitch: UISwitch!
-    @IBOutlet weak var invalidLabel: UILabel!
+    @IBOutlet weak var forgotButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
-    @IBOutlet weak var guestButton: UIButton!
     @IBOutlet weak var newUserButton: UIButton!
     
-    // MARK: User info
-    private var rememberedUser: User?
-    private var userLoggingIn: User?
-    
-    // MARK: Values to track
+    // Values to track
     private var usernameIsValid: Bool = false
     private var passwordisValid: Bool = false
-    private var isReturningUser: Bool = true
     
-    // MARK: Formatting
+    // Formatting
     private var layout: LoginPageLayout!
     
     // MARK: Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        layout = LoginPageLayout(titleLabel: titleLabel, welcomeLabel: welcomeLabel, usernameLabel: usernameLabel, usernameField: usernameField, passwordLabel: passwordLabel, passwordField: passwordField, showPasswordButton: showPasswordButton, rememberLabel: rememberLabel, rememberSwitch: rememberSwitch, invalidLabel: invalidLabel, signInButton: signInButton, guestButton: guestButton, newUserButton: newUserButton)
+        layout = LoginPageLayout(welcomeLabel: welcomeLabel, usernameField: usernameField, passwordField: passwordField, forgotButton: forgotButton, signInButton: signInButton, newUserButton: newUserButton)
         layout.configureConstraints(view: view)
         
         navigationController?.setNavigationBarHidden(true, animated: true)
@@ -49,38 +37,43 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
+        welcomeLabel.text = "Welcome"
+        welcomeLabel.backgroundColor = .systemGreen
+        welcomeLabel.textColor = .white
+        
         usernameField.delegate = self as UITextFieldDelegate
         usernameField.addTarget(self, action: #selector(usernameFieldDidChange), for: .editingChanged)
+        usernameField.placeholder = "Username"
         
         passwordField.delegate = self as UITextFieldDelegate
         passwordField.addTarget(self, action: #selector(passwordFieldDidChange), for: .editingChanged)
         passwordField.isSecureTextEntry = true
+        passwordField.placeholder = "Password"
+        passwordField.addVisibilityIcon()
         
-        showPasswordButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
+        forgotButton.setTitle("Forgot password?", for: .normal)
+        forgotButton.setTitleColor(.systemGreen, for: .normal)
         
-        signInButton.addTarget(self, action: #selector(signIn), for: .touchDown)
-        guestButton.addTarget(self, action: #selector(logInAsGuest), for: .touchDown)
-        newUserButton.addTarget(self, action: #selector(toggleNewUser), for: .touchDown)
+        signInButton.setTitle("Sign In", for: .normal)
+        signInButton.addTarget(self, action: #selector(trySignIn), for: .touchDown)
+        signInButton.backgroundColor = .systemGreen
+        signInButton.setTitleColor(.white, for: .normal)
+        signInButton.titleEdgeInsets = UIEdgeInsets(top: 12, left: 45, bottom: 12, right: 45)
+        signInButton.isEnabled = false
+        signInButton.alpha = 0.6
         
-        if !isReturningUser {
-            toggleNewUser()
+        newUserButton.setTitle("New User? Sign Up", for: .normal)
+        newUserButton.addAction {
+            self.performSegue(withIdentifier: "newUserSegue", sender: self)
         }
+        newUserButton.backgroundColor = .systemGreen
+        newUserButton.setTitleColor(.white, for: .normal)
+        newUserButton.titleEdgeInsets = UIEdgeInsets(top: 12, left: 45, bottom: 12, right: 45)
         
         // Fetch data
-        fetchCurrentAuthSession()
-        let (username, password) = loadSavedUsernameAndPassword() ?? (nil, nil)
-        print("Saved: \(username), \(password)")
-        if username == nil {
-            print("Found no saved user data")
-//            signOutLocally()
-        } else {
-            let error = signInOrError(username: username!, password: password!)
-            if error == nil {
-                performSegue(withIdentifier: "returningUserSegue", sender: self)
-            } else {
-                print("Found saved user info but couldn't log in")
-//                signOutLocally()
-            }
+        let username = getLoggedInUser()
+        if username != nil {
+            performSegue(withIdentifier: "signInSegue", sender: self)
         }
     }
     
@@ -121,11 +114,13 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
     @objc func usernameFieldDidChange() {
         usernameIsValid = isValidUsername(username: usernameField.text!)
         signInButton.isEnabled = usernameIsValid && passwordisValid
+        signInButton.alpha = usernameIsValid && passwordisValid ? 1 : 0.6
     }
     
     @objc func passwordFieldDidChange() {
         passwordisValid = isValidPassword(password: passwordField.text!)
         signInButton.isEnabled = usernameIsValid && passwordisValid
+        signInButton.alpha = usernameIsValid && passwordisValid ? 1 : 0.6
     }
     
     private func isValidUsername(username: String) -> Bool {
@@ -171,101 +166,26 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
 //        if !loggedInUser.isGuest {
 //            setUserToSync(user: loggedInUser.user, remember: loggedInUser.rememberMe)
 //        }
-        
-        // Reset UI
-        layout.setUIDefaults()
     }
 
-    // MARK: Buttons
-    @objc func togglePasswordVisibility() {
-        if showPasswordButton.titleLabel!.text == "Show" {
-            passwordField.isSecureTextEntry = false
-            showPasswordButton.setTitle("Hide", for: .normal)
-        } else {
-            passwordField.isSecureTextEntry = true
-            showPasswordButton.setTitle("Show", for: .normal)
+    // MARK: Actions
+    @objc func trySignIn() {
+        guard var username = usernameField.text else {
+            fatalError("Couldn't access username field")
         }
-    }
-    
-    @objc func signIn() {
-        if isReturningUser {
-            guard var username = usernameField.text else {
-                fatalError("Couldn't access username field")
-            }
-            guard let password = passwordField.text else {
-                fatalError("Couldn't access password field")
-            }
-            username = username.trimmingCharacters(in: .whitespacesAndNewlines)
-            
-            let error = signInOrError(username: username, password: password)
-            if error == nil {
-                performSegue(withIdentifier: "returningUserSegue", sender: self)
-            } else {
-                let alert = UIAlertController(title: "Invalid login", message: error, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { _ in
-                    alert.dismiss(animated: true, completion: nil)
-                }))
-                self.present(alert, animated: false)
-            }
-        } else {
-            guard let username = usernameField.text else {
-                fatalError("Couldn't access username field")
-            }
-            guard let password = passwordField.text else {
-                fatalError("Couldn't access password field")
-            }
-            let error = signUpOrError(username: username, password: password)
-            if error == nil {
-                performSegue(withIdentifier: "newUserSegue", sender: self)
-            } else {
-                let alert = UIAlertController(title: "Invalid login", message: error, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { _ in
-                    alert.dismiss(animated: true, completion: nil)
-                }))
-                self.present(alert, animated: false)
-            }
-            
-//            let newUser = User(username: username, password: password)
-//            if createAccountForUser(user: newUser) {
-//                userLoggingIn = newUser
-//                if rememberSwitch.isOn {
-//                    writeUserToDefaultsNoCheck(user: userLoggingIn!)
-//                }
-//            } else {
-//                invalidLabel.text = "Username already exists. Try again."
-//                invalidLabel.isHidden = false
-//            }
+        guard let password = passwordField.text else {
+            fatalError("Couldn't access password field")
         }
-    }
-    
-    @objc func toggleNewUser() {
-        isReturningUser = !isReturningUser
-        if isReturningUser {
-            layout.switchToReturningUser()
+        
+        let error = signIn(username: username, password: password)
+        if error == nil {
+            performSegue(withIdentifier: "signInSegue", sender: self)
         } else {
-            layout.switchToNewUser()
+            let alert = UIAlertController(title: "Invalid login", message: error, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { _ in
+                alert.dismiss(animated: true, completion: nil)
+            }))
+            self.present(alert, animated: false)
         }
-    }
-    
-    @objc func logInAsGuest() {
-        performSegue(withIdentifier: "guestSegue", sender: self)
-    }
-    
-    func logInRememberedUser(user: User) {
-//        let info = getLoginForUser(user: user)
-//        if !info.found || user.passwordHash != info.hash {
-//            print("Remembered user contains outdated information, deleting.\n")
-//            clearRememberedUser()
-//            return
-//        }
-//
-//        userLoggingIn = user
-//        let fetched = getFullProgressForUser(user: userLoggingIn!)
-//        resolveRememberedAndFetchedProgresses(rememberedUser: userLoggingIn!, fetchedProgress: fetched)
-//        userLoggingIn?.data.playData.updateTodayIfExpired()
-//        userLoggingIn?.data.dailyData.updateStreakIfExpired()
-//        writeUserToDefaultsNoCheck(user: userLoggingIn!)
-//        rememberSwitch.isOn = true
-        performSegue(withIdentifier: "returningUserSegue", sender: self)
     }
 }

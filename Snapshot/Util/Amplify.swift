@@ -22,61 +22,77 @@ func initializeAmplify() {
     }
 }
 
-func fetchCurrentAuthSession() {
-    _ = Amplify.Auth.fetchAuthSession { result in
-        switch result {
-        case .success( _):
-            break
-        case .failure(let error):
-            print("Fetch session failed with error \(error)")
-        }
-    }
+func getLoggedInUser() -> String? {
+    return Amplify.Auth.getCurrentUser()?.username
 }
 
-// MARK: Sign In/Sign Up
-func signUpOrError(username: String, password: String) -> String? {
+// MARK: Sign Up
+func signUp(username: String, password: String, number: String) -> String? {
     let group = DispatchGroup()
     group.enter()
     var error: AuthError? = nil
-    let options = AuthSignUpRequest.Options(userAttributes: [AuthUserAttribute(.preferredUsername, value: username)])
+    
+    let userAttributes = [AuthUserAttribute(.preferredUsername, value: username), AuthUserAttribute(.phoneNumber, value: "+1" + number)]
+    let options = AuthSignUpRequest.Options(userAttributes: userAttributes)
     Amplify.Auth.signUp(username: username, password: password, options: options) { result in
         switch result {
-        case .success(let signUpResult):
-            if case let .confirmUser(deliveryDetails, _) = signUpResult.nextStep {
-                print("Delivery details \(String(describing: deliveryDetails))")
-            } else {
-                print("SignUp Complete")
-            }
-            updateSavedUsernameAndPassword(username: username, password: password)
+        case .success( _):
+            group.leave()
         case .failure(let e):
             error = e
-            print("An error occurred while registering a user \(e)")
+            group.leave()
         }
-        group.leave()
     }
     group.wait()
     return error?.errorDescription.description
 }
 
-func signInOrError(username: String, password: String) -> String? {
+func confirmSignUp(for username: String, with confirmationCode: String) -> Bool {
+    let group = DispatchGroup()
+    group.enter()
+    var success = false
+    Amplify.Auth.confirmSignUp(for: username, confirmationCode: confirmationCode) { result in
+        switch result {
+        case .success( _):
+            print("Confirm signUp succeeded")
+            success = true
+            group.leave()
+        case .failure(let error):
+            print("An error occurred while confirming sign up \(error)")
+            success = false
+            group.leave()
+        }
+    }
+    group.wait()
+    return success
+}
+
+func resendConfirmationCode(for username: String) {
+    _ = Amplify.Auth.resendSignUpCode(for: username)
+}
+
+// MARK: Sign In
+func signIn(username: String, password: String) -> String? {
     let group = DispatchGroup()
     group.enter()
     var error: AuthError? = nil
-    Amplify.Auth.signIn(username: username, password: password) { result in
+    
+    let userAttributes = [AuthUserAttribute(.preferredUsername, value: username)]
+    let options = AuthSignInRequest.Options(pluginOptions: userAttributes)
+    Amplify.Auth.signIn(username: username, password: password, options: options) { result in
         switch result {
-        case .success:
-            print("Sign in succeeded")
-            updateSavedUsernameAndPassword(username: username, password: password)
+        case .success( _):
+            group.leave()
         case .failure(let e):
             error = e
-            print("Sign in failed \(e)")
+            group.leave()
         }
-        group.leave()
     }
     group.wait()
     return error?.errorDescription.description
 }
 
+// MARK: Sign Out
 func signOutLocally() {
     Amplify.Auth.signOut() { result in
         switch result {
@@ -90,15 +106,15 @@ func signOutLocally() {
 
 // MARK: Storage
 func uploadHunts() {
-    let dataString = "Example file contents"
+    let dataString = "Logging out at \(Date())"
     let data = dataString.data(using: .utf8)!
-    Amplify.Storage.uploadData(key: "Hunts", data: data,
-        progressListener: { progress in
-            print("Progress: \(progress)")
-        }, resultListener: { (event) in
+    let options = StorageUploadDataRequest.Options(accessLevel: .private)
+//    Amplify.Storage.uploadData(key: "Hunts", data: data,
+    Amplify.Storage.uploadData(key: "Hunts", data: data, options: options,
+                               resultListener: { (event) in
             switch event {
-            case .success(let data):
-                print("Completed: \(data)")
+            case .success( _):
+                break
             case .failure(let storageError):
                 print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
         }

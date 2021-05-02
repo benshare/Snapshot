@@ -29,6 +29,7 @@
 		796CFBAA261442EA0064D661 /* UILayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796CFBA9261442EA0064D661 /* UILayout.swift */; };
 		79866D7726393F3800D09B41 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 79866D7526393F3800D09B41 /* awsconfiguration.json */; };
 		79866D7826393F3800D09B41 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 79866D7626393F3800D09B41 /* amplifyconfiguration.json */; };
+		79866D83263DFF1700D09B41 /* NewAccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79866D82263DFF1700D09B41 /* NewAccountController.swift */; };
 		79A400A825EDE771004F7596 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400A725EDE771004F7596 /* NavigationBarView.swift */; };
 		79A400B025EDEA1B004F7596 /* NavigationBarViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400AF25EDEA1B004F7596 /* NavigationBarViewLayout.swift */; };
 		79A400B625EDF1EE004F7596 /* EditHuntViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A400B525EDF1EE004F7596 /* EditHuntViewController.swift */; };
@@ -43,6 +44,10 @@
 		79B289B025FF4449006615D3 /* EditHuntPreferencesLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B289AF25FF4449006615D3 /* EditHuntPreferencesLayout.swift */; };
 		79B289B62601DA4E006615D3 /* InformationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B289B52601DA4E006615D3 /* InformationButton.swift */; };
 		79BB336525E0D3140085A15D /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BB336425E0D3140085A15D /* UserPreferences.swift */; };
+		79D0D402263E1318003987E2 /* NewAccountLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D0D401263E1318003987E2 /* NewAccountLayout.swift */; };
+		79D0D407263E1D66003987E2 /* TextFieldUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D0D406263E1D66003987E2 /* TextFieldUtil.swift */; };
+		79D0D40C263E1FD2003987E2 /* ConfirmAccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D0D40B263E1FD2003987E2 /* ConfirmAccountController.swift */; };
+		79D0D411263E1FDC003987E2 /* ConfirmAccountLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D0D410263E1FDC003987E2 /* ConfirmAccountLayout.swift */; };
 		79E1A9D925E3905D00FEE672 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1A9D825E3905D00FEE672 /* Globals.swift */; };
 		79E1A9E125E3A5D100FEE672 /* ActiveUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1A9E025E3A5D100FEE672 /* ActiveUser.swift */; };
 		79E1A9EC25E503E500FEE672 /* SnapshotCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E1A9EB25E503E500FEE672 /* SnapshotCalloutView.swift */; };
@@ -124,6 +129,7 @@
 		796CFBA9261442EA0064D661 /* UILayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILayout.swift; sourceTree = "<group>"; };
 		79866D7526393F3800D09B41 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
 		79866D7626393F3800D09B41 /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = SOURCE_ROOT; };
+		79866D82263DFF1700D09B41 /* NewAccountController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewAccountController.swift; path = "Snapshot/Scenes/Account/New Account/NewAccountController.swift"; sourceTree = SOURCE_ROOT; };
 		79A400A725EDE771004F7596 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		79A400AF25EDEA1B004F7596 /* NavigationBarViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarViewLayout.swift; sourceTree = "<group>"; };
 		79A400B525EDF1EE004F7596 /* EditHuntViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHuntViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +144,10 @@
 		79B289AF25FF4449006615D3 /* EditHuntPreferencesLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHuntPreferencesLayout.swift; sourceTree = "<group>"; };
 		79B289B52601DA4E006615D3 /* InformationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationButton.swift; sourceTree = "<group>"; };
 		79BB336425E0D3140085A15D /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		79D0D401263E1318003987E2 /* NewAccountLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountLayout.swift; sourceTree = "<group>"; };
+		79D0D406263E1D66003987E2 /* TextFieldUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldUtil.swift; sourceTree = "<group>"; };
+		79D0D40B263E1FD2003987E2 /* ConfirmAccountController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAccountController.swift; sourceTree = "<group>"; };
+		79D0D410263E1FDC003987E2 /* ConfirmAccountLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAccountLayout.swift; sourceTree = "<group>"; };
 		79E1A9D825E3905D00FEE672 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		79E1A9E025E3A5D100FEE672 /* ActiveUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveUser.swift; sourceTree = "<group>"; };
 		79E1A9EB25E503E500FEE672 /* SnapshotCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotCalloutView.swift; sourceTree = "<group>"; };
@@ -313,6 +323,24 @@
 				79595A4925E37C6600717873 /* MemoryMapView.swift */,
 			);
 			path = MemoryMap;
+			sourceTree = "<group>";
+		};
+		79866D87263DFF2600D09B41 /* New Account */ = {
+			isa = PBXGroup;
+			children = (
+				79866D82263DFF1700D09B41 /* NewAccountController.swift */,
+				79D0D401263E1318003987E2 /* NewAccountLayout.swift */,
+			);
+			path = "New Account";
+			sourceTree = "<group>";
+		};
+		79866D8A263DFF5F00D09B41 /* Confirm Account */ = {
+			isa = PBXGroup;
+			children = (
+				79D0D40B263E1FD2003987E2 /* ConfirmAccountController.swift */,
+				79D0D410263E1FDC003987E2 /* ConfirmAccountLayout.swift */,
+			);
+			path = "Confirm Account";
 			sourceTree = "<group>";
 		};
 		79A400A625EDE761004F7596 /* NavigationBar */ = {
@@ -509,6 +537,7 @@
 				79F3060225E9BF7200A445A1 /* LocationUtil.swift */,
 				79F3061525EC3B3B00A445A1 /* ControlUtil.swift */,
 				796CFBA9261442EA0064D661 /* UILayout.swift */,
+				79D0D406263E1D66003987E2 /* TextFieldUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -554,6 +583,8 @@
 			isa = PBXGroup;
 			children = (
 				791A59372619A2CB0032ECD9 /* Login Page */,
+				79866D87263DFF2600D09B41 /* New Account */,
+				79866D8A263DFF5F00D09B41 /* Confirm Account */,
 				791A59382619A2D40032ECD9 /* Account Page */,
 			);
 			path = Account;
@@ -861,6 +892,7 @@
 				79B0854725F208C100F0868C /* EditClueViewController.swift in Sources */,
 				79BB336525E0D3140085A15D /* UserPreferences.swift in Sources */,
 				79E783CC25C94CC1002DC72C /* ThemesUtil.swift in Sources */,
+				79D0D411263E1FDC003987E2 /* ConfirmAccountLayout.swift in Sources */,
 				79B289A825FF4438006615D3 /* EditHuntPreferencesController.swift in Sources */,
 				79B0854C25F20C5B00F0868C /* EditClueViewLayout.swift in Sources */,
 				79A400BF25EDF3F0004F7596 /* ScrollableStackView.swift in Sources */,
@@ -870,6 +902,7 @@
 				79A400B025EDEA1B004F7596 /* NavigationBarViewLayout.swift in Sources */,
 				790CE9DE25F76411009D0AD9 /* FullClueLayout.swift in Sources */,
 				79E7838025C9493A002DC72C /* AppDelegate.swift in Sources */,
+				79D0D407263E1D66003987E2 /* TextFieldUtil.swift in Sources */,
 				79E1AA1125E87FCA00FEE672 /* MathUtil.swift in Sources */,
 				79E1A9F925E7218D00FEE672 /* DateUtil.swift in Sources */,
 				79E783BE25C94AF8002DC72C /* MapViewLayout.swift in Sources */,
@@ -912,9 +945,12 @@
 				79F3062525EC6EC600A445A1 /* TreasureHuntCollectionViewController.swift in Sources */,
 				79E1A9E125E3A5D100FEE672 /* ActiveUser.swift in Sources */,
 				79595A4125E37C3B00717873 /* NewMemoryView.swift in Sources */,
+				79866D83263DFF1700D09B41 /* NewAccountController.swift in Sources */,
 				79E1A9F125E503F700FEE672 /* SnapshotCalloutViewLayout.swift in Sources */,
 				790CE9CA25F72661009D0AD9 /* TreasureHuntPlayLayout.swift in Sources */,
 				79E1A9D925E3905D00FEE672 /* Globals.swift in Sources */,
+				79D0D402263E1318003987E2 /* NewAccountLayout.swift in Sources */,
+				79D0D40C263E1FD2003987E2 /* ConfirmAccountController.swift in Sources */,
 				79E2F22325DD293C00F872D7 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

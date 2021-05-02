@@ -40,8 +40,8 @@ class AccountPageController: UIViewController {
 
     // MARK: Buttons
     func logout() {
-        uploadHunts()
-//        performSegue(withIdentifier: "logoutSegue", sender: self)
-//        signOutLocally()
+        performSegue(withIdentifier: "logOutSegue", sender: self)
+        signOutLocally()
+        clearSavedUsernameAndPassword()
     }
 }

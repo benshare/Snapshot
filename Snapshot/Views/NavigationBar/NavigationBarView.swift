@@ -55,17 +55,19 @@ class NavigationBarView: UIView, UITextFieldDelegate {
     }
     
     // MARK: Customize
-    func addBackButton(text: String, action: @escaping () -> Void) {
+    func addBackButton(text: String, action: @escaping () -> Void, color: UIColor = .systemBlue) {
         leftItem.setTitle(text, for: .normal)
+        leftItem.setTitleColor(color, for: .normal)
         leftItem.addAction(action)
         leftItem.isHidden = false
         bringSubviewToFront(leftItem)
     }
     
-    func setTitle(text: String) {
+    func setTitle(text: String, color: UIColor = .black) {
         title.isHidden = false
         editableTitle.isHidden = true
         title.text = text
+        title.textColor = color
     }
     
     func setEditableTitle(background: UIView, text: String, placeholder: String) {

@@ -48,8 +48,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func runOnLaunch() {
 //        UserDefaults.resetDefaults()
         
-//        generateNewLayout(name: "AccountPage", elements: [
+//        generateNewLayout(name: "ConfirmAccount", elements: [
 //            ("navigationBar", "NavigationBarView"),
+//            ("codeField", "UITextField"),
+//            ("resendButton", "UIButton"),
+//            ("confirmButton", "UIButton"),
 //         ])
     }
     
