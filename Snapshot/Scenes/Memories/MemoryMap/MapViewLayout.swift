@@ -43,18 +43,6 @@ class MapViewLayout {
         setButtonsToDefaults(buttons: [backButton, collectionButton, snapButton], withImageInsets: 10)
         circularViews.append(contentsOf: [backButton, collectionButton, snapButton])
         
-        backButton.setTitle("<", for: .normal)
-        backButton.backgroundColor = .lightGray
-        backButton.alpha = 0.8
-        
-        collectionButton.setImage(UIImage(named: "ListIcon"), for: .normal)
-        collectionButton.backgroundColor = .lightGray
-        collectionButton.alpha = 0.8
-        
-        snapButton.alpha = 0.8
-        snapButton.backgroundColor = .lightGray
-        updateSnapshotButtonImage()
-        
         // Portrait
         portraitSizeMap = [
             map: (1, 1),

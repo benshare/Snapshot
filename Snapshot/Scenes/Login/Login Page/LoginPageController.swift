@@ -37,8 +37,10 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
+        let color = SCENE_COLORS[.account]
+        
         welcomeLabel.text = "Welcome"
-        welcomeLabel.backgroundColor = .systemGreen
+        welcomeLabel.backgroundColor = color
         welcomeLabel.textColor = .white
         
         usernameField.delegate = self as UITextFieldDelegate
@@ -52,11 +54,11 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         passwordField.addVisibilityIcon()
         
         forgotButton.setTitle("Forgot password?", for: .normal)
-        forgotButton.setTitleColor(.systemGreen, for: .normal)
+        forgotButton.setTitleColor(color, for: .normal)
         
         signInButton.setTitle("Sign In", for: .normal)
         signInButton.addTarget(self, action: #selector(trySignIn), for: .touchDown)
-        signInButton.backgroundColor = .systemGreen
+        signInButton.backgroundColor = color
         signInButton.setTitleColor(.white, for: .normal)
         signInButton.titleEdgeInsets = UIEdgeInsets(top: 12, left: 45, bottom: 12, right: 45)
         signInButton.isEnabled = false
@@ -66,7 +68,7 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         newUserButton.addAction {
             self.performSegue(withIdentifier: "newUserSegue", sender: self)
         }
-        newUserButton.backgroundColor = .systemGreen
+        newUserButton.backgroundColor = color
         newUserButton.setTitleColor(.white, for: .normal)
         newUserButton.titleEdgeInsets = UIEdgeInsets(top: 12, left: 45, bottom: 12, right: 45)
     }
@@ -137,6 +139,7 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         let error = signIn(username: username, password: password)
         if error == nil {
             loadActiveUser(username: username)
+            ACTIVE_USER_GROUP.wait()
             performSegue(withIdentifier: "signInSegue", sender: self)
         } else {
             let alert = UIAlertController(title: "Invalid login", message: error, preferredStyle: .alert)

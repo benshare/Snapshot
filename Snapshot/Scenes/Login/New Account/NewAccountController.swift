@@ -39,7 +39,7 @@ class NewAccountController: UIViewController, UITextFieldDelegate {
         
         navigationBar.addBackButton(text: "< Back", action: { self.dismiss(animated: true)}, color: .white)
         navigationBar.setTitle(text: "Create Account", color: .white)
-        navigationBar.backgroundColor = .systemGreen
+        navigationBar.backgroundColor = SCENE_COLORS[.account]
         
         usernameField.delegate = self as UITextFieldDelegate
         usernameField.addTarget(self, action: #selector(usernameFieldDidChange), for: .editingChanged)
@@ -57,7 +57,7 @@ class NewAccountController: UIViewController, UITextFieldDelegate {
         
         signUpButton.setTitle("Sign Up", for: .normal)
         signUpButton.addTarget(self, action: #selector(createAccount), for: .touchDown)
-        signUpButton.backgroundColor = .systemGreen
+        signUpButton.backgroundColor = SCENE_COLORS[.account]
         signUpButton.setTitleColor(.white, for: .normal)
         signUpButton.titleEdgeInsets = UIEdgeInsets(top: 12, left: 45, bottom: 12, right: 45)
         signUpButton.isEnabled = false

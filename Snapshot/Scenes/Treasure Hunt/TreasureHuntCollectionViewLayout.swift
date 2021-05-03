@@ -90,10 +90,11 @@ class TreasureHuntCollectionViewViewLayout {
         cell.contentView.addSubview(button)
         button.setTitle("+", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 70)
-        button.setTitleColor(.darkGray, for: .normal)
-        button.layer.borderColor = UIColor.darkGray.cgColor
+        let color = SCENE_COLORS[.hunts]
+        button.setTitleColor(color?.darker(), for: .normal)
+        button.layer.borderColor = color?.darker()?.cgColor
         button.layer.borderWidth = 5
-        button.backgroundColor = .lightGray
+        button.backgroundColor = color
         button.isUserInteractionEnabled = false
         circularViews.append(button)
     }

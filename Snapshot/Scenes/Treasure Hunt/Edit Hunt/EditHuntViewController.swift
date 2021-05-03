@@ -31,20 +31,20 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         layout = EditHuntViewLayout(navigationBar: navigationBar, clueList: clueList)
         layout.configureConstraints(view: view)
         
+        navigationBar.setEditableTitle(background: clueList, text: hunt.name, placeholder: "Untitled Treasure Hunt", color: .white)
+        navigationBar.backgroundColor = SCENE_COLORS[.hunts]
         navigationBar.addBackButton(text: "Save", action: {
             syncActiveUser(attribute: .hunts)
             self.parentController.reloadCell(index: self.index)
-            self.dismiss(animated: true)
-        })
-        navigationBar.setEditableTitle(background: clueList, text: hunt.name, placeholder: "Untitled Treasure Hunt")
-        navigationBar.setRightItem(image: UIImage(named: "SettingsIcon")!, action: {
+        }, color: .white)
+        navigationBar.setRightItem(image: "SettingsIcon", tint: .white, action: {
             self.performSegue(withIdentifier: "huntPreferencesSegue", sender: self)
         })
         navigationBar.hunt = hunt
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backgroundTapped(sender:))))
         
         fillStack()
-        clueList.addBorders()
+        clueList.addBorders(color: SCENE_COLORS[.hunts]!)
         view.bringSubviewToFront(navigationBar)
     }
     

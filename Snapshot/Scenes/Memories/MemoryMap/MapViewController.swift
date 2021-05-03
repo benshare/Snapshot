@@ -42,13 +42,31 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
         
         redrawScene()
         
+        let color = SCENE_COLORS[.map]
+        
         backButton.addAction {
             self.dismiss(animated: true)
         }
+        backButton.setTitle("<", for: .normal)
+        backButton.setTitleColor(color, for: .normal)
+        backButton.backgroundColor = .darkGray
+        backButton.alpha = 0.8
+        
         collectionButton.addAction {
             self.performSegue(withIdentifier: "viewCollectionSegue", sender: self)
         }
+        collectionButton.setImage(UIImage(named: "ListIcon")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        collectionButton.tintColor = color
+        collectionButton.backgroundColor = .darkGray
+        collectionButton.alpha = 0.8
+        
         snapButton.addTarget(self, action: #selector(addSnapshotFromMap), for: .touchDown)
+        snapButton.setImage(UIImage(named: "CameraIcon")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        snapButton.tintColor = color
+        snapButton.backgroundColor = .darkGray
+        snapButton.alpha = 0.8
+        
+        layout.updateSnapshotButtonImage()
         
         startTrackingCurrentLocation()
     }

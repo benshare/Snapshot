@@ -70,7 +70,7 @@ class NavigationBarView: UIView, UITextFieldDelegate {
         title.textColor = color
     }
     
-    func setEditableTitle(background: UIView, text: String, placeholder: String) {
+    func setEditableTitle(background: UIView, text: String, placeholder: String, color: UIColor = .black) {
         background.addPermanentTapEvent {
             self.endEditing(true)
         }
@@ -80,6 +80,7 @@ class NavigationBarView: UIView, UITextFieldDelegate {
         editableTitle.isUserInteractionEnabled = true
         editableTitle.delegate = self
         editableTitle.text = text
+        editableTitle.textColor = color
         editableTitle.placeholder = placeholder
     }
     
@@ -90,9 +91,12 @@ class NavigationBarView: UIView, UITextFieldDelegate {
         leftItem.isHidden = false
     }
     
-    func setRightItem(text: String? = nil, image: UIImage? = nil, action: @escaping () -> Void) {
+    func setRightItem(text: String? = nil, image: String? = nil, tint: UIColor = .clear, action: @escaping () -> Void) {
         rightItem.setTitle(text, for: .normal)
-        rightItem.setBackgroundImage(image, for: .normal)
+        if image != nil {
+            rightItem.setBackgroundImage(UIImage(named: image!)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        }
+        rightItem.tintColor = tint
         rightItem.addAction(action)
         rightItem.isHidden = false
     }

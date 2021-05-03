@@ -14,8 +14,6 @@ class MemoryCollectionLayout {
     // UI elements
     private let navigationBar: NavigationBarView
     private let memoryList: ScrollableStackView
-    private let backButton: UIButton
-    private let mapButton: UIButton
     private let huntButton: UIButton
     
     // Constraint maps
@@ -32,42 +30,26 @@ class MemoryCollectionLayout {
     private var circularViews = [UIView]()
     
     // MARK: Initialization
-    init(navigationBar: NavigationBarView, memoryList: ScrollableStackView, backButton: UIButton, mapButton: UIButton, huntButton: UIButton) {
+    init(navigationBar: NavigationBarView, memoryList: ScrollableStackView, huntButton: UIButton) {
         self.navigationBar = navigationBar
         self.memoryList = memoryList
-        self.backButton = backButton
-        self.mapButton = mapButton
         self.huntButton = huntButton
 
-        doNotAutoResize(views: [navigationBar, memoryList, backButton, mapButton, huntButton])
+        doNotAutoResize(views: [navigationBar, memoryList, huntButton])
         setLabelsToDefaults(labels: [])
-        setButtonsToDefaults(buttons: [backButton, mapButton, huntButton], withImageInsets: 10)
-        circularViews.append(contentsOf: [backButton, mapButton, huntButton])
-        
-        backButton.setTitle("<", for: .normal)
-        backButton.alpha = 0.8
-        
-        mapButton.setImage(UIImage(named: "MapIcon"), for: .normal)
-        mapButton.alpha = 0.8
-        
-        huntButton.setImage(UIImage(named: "TreasureIcon"), for: .normal)
-        huntButton.backgroundColor = .darkGray
-        huntButton.alpha = 0.8
+        setButtonsToDefaults(buttons: [huntButton], withImageInsets: 10)
+        circularViews.append(contentsOf: [huntButton])
         
         // Portrait
         portraitSizeMap = [
             navigationBar: (1, 0.2),
             memoryList: (1, 0.8),
-            backButton: (0.15, 0),
-            mapButton: (0.15, 0),
             huntButton: (0.15, 0),
         ]
         
         portraitSpacingMap = [
             navigationBar: (0.5, 0.1),
             memoryList: (0.5, 0.6),
-            backButton: (0.12, 0.08),
-            mapButton: (0.88, 0.08),
             huntButton: (0.5, 0.92),
         ]
         
@@ -75,16 +57,12 @@ class MemoryCollectionLayout {
         landscapeSizeMap = [
             navigationBar: (1, 0.3),
             memoryList: (1, 0.75),
-            backButton: (0.08, 0),
-            mapButton: (0.08, 0),
             huntButton: (0.08, 0),
         ]
         
         landscapeSpacingMap = [
             navigationBar: (0.5, 0.1),
             memoryList: (0.5, 0.625),
-            backButton: (0.08, 0.1),
-            mapButton: (0.92, 0.1),
             huntButton: (0.5, 0.9),
         ]
     }

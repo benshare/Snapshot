@@ -204,7 +204,6 @@ func loadActiveUser(username: String) {
                 if updated == 4 {
                     ACTIVE_USER_GROUP.leave()
                 }
-//                print("Completed: \(data)")
             case let .failure(storageError):
                 print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
             }

@@ -9,35 +9,22 @@ import Foundation
 import UIKit
 
 class PopupOptionsView: UIView {
+    // MARK: Variables
     var buttons = [UIButton]()
     static let viewWidth: CGFloat = 100
     static let buttonRatio: CGFloat = 0.5
+    private let mainColor: UIColor
+    private let secondaryColor: UIColor
     
-    init() {
+    // MARK: Initialization
+    init(color: UIColor = .lightGray) {
+        mainColor = color.darker()!
+        secondaryColor = color
         super.init(frame: CGRect.zero)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func addButton(name: String, callback: @escaping () -> Void, isEnabled: Bool = true) {
-        let button = UIButton()
-        button.setTitle(name, for: .normal)
-        button.addAction(callback)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.black.cgColor
-        if isEnabled {
-            button.backgroundColor = .lightGray
-            button.setTitleColor(.black, for: .normal)
-        } else {
-            button.backgroundColor = .white
-            button.setTitleColor(.lightGray, for: .normal)
-            button.isEnabled = false
-        }
-        
-        buttons.append(button)
-        addSubview(button)
     }
     
     func configureView(setButtonDefaults: Bool = false) {
@@ -61,6 +48,27 @@ class PopupOptionsView: UIView {
             }
         }
         NSLayoutConstraint.activate(constraints)
+    }
+    
+    // MARK: Customize
+    func addButton(name: String, callback: @escaping () -> Void, isEnabled: Bool = true) {
+        let button = UIButton()
+        button.setTitle(name, for: .normal)
+        button.addAction(callback)
+        button.layer.borderWidth = 1
+        if isEnabled {
+            button.setTitleColor(mainColor, for: .normal)
+            button.layer.borderColor = mainColor.cgColor
+            button.backgroundColor = secondaryColor
+        } else {
+            button.setTitleColor(mainColor.lighter(), for: .normal)
+            button.layer.borderColor = mainColor.lighter()?.cgColor
+            button.backgroundColor = secondaryColor.lighter()
+            button.isEnabled = false
+        }
+        
+        buttons.append(button)
+        addSubview(button)
     }
     
     func anchorToView(anchorView: UIView, superview: UIView) {

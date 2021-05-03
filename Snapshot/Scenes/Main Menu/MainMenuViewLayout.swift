@@ -33,22 +33,15 @@ class MainMenuViewViewLayout {
         setLabelsToDefaults(labels: [titleLabel])
         setButtonsToDefaults(buttons: [])
         
-        titleLabel.text = "SNAPSHOT"
-        titleLabel.textAlignment = .center
-        titleLabel.textColor = .lightGray
-        titleLabel.backgroundColor = .darkGray
-        
-        stackView.backgroundColor = .lightGray
-        
         // Portrait
         portraitSizeMap = [
-            titleLabel: (1, 0.2),
-            stackView: (1, 0.8),
+            titleLabel: (1, 0.25),
+            stackView: (1, 0.75),
         ]
         
         portraitSpacingMap = [
-            titleLabel: (0.5, 0.1),
-            stackView: (0.5, 0.6),
+            titleLabel: (0.5, 0.125),
+            stackView: (0.5, 0.625),
         ]
         
         // Landscape
@@ -95,10 +88,7 @@ class MainMenuViewViewLayout {
         landscapeConstraints += [
             row.heightAnchor.constraint(equalTo: stackView.heightAnchor),
         ]
-        
-        row.backgroundColor = .white
-        addIconToView(view: row, name: icon)
-        
+        addIconToView(view: row, name: icon, tint: .white)
         return row
     }
 }

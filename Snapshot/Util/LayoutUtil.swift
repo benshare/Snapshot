@@ -219,7 +219,7 @@ func addFrame(imageView: UIView, color: UIColor = .brown) {
     imageView.layer.borderColor = color.cgColor
 }
 
-func addIconToView(view: UIView, name: String) {
+func addIconToView(view: UIView, name: String, tint: UIColor? = nil) {
     let imageView = UIImageView()
     view.addSubview(imageView)
     imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -232,6 +232,10 @@ func addIconToView(view: UIView, name: String) {
     ])
     imageView.image = UIImage(named: name)?.withAlignmentRectInsets(UIEdgeInsets(top: -20, left: -20, bottom: -20, right: -20))
     imageView.contentMode = .scaleAspectFit
+    if tint != nil {
+        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = tint
+    }
 }
 
 // MARK: Blur

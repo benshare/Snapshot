@@ -27,14 +27,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mZK-0U-XKL" userLabel="Back Button">
-                                <rect key="frame" x="192" y="433" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nCo-Kn-RY3" userLabel="Map Button">
-                                <rect key="frame" x="192" y="433" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="diL-kn-LHr" userLabel="Hunt Button">
                                 <rect key="frame" x="192" y="433" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -45,9 +37,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="fgx-QF-4jr"/>
                     <connections>
-                        <outlet property="backButton" destination="mZK-0U-XKL" id="yqT-M8-xkj"/>
                         <outlet property="huntButton" destination="diL-kn-LHr" id="84g-Xg-2ji"/>
-                        <outlet property="mapButton" destination="nCo-Kn-RY3" id="yIj-LH-H6r"/>
                         <outlet property="memoryList" destination="fSO-BU-zLZ" id="XRa-Ht-0bW"/>
                         <outlet property="navigationBar" destination="vdk-O3-jhj" id="Lu0-2S-StY"/>
                         <segue destination="V5g-iH-O9q" kind="presentation" identifier="backToMainSegue" modalPresentationStyle="fullScreen" id="SFH-er-5NR"/>
@@ -400,7 +390,7 @@
                         <outlet property="stackView" destination="OuK-w3-NaK" id="CgS-II-Rgs"/>
                         <outlet property="titleLabel" destination="s3c-oO-g15" id="TyH-0w-j2p"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="exploreSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="AYQ-hL-fAc"/>
-                        <segue destination="x6a-xM-Tcv" kind="presentation" identifier="treasureSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="9Lx-su-791"/>
+                        <segue destination="x6a-xM-Tcv" kind="presentation" identifier="huntSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="9Lx-su-791"/>
                         <segue destination="mqV-fy-iNS" kind="presentation" identifier="accountSegue" id="1QU-Tk-nvk"/>
                     </connections>
                 </viewController>
@@ -650,8 +640,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="9Lx-su-791"/>
         <segue reference="yD2-kA-y6B"/>
-        <segue reference="u4n-1F-mdc"/>
+        <segue reference="SFH-er-5NR"/>
         <segue reference="B67-W3-2kg"/>
         <segue reference="HId-KD-dBC"/>
         <segue reference="HIl-kN-TtT"/>

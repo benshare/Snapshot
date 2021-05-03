@@ -11,6 +11,8 @@ Other:
 - SQUARE
 - Make + stay a circle/make title update
 - Fix popup placement
+- Phone number handling during confirmation
+- Enter confirmation code better
 
 Improvements
 - UI IMPROVEMENTS
@@ -22,6 +24,8 @@ Improvements
 - Only sync if new data
 - Improve snapshot UI
 - Dark mode
+- Add forgot password
+- Add animation for waiting to load user data
 
 Features
  - UI

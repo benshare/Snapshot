@@ -36,18 +36,18 @@ class ConfirmAccountController: UIViewController, UITextFieldDelegate {
         
         navigationBar.addBackButton(text: "< Back", action: { self.dismiss(animated: true)}, color: .white)
         navigationBar.setTitle(text: "Confirm Account", color: .white)
-        navigationBar.backgroundColor = .systemGreen
+        navigationBar.backgroundColor = SCENE_COLORS[.account]
         
         codeField.delegate = self as UITextFieldDelegate
         codeField.placeholder = "######"
         
         resendButton.setTitle("Resend Code", for: .normal)
         resendButton.addTarget(self, action: #selector(resendCode), for: .touchDown)
-        resendButton.setTitleColor(.systemGreen, for: .normal)
+        resendButton.setTitleColor(SCENE_COLORS[.account], for: .normal)
         
         confirmButton.setTitle("Submit", for: .normal)
         confirmButton.addTarget(self, action: #selector(submitCode), for: .touchDown)
-        confirmButton.backgroundColor = .systemGreen
+        confirmButton.backgroundColor = SCENE_COLORS[.account]
         confirmButton.setTitleColor(.white, for: .normal)
         confirmButton.titleEdgeInsets = UIEdgeInsets(top: 12, left: 45, bottom: 12, right: 45)
     }

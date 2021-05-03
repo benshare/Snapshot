@@ -45,6 +45,7 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         // Navigation bar
+        navigationBar.backgroundColor = SCENE_COLORS[.hunts]
         if clueType! == .clue {
             navigationBar.addBackButton(text: "Save", action: {
                 syncActiveUser(attribute: .hunts)
@@ -56,14 +57,14 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
                 }
                 self.parentController.processEditToClue(index: self.listIndex)
                 self.dismiss(animated: true)
-            })
-            navigationBar.setTitle(text: "Edit Clue")
+            }, color: .white)
+            navigationBar.setTitle(text: "Edit Clue", color: .white)
         } else {
             navigationBar.addBackButton(text: "< Back", action: {
                 self.hunt.startingLocation = self.mapCenter.coordinate
                 self.dismiss(animated: true)
-            })
-            navigationBar.setTitle(text: "Set Starting Location")
+            }, color: .white)
+            navigationBar.setTitle(text: "Set Starting Location", color: .white)
         }
         view.bringSubviewToFront(navigationBar)
         

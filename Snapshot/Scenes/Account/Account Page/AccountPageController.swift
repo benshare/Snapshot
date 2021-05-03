@@ -23,9 +23,10 @@ class AccountPageController: UIViewController {
         layout = AccountPageLayout(navigationBar: navigationBar, scrollView: scrollView)
         layout.configureConstraints(view: view)
         
-        navigationBar.addBackButton(text: "< Back", action: { self.dismiss(animated: true) })
-        navigationBar.setTitle(text: "Account Info for \(activeUser.info.username)")
+        navigationBar.addBackButton(text: "< Back", action: { self.dismiss(animated: true) }, color: .white)
+        navigationBar.setTitle(text: "Account Info for \(activeUser.info.username)", color: .white)
         navigationBar.setRightItem(text: "Log out", action: self.logout)
+        navigationBar.backgroundColor = SCENE_COLORS[.account]
         
         redrawScene()
     }

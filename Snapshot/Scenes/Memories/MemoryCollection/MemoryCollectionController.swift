@@ -13,8 +13,6 @@ class MemoryCollectionController: UIViewController {
     // Outlets
     @IBOutlet weak var navigationBar: NavigationBarView!
     @IBOutlet weak var memoryList: ScrollableStackView!
-    @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var huntButton: UIButton!
     
     // Formatting
@@ -27,28 +25,20 @@ class MemoryCollectionController: UIViewController {
     // MARK: Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
-        layout = MemoryCollectionLayout(navigationBar: navigationBar, memoryList: memoryList, backButton: backButton, mapButton: mapButton, huntButton: huntButton)
+        layout = MemoryCollectionLayout(navigationBar: navigationBar, memoryList: memoryList, huntButton: huntButton)
         layout.configureConstraints(view: view)
         
-        navigationBar.setTitle(text: "Collection")
+        navigationBar.setTitle(text: "Collection", color: .white)
+        navigationBar.backgroundColor = SCENE_COLORS[.map]
+        navigationBar.addBackButton(text: "< Back", action: { self.dismiss(animated: true, completion: nil) }, color: .white)
+        
+        // TODO: Enable hunt button
+        huntButton.isHidden = true
+        
         memoryList.addBorders(color: .black)
         fillListFromCollection()
         
         redrawScene()
-        if popoverSource != nil {
-            mapButton.isHidden = true
-            huntButton.isHidden = true
-            backButton.addAction {
-                self.dismiss(animated: true, completion: nil)
-            }
-        } else {
-            backButton.addAction {
-                self.performSegue(withIdentifier: "backToMainSegue", sender: self)
-            }
-            mapButton.addAction {
-                self.dismiss(animated: true, completion: {})
-            }
-        }
     }
     
     private func fillListFromCollection() {

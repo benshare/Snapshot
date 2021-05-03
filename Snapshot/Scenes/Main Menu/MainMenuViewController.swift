@@ -27,15 +27,21 @@ class MainMenuViewController: UIViewController {
         layout = MainMenuViewViewLayout(titleLabel: titleLabel, stackView: stackView)
         layout.configureConstraints(view: view)
         configureStackView()
+        
+        titleLabel.text = "Snapshot"
+        titleLabel.textAlignment = .center
+        titleLabel.textColor = .white
+        titleLabel.backgroundColor = SCENE_COLORS[.main]
     }
     
     private func configureStackView() {
         stackView.alignment = .center
         stackView.distribution = .fillEqually
-        stackView.spacing = 1
+        stackView.spacing = 2
+        stackView.backgroundColor = .darkGray
         stackView.isUserInteractionEnabled = true
 
-        for scene in SCENES {
+        for scene in SCENE_CODES {
             let icon = SCENE_ICONS[scene]!
             let segue = SCENE_SEGUES[scene]!
             
@@ -43,6 +49,7 @@ class MainMenuViewController: UIViewController {
             row.addPermanentTapEvent {
                 self.performSegue(withIdentifier: segue, sender: self)
             }
+            row.backgroundColor = SCENE_COLORS[scene]
         }
     }
     

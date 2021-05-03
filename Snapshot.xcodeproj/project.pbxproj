@@ -70,7 +70,7 @@
 		79E783B525C9499E002DC72C /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E783B425C9499E002DC72C /* MapViewController.swift */; };
 		79E783BE25C94AF8002DC72C /* MapViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E783BD25C94AF8002DC72C /* MapViewLayout.swift */; };
 		79E783C725C94C81002DC72C /* LayoutUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E783C525C94C81002DC72C /* LayoutUtil.swift */; };
-		79E783CC25C94CC1002DC72C /* ThemesUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E783CB25C94CC1002DC72C /* ThemesUtil.swift */; };
+		79E783CC25C94CC1002DC72C /* ColorUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E783CB25C94CC1002DC72C /* ColorUtil.swift */; };
 		79F3060325E9BF7200A445A1 /* LocationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3060225E9BF7200A445A1 /* LocationUtil.swift */; };
 		79F3060C25EC31D400A445A1 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3060B25EC31D400A445A1 /* MainMenuViewController.swift */; };
 		79F3061125EC31E500A445A1 /* MainMenuViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3061025EC31E500A445A1 /* MainMenuViewLayout.swift */; };
@@ -176,7 +176,7 @@
 		79E783B425C9499E002DC72C /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		79E783BD25C94AF8002DC72C /* MapViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewLayout.swift; sourceTree = "<group>"; };
 		79E783C525C94C81002DC72C /* LayoutUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutUtil.swift; sourceTree = "<group>"; };
-		79E783CB25C94CC1002DC72C /* ThemesUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesUtil.swift; sourceTree = "<group>"; };
+		79E783CB25C94CC1002DC72C /* ColorUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtil.swift; sourceTree = "<group>"; };
 		79F3060225E9BF7200A445A1 /* LocationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUtil.swift; sourceTree = "<group>"; };
 		79F3060B25EC31D400A445A1 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		79F3061025EC31E500A445A1 /* MainMenuViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewLayout.swift; sourceTree = "<group>"; };
@@ -548,7 +548,7 @@
 				79E1A9E025E3A5D100FEE672 /* ActiveUser.swift */,
 				791A5928261921CF0032ECD9 /* Amplify.swift */,
 				79E783C525C94C81002DC72C /* LayoutUtil.swift */,
-				79E783CB25C94CC1002DC72C /* ThemesUtil.swift */,
+				79E783CB25C94CC1002DC72C /* ColorUtil.swift */,
 				79E1A9F825E7218D00FEE672 /* DateUtil.swift */,
 				79E1AA1025E87FCA00FEE672 /* MathUtil.swift */,
 				79E1AA1525E8A75C00FEE672 /* Animations.swift */,
@@ -907,7 +907,7 @@
 			files = (
 				79B0854725F208C100F0868C /* EditClueViewController.swift in Sources */,
 				79BB336525E0D3140085A15D /* UserPreferences.swift in Sources */,
-				79E783CC25C94CC1002DC72C /* ThemesUtil.swift in Sources */,
+				79E783CC25C94CC1002DC72C /* ColorUtil.swift in Sources */,
 				79D0D411263E1FDC003987E2 /* ConfirmAccountLayout.swift in Sources */,
 				79B289A825FF4438006615D3 /* EditHuntPreferencesController.swift in Sources */,
 				797F4B36263F5F10003885B6 /* AccountInfo.swift in Sources */,

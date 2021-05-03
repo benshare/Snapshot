@@ -82,7 +82,7 @@ class EditHuntPreferencesLayout {
         scrollView.addToStack(view: hintsView)
         scrollView.addToStack(view: sensitivityView)
         scrollView.addToStack(view: designView)
-        scrollView.addBorders()
+        scrollView.addBorders(color: SCENE_COLORS[.hunts]!)
         
         titleLabel.isHidden = true
         

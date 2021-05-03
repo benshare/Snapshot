@@ -24,7 +24,6 @@ class EditHuntViewLayout: UILayout {
     init(navigationBar: NavigationBarView, clueList: ScrollableStackView) {
         self.navigationBar = navigationBar
         self.clueList = clueList
-        clueList.backgroundColor = .lightGray
 
         doNotAutoResize(views: [navigationBar, clueList])
         setLabelsToDefaults(labels: [])

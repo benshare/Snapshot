@@ -40,8 +40,9 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
         }
         collection.addSubview(popupDismissView)
         
-        navigationBar.addBackButton(text: "< Back", action: { self.dismiss(animated: true) })
-        navigationBar.setTitle(text: "Treasure Hunts")
+        navigationBar.addBackButton(text: "< Back", action: { self.dismiss(animated: true) }, color: .white)
+        navigationBar.setTitle(text: "Treasure Hunts", color: .white)
+        navigationBar.backgroundColor = SCENE_COLORS[.hunts]
         
         layout = TreasureHuntCollectionViewViewLayout(navigationBar: navigationBar, titleLabel: titleLabel, collection: collection)
         layout.configureConstraints(view: view)
@@ -120,7 +121,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     private func displayOptionsForHunt() {
         popup?.removeFromSuperview()
         
-        popup = PopupOptionsView()
+        popup = PopupOptionsView(color: SCENE_COLORS[.hunts]!)
         view.addSubview(popup!)
         popup!.addButton(name: "Play", callback: {
             self.performSegue(withIdentifier: "playHuntSegue", sender: self)
@@ -153,6 +154,7 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     private func deleteHunt() {
         let path = self.collection.indexPathsForSelectedItems!.first!
         activeUser.hunts.hunts.remove(at: path.item - 1)
+        syncActiveUser(attribute: .hunts)
         collection.deleteItems(at: [path])
         collection.reloadData()
     }
