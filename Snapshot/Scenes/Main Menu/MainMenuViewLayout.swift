@@ -46,13 +46,13 @@ class MainMenuViewViewLayout {
         
         // Landscape
         landscapeSizeMap = [
-            titleLabel: (1, 0.3),
-            stackView: (1, 0.7),
+            titleLabel: (1, 0.4),
+            stackView: (1, 0.6),
         ]
         
         landscapeSpacingMap = [
-            titleLabel: (0.5, 0.15),
-            stackView: (0.5, 0.65),
+            titleLabel: (0.5, 0.2),
+            stackView: (0.5, 0.7),
         ]
     }
     

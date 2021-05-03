@@ -32,13 +32,21 @@ class MainMenuViewController: UIViewController {
         titleLabel.textAlignment = .center
         titleLabel.textColor = .white
         titleLabel.backgroundColor = SCENE_COLORS[.main]
+        let border = UIView()
+        doNotAutoResize(view: border)
+        titleLabel.addSubview(border)
+        NSLayoutConstraint.activate([
+            border.widthAnchor.constraint(equalTo: titleLabel.widthAnchor),
+            border.heightAnchor.constraint(equalToConstant: 10),
+            border.centerXAnchor.constraint(equalTo: titleLabel.centerXAnchor),
+            border.centerYAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+        ])
+        border.backgroundColor = .darkGray
     }
     
     private func configureStackView() {
         stackView.alignment = .center
         stackView.distribution = .fillEqually
-        stackView.spacing = 2
-        stackView.backgroundColor = .darkGray
         stackView.isUserInteractionEnabled = true
 
         for scene in SCENE_CODES {
@@ -72,5 +80,10 @@ class MainMenuViewController: UIViewController {
         }
         
         redrawScene()
+    }
+    
+    // MARK: Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        ACTIVE_USER_GROUP.wait()
     }
 }

@@ -37,7 +37,7 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        let color = SCENE_COLORS[.account]
+        let color = SCENE_COLORS[.main]
         
         welcomeLabel.text = "Welcome"
         welcomeLabel.backgroundColor = color
@@ -139,7 +139,6 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         let error = signIn(username: username, password: password)
         if error == nil {
             loadActiveUser(username: username)
-            ACTIVE_USER_GROUP.wait()
             performSegue(withIdentifier: "signInSegue", sender: self)
         } else {
             let alert = UIAlertController(title: "Invalid login", message: error, preferredStyle: .alert)
