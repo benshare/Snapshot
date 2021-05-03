@@ -23,9 +23,7 @@ class AccountPageController: UIViewController {
         layout = AccountPageLayout(navigationBar: navigationBar, scrollView: scrollView)
         layout.configureConstraints(view: view)
         
-        navigationBar.setLeftItem(text: "< Back", action: {
-            self.dismiss(animated: true)
-        })
+        navigationBar.addBackButton(text: "< Back", action: { self.dismiss(animated: true) })
         navigationBar.setTitle(text: "Account Info for \(activeUser.info.username)")
         navigationBar.setRightItem(text: "Log out", action: self.logout)
         

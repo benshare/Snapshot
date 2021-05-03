@@ -72,55 +72,56 @@ class EditHuntPreferencesController: UIViewController, UIPickerViewDataSource, U
             getSizeConstraints(widthAnchor: allowRow.widthAnchor, heightAnchor: allowRow.heightAnchor, sizeMap: [allowLabel: (0.6, 1), allowButton: (0, 0.4)]) +
             getSpacingConstraints(leftAnchor: allowRow.leftAnchor, widthAnchor: allowRow.widthAnchor, topAnchor: allowRow.topAnchor, heightAnchor: allowRow.heightAnchor, spacingMap: [allowLabel: (0.35, 0.5), allowButton: (0.85, 0.5)], parentView: allowRow)
         )
+        // TODO: Remove commenting to enable hot/cold option
 
-        let hotColdLabel = UILabel()
-        hotColdButton = UIButton()
-        let hotColdRow = UIView()
-        hotColdRow.addSubview(hotColdLabel)
-        hotColdRow.addSubview(hotColdButton)
-        NSLayoutConstraint.activate(
-            getSizeConstraints(widthAnchor: hotColdRow.widthAnchor, heightAnchor: hotColdRow.heightAnchor, sizeMap: [hotColdLabel: (0.6, 1), hotColdButton: (0, 0.4)]) +
-            getSpacingConstraints(leftAnchor: hotColdRow.leftAnchor, widthAnchor: hotColdRow.widthAnchor, topAnchor: hotColdRow.topAnchor, heightAnchor: hotColdRow.heightAnchor, spacingMap: [hotColdLabel: (0.35, 0.5), hotColdButton: (0.85, 0.5)], parentView: hotColdRow)
-        )
+//        let hotColdLabel = UILabel()
+//        hotColdButton = UIButton()
+//        let hotColdRow = UIView()
+//        hotColdRow.addSubview(hotColdLabel)
+//        hotColdRow.addSubview(hotColdButton)
+//        NSLayoutConstraint.activate(
+//            getSizeConstraints(widthAnchor: hotColdRow.widthAnchor, heightAnchor: hotColdRow.heightAnchor, sizeMap: [hotColdLabel: (0.6, 1), hotColdButton: (0, 0.4)]) +
+//            getSpacingConstraints(leftAnchor: hotColdRow.leftAnchor, widthAnchor: hotColdRow.widthAnchor, topAnchor: hotColdRow.topAnchor, heightAnchor: hotColdRow.heightAnchor, spacingMap: [hotColdLabel: (0.35, 0.5), hotColdButton: (0.85, 0.5)], parentView: hotColdRow)
+//        )
 
         hintsView.addSubview(allowRow)
-        hintsView.addSubview(hotColdRow)
+//        hintsView.addSubview(hotColdRow)
 
         NSLayoutConstraint.activate(
-            getSizeConstraints(widthAnchor: hintsView.widthAnchor, heightAnchor: hintsView.heightAnchor, sizeMap: [allowRow: (1, 0.34), hotColdRow: (1, 0.34)]) +
-            getSpacingConstraints(leftAnchor: hintsView.leftAnchor, widthAnchor: hintsView.widthAnchor, topAnchor: hintsView.topAnchor, heightAnchor: hintsView.heightAnchor, spacingMap: [allowRow: (0.5, 0.3), hotColdRow: (0.5, 0.7)], parentView: hintsView)
+            getSizeConstraints(widthAnchor: hintsView.widthAnchor, heightAnchor: hintsView.heightAnchor, sizeMap: [allowRow: (1, 0.4)/*0.34), hotColdRow: (1, 0.34)*/]) +
+                getSpacingConstraints(leftAnchor: hintsView.leftAnchor, widthAnchor: hintsView.widthAnchor, topAnchor: hintsView.topAnchor, heightAnchor: hintsView.heightAnchor, spacingMap: [allowRow: (0.5, 0.5)/*0.3), hotColdRow: (0.5, 0.7)*/], parentView: hintsView)
         )
 
-        doNotAutoResize(views: [hintsView, allowLabel, allowButton, allowRow, hotColdLabel, hotColdButton, hotColdRow])
-        setLabelsToDefaults(labels: [allowLabel, hotColdLabel])
-        setButtonsToDefaults(buttons: [allowButton, hotColdButton])
+        doNotAutoResize(views: [hintsView, allowLabel, allowButton, allowRow, /*hotColdLabel, hotColdButton, hotColdRow*/])
+        setLabelsToDefaults(labels: [allowLabel/*, hotColdLabel*/])
+        setButtonsToDefaults(buttons: [allowButton/*, hotColdButton*/])
         allowLabel.text = "Turn on hints for this hunt?"
         allowButton.setBackgroundImage(UIImage(named: hunt.allowHints ? "checkboxFull" : "checkboxEmpty"), for: .normal)
         allowButton.addAction {
             self.hunt.allowHints = !self.hunt.allowHints
             self.allowButton.setBackgroundImage(UIImage(named: self.hunt.allowHints ? "checkboxFull" : "checkboxEmpty"), for: .normal)
-            if self.hunt.allowHints {
-                self.hotColdButton.isEnabled = true
-                hotColdRow.tintColor = .none
-                hotColdRow.alpha = 1
-            } else {
-                self.hotColdButton.isEnabled = false
-                hotColdRow.tintColor = .gray
-                hotColdRow.alpha = 0.6
-            }
+//            if self.hunt.allowHints {
+//                self.hotColdButton.isEnabled = true
+//                hotColdRow.tintColor = .none
+//                hotColdRow.alpha = 1
+//            } else {
+//                self.hotColdButton.isEnabled = false
+//                hotColdRow.tintColor = .gray
+//                hotColdRow.alpha = 0.6
+//            }
         }
         
-        hotColdLabel.text = "Show hotter / colder hints?"
-        hotColdButton.setBackgroundImage(UIImage(named: hunt.allowHotterColder ? "checkboxFull" : "checkboxEmpty"), for: .normal)
-        hotColdButton.addAction {
-            self.hunt.allowHotterColder = !self.hunt.allowHotterColder
-            self.hotColdButton.setBackgroundImage(UIImage(named: self.hunt.allowHotterColder ? "checkboxFull" : "checkboxEmpty"), for: .normal)
-        }
-        if !hunt.allowHints {
-            hotColdButton.isEnabled = false
-            hotColdRow.tintColor = .gray
-            hotColdRow.alpha = 0.6
-        }
+//        hotColdLabel.text = "Show hotter / colder hints?"
+//        hotColdButton.setBackgroundImage(UIImage(named: hunt.allowHotterColder ? "checkboxFull" : "checkboxEmpty"), for: .normal)
+//        hotColdButton.addAction {
+//            self.hunt.allowHotterColder = !self.hunt.allowHotterColder
+//            self.hotColdButton.setBackgroundImage(UIImage(named: self.hunt.allowHotterColder ? "checkboxFull" : "checkboxEmpty"), for: .normal)
+//        }
+//        if !hunt.allowHints {
+//            hotColdButton.isEnabled = false
+//            hotColdRow.tintColor = .gray
+//            hotColdRow.alpha = 0.6
+//        }
         
         // Clue sensitivity section
         sensitivityLabel.text = "Clue sensitivity:"
