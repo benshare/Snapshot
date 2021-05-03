@@ -47,7 +47,8 @@ class EditHuntPreferencesController: UIViewController, UIPickerViewDataSource, U
         layout.configureConstraints(view: view)
         
         // Navigation Bar
-        navigationBar.addBackButton(text: "< Back", action: {
+        navigationBar.addBackButton(text: "Save", action: {
+            syncActiveUser(attribute: .preferences)
             self.dismiss(animated: true)
         })
         navigationBar.setTitle(text: hunt.name)

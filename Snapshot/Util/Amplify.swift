@@ -10,6 +10,8 @@ import Amplify
 import AmplifyPlugins
 
 private let encoder = JSONEncoder()
+private let decoder = JSONDecoder()
+public let ACTIVE_USER_GROUP = DispatchGroup()
 
 // MARK: Initialize Amplify
 func initializeAmplify() {
@@ -54,7 +56,6 @@ func confirmSignUp(for username: String, with confirmationCode: String) -> Bool 
     Amplify.Auth.confirmSignUp(for: username, confirmationCode: confirmationCode) { result in
         switch result {
         case .success( _):
-            print("Confirm signUp succeeded")
             success = true
             group.leave()
         case .failure(let error):
@@ -97,42 +98,117 @@ func signOutLocally() {
     Amplify.Auth.signOut() { result in
         switch result {
         case .success:
-            print("Successfully signed out")
+            break
         case .failure(let error):
             print("Sign out failed with error \(error)")
         }
     }
 }
 
-// MARK: Storage
-func uploadHunts() {
-    let dataString = "Logging out at \(Date())"
-    let data = dataString.data(using: .utf8)!
+// MARK: Upload User Data
+func syncActiveUser(attribute: UserCodingAttributes) {
+    switch attribute {
+    case .info:
+        do {
+            let data = try encoder.encode(activeUser.info)
+            syncAttribute(data: data, key: UserCodingAttributes.info.rawValue)
+        } catch {
+            print("Failed to encode info data for upload")
+        }
+    case .preferences:
+        do {
+            let data = try encoder.encode(activeUser.preferences)
+            syncAttribute(data: data, key: UserCodingAttributes.preferences.rawValue)
+        } catch {
+            print("Failed to encode preferences data for upload")
+        }
+    case .snapshots:
+        do {
+            let data = try encoder.encode(activeUser.snapshots)
+            syncAttribute(data: data, key: UserCodingAttributes.snapshots.rawValue)
+        } catch {
+            print("Failed to encode snapshot data for upload")
+        }
+    case .hunts:
+        do {
+            let data = try encoder.encode(activeUser.hunts)
+            syncAttribute(data: data, key: UserCodingAttributes.hunts.rawValue)
+        } catch {
+            print("Failed to encode hunt data for upload")
+        }
+    }
+}
+
+// All attributes
+func syncActiveUser() {
+    for attribute in [UserCodingAttributes.info, UserCodingAttributes.preferences, UserCodingAttributes.snapshots, UserCodingAttributes.hunts] {
+        syncActiveUser(attribute: attribute)
+    }
+}
+
+private func syncAttribute(data: Data, key: String) {
+    print("syncing for \(key)")
     let options = StorageUploadDataRequest.Options(accessLevel: .private)
-//    Amplify.Storage.uploadData(key: "Hunts", data: data,
-    Amplify.Storage.uploadData(key: "Hunts", data: data, options: options,
-                               resultListener: { (event) in
-            switch event {
+    Amplify.Storage.uploadData(key: key, data: data, options: options, resultListener: { (event) in
+        switch event {
             case .success( _):
                 break
             case .failure(let storageError):
                 print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
         }
-    })
-//    do {
-//        let data = try encoder.encode(activeUser.hunts)
-//        Amplify.Storage.uploadData(key: "Hunts", data: data,
-//            progressListener: { progress in
-//                print("Progress: \(progress)")
-//            }, resultListener: { (event) in
-//                switch event {
-//                case .success(let data):
-//                    print("Completed: \(data)")
-//                case .failure(let storageError):
-//                    print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
-//            }
-//        })
-//    } catch {
-//        print("Failed to encode hunts for upload")
-//    }
+        })
+}
+
+// MARK: Load User Data
+func loadActiveUser(username: String) {
+    ACTIVE_USER_GROUP.enter()
+    activeUser = User(username: username)
+    let options = StorageDownloadDataRequest.Options(accessLevel: .private)
+    
+    var updated = 0
+    for attribute in [UserCodingAttributes.info, UserCodingAttributes.preferences, UserCodingAttributes.snapshots, UserCodingAttributes.hunts] {
+        Amplify.Storage.downloadData(
+            key: attribute.rawValue, options: options, resultListener: { (event) in
+            switch event {
+            case let .success(data):
+                switch attribute {
+                case .info:
+                    do {
+                        let info = try decoder.decode(AccountInfo.self, from: data)
+                        activeUser.info = info
+                    } catch {
+                        print("Error while decoding account info")
+                    }
+                case .preferences:
+                    do {
+                        let info = try decoder.decode(UserPreferences.self, from: data)
+                        activeUser.preferences = info
+                    } catch {
+                        print("Error while decoding user preferences")
+                    }
+                case .snapshots:
+                    do {
+                        let info = try decoder.decode(SnapshotCollection.self, from: data)
+                        activeUser.snapshots = info
+                    } catch {
+                        print("Error while decoding snapshot collection")
+                    }
+                case .hunts:
+                    do {
+                        let info = try decoder.decode(TreasureHuntCollection.self, from: data)
+                        activeUser.hunts = info
+                    } catch {
+                        print("Error while decoding hunt collection")
+                    }
+                }
+                updated += 1
+                if updated == 4 {
+                    ACTIVE_USER_GROUP.leave()
+                }
+                print("Completed: \(data)")
+            case let .failure(storageError):
+                print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
+            }
+        })
+    }
 }

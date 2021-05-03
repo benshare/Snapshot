@@ -26,7 +26,7 @@ class AccountPageController: UIViewController {
         navigationBar.setLeftItem(text: "< Back", action: {
             self.dismiss(animated: true)
         })
-        navigationBar.setTitle(text: "Account Info")
+        navigationBar.setTitle(text: "Account Info for \(activeUser.info.username)")
         navigationBar.setRightItem(text: "Log out", action: self.logout)
         
         redrawScene()

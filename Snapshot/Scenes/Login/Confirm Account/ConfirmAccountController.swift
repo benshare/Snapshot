@@ -94,11 +94,14 @@ class ConfirmAccountController: UIViewController, UITextFieldDelegate {
         
         if confirmSignUp(for: username, with: code) {
             let error = signIn(username: username, password: password)
-            if error != nil {
+            if error == nil {
+                activeUser = User(username: username)
+                syncActiveUser()
+                ACTIVE_USER_GROUP.wait()
                 performSegue(withIdentifier: "confirmAccountSegue", sender: nil)
             } else {
                 codeField.text = ""
-                let alert = UIAlertController(title: "Account error", message: "Number verified, but couldn't sign in. Please try again", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Account error", message: "Number verified, but couldn't sign in: \(error!)", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { action in alert.dismiss(animated: true, completion: nil) }))
                 self.present(alert, animated: true, completion: nil)
             }

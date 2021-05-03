@@ -7,34 +7,39 @@
 
 import Foundation
 
+enum UserCodingAttributes: String, CodingKey {
+    case info, preferences, snapshots, hunts
+}
+
 class User: Codable {
+    var info: AccountInfo
+    var preferences: UserPreferences
     var snapshots: SnapshotCollection
     var hunts: TreasureHuntCollection
-    var preferences: UserPreferences
     
     // MARK: Codable
-    enum CodingKeys: String, CodingKey {
-        case snapshots, hunts, preferences
-    }
-    
     required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try decoder.container(keyedBy: UserCodingAttributes.self)
+        self.info = try container.decode(AccountInfo.self, forKey: .info)
+        self.preferences = try container.decode(UserPreferences.self, forKey: .preferences)
         self.snapshots = try container.decode(SnapshotCollection.self, forKey: .snapshots)
         self.hunts = try container.decode(TreasureHuntCollection.self, forKey: .hunts)
-        self.preferences = try container.decode(UserPreferences.self, forKey: .preferences)
     }
     
     func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
+        var container = encoder.container(keyedBy: UserCodingAttributes.self)
+        try container.encode(self.info, forKey: .info)
+        try container.encode(self.preferences, forKey: .preferences)
         try container.encode(self.snapshots, forKey: .snapshots)
         try container.encode(self.hunts, forKey: .hunts)
-        try container.encode(self.preferences, forKey: .preferences)
     }
     
     // MARK: Initialization
-    init() {
+    // Initialize for a new user
+    init(username: String) {
+        self.info = AccountInfo(username: username)
+        self.preferences = UserPreferences()
         self.snapshots = SnapshotCollection()
         self.hunts = TreasureHuntCollection()
-        self.preferences = UserPreferences()
     }
 }

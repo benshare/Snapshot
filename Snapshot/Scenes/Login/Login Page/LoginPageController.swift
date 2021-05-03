@@ -73,6 +73,7 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         // Fetch data
         let username = getLoggedInUser()
         if username != nil {
+            loadActiveUser(username: username!)
             performSegue(withIdentifier: "signInSegue", sender: self)
         }
     }
@@ -131,46 +132,9 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         return password.count > 5
     }
     
-
-    // MARK: Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let homepage = segue.destination as! MainMenuViewController
-        
-        activeUser = User()
-        
-//        fetchVisiblePackData()
-//        fetchDataForPacks(packs: getDefaultUnlockedPackNames())
-//        fetchAggregatePackData(progresses: [:])
-//        fetchVisiblePackData()
-//        fetchAggregatePackData(progresses: userLoggingIn!.progress.pack_progresses)
-        
-//        var loggedInUser: LoggedInUser
-//        switch segue.identifier {
-//        case "newUserSegue":
-//            homepage.shouldDisplayTutorialAlert = true
-//            fallthrough
-//        case "returningUserSegue":
-//            loggedInUser = LoggedInUser(user: userLoggingIn!, rememberMe: rememberSwitch.isOn)
-//            loggedInUser.isGuest = false
-//        case "guestSegue":
-//            userLoggingIn = User(username: "", password: "")
-//            loggedInUser = LoggedInUser(user: userLoggingIn!, rememberMe: false)
-//            loggedInUser.isGuest = true
-//            homepage.shouldDisplayTutorialAlert = true
-//        case "feedbackButton":
-//            fatalError("Feedback button not implemented from login page")
-//        default:
-//            fatalError("Unexpected segue from login page.")
-//        }
-//        homepage.loggedInUser = loggedInUser
-//        if !loggedInUser.isGuest {
-//            setUserToSync(user: loggedInUser.user, remember: loggedInUser.rememberMe)
-//        }
-    }
-
     // MARK: Actions
     @objc func trySignIn() {
-        guard var username = usernameField.text else {
+        guard let username = usernameField.text else {
             fatalError("Couldn't access username field")
         }
         guard let password = passwordField.text else {
@@ -179,6 +143,7 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         
         let error = signIn(username: username, password: password)
         if error == nil {
+            loadActiveUser(username: username)
             performSegue(withIdentifier: "signInSegue", sender: self)
         } else {
             let alert = UIAlertController(title: "Invalid login", message: error, preferredStyle: .alert)

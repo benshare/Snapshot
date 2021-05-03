@@ -123,6 +123,7 @@ class NewMemoryView: UIView, MKMapViewDelegate {
     @objc private func submitSnapshot() {
         let newSnapshot = Snapshot(id: activeUser.snapshots.nextId, location: mapCenter.coordinate, image: uploadedImage, time: Date())
         activeUser.snapshots.addSnapshot(snapshot: newSnapshot)
+        syncActiveUser(attribute: .snapshots)
         parentController.addSnapshotToMap(snapshot: newSnapshot)
         parentController.updateSnapButtonImage()
         closeView()

@@ -17,7 +17,6 @@
 		791A5929261921CF0032ECD9 /* Amplify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A5928261921CF0032ECD9 /* Amplify.swift */; };
 		791A5958261A40A90032ECD9 /* LoginPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A5957261A40A90032ECD9 /* LoginPageController.swift */; };
 		791A5960261A41360032ECD9 /* LoginPageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A595F261A41360032ECD9 /* LoginPageLayout.swift */; };
-		791A5968261A41B20032ECD9 /* AccountUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A5967261A41B20032ECD9 /* AccountUtil.swift */; };
 		791A5970261A76A90032ECD9 /* AccountPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A596F261A76A90032ECD9 /* AccountPageController.swift */; };
 		791A5975261A787A0032ECD9 /* AccountPageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A5974261A787A0032ECD9 /* AccountPageLayout.swift */; };
 		792035AE197915ACFAD10098 /* Pods_SnapshotTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B26D0F4C216BF82D820D0F8 /* Pods_SnapshotTests.framework */; };
@@ -27,6 +26,7 @@
 		79595A4A25E37C6600717873 /* MemoryMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79595A4925E37C6600717873 /* MemoryMapView.swift */; };
 		796CFBA52612F59D0064D661 /* Test cases in Resources */ = {isa = PBXBuildFile; fileRef = 796CFBA42612F59D0064D661 /* Test cases */; };
 		796CFBAA261442EA0064D661 /* UILayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796CFBA9261442EA0064D661 /* UILayout.swift */; };
+		797F4B36263F5F10003885B6 /* AccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797F4B35263F5F10003885B6 /* AccountInfo.swift */; };
 		79866D7726393F3800D09B41 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 79866D7526393F3800D09B41 /* awsconfiguration.json */; };
 		79866D7826393F3800D09B41 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 79866D7626393F3800D09B41 /* amplifyconfiguration.json */; };
 		79866D83263DFF1700D09B41 /* NewAccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79866D82263DFF1700D09B41 /* NewAccountController.swift */; };
@@ -118,7 +118,6 @@
 		791A5928261921CF0032ECD9 /* Amplify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Amplify.swift; sourceTree = "<group>"; };
 		791A5957261A40A90032ECD9 /* LoginPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageController.swift; sourceTree = "<group>"; };
 		791A595F261A41360032ECD9 /* LoginPageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageLayout.swift; sourceTree = "<group>"; };
-		791A5967261A41B20032ECD9 /* AccountUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountUtil.swift; sourceTree = "<group>"; };
 		791A596F261A76A90032ECD9 /* AccountPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageController.swift; sourceTree = "<group>"; };
 		791A5974261A787A0032ECD9 /* AccountPageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageLayout.swift; sourceTree = "<group>"; };
 		7952102F260C5B5800D642CF /* LaunchScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenController.swift; sourceTree = "<group>"; };
@@ -127,9 +126,10 @@
 		79595A4925E37C6600717873 /* MemoryMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryMapView.swift; sourceTree = "<group>"; };
 		796CFBA42612F59D0064D661 /* Test cases */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Test cases"; sourceTree = "<group>"; };
 		796CFBA9261442EA0064D661 /* UILayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILayout.swift; sourceTree = "<group>"; };
+		797F4B35263F5F10003885B6 /* AccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfo.swift; sourceTree = "<group>"; };
 		79866D7526393F3800D09B41 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
 		79866D7626393F3800D09B41 /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = SOURCE_ROOT; };
-		79866D82263DFF1700D09B41 /* NewAccountController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewAccountController.swift; path = "Snapshot/Scenes/Account/New Account/NewAccountController.swift"; sourceTree = SOURCE_ROOT; };
+		79866D82263DFF1700D09B41 /* NewAccountController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewAccountController.swift; path = "Snapshot/Scenes/Login/New Account/NewAccountController.swift"; sourceTree = SOURCE_ROOT; };
 		79A400A725EDE771004F7596 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		79A400AF25EDEA1B004F7596 /* NavigationBarViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarViewLayout.swift; sourceTree = "<group>"; };
 		79A400B525EDF1EE004F7596 /* EditHuntViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHuntViewController.swift; sourceTree = "<group>"; };
@@ -290,15 +290,6 @@
 			path = FullClue;
 			sourceTree = "<group>";
 		};
-		791A59372619A2CB0032ECD9 /* Login Page */ = {
-			isa = PBXGroup;
-			children = (
-				791A5957261A40A90032ECD9 /* LoginPageController.swift */,
-				791A595F261A41360032ECD9 /* LoginPageLayout.swift */,
-			);
-			path = "Login Page";
-			sourceTree = "<group>";
-		};
 		791A59382619A2D40032ECD9 /* Account Page */ = {
 			isa = PBXGroup;
 			children = (
@@ -325,7 +316,25 @@
 			path = MemoryMap;
 			sourceTree = "<group>";
 		};
-		79866D87263DFF2600D09B41 /* New Account */ = {
+		797F4B34263F5EE3003885B6 /* AccountInfo */ = {
+			isa = PBXGroup;
+			children = (
+				797F4B35263F5F10003885B6 /* AccountInfo.swift */,
+			);
+			path = AccountInfo;
+			sourceTree = "<group>";
+		};
+		79A00910263F5D57008C6895 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				79A00913263F5D57008C6895 /* Login Page */,
+				79A00911263F5D57008C6895 /* New Account */,
+				79A00912263F5D57008C6895 /* Confirm Account */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		79A00911263F5D57008C6895 /* New Account */ = {
 			isa = PBXGroup;
 			children = (
 				79866D82263DFF1700D09B41 /* NewAccountController.swift */,
@@ -334,13 +343,22 @@
 			path = "New Account";
 			sourceTree = "<group>";
 		};
-		79866D8A263DFF5F00D09B41 /* Confirm Account */ = {
+		79A00912263F5D57008C6895 /* Confirm Account */ = {
 			isa = PBXGroup;
 			children = (
 				79D0D40B263E1FD2003987E2 /* ConfirmAccountController.swift */,
 				79D0D410263E1FDC003987E2 /* ConfirmAccountLayout.swift */,
 			);
 			path = "Confirm Account";
+			sourceTree = "<group>";
+		};
+		79A00913263F5D57008C6895 /* Login Page */ = {
+			isa = PBXGroup;
+			children = (
+				791A5957261A40A90032ECD9 /* LoginPageController.swift */,
+				791A595F261A41360032ECD9 /* LoginPageLayout.swift */,
+			);
+			path = "Login Page";
 			sourceTree = "<group>";
 		};
 		79A400A625EDE761004F7596 /* NavigationBar */ = {
@@ -506,6 +524,7 @@
 		79E783B225C94965002DC72C /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				79A00910263F5D57008C6895 /* Login */,
 				79F3060A25EC31B700A445A1 /* Main Menu */,
 				79E783B325C94984002DC72C /* Memories */,
 				79F3062225EC6E4C00A445A1 /* Treasure Hunt */,
@@ -526,7 +545,6 @@
 		79E783C325C94BD6002DC72C /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				791A5967261A41B20032ECD9 /* AccountUtil.swift */,
 				79E1A9E025E3A5D100FEE672 /* ActiveUser.swift */,
 				791A5928261921CF0032ECD9 /* Amplify.swift */,
 				79E783C525C94C81002DC72C /* LayoutUtil.swift */,
@@ -582,9 +600,6 @@
 		79F3062325EC6E5D00A445A1 /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				791A59372619A2CB0032ECD9 /* Login Page */,
-				79866D87263DFF2600D09B41 /* New Account */,
-				79866D8A263DFF5F00D09B41 /* Confirm Account */,
 				791A59382619A2D40032ECD9 /* Account Page */,
 			);
 			path = Account;
@@ -594,6 +609,7 @@
 			isa = PBXGroup;
 			children = (
 				79E2F22225DD293C00F872D7 /* User.swift */,
+				797F4B34263F5EE3003885B6 /* AccountInfo */,
 				79F3062F25EC75A400A445A1 /* UserPreferences */,
 				79F3063025EC75B700A445A1 /* SnapshotCollection */,
 				79F3063125EC75D300A445A1 /* TreasureHuntCollection */,
@@ -894,6 +910,7 @@
 				79E783CC25C94CC1002DC72C /* ThemesUtil.swift in Sources */,
 				79D0D411263E1FDC003987E2 /* ConfirmAccountLayout.swift in Sources */,
 				79B289A825FF4438006615D3 /* EditHuntPreferencesController.swift in Sources */,
+				797F4B36263F5F10003885B6 /* AccountInfo.swift in Sources */,
 				79B0854C25F20C5B00F0868C /* EditClueViewLayout.swift in Sources */,
 				79A400BF25EDF3F0004F7596 /* ScrollableStackView.swift in Sources */,
 				79A400B625EDF1EE004F7596 /* EditHuntViewController.swift in Sources */,
@@ -929,7 +946,6 @@
 				79F3061625EC3B3B00A445A1 /* ControlUtil.swift in Sources */,
 				79A400CF25EE0F70004F7596 /* ClueListRowViewLayout.swift in Sources */,
 				790CE9D025F75338009D0AD9 /* TreasureHuntPlaythrough.swift in Sources */,
-				791A5968261A41B20032ECD9 /* AccountUtil.swift in Sources */,
 				79FAB5F82609A92C008BA73C /* MemoryCollectionController.swift in Sources */,
 				79B0855C25F61C2200F0868C /* PopupOptionsView.swift in Sources */,
 				79F3062A25EC6EE000A445A1 /* TreasureHuntCollectionViewLayout.swift in Sources */,

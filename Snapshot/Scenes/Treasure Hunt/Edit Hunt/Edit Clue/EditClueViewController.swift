@@ -46,7 +46,8 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
         
         // Navigation bar
         if clueType! == .clue {
-            navigationBar.addBackButton(text: "< Back", action: {
+            navigationBar.addBackButton(text: "Save", action: {
+                syncActiveUser(attribute: .hunts)
                 self.clueText.endEditing(true)
                 for subview in self.hintView.arrangedSubviews {
                     if let field = subview as? UITextField {

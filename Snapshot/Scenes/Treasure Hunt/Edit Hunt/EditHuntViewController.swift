@@ -31,7 +31,8 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         layout = EditHuntViewLayout(navigationBar: navigationBar, clueList: clueList)
         layout.configureConstraints(view: view)
         
-        navigationBar.addBackButton(text: "< Back", action: {
+        navigationBar.addBackButton(text: "Save", action: {
+            syncActiveUser(attribute: .hunts)
             self.parentController.reloadCell(index: self.index)
             self.dismiss(animated: true)
         })
