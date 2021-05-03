@@ -147,7 +147,6 @@ func syncActiveUser() {
 }
 
 private func syncAttribute(data: Data, key: String) {
-    print("syncing for \(key)")
     let options = StorageUploadDataRequest.Options(accessLevel: .private)
     Amplify.Storage.uploadData(key: key, data: data, options: options, resultListener: { (event) in
         switch event {
@@ -205,7 +204,7 @@ func loadActiveUser(username: String) {
                 if updated == 4 {
                     ACTIVE_USER_GROUP.leave()
                 }
-                print("Completed: \(data)")
+//                print("Completed: \(data)")
             case let .failure(storageError):
                 print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
             }

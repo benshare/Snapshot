@@ -17,6 +17,10 @@ Bugfixes
 - Eye icon sizes
 - Verification boxes
 - Keryboard popup size fix
+- Make data structured
+- Offlines
+- Only sync if new data
+- SQUARE
 
 
 Fix orientation/implement landscape

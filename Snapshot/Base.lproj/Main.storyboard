@@ -373,7 +373,7 @@
         <!--Main Menu-->
         <scene sceneID="1Us-xg-GaU">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="V5g-iH-O9q" customClass="MainMenuViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mainMenu" modalPresentationStyle="fullScreen" id="V5g-iH-O9q" customClass="MainMenuViewController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rsl-6I-Cju">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -411,7 +411,7 @@
         <!--Login Page Controller-->
         <scene sceneID="pId-ZU-o19">
             <objects>
-                <viewController id="4vQ-Py-00J" customClass="LoginPageController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginPage" id="4vQ-Py-00J" customClass="LoginPageController" customModule="Snapshot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KF5-4U-ziE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -468,7 +468,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ohs-J8-sZC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6494.202898550725" y="170.75892857142856"/>
+            <point key="canvasLocation" x="-6741" y="171"/>
         </scene>
         <!--New Account Controller-->
         <scene sceneID="det-WJ-VQC">
@@ -650,8 +650,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="4dz-D3-mez"/>
-        <segue reference="vY0-Yt-VWv"/>
+        <segue reference="yD2-kA-y6B"/>
+        <segue reference="u4n-1F-mdc"/>
         <segue reference="B67-W3-2kg"/>
         <segue reference="HId-KD-dBC"/>
         <segue reference="HIl-kN-TtT"/>

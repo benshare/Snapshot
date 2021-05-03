@@ -69,13 +69,6 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         newUserButton.backgroundColor = .systemGreen
         newUserButton.setTitleColor(.white, for: .normal)
         newUserButton.titleEdgeInsets = UIEdgeInsets(top: 12, left: 45, bottom: 12, right: 45)
-        
-        // Fetch data
-        let username = getLoggedInUser()
-        if username != nil {
-            loadActiveUser(username: username!)
-            performSegue(withIdentifier: "signInSegue", sender: self)
-        }
     }
     
     // MARK: UI
