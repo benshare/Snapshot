@@ -1,41 +1,27 @@
-Fix before launch:
-    Buttons from collection and playthrough
-    Tutorial
-    
-    UI IMPROVEMENTS
-    Sharing
-    Multiple images in picker
-        https://stackoverflow.com/questions/20756899/how-to-select-multiple-images-from-uiimagepickercontroller
 
-Bugfixes
+Fixes
+Before launch:
+- Tutorial
+- Eye icon clickability
+Other:
 - Go to the corect place on scroll
 - Popup moving during rotation
 - Eye icon sizes
-- Verification boxes
-- Keryboard popup size fix
+- Keyboard popup size fix (hiding text field)
+- SQUARE
+- Make + stay a circle/make title update
+- Fix popup placement
+
+Improvements
+- UI IMPROVEMENTS
+- Multiple images in picker
+    https://stackoverflow.com/questions/20756899/how-to-select-multiple-images-from-uiimagepickercontroller
+- Sharing
 - Make data structured
 - Offlines
 - Only sync if new data
-- SQUARE
-
-
-Fix orientation/implement landscape
-Make + stay a circle/make title update
-Fix popup placement
-Tags
-Get scroll to go to same place when orientation changes
-Keyboard hiding text field
-
-
-1) Pass Treasure Hunt Value
-3) Separate Navigation Bar and title
-
-1) Full Image Edit Button
-2) UserDefaults
-3) Account Page
-4) Camera page
-5) Tags
-
+- Improve snapshot UI
+- Dark mode
 
 Features
  - UI
@@ -46,19 +32,4 @@ Features
     - With
     - Imports from photo roll
     - Camera main view
-
-
-Bugs
- - Bad ones
-    - Fix orientation stuff
-    
-    
- - Quality
-    - NewSnapshotView UI
-    - Orientation
-    - Dark mode/themes
-    - Rename memory to Snapshot
-    - Weird thing with title on callout when scaling
-
-
-Mattering Maps (Narrative ethics)
+- Themes
