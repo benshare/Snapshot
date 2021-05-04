@@ -1,8 +1,5 @@
 
 Fixes
-Before launch:
-- Tutorial
-Other:
 - Go to the corect place on scroll
 - Popup moving during rotation
 - Eye icon sizes
@@ -14,6 +11,7 @@ Other:
 - Enter confirmation code better
 
 Improvements
+- Tutorial
 - UI IMPROVEMENTS
 - Multiple images in picker
     https://stackoverflow.com/questions/20756899/how-to-select-multiple-images-from-uiimagepickercontroller
@@ -25,6 +23,7 @@ Improvements
 - Dark mode
 - Add forgot password
 - Add animation for waiting to load user data
+- Add guest login
 
 Features
  - UI
