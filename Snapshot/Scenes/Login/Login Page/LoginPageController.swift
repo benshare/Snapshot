@@ -51,10 +51,13 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         passwordField.addTarget(self, action: #selector(passwordFieldDidChange), for: .editingChanged)
         passwordField.isSecureTextEntry = true
         passwordField.placeholder = "Password"
+        passwordField.addTarget(self, action: #selector(gotTouch), for: .touchDown)
         passwordField.addVisibilityIcon()
         
-        forgotButton.setTitle("Forgot password?", for: .normal)
-        forgotButton.setTitleColor(color, for: .normal)
+        // TODO: Enable
+        forgotButton.isHidden = true
+//        forgotButton.setTitle("Forgot password?", for: .normal)
+//        forgotButton.setTitleColor(color, for: .normal)
         
         signInButton.setTitle("Sign In", for: .normal)
         signInButton.addTarget(self, action: #selector(trySignIn), for: .touchDown)
@@ -90,6 +93,15 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    @objc func gotTouch() {
+        for subview in passwordField.subviews {
+            if let button = subview as? UIButton {
+                passwordField.bringSubviewToFront(button)
+                break
+            }
+        }
     }
 
     @objc func keyboardWillShow(notification: NSNotification) {

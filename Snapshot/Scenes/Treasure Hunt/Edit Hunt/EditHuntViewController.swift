@@ -36,6 +36,7 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         navigationBar.addBackButton(text: "Save", action: {
             syncActiveUser(attribute: .hunts)
             self.parentController.reloadCell(index: self.index)
+            self.dismiss(animated: true, completion: nil)
         }, color: .white)
         navigationBar.setRightItem(image: "SettingsIcon", tint: .white, action: {
             self.performSegue(withIdentifier: "huntPreferencesSegue", sender: self)

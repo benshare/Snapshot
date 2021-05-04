@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
         window = UIWindow()
-
         let username = getLoggedInUser()
         if username != nil {
             loadActiveUser(username: username!)

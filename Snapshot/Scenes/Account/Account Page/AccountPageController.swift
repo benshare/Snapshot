@@ -36,6 +36,11 @@ class AccountPageController: UIViewController {
         let isPortrait = orientationIsPortrait()
         layout.activateConstraints(isPortrait: isPortrait)
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        redrawScene()
+    }
 
     // MARK: Buttons
     func logout() {

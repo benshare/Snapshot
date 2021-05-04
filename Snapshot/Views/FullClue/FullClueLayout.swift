@@ -173,8 +173,7 @@ class FullClueLayout {
             landscapeStackView.addArrangedSubview(getColumnForCenteredView(view: landscapeHint!))
             widthUnits += hintUnits
         }
-        
-        let clueWidth = CGFloat(textUnits) * totalContentWidth / CGFloat(widthUnits)
+
         let imageWidth = CGFloat(imageUnits) * totalContentWidth / CGFloat(widthUnits)
         
         landscapeSizeMap = [
