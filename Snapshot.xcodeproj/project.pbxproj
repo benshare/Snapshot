@@ -20,6 +20,8 @@
 		791A5970261A76A90032ECD9 /* AccountPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A596F261A76A90032ECD9 /* AccountPageController.swift */; };
 		791A5975261A787A0032ECD9 /* AccountPageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A5974261A787A0032ECD9 /* AccountPageLayout.swift */; };
 		792035AE197915ACFAD10098 /* Pods_SnapshotTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B26D0F4C216BF82D820D0F8 /* Pods_SnapshotTests.framework */; };
+		79495FEE2646181600C20BE2 /* CollectionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79495FED2646181600C20BE2 /* CollectionRowView.swift */; };
+		79495FF62646182100C20BE2 /* CollectionRowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79495FF52646182100C20BE2 /* CollectionRowLayout.swift */; };
 		79521030260C5B5800D642CF /* LaunchScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7952102F260C5B5800D642CF /* LaunchScreenController.swift */; };
 		79595A4025E37C3B00717873 /* NewMemoryViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79595A3E25E37C3B00717873 /* NewMemoryViewLayout.swift */; };
 		79595A4125E37C3B00717873 /* NewMemoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79595A3F25E37C3B00717873 /* NewMemoryView.swift */; };
@@ -120,6 +122,8 @@
 		791A595F261A41360032ECD9 /* LoginPageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageLayout.swift; sourceTree = "<group>"; };
 		791A596F261A76A90032ECD9 /* AccountPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageController.swift; sourceTree = "<group>"; };
 		791A5974261A787A0032ECD9 /* AccountPageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageLayout.swift; sourceTree = "<group>"; };
+		79495FED2646181600C20BE2 /* CollectionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionRowView.swift; sourceTree = "<group>"; };
+		79495FF52646182100C20BE2 /* CollectionRowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionRowLayout.swift; sourceTree = "<group>"; };
 		7952102F260C5B5800D642CF /* LaunchScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenController.swift; sourceTree = "<group>"; };
 		79595A3E25E37C3B00717873 /* NewMemoryViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMemoryViewLayout.swift; sourceTree = "<group>"; };
 		79595A3F25E37C3B00717873 /* NewMemoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMemoryView.swift; sourceTree = "<group>"; };
@@ -297,6 +301,15 @@
 				791A5974261A787A0032ECD9 /* AccountPageLayout.swift */,
 			);
 			path = "Account Page";
+			sourceTree = "<group>";
+		};
+		79495FEC2646180000C20BE2 /* CollectionRowView */ = {
+			isa = PBXGroup;
+			children = (
+				79495FED2646181600C20BE2 /* CollectionRowView.swift */,
+				79495FF52646182100C20BE2 /* CollectionRowLayout.swift */,
+			);
+			path = CollectionRowView;
 			sourceTree = "<group>";
 		};
 		79595A3D25E37C3B00717873 /* NewMemory */ = {
@@ -563,6 +576,7 @@
 		79EFE35A25D0B16500AA257B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				79495FEC2646180000C20BE2 /* CollectionRowView */,
 				79B289B42601DA37006615D3 /* InformationButton */,
 				790CE9D725F761DD009D0AD9 /* FullClue */,
 				79B0855A25F61BC400F0868C /* PopupOptions */,
@@ -922,6 +936,7 @@
 				79D0D407263E1D66003987E2 /* TextFieldUtil.swift in Sources */,
 				79E1AA1125E87FCA00FEE672 /* MathUtil.swift in Sources */,
 				79E1A9F925E7218D00FEE672 /* DateUtil.swift in Sources */,
+				79495FEE2646181600C20BE2 /* CollectionRowView.swift in Sources */,
 				79E783BE25C94AF8002DC72C /* MapViewLayout.swift in Sources */,
 				79521030260C5B5800D642CF /* LaunchScreenController.swift in Sources */,
 				79E1AA1625E8A75C00FEE672 /* Animations.swift in Sources */,
@@ -931,6 +946,7 @@
 				79E783B525C9499E002DC72C /* MapViewController.swift in Sources */,
 				79B289B025FF4449006615D3 /* EditHuntPreferencesLayout.swift in Sources */,
 				79A400C425EDF544004F7596 /* EditHuntViewLayout.swift in Sources */,
+				79495FF62646182100C20BE2 /* CollectionRowLayout.swift in Sources */,
 				79F3060C25EC31D400A445A1 /* MainMenuViewController.swift in Sources */,
 				79E1AA1C25E8AA6D00FEE672 /* FullImageView.swift in Sources */,
 				79A400CA25EE0EE4004F7596 /* ClueListRowView.swift in Sources */,
@@ -1145,7 +1161,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 3.1;
 				DEVELOPMENT_TEAM = DDV94C54GA;
 				INFOPLIST_FILE = Snapshot/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -1167,7 +1183,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 3.1;
 				DEVELOPMENT_TEAM = DDV94C54GA;
 				INFOPLIST_FILE = Snapshot/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;

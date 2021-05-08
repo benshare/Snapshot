@@ -40,6 +40,10 @@ class SnapshotCollection: Codable {
         nextId += 1
     }
     
+    func removeSnapshot(index: Int) {
+        collection.removeValue(forKey: index)
+    }
+    
     func description() -> String {
         var str = ""
         for snapshot in collection.values {

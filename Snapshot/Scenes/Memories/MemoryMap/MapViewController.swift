@@ -71,6 +71,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
         startTrackingCurrentLocation()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        map.clearMap()
+        self.addCollectionToMap(collection: activeUser.snapshots)
+    }
+    
     func addCollectionToMap(collection: SnapshotCollection) {
         for snapshot in collection.collection.values {
             map.addSnapshot(snapshot: snapshot)
@@ -132,15 +137,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIImagePic
     }
     
     // MARK: MKMapViewDelegate
-    
-    func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-            self.addCollectionToMap(collection: activeUser.snapshots)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) {
-        }
-    }
-    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             return nil

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import MapKit
 
-private let styleValues = ["Virtual"]
+private let styleValues = ["Virtual", "Real world"]
 private let sensitivityValues = (1...20).map( { String($0 * 10) + "%" })
 private let designValues = ["Classic"]
 
@@ -208,7 +208,10 @@ class EditHuntPreferencesController: UIViewController, UIPickerViewDataSource, U
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView {
         case stylePicker:
-            break
+            hunt.type = styleValues[row] == "Virtual" ? .virtual : .realWorld
+            if let first = hunt.clues.first {
+                setPreviewRegion(first: first)
+            }
         case sensitivityPicker:
             hunt.clueRadius = stringToRadius(descr: sensitivityValues[row])
             if let first = hunt.clues.first {
@@ -232,6 +235,7 @@ class EditHuntPreferencesController: UIViewController, UIPickerViewDataSource, U
     
     // MARK: Location
     func setPreviewRegion(first: Clue) {
-        sensitivityPreview.setRegion(MKCoordinateRegion(center: first.location, span: MKCoordinateSpan(latitudeDelta: CLLocationDegrees(hunt.clueRadius) / 11100, longitudeDelta: CLLocationDegrees(hunt.clueRadius) / 11100)), animated: false)
+        let ratio: Double = hunt.type == .virtual ? 11100 : 444000
+        sensitivityPreview.setRegion(MKCoordinateRegion(center: first.location, span: MKCoordinateSpan(latitudeDelta: CLLocationDegrees(hunt.clueRadius) / ratio, longitudeDelta: CLLocationDegrees(hunt.clueRadius) / ratio)), animated: false)
     }
 }

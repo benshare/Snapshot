@@ -46,12 +46,10 @@ class MemoryMapView: MKMapView {
         self.addAnnotation(annotation)
     }
     
+    func clearMap() {
+        collection.collection.removeAll()
+        removeAnnotations(annotations)
+    }
+    
     // MARK: Formatting
-//    func formatAnnotation(annotation: MKAnnotation) {
-//        self.view(
-//        let layer = (self.view(for: annotation)?.layer)!
-//        layer.cornerRadius = 20
-//        layer.borderWidth = 10
-//        layer.borderColor = UIColor.white.cgColor
-//    }
 }

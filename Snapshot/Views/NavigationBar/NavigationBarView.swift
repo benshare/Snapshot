@@ -13,7 +13,7 @@ class NavigationBarView: UIView, UITextFieldDelegate {
     // Elements
     var leftItem = UIButton()
     private var title = UILabel()
-    private var rightItem = UIButton()
+    var rightItem = UIButton()
     private var editableTitle = UITextField()
     
     // Layout

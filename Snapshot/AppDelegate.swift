@@ -42,11 +42,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func additionalOnLaunch() {
-//        generateNewLayout(name: "ConfirmAccount", elements: [
-//            ("navigationBar", "NavigationBarView"),
-//            ("codeField", "UITextField"),
-//            ("resendButton", "UIButton"),
-//            ("confirmButton", "UIButton"),
+//        generateNewLayout(name: "CollectionRow", elements: [
+//            ("image", "UIImageView"),
+//            ("description", "UILabel"),
+//            ("subrow", "UIView"),
+//            ("creatorLabel", "UILabel"),
+//            ("dateLabel", "UILabel"),
+//            ("blurView", "UIVisualEffectView"),
+//            ("deleteButton", "UIButton"),
 //         ])
     }
     

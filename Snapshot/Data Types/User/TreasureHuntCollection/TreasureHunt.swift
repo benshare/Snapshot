@@ -15,7 +15,7 @@ enum HuntType: Int, Codable {
 
 class TreasureHunt: Codable {
     var name: String
-    private var type: HuntType
+    var type: HuntType
     var startingLocation: CLLocationCoordinate2D
     var clues: [Clue]
     var clueRadius: Int
