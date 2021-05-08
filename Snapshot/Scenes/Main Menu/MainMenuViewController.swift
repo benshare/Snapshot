@@ -70,15 +70,6 @@ class MainMenuViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
-        // No idea why this is necessary lol
-        if isFirst && orientationIsPortrait() {
-            isFirst = false
-        } else {
-            isFirst = false
-            stackView.removeConstraints(stackView.constraints)
-        }
-        
         redrawScene()
     }
     

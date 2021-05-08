@@ -70,10 +70,26 @@ class MainMenuViewViewLayout {
     
     func activateConstraints(isPortrait: Bool) {
         if isPortrait {
+            let fromLandscape = stackView.constraints.count == 21
             NSLayoutConstraint.deactivate(landscapeConstraints)
+            // TODO: This is pretty hacky, but I can't figure
+            // out a better way
+            if fromLandscape {
+                for constraint in stackView.constraints {
+                    if String(describing: constraint).contains("UISV-spacing") {
+                        constraint.isActive = false
+                        break
+                    }
+                }
+            }
             NSLayoutConstraint.activate(portraitConstraints)
         } else {
             NSLayoutConstraint.deactivate(portraitConstraints)
+            for constraint in stackView.constraints {
+                if String(describing: constraint).contains("UISV-spacing") {
+                    constraint.isActive = false
+                }
+            }
             NSLayoutConstraint.activate(landscapeConstraints)
         }
     }
