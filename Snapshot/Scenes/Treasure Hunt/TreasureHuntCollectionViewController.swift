@@ -59,12 +59,11 @@ class TreasureHuntCollectionViewController: UIViewController, UICollectionViewDa
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        collection.collectionViewLayout.invalidateLayout()
         layout.updateCircleSizes()
         redrawScene()
     }
     
-    func reloadCell(index: Int) {
+    func reloadData() {
         collection.reloadData()
     }
     

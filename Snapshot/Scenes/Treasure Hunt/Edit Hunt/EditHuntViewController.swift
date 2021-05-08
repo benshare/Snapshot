@@ -33,10 +33,10 @@ class EditHuntViewController: UIViewController, UITextFieldDelegate {
         
         navigationBar.setEditableTitle(background: clueList, text: hunt.name, placeholder: "Untitled Treasure Hunt", color: .white)
         navigationBar.backgroundColor = SCENE_COLORS[.hunts]
-        navigationBar.addBackButton(text: "Save", action: {
+        navigationBar.addBackButton(text: "Save", action: { [self] in
             syncActiveUser(attribute: .hunts)
-            self.parentController.reloadCell(index: self.index)
-            self.dismiss(animated: true, completion: nil)
+            parentController.reloadData()
+            dismiss(animated: false, completion: nil)
         }, color: .white)
         navigationBar.setRightItem(image: "SettingsIcon", tint: .white, action: {
             self.performSegue(withIdentifier: "huntPreferencesSegue", sender: self)

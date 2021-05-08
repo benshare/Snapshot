@@ -96,7 +96,8 @@ class TreasureHuntCollectionViewViewLayout {
         button.layer.borderWidth = 5
         button.backgroundColor = color
         button.isUserInteractionEnabled = false
-        circularViews.append(button)
+//        circularViews.append(button)
+        button.layer.cornerRadius = button.frame.height / 2
     }
     
     func configureTreasureHuntCell(cell: UICollectionViewCell, hunt: TreasureHunt) {
@@ -115,7 +116,6 @@ class TreasureHuntCollectionViewViewLayout {
             name.widthAnchor.constraint(lessThanOrEqualToConstant: 150)
         ])
     }
-    
     
     // MARK: Other UI
     func updateCircleSizes() {

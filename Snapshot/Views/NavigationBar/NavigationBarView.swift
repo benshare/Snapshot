@@ -18,7 +18,6 @@ class NavigationBarView: UIView, UITextFieldDelegate {
     
     // Layout
     private var layout: NavigationBarViewViewLayout!
-    
 
     // Data
     var hunt: TreasureHunt!
@@ -99,6 +98,10 @@ class NavigationBarView: UIView, UITextFieldDelegate {
         rightItem.tintColor = tint
         rightItem.addAction(action)
         rightItem.isHidden = false
+    }
+    
+    func getTitle() -> String? {
+        return title.isHidden ? editableTitle.text : title.text
     }
     
     // MARK: UITextFieldDelegate

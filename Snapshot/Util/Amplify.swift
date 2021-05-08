@@ -151,7 +151,6 @@ private func syncAttribute(data: Data, key: String) {
     Amplify.Storage.uploadData(key: key, data: data, options: options, resultListener: { (event) in
         switch event {
             case .success( _):
-                print("Succeeded in sync")
                 break
             case .failure(let storageError):
                 print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
