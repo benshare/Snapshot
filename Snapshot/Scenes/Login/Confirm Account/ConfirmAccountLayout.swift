@@ -11,12 +11,6 @@ import UIKit
 class ConfirmAccountLayout: UILayout {
     // MARK: Properties
     
-    // UI elements
-    private let navigationBar: NavigationBarView
-    private let codeField: UITextField
-    private let resendButton: UIButton
-    private let confirmButton: UIButton
-    
     // Constraint maps
     private var portraitSizeMap: [UIView: (CGFloat, CGFloat)]!
     private var portraitSpacingMap: [UIView: (CGFloat, CGFloat)]!
@@ -24,11 +18,7 @@ class ConfirmAccountLayout: UILayout {
     private var landscapeSpacingMap: [UIView: (CGFloat, CGFloat)]!
     
     // MARK: Initialization
-    init(navigationBar: NavigationBarView, codeField: UITextField, resendButton: UIButton, confirmButton: UIButton) {
-        self.navigationBar = navigationBar
-        self.codeField = codeField
-        self.resendButton = resendButton
-        self.confirmButton = confirmButton
+    init(navigationBar: NavigationBarView, codeField: SegmentedTextField, resendButton: UIButton, confirmButton: UIButton) {
 
         doNotAutoResize(views: [navigationBar, codeField, resendButton, confirmButton])
         setLabelsToDefaults(labels: [])

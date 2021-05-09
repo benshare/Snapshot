@@ -12,7 +12,7 @@ class ConfirmAccountController: UIViewController, UITextFieldDelegate {
     // MARK: Variables
     // Outlets
     @IBOutlet weak var navigationBar: NavigationBarView!
-    @IBOutlet weak var codeField: UITextField!
+    private var codeField = SegmentedTextField(length: 6)
     @IBOutlet weak var resendButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
     
@@ -27,6 +27,7 @@ class ConfirmAccountController: UIViewController, UITextFieldDelegate {
     // MARK: Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(codeField)
     
         layout = ConfirmAccountLayout(navigationBar: navigationBar, codeField: codeField, resendButton: resendButton, confirmButton: confirmButton)
         layout.configureConstraints(view: view)
@@ -37,9 +38,6 @@ class ConfirmAccountController: UIViewController, UITextFieldDelegate {
         navigationBar.addBackButton(text: "< Back", action: { self.dismiss(animated: true)}, color: .white)
         navigationBar.setTitle(text: "Confirm Account", color: .white)
         navigationBar.backgroundColor = SCENE_COLORS[.main]
-        
-        codeField.delegate = self as UITextFieldDelegate
-        codeField.placeholder = "######"
         
         resendButton.setTitle("Resend Code", for: .normal)
         resendButton.addTarget(self, action: #selector(resendCode), for: .touchDown)
@@ -88,7 +86,7 @@ class ConfirmAccountController: UIViewController, UITextFieldDelegate {
     
     // MARK: Actions
     @objc func submitCode() {
-        guard let code = codeField.text else {
+        guard let code = codeField.controllerField.text else {
             fatalError("Couldn't access code field")
         }
         
@@ -100,13 +98,13 @@ class ConfirmAccountController: UIViewController, UITextFieldDelegate {
                 ACTIVE_USER_GROUP.wait()
                 performSegue(withIdentifier: "confirmAccountSegue", sender: nil)
             } else {
-                codeField.text = ""
+                codeField.controllerField.text = ""
                 let alert = UIAlertController(title: "Account error", message: "Number verified, but couldn't sign in: \(error!)", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { action in alert.dismiss(animated: true, completion: nil) }))
                 self.present(alert, animated: true, completion: nil)
             }
         } else {
-            codeField.text = ""
+            codeField.controllerField.text = ""
             let alert = UIAlertController(title: "Incorrect code", message: "Couldn't verify your account. Please try again", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { action in alert.dismiss(animated: true, completion: nil) }))
             self.present(alert, animated: true, completion: nil)

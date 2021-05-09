@@ -11,13 +11,6 @@ import UIKit
 class NewAccountLayout: UILayout {
     // MARK: Properties
     
-    // UI elements
-    private let navigationBar: NavigationBarView
-    private let usernameField: UITextField
-    private let passwordField: UITextField
-    private let phoneField: UITextField
-    private let signUpButton: UIButton
-    
     // Constraint maps
     private var portraitSizeMap: [UIView: (CGFloat, CGFloat)]!
     private var portraitSpacingMap: [UIView: (CGFloat, CGFloat)]!
@@ -25,12 +18,7 @@ class NewAccountLayout: UILayout {
     private var landscapeSpacingMap: [UIView: (CGFloat, CGFloat)]!
     
     // MARK: Initialization
-    init(navigationBar: NavigationBarView, usernameField: UITextField, passwordField: UITextField, phoneField: UITextField, signUpButton: UIButton) {
-        self.navigationBar = navigationBar
-        self.usernameField = usernameField
-        self.passwordField = passwordField
-        self.phoneField = phoneField
-        self.signUpButton = signUpButton
+    init(navigationBar: NavigationBarView, usernameField: UITextField, passwordField: UITextField, phoneField: SegmentedTextField, signUpButton: UIButton) {
 
         doNotAutoResize(views: [navigationBar, usernameField, passwordField, phoneField, signUpButton])
         setLabelsToDefaults(labels: [])
@@ -40,7 +28,7 @@ class NewAccountLayout: UILayout {
             navigationBar: (1, 0.2),
             usernameField: (0.8, 0.07),
             passwordField: (0.8, 0.07),
-            phoneField: (0.8, 0.07),
+            phoneField: (0.8, 0.05),
             signUpButton: (0.8, 0.07),
         ]
         

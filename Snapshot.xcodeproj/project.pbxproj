@@ -20,6 +20,8 @@
 		791A5970261A76A90032ECD9 /* AccountPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A596F261A76A90032ECD9 /* AccountPageController.swift */; };
 		791A5975261A787A0032ECD9 /* AccountPageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A5974261A787A0032ECD9 /* AccountPageLayout.swift */; };
 		792035AE197915ACFAD10098 /* Pods_SnapshotTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B26D0F4C216BF82D820D0F8 /* Pods_SnapshotTests.framework */; };
+		79395ADE26474B3A003DAEF8 /* SegmentedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79395ADD26474B3A003DAEF8 /* SegmentedTextField.swift */; };
+		79395AE326474B95003DAEF8 /* SegmentedTextLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79395AE226474B95003DAEF8 /* SegmentedTextLayout.swift */; };
 		79495FEE2646181600C20BE2 /* CollectionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79495FED2646181600C20BE2 /* CollectionRowView.swift */; };
 		79495FF62646182100C20BE2 /* CollectionRowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79495FF52646182100C20BE2 /* CollectionRowLayout.swift */; };
 		79521030260C5B5800D642CF /* LaunchScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7952102F260C5B5800D642CF /* LaunchScreenController.swift */; };
@@ -122,6 +124,8 @@
 		791A595F261A41360032ECD9 /* LoginPageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageLayout.swift; sourceTree = "<group>"; };
 		791A596F261A76A90032ECD9 /* AccountPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageController.swift; sourceTree = "<group>"; };
 		791A5974261A787A0032ECD9 /* AccountPageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageLayout.swift; sourceTree = "<group>"; };
+		79395ADD26474B3A003DAEF8 /* SegmentedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedTextField.swift; sourceTree = "<group>"; };
+		79395AE226474B95003DAEF8 /* SegmentedTextLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedTextLayout.swift; sourceTree = "<group>"; };
 		79495FED2646181600C20BE2 /* CollectionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionRowView.swift; sourceTree = "<group>"; };
 		79495FF52646182100C20BE2 /* CollectionRowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionRowLayout.swift; sourceTree = "<group>"; };
 		7952102F260C5B5800D642CF /* LaunchScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenController.swift; sourceTree = "<group>"; };
@@ -301,6 +305,15 @@
 				791A5974261A787A0032ECD9 /* AccountPageLayout.swift */,
 			);
 			path = "Account Page";
+			sourceTree = "<group>";
+		};
+		79395ADC26474B22003DAEF8 /* SegmentedTextField */ = {
+			isa = PBXGroup;
+			children = (
+				79395ADD26474B3A003DAEF8 /* SegmentedTextField.swift */,
+				79395AE226474B95003DAEF8 /* SegmentedTextLayout.swift */,
+			);
+			path = SegmentedTextField;
 			sourceTree = "<group>";
 		};
 		79495FEC2646180000C20BE2 /* CollectionRowView */ = {
@@ -576,6 +589,7 @@
 		79EFE35A25D0B16500AA257B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				79395ADC26474B22003DAEF8 /* SegmentedTextField */,
 				79495FEC2646180000C20BE2 /* CollectionRowView */,
 				79B289B42601DA37006615D3 /* InformationButton */,
 				790CE9D725F761DD009D0AD9 /* FullClue */,
@@ -954,6 +968,7 @@
 				79F3063F25EC763200A445A1 /* TreasureHunt.swift in Sources */,
 				79E1A9EC25E503E500FEE672 /* SnapshotCalloutView.swift in Sources */,
 				79F3061125EC31E500A445A1 /* MainMenuViewLayout.swift in Sources */,
+				79395AE326474B95003DAEF8 /* SegmentedTextLayout.swift in Sources */,
 				790CE9D925F761F1009D0AD9 /* FullClueView.swift in Sources */,
 				791A5958261A40A90032ECD9 /* LoginPageController.swift in Sources */,
 				791A5975261A787A0032ECD9 /* AccountPageLayout.swift in Sources */,
@@ -973,6 +988,7 @@
 				79E783C725C94C81002DC72C /* LayoutUtil.swift in Sources */,
 				79F3064725EC763900A445A1 /* Clue.swift in Sources */,
 				791A5970261A76A90032ECD9 /* AccountPageController.swift in Sources */,
+				79395ADE26474B3A003DAEF8 /* SegmentedTextField.swift in Sources */,
 				79E2F21825DD271800F872D7 /* SnapshotCollection.swift in Sources */,
 				79F3062525EC6EC600A445A1 /* TreasureHuntCollectionViewController.swift in Sources */,
 				79E1A9E125E3A5D100FEE672 /* ActiveUser.swift in Sources */,

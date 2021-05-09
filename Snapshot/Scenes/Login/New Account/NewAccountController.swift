@@ -14,7 +14,7 @@ class NewAccountController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var navigationBar: NavigationBarView!
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
-    @IBOutlet weak var phoneField: UITextField!
+    private var phoneField = SegmentedTextField(segmentPattern: "+1-___-___-____")
     @IBOutlet weak var signUpButton: UIButton!
     
     // Formatting
@@ -30,6 +30,8 @@ class NewAccountController: UIViewController, UITextFieldDelegate {
     // MARK: Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.addSubview(phoneField)
         
         layout = NewAccountLayout(navigationBar: navigationBar, usernameField: usernameField, passwordField: passwordField, phoneField: phoneField, signUpButton: signUpButton)
         layout.configureConstraints(view: view)
@@ -51,9 +53,7 @@ class NewAccountController: UIViewController, UITextFieldDelegate {
         passwordField.placeholder = "Password"
         passwordField.addVisibilityIcon()
         
-        phoneField.delegate = self as UITextFieldDelegate
-        phoneField.addTarget(self, action: #selector(passwordFieldDidChange), for: .editingChanged)
-        phoneField.placeholder = "xxx-xxx-xxxx"
+        phoneField.controllerField.addTarget(self, action: #selector(passwordFieldDidChange), for: .editingChanged)
         
         signUpButton.setTitle("Sign Up", for: .normal)
         signUpButton.addTarget(self, action: #selector(createAccount), for: .touchDown)
@@ -127,7 +127,7 @@ class NewAccountController: UIViewController, UITextFieldDelegate {
         guard let password = passwordField.text else {
             fatalError("Couldn't access password field")
         }
-        guard let number = phoneField.text else {
+        guard let number = phoneField.controllerField.text else {
             fatalError("Couldn't access phone field")
         }
         

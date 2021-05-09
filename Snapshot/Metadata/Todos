@@ -1,17 +1,15 @@
 
 Bugs
-- Main menu gets covered
 
 Fixes
 - Go to the corect place on scroll
 - Popup moving during rotation
 - Eye icon sizes
 - Keyboard popup size fix (hiding text field)
-- SQUARE
-- Make + stay a circle/make title update
 - Fix popup placement
-- Phone number handling during confirmation
-- Enter confirmation code better
+- Check on other devices
+- Confirmation code submit automatically
+- If user exists but isn't confirmed, confirm
 
 Improvements
 - Tutorial
