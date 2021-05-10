@@ -18,6 +18,8 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
     @IBOutlet weak var clueText: UITextView!
     @IBOutlet weak var clueImage: UIImageView!
     @IBOutlet weak var hintView: UIStackView!
+    @IBOutlet weak var showAfterLabel: UILabel!
+    @IBOutlet weak var showAfterButton: UIButton!
     private let mapCenter = MKPointAnnotation()
     
     // Layout
@@ -33,7 +35,7 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
     
     // MARK: Initialization
     override func viewDidLoad() {
-        layout = EditClueViewLayout(navigationBar: navigationBar, scrollView: scrollView, clueLocation: clueLocation, clueText: clueText, clueImage: clueImage, hintView: hintView, clueType: clueType)
+        layout = EditClueViewLayout(navigationBar: navigationBar, scrollView: scrollView, clueLocation: clueLocation, clueText: clueText, clueImage: clueImage, showAfterLabel: showAfterLabel, showAfterButton: showAfterButton, hintView: hintView, clueType: clueType)
         layout.configureConstraints(view: view)
         layout.clue = clue
         
@@ -103,6 +105,21 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
             clueImage.isUserInteractionEnabled = true
         } else {
             clueImage.isHidden = true
+        }
+        showAfterLabel.text = "Show image after clue is complete:"
+        showAfterLabel.numberOfLines = 2
+        showAfterButton.setTitle("", for: .normal)
+        let empty = UIImage(named: "CheckboxEmpty")
+        let full = UIImage(named: "CheckboxFull")
+        showAfterButton.setBackgroundImage(clue.showImageAfter ? full : empty, for: .normal)
+        showAfterButton.addAction { [self] in
+            if clue.showImageAfter {
+                clue.showImageAfter = false
+                showAfterButton.setBackgroundImage(empty, for: .normal)
+            } else {
+                clue.showImageAfter = true
+                showAfterButton.setBackgroundImage(full, for: .normal)
+            }
         }
         
         // Hints

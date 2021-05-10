@@ -73,7 +73,6 @@ class FullClueLayout {
         let landscapeClue = UILabel()
         landscapeClue.text = clueText
         landscapeClue.numberOfLines = 0
-//        landscapeClue.font = UIFont.systemFont(ofSize: 10)
         
         let landscapeImage = clueImage == nil ? nil : UIImageView(image: clueImage)
         landscapeImage?.contentMode = .scaleAspectFit

@@ -8,6 +8,9 @@
 import Foundation
 import Amplify
 import AmplifyPlugins
+import AWSPluginsCore
+//import AWSMobileClient
+import AWSCognitoIdentityProvider
 
 private let encoder = JSONEncoder()
 private let decoder = JSONDecoder()
@@ -73,24 +76,34 @@ func resendConfirmationCode(for username: String) {
 }
 
 // MARK: Sign In
-func signIn(username: String, password: String) -> String? {
+func signIn(username: String, password: String) -> String {
     let group = DispatchGroup()
     group.enter()
-    var error: AuthError? = nil
+    var message = String()
     
     let userAttributes = [AuthUserAttribute(.preferredUsername, value: username)]
     let options = AuthSignInRequest.Options(pluginOptions: userAttributes)
     Amplify.Auth.signIn(username: username, password: password, options: options) { result in
         switch result {
         case .success( _):
+            do {
+                let s = try String(describing: result.get().nextStep)
+                if s.contains("confirm") {
+                    message = "confirm"
+                } else {
+                    message = "success"
+                }
+            } catch {
+                message = "Couldn't decode nextStep"
+            }
             group.leave()
-        case .failure(let e):
-            error = e
+        case .failure(let error):
+            message = error.errorDescription.description
             group.leave()
         }
     }
     group.wait()
-    return error?.errorDescription.description
+    return message
 }
 
 // MARK: Sign Out

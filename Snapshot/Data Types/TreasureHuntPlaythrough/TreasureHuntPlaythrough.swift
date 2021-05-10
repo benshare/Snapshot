@@ -12,11 +12,13 @@ class TreasureHuntPlaythrough {
     let hunt: TreasureHunt
     var unlockedClues: [Clue]
     var currentClueNum: Int
+    var currentClueWaitsToShow: Bool
     
     init(hunt: TreasureHunt) {
         self.hunt = hunt
         self.unlockedClues = [hunt.clues[0]]
         self.currentClueNum = 0
+        self.currentClueWaitsToShow = hunt.clues[0].showImageAfter
     }
     
     func getCurrentClue() -> Clue {
@@ -26,7 +28,9 @@ class TreasureHuntPlaythrough {
     func unlockNextClue() -> Bool {
         currentClueNum += 1
         if currentClueNum < hunt.clues.count {
-            unlockedClues.append(hunt.clues[currentClueNum])
+            let clue = hunt.clues[currentClueNum]
+            unlockedClues.append(clue)
+            currentClueWaitsToShow = clue.showImageAfter
             return true
         }
         return false

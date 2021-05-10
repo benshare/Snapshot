@@ -247,12 +247,24 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RoD-vB-1uc" userLabel="Show Image After Label">
+                                <rect key="frame" x="186" y="437" width="41.5" height="20.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KiQ-aG-YbY">
+                                <rect key="frame" x="264" y="348" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r5x-NY-zwF" userLabel="Clue Image">
                                 <rect key="frame" x="87" y="384" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="X6s-dB-clC" userLabel="Hint View">
-                                <rect key="frame" x="152" y="348" width="110" height="200"/>
+                                <rect key="frame" x="152" y="348" width="41.5" height="20.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </stackView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zOc-hF-qbX" userLabel="Scroll View" customClass="ScrollableStackView" customModule="Snapshot" customModuleProvider="target">
@@ -271,6 +283,8 @@
                         <outlet property="hintView" destination="X6s-dB-clC" id="iNT-38-pwO"/>
                         <outlet property="navigationBar" destination="pMv-FX-2Xo" id="4wm-VF-eiR"/>
                         <outlet property="scrollView" destination="zOc-hF-qbX" id="1ib-uM-c70"/>
+                        <outlet property="showAfterButton" destination="KiQ-aG-YbY" id="0vj-iI-9KM"/>
+                        <outlet property="showAfterLabel" destination="RoD-vB-1uc" id="rnJ-nI-sdr"/>
                         <segue destination="ubq-fD-73X" kind="presentation" identifier="chooseFromCollectionSegue" id="HIl-kN-TtT"/>
                     </connections>
                 </viewController>
@@ -455,6 +469,7 @@
                         <outlet property="welcomeLabel" destination="1gJ-Cu-pu8" id="c9z-sr-V8L"/>
                         <segue destination="TF3-2Y-62s" kind="presentation" identifier="newUserSegue" id="eAg-bW-5nu"/>
                         <segue destination="V5g-iH-O9q" kind="presentation" identifier="signInSegue" id="u4n-1F-mdc"/>
+                        <segue destination="8rq-Lj-MzQ" kind="presentation" identifier="confirmAccountSegue" id="toq-TB-HqZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ohs-J8-sZC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -627,9 +642,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="9Lx-su-791"/>
+        <segue reference="toq-TB-HqZ"/>
         <segue reference="yD2-kA-y6B"/>
-        <segue reference="SFH-er-5NR"/>
+        <segue reference="u4n-1F-mdc"/>
         <segue reference="B67-W3-2kg"/>
         <segue reference="HId-KD-dBC"/>
         <segue reference="HIl-kN-TtT"/>

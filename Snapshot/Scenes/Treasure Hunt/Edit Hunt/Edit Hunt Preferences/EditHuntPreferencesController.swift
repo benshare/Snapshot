@@ -97,10 +97,10 @@ class EditHuntPreferencesController: UIViewController, UIPickerViewDataSource, U
         setLabelsToDefaults(labels: [allowLabel/*, hotColdLabel*/])
         setButtonsToDefaults(buttons: [allowButton/*, hotColdButton*/])
         allowLabel.text = "Turn on hints for this hunt?"
-        allowButton.setBackgroundImage(UIImage(named: hunt.allowHints ? "checkboxFull" : "checkboxEmpty"), for: .normal)
+        allowButton.setBackgroundImage(UIImage(named: hunt.allowHints ? "CheckboxFull" : "CheckboxEmpty"), for: .normal)
         allowButton.addAction {
             self.hunt.allowHints = !self.hunt.allowHints
-            self.allowButton.setBackgroundImage(UIImage(named: self.hunt.allowHints ? "checkboxFull" : "checkboxEmpty"), for: .normal)
+            self.allowButton.setBackgroundImage(UIImage(named: self.hunt.allowHints ? "CheckboxFull" : "CheckboxEmpty"), for: .normal)
 //            if self.hunt.allowHints {
 //                self.hotColdButton.isEnabled = true
 //                hotColdRow.tintColor = .none
@@ -113,10 +113,10 @@ class EditHuntPreferencesController: UIViewController, UIPickerViewDataSource, U
         }
         
 //        hotColdLabel.text = "Show hotter / colder hints?"
-//        hotColdButton.setBackgroundImage(UIImage(named: hunt.allowHotterColder ? "checkboxFull" : "checkboxEmpty"), for: .normal)
+//        hotColdButton.setBackgroundImage(UIImage(named: hunt.allowHotterColder ? "CheckboxFull" : "CheckboxEmpty"), for: .normal)
 //        hotColdButton.addAction {
 //            self.hunt.allowHotterColder = !self.hunt.allowHotterColder
-//            self.hotColdButton.setBackgroundImage(UIImage(named: self.hunt.allowHotterColder ? "checkboxFull" : "checkboxEmpty"), for: .normal)
+//            self.hotColdButton.setBackgroundImage(UIImage(named: self.hunt.allowHotterColder ? "CheckboxFull" : "CheckboxEmpty"), for: .normal)
 //        }
 //        if !hunt.allowHints {
 //            hotColdButton.isEnabled = false

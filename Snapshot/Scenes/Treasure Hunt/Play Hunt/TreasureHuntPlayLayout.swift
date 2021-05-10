@@ -12,12 +12,6 @@ import MapKit
 class TreasureHuntPlayLayout {
     // MARK: Properties
     
-    // UI elements
-    private let map: MKMapView
-    private let backButton: UIButton
-    private let cluesButton: UIButton
-    private let infoButton: UIButton
-    
     // Constraint maps
     private var portraitSizeMap: [UIView: (CGFloat, CGFloat)]!
     private var portraitSpacingMap: [UIView: (CGFloat, CGFloat)]!
@@ -31,11 +25,7 @@ class TreasureHuntPlayLayout {
     // Other
     private var circularViews = [UIView]()
     
-    init(map: MKMapView, backButton: UIButton, cluesButton: UIButton, infoButton: UIButton) {
-        self.map = map
-        self.backButton = backButton
-        self.cluesButton = cluesButton
-        self.infoButton = infoButton
+    init(map: MKMapView, searchBar: UISearchBar, backButton: UIButton, cluesButton: UIButton, infoButton: UIButton) {
 
         doNotAutoResize(views: [map, backButton, cluesButton, infoButton])
         setLabelsToDefaults(labels: [])

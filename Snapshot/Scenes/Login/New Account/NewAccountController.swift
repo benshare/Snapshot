@@ -151,6 +151,5 @@ class NewAccountController: UIViewController, UITextFieldDelegate {
         let dest = segue.destination as! ConfirmAccountController
         dest.username = enteredUsername
         dest.password = enteredPassword
-        dest.number = enteredNumber
     }
 }

@@ -14,10 +14,11 @@ class Clue: Codable {
     var image: UIImage?
     var text: String
     var hints: [String]
+    var showImageAfter: Bool
     
     // MARK: Codable
     enum CodingKeys: String, CodingKey {
-        case location, image, text, hints
+        case location, image, text, hints, showAfter
     }
     
     required init(from decoder: Decoder) throws {
@@ -30,6 +31,11 @@ class Clue: Codable {
         }
         self.text = try container.decode(String.self, forKey: .text)
         self.hints = try container.decode([String].self, forKey: .hints)
+        do {
+            self.showImageAfter = try container.decode(Bool.self, forKey: .showAfter)
+        } catch {
+            self.showImageAfter = false
+        }
     }
     
     func encode(to encoder: Encoder) throws {
@@ -38,6 +44,7 @@ class Clue: Codable {
         try container.encode(self.image?.pngData(), forKey: .image)
         try container.encode(self.text, forKey: .text)
         try container.encode(self.hints, forKey: .hints)
+        try container.encode(self.showImageAfter, forKey: .showAfter)
     }
     
     // MARK: Initialization
@@ -46,6 +53,7 @@ class Clue: Codable {
         self.image = image
         self.text = text
         self.hints = hints
+        self.showImageAfter = false
     }
     
     func addHint(hint: String) {

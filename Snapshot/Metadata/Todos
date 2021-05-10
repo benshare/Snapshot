@@ -5,11 +5,14 @@ Fixes
 - Go to the corect place on scroll
 - Popup moving during rotation
 - Eye icon sizes
+- Make it easier to click on eye
 - Keyboard popup size fix (hiding text field)
 - Fix popup placement
 - Check on other devices
 - Confirmation code submit automatically
 - If user exists but isn't confirmed, confirm
+- Readjust/fix view in hunt
+- Click on other place in clue without dismissing (clue editing page)
 
 Improvements
 - Tutorial
@@ -25,6 +28,9 @@ Improvements
 - Add forgot password
 - Add animation for waiting to load user data
 - Add guest login
+- Add info button in hunts
+- Add search in hunt
+- Editing hunt map/preview (skip through)
 
 Features
  - UI
@@ -36,3 +42,7 @@ Features
     - Imports from photo roll
     - Camera main view
 - Themes
+- Animations
+    - Loading animation
+    - Celebration at the end of hunt
+

@@ -95,8 +95,11 @@ class SegmentedTextField: UIView, UITextFieldDelegate {
         setCursorToEnd(textField: textField)
         let char = string.cString(using: String.Encoding.utf8)
         if strcmp(char, "\\b") == -92 {
-            segmentedFields[textField.text!.count - 1].text = ""
-            return true
+            if textField.text!.count > 0 {
+                segmentedFields[textField.text!.count - 1].text = ""
+                return true
+            }
+            return false
         }
         return textField.text!.count < length
     }

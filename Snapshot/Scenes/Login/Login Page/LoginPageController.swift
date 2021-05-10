@@ -149,15 +149,27 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         }
         
         let error = signIn(username: username, password: password)
-        if error == nil {
+        switch error {
+        case "success":
             loadActiveUser(username: username)
             performSegue(withIdentifier: "signInSegue", sender: self)
-        } else {
+        case "confirm":
+            resendConfirmationCode(for: username)
+            performSegue(withIdentifier: "confirmAccountSegue", sender: self)
+        default:
             let alert = UIAlertController(title: "Invalid login", message: error, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { _ in
                 alert.dismiss(animated: true, completion: nil)
             }))
             self.present(alert, animated: false)
+        }
+    }
+    
+    // MARK: Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let dest = segue.destination as? ConfirmAccountController {
+            dest.username = usernameField.text
+            dest.password = passwordField.text
         }
     }
 }

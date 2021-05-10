@@ -21,6 +21,7 @@ class FullClueView: UIView {
     let parentController: UIViewController
     var isNew: Bool = false
     var clueNum: Int?
+    var showAfter: Bool = false
     
     // MARK: Initialization
     required init?(coder: NSCoder) {
@@ -33,7 +34,7 @@ class FullClueView: UIView {
         super.init(frame: CGRect.zero)
     }
     
-    func configureView(isNew: Bool = false, clueNum: Int? = nil) {
+    func configureView(isNew: Bool = false, clueNum: Int? = nil, showAfter: Bool = false) {
         self.layer.borderWidth = 5
         self.layer.borderColor = UIColor.gray.cgColor
         self.layer.cornerRadius = 10
@@ -41,7 +42,7 @@ class FullClueView: UIView {
         self.isNew = isNew
         self.clueNum = clueNum
         
-        layout = FullClueLayout(parentController: parentController, clueText: clue.text, clueImage: clue.image, hints: clue.hints.filter({ return !$0.isEmpty }))
+        layout = FullClueLayout(parentController: parentController, clueText: clue.text, clueImage: showAfter ? nil : clue.image, hints: clue.hints.filter({ return !$0.isEmpty }))
         layout.configureConstraints(view: self)
         
         redrawScene()

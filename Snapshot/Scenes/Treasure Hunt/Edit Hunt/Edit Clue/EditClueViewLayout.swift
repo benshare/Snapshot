@@ -32,7 +32,7 @@ class EditClueViewLayout: UILayout {
     var clue: Clue!
     var fullImage: UIImageView!
     
-    init(navigationBar: NavigationBarView, scrollView: ScrollableStackView, clueLocation: MKMapView, clueText: UITextView, clueImage: UIImageView, hintView: UIStackView, clueType: RowType = .clue) {
+    init(navigationBar: NavigationBarView, scrollView: ScrollableStackView, clueLocation: MKMapView, clueText: UITextView, clueImage: UIImageView, showAfterLabel: UILabel, showAfterButton: UIButton, hintView: UIStackView, clueType: RowType = .clue) {
         self.navigationBar = navigationBar
         self.scrollView = scrollView
         self.clueLocation = clueLocation
@@ -41,7 +41,9 @@ class EditClueViewLayout: UILayout {
         self.hintView = hintView
         super.init()
 
-        doNotAutoResize(views: [navigationBar, scrollView, clueLocation, clueText, clueImage, hintView])
+        doNotAutoResize(views: [navigationBar, scrollView, clueLocation, clueText, clueImage, showAfterLabel, showAfterButton, hintView])
+        setLabelsToDefaults(labels: [showAfterLabel])
+        setButtonsToDefaults(buttons: [showAfterButton])
         
         portraitSizeMap = [
             navigationBar: (1, 0.2),
@@ -86,6 +88,8 @@ class EditClueViewLayout: UILayout {
             
             clueText.isHidden = true
             clueImage.isHidden = true
+            showAfterLabel.isHidden = true
+            showAfterButton.isHidden = true
             hintView.isHidden = true
         } else {
             // Location
@@ -99,7 +103,8 @@ class EditClueViewLayout: UILayout {
             scrollView.addToStack(view: getResizableRowForView(view: clueText))
             
             // Image
-            scrollView.addToStack(view: getResizableRowForView(view: clueImage))
+            let imageView = getViewForImageAndButton(image: clueImage, label: showAfterLabel, button: showAfterButton)
+            scrollView.addToStack(view: getResizableRowForView(view: imageView, portraitRatio: 0.9, landscapeRatio: 0.9))
             
             // Hint
             portraitConstraints.append(hintView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.7))
@@ -361,5 +366,32 @@ class EditClueViewLayout: UILayout {
             self.fullImage.image = defaultImage
             self.clue.image = nil
         }
+    }
+    
+    func getViewForImageAndButton(image: UIImageView, label: UILabel, button: UIButton) -> UIView {
+        let imageView = UIView()
+        doNotAutoResize(view: imageView)
+        imageView.addSubview(image)
+        imageView.addSubview(label)
+        imageView.addSubview(button)
+        
+        let sizeMap: [UIView: (CGFloat, CGFloat)] = [
+            image: (1, 0.75),
+            label: (0.4, 0.16),
+            button: (0.08, 0),
+        ]
+        
+        let spacingMap: [UIView: (CGFloat, CGFloat)] = [
+            image: (0.5, 0.375),
+            label: (0.35, 0.92),
+            button: (0.8, 0.92),
+        ]
+        
+        NSLayoutConstraint.activate(
+            getSizeConstraints(widthAnchor: imageView.widthAnchor, heightAnchor: imageView.heightAnchor, sizeMap: sizeMap) +
+            getSpacingConstraints(leftAnchor: imageView.leftAnchor, widthAnchor: imageView.widthAnchor, topAnchor: imageView.topAnchor, heightAnchor: imageView.heightAnchor, spacingMap: spacingMap, parentView: imageView)
+        )
+        
+        return imageView
     }
 }
