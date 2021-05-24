@@ -156,6 +156,10 @@ class LoginPageController: UIViewController, UITextFieldDelegate {
         case "confirm":
             resendConfirmationCode(for: username)
             performSegue(withIdentifier: "confirmAccountSegue", sender: self)
+        case "There is already a user which is signed in. Please log out the user before calling showSignIn.":
+            signOutLocally()
+            clearSavedUsernameAndPassword()
+//            trySignIn()
         default:
             let alert = UIAlertController(title: "Invalid login", message: error, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { _ in

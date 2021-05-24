@@ -31,6 +31,7 @@ Improvements
 - Add info button in hunts
 - Add search in hunt
 - Editing hunt map/preview (skip through)
+- Return automatically from textfields
 
 Features
  - UI

@@ -8,13 +8,8 @@
 import Foundation
 import UIKit
 
-class TreasureHuntCollectionViewViewLayout {
+class TreasureHuntCollectionViewViewLayout: UILayout {
     // MARK: Properties
-    
-    // UI elements
-    private let navigationBar: NavigationBarView
-    private let titleLabel: UILabel
-    private let collection: UICollectionView
     
     // Constraint maps
     private var portraitSizeMap: [UIView: (CGFloat, CGFloat)]!
@@ -22,42 +17,67 @@ class TreasureHuntCollectionViewViewLayout {
     private var landscapeSizeMap: [UIView: (CGFloat, CGFloat)]!
     private var landscapeSpacingMap: [UIView: (CGFloat, CGFloat)]!
     
-    // Constraints
-    private var portraitConstraints = [NSLayoutConstraint]()
-    private var landscapeConstraints = [NSLayoutConstraint]()
-    
     // Other
     private var circularViews = [UIView]()
+    private var headers = [UIView]()
+    private var noSharedHuntsLabel = UILabel()
     
-    init(navigationBar: NavigationBarView, titleLabel: UILabel, collection: UICollectionView) {
-        self.navigationBar = navigationBar
-        self.titleLabel = titleLabel
-        self.collection = collection
-
-        doNotAutoResize(views: [navigationBar, titleLabel, collection])
-        setLabelsToDefaults(labels: [titleLabel])
+    init(navigationBar: NavigationBarView, headerView: ScrollableStackView, titleLabel: UILabel, collection: UICollectionView, sharedIsEmpty: Bool) {
+        super.init()
+        let sectionLabels = ["Your Hunts", "Shared Hunts"].map( {
+                (title: String) -> UILabel in
+                let label = UILabel()
+                label.text = title
+                return label
+        } )
+        doNotAutoResize(views: [navigationBar, headerView, titleLabel, collection, noSharedHuntsLabel] + sectionLabels)
+        setLabelsToDefaults(labels: [titleLabel, noSharedHuntsLabel] + sectionLabels)
         
         titleLabel.isHidden = true
+        
         portraitSizeMap = [
             navigationBar: (1, 0.2),
-            collection: (1, 0.8),
+            headerView: (1, 0.1),
+            collection: (1, 0.7),
         ]
         
         portraitSpacingMap = [
             navigationBar: (0.5, 0.1),
-            collection: (0.5, 0.6),
+            headerView: (0.5, 0.25),
+            collection: (0.5, 0.65),
         ]
         
-        // Landscape
         landscapeSizeMap = [
-            navigationBar: (1, 0.3),
-            collection: (1, 0.7),
+            navigationBar: (1, 0.25),
+            headerView: (1, 0.15),
+            collection: (1, 0.6),
         ]
         
         landscapeSpacingMap = [
-            navigationBar: (0.5, 0.15),
-            collection: (0.5, 0.65),
+            navigationBar: (0.5, 0.125),
+            headerView: (0.5, 0.325),
+            collection: (0.5, 0.7),
         ]
+        
+        for label in sectionLabels {
+            label.font = UIFont.systemFont(ofSize: 20)
+            let column = getColumnForCenteredView(view: label, withBuffer: 30)
+            headerView.addToStack(view: column)
+            headers.append(column)
+            portraitConstraints.append(column.widthAnchor.constraint(equalTo: headerView.widthAnchor, multiplier: 0.5))
+            landscapeConstraints.append(column.widthAnchor.constraint(equalTo: headerView.widthAnchor, multiplier: 0.5))
+        }
+        
+        if sharedIsEmpty {
+            collection.addSubview(noSharedHuntsLabel)
+            noSharedHuntsLabel.text = "No shared hunts"
+            noSharedHuntsLabel.font = UIFont.italicSystemFont(ofSize: 30)
+            NSLayoutConstraint.activate([
+                noSharedHuntsLabel.centerXAnchor.constraint(equalTo: collection.centerXAnchor),
+                noSharedHuntsLabel.centerYAnchor.constraint(equalTo: collection.centerYAnchor),
+                noSharedHuntsLabel.widthAnchor.constraint(equalTo: collection.widthAnchor, multiplier: 0.7),
+            ])
+        }
     }
     
     // MARK: Constraints
@@ -96,20 +116,19 @@ class TreasureHuntCollectionViewViewLayout {
         button.layer.borderWidth = 5
         button.backgroundColor = color
         button.isUserInteractionEnabled = false
-//        circularViews.append(button)
         button.layer.cornerRadius = button.frame.height / 2
     }
     
     func configureTreasureHuntCell(cell: UICollectionViewCell, hunt: TreasureHunt) {
         addIconToView(view: cell.contentView, name: "TreasureIcon")
         let name = UILabel(frame: CGRect.zero)
+        doNotAutoResize(view: name)
+        setLabelsToDefaults(labels: [name])
         cell.contentView.addSubview(name)
         name.text = hunt.name
         name.font = UIFont.boldSystemFont(ofSize: 30)
-        name.adjustsFontSizeToFitWidth = true
         name.textColor = .lightGray
         name.backgroundColor = .white
-        name.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             name.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
             name.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
@@ -120,5 +139,30 @@ class TreasureHuntCollectionViewViewLayout {
     // MARK: Other UI
     func updateCircleSizes() {
         makeViewsCircular(views: circularViews)
+    }
+    
+    func selectSection(section: Int) {
+        for ind in 0...headers.count - 1 {
+            let cur = headers[ind]
+            cur.removeBorders()
+            if ind == section {
+                cur.backgroundColor = .white
+                cur.addBorders(sides: [.top])
+            } else {
+                cur.backgroundColor = .lightGray
+                if ind == 0 {
+                    cur.addBorders(sides: [.bottom, .right])
+                } else if ind == headers.count - 1 {
+                    cur.addBorders(sides: [.bottom, .left])
+                } else {
+                    cur.addBorders(sides: [.bottom, .left, .right])
+                }
+            }
+        }
+        if section == 0 {
+            noSharedHuntsLabel.isHidden = true
+        } else {
+            noSharedHuntsLabel.isHidden = false
+        }
     }
 }

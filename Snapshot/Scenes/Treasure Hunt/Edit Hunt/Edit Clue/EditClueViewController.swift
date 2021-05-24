@@ -103,23 +103,26 @@ class EditClueViewController: UIViewController, MKMapViewDelegate, UITextViewDel
                 self.layout.showFullViewImage(view: self.view, cameraCallback: self.takePhoto, collectionCallback: self.choosePhotoFromCollection, libraryCallback: self.uploadPhoto)
             }
             clueImage.isUserInteractionEnabled = true
+            
+            showAfterLabel.text = "Show image after clue is complete:"
+            showAfterLabel.numberOfLines = 2
+            showAfterButton.setTitle("", for: .normal)
+            let empty = UIImage(named: "CheckboxEmpty")
+            let full = UIImage(named: "CheckboxFull")
+            showAfterButton.setBackgroundImage(clue.showImageAfter ? full : empty, for: .normal)
+            showAfterButton.addAction { [self] in
+                if clue.showImageAfter {
+                    clue.showImageAfter = false
+                    showAfterButton.setBackgroundImage(empty, for: .normal)
+                } else {
+                    clue.showImageAfter = true
+                    showAfterButton.setBackgroundImage(full, for: .normal)
+                }
+            }
         } else {
             clueImage.isHidden = true
-        }
-        showAfterLabel.text = "Show image after clue is complete:"
-        showAfterLabel.numberOfLines = 2
-        showAfterButton.setTitle("", for: .normal)
-        let empty = UIImage(named: "CheckboxEmpty")
-        let full = UIImage(named: "CheckboxFull")
-        showAfterButton.setBackgroundImage(clue.showImageAfter ? full : empty, for: .normal)
-        showAfterButton.addAction { [self] in
-            if clue.showImageAfter {
-                clue.showImageAfter = false
-                showAfterButton.setBackgroundImage(empty, for: .normal)
-            } else {
-                clue.showImageAfter = true
-                showAfterButton.setBackgroundImage(full, for: .normal)
-            }
+            showAfterLabel.isHidden = true
+            showAfterButton.isHidden = true
         }
         
         // Hints

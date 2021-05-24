@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import MapKit
 
-class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
+class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     // MARK: Variables
     // Outlets
@@ -30,6 +30,8 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
     var nextLocation: CLLocationCoordinate2D!
     var checkForRadius: Bool = false
     var retriggerComplete: Bool = false
+    private var locationManager: CLLocationManager!
+    private var currentLocation: CLLocation!
 //    let searchController = UISearchController()
     
     // MARK: Initialization
@@ -63,6 +65,13 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
         // TODO: Add info button
         infoButton.isHidden = true
         
+        if playthrough.hunt.type == .realWorld {
+//            map.isScrollEnabled = false
+//            map.showsUserLocation = true
+//            map.isrot
+            startTrackingCurrentLocation()
+        }
+        
 //        searchController.searchResultsUpdater = LocationSearchTable()
 //        searchController.obscuresBackgroundDuringPresentation = false
 //        searchController.searchBar.placeholder = "Search Location"
@@ -82,6 +91,36 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
         super.viewWillLayoutSubviews()
         layout!.updateCircleSizes()
         redrawScene()
+    }
+    
+    // MARK: Location
+    func startTrackingCurrentLocation() {
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        map.showsUserLocation = true
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func updateDisplayedLocation() {
+        let center = CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+//        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+//        map.setRegion(region, animated: false)
+        map.setCenter(center, animated: false)
+    }
+    
+    // MARK: CLLocationManagerDelegate
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        currentLocation = locations[0] as CLLocation
+        updateDisplayedLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("LocationManager error: \(error.localizedDescription)")
     }
     
     // MARK: MKMapViewDelegate
@@ -126,17 +165,31 @@ class TreasureHuntPlayViewController: UIViewController, MKMapViewDelegate {
         if !checkForRadius {
             return
         }
-        if isWithinRange(coordinate: map.centerCoordinate) {
-            checkForRadius = false
-            map.centerCoordinate = nextLocation
-            map.isUserInteractionEnabled = false
-            clueWasCompleted()
+        
+        if playthrough.hunt.type == .virtual {
+            if isWithinRange(coordinate: map.centerCoordinate) {
+                checkForRadius = false
+                map.centerCoordinate = nextLocation
+                map.isUserInteractionEnabled = false
+                clueWasCompleted()
+            }
+        } else {
+            if currentLocation == nil {
+                return
+            }
+            if isWithinRange(coordinate: currentLocation.coordinate) {
+                checkForRadius = false
+                map.isUserInteractionEnabled = false
+                clueWasCompleted()
+            }
         }
     }
     
     func isWithinRange(coordinate: CLLocationCoordinate2D) -> Bool {
         let distance = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude).distance(from: CLLocation(latitude: nextLocation.latitude, longitude: nextLocation.longitude))
-        return Int(distance) < playthrough.hunt.clueRadius
+        print("Distance: \(distance)")
+        return Int(distance) < 5
+//        return Int(distance) < playthrough.hunt.clueRadius
     }
     
     // MARK: Clues

@@ -142,19 +142,28 @@ func syncActiveUser(attribute: UserCodingAttributes) {
         } catch {
             print("Failed to encode snapshot data for upload")
         }
-    case .hunts:
+    case .privateHunts:
         do {
-            let data = try encoder.encode(activeUser.hunts)
-            syncAttribute(data: data, key: UserCodingAttributes.hunts.rawValue)
+            let data = try encoder.encode(activeUser.privateHunts)
+            syncAttribute(data: data, key: UserCodingAttributes.privateHunts.rawValue)
         } catch {
-            print("Failed to encode hunt data for upload")
+            print("Failed to encode private hunt data for upload")
         }
+    case .sharedHunts:
+        do {
+            let data = try encoder.encode(activeUser.sharedHunts)
+            syncAttribute(data: data, key: UserCodingAttributes.sharedHunts.rawValue)
+        } catch {
+            print("Failed to encode public hunt data for upload")
+        }
+    case .hunts:
+        fatalError("No key value for 'hunts'")
     }
 }
 
 // All attributes
 func syncActiveUser() {
-    for attribute in [UserCodingAttributes.info, UserCodingAttributes.preferences, UserCodingAttributes.snapshots, UserCodingAttributes.hunts] {
+    for attribute in [UserCodingAttributes.info, .preferences, .snapshots, .privateHunts, .sharedHunts] {
         syncActiveUser(attribute: attribute)
     }
 }
@@ -172,13 +181,37 @@ private func syncAttribute(data: Data, key: String) {
 }
 
 // MARK: Load User Data
+func doKeysExist(keys: [String]) -> [Bool] {
+    var found = [Bool]()
+    let group = DispatchGroup()
+    group.enter()
+    Amplify.Storage.list { event in
+        switch event {
+        case .success(let listResult):
+            let foundKeys = listResult.items.map { $0.key }
+            for key in keys {
+                found.append(foundKeys.contains(key))
+            }
+        case .failure(let error):
+            print(error.errorDescription)
+            keys.forEach({ _ in found.append(false) })
+        }
+        group.leave()
+    }
+    group.wait()
+    return found
+}
+
 func loadActiveUser(username: String) {
     ACTIVE_USER_GROUP.enter()
     activeUser = User(username: username)
     let options = StorageDownloadDataRequest.Options(accessLevel: .private)
     
     var updated = 0
-    for attribute in [UserCodingAttributes.info, UserCodingAttributes.preferences, UserCodingAttributes.snapshots, UserCodingAttributes.hunts] {
+    let found = doKeysExist(keys: [UserCodingAttributes.privateHunts.rawValue, UserCodingAttributes.sharedHunts.rawValue])
+    let (privateFound, publicFound) = (found[0], found[1])
+    let attrs = [UserCodingAttributes.info, .preferences, .snapshots, privateFound ? .privateHunts : .hunts] + (publicFound ? [UserCodingAttributes.sharedHunts] : [])
+    for attribute in attrs {
         Amplify.Storage.downloadData(
             key: attribute.rawValue, options: options, resultListener: { (event) in
             switch event {
@@ -205,20 +238,27 @@ func loadActiveUser(username: String) {
                     } catch {
                         print("Error while decoding snapshot collection")
                     }
-                case .hunts:
+                case .privateHunts, .hunts:
                     do {
                         let info = try decoder.decode(TreasureHuntCollection.self, from: data)
-                        activeUser.hunts = info
+                        activeUser.privateHunts = info
                     } catch {
-                        print("Error while decoding hunt collection")
+                        print("Error while decoding private hunt collection")
+                    }
+                case .sharedHunts:
+                    do {
+                        let info = try decoder.decode(TreasureHuntCollection.self, from: data)
+                        activeUser.sharedHunts = info
+                    } catch {
+                        print("Error while decoding public hunt collection")
                     }
                 }
                 updated += 1
-                if updated == 4 {
+                if updated == attrs.count {
                     ACTIVE_USER_GROUP.leave()
                 }
             case let .failure(storageError):
-                print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
+                print(storageError.errorDescription)
             }
         })
     }

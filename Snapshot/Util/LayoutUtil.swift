@@ -162,53 +162,66 @@ private func setTextBackgroundToRed(labels: [UILabel?]) {
 }
 
 // MARK: Borders
-func addBorders(view: UIView, top: Bool=false, bottom: Bool=false, left: Bool=false, right: Bool=false, width: CGFloat=2) -> [UIView] {
-    var borders = [UIView]()
-    if top {
-        let border = UIView()
-        border.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(border)
-        border.heightAnchor.constraint(equalToConstant: width).isActive = true
-        border.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        border.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        border.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        border.backgroundColor = .black
-        borders.append(border)
+enum BorderSide {
+    case top, bottom, left, right
+}
+
+extension UIView {
+    func addBorders(sides: [BorderSide], width: CGFloat = 2) {
+        for side in sides {
+            let border = UIView()
+            doNotAutoResize(view: border)
+            addSubview(border)
+            switch side {
+            case .top, .bottom:
+                NSLayoutConstraint.activate([
+                    border.widthAnchor.constraint(equalTo: widthAnchor),
+                    border.heightAnchor.constraint(equalToConstant: width),
+                    border.centerXAnchor.constraint(equalTo: centerXAnchor),
+                ])
+                switch side {
+                case .top:
+                    NSLayoutConstraint.activate([
+                        border.topAnchor.constraint(equalTo: topAnchor)
+                    ])
+                case .bottom:
+                    NSLayoutConstraint.activate([
+                        border.bottomAnchor.constraint(equalTo: bottomAnchor)
+                    ])
+                default:
+                    break
+                }
+            case .left, .right:
+                NSLayoutConstraint.activate([
+                    border.widthAnchor.constraint(equalToConstant: width),
+                    border.heightAnchor.constraint(equalTo: heightAnchor),
+                    border.centerYAnchor.constraint(equalTo: centerYAnchor),
+                ])
+                switch side {
+                case .left:
+                    NSLayoutConstraint.activate([
+                        border.leftAnchor.constraint(equalTo: leftAnchor)
+                    ])
+                case .right:
+                    NSLayoutConstraint.activate([
+                        border.rightAnchor.constraint(equalTo: rightAnchor)
+                    ])
+                default:
+                    break
+                }
+            }
+            border.backgroundColor = .black
+            border.accessibilityIdentifier = "Border"
+        }
     }
-    if bottom {
-        let border = UIView()
-        border.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(border)
-        border.heightAnchor.constraint(equalToConstant: width).isActive = true
-        border.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        border.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        border.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        border.backgroundColor = .black
-        borders.append(border)
+
+    func removeBorders() {
+        for subview in subviews {
+            if subview.accessibilityIdentifier == "Border" {
+                subview.removeFromSuperview()
+            }
+        }
     }
-    if left {
-        let border = UIView()
-        border.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(border)
-        border.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-        border.widthAnchor.constraint(equalToConstant: width).isActive = true
-        border.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        border.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        border.backgroundColor = .black
-        borders.append(border)
-    }
-    if right {
-        let border = UIView()
-        border.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(border)
-        border.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-        border.widthAnchor.constraint(equalToConstant: width).isActive = true
-        border.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        border.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        border.backgroundColor = .black
-        borders.append(border)
-    }
-    return borders
 }
 
 // MARK: UIImage
@@ -267,17 +280,17 @@ func getRowForCenteredView(view: UIView) -> UIView {
 }
 
 func getColumnForCenteredView(view: UIView, withBuffer: Int = 0) -> UIView {
-    let row = UIView()
-    doNotAutoResize(view: row)
-    row.backgroundColor = .white
-    row.addSubview(view)
+    let column = UIView()
+    doNotAutoResize(view: column)
+    column.backgroundColor = .white
+    column.addSubview(view)
     
     NSLayoutConstraint.activate([
-        view.widthAnchor.constraint(equalTo: row.widthAnchor, constant: CGFloat(-withBuffer * 2)),
-        view.centerXAnchor.constraint(equalTo: row.centerXAnchor),
-        view.centerYAnchor.constraint(equalTo: row.centerYAnchor),
+        view.widthAnchor.constraint(equalTo: column.widthAnchor, constant: CGFloat(-withBuffer * 2)),
+        view.centerXAnchor.constraint(equalTo: column.centerXAnchor),
+        view.centerYAnchor.constraint(equalTo: column.centerYAnchor),
     ])
-    return row
+    return column
 }
 
 // MARK: Orientation
